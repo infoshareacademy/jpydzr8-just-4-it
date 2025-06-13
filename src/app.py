@@ -1,11 +1,12 @@
-from src.model.coworking_model import Floor, Coworking
+from src.model.coworking_model import Floor, Coworking, User
 from src.view.console_coworking_app import ConsoleCoworkingApp
 
 
 def main():
     floor_numbers = ((4, 20), (5, 30), (6, 25), (7, 35))
     floors = [Floor(floor_number, number_of_seats) for floor_number, number_of_seats in floor_numbers]
-    coworking = Coworking(floors)
+    johnDoe = User("John", "Doe", "john@doe.com", "123456789")
+    coworking = Coworking(floors,[johnDoe])
     app = ConsoleCoworkingApp(coworking)
     app.start()
 
