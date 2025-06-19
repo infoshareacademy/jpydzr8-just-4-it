@@ -8,11 +8,6 @@ def main():
     john_doe = User("John", "Doe", "john@doe.com", "123456789")
     coworking = Coworking(floors,[john_doe])
     app = ConsoleCoworkingApp(coworking)
-    # app.start()
-    # floors[0].seats[0].reserved = True
-    # floors[0].seats[10].reserved = True
-    # floors[2].seats[0].reserved = True
-    # floors[3].seats[0].reserved = True
     app.start()
 
 
