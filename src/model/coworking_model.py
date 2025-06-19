@@ -53,16 +53,23 @@ class Coworking:
             except ValueError:
                 print("Invalid input. Please enter a numeric seat number.")
 
-    def reserve_seat(self):
-        floor = self.select_floor()
+    def get_selected_seat(self, action_desc="", seat_action=""):
+        floor = self.select_floor(action_desc)
         if not floor:
-            return
+            return None, None, None
 
-        result = self.select_seat(floor, "reserve")
+        result = self.select_seat(floor, seat_action)
         if not result:
-            return
+            return None, None, None
 
         seat, seat_number = result
+        return floor, seat, seat_number
+
+    def reserve_seat(self):
+        floor, seat, seat_number = self.get_selected_seat("", "reserve")
+        if not seat:
+            return
+
         if seat.reserved:
             print(f"Seat number {seat_number} on floor {floor.number} is already reserved.")
             return
@@ -71,15 +78,10 @@ class Coworking:
         print(f"Seat number {seat_number} on floor {floor.number} is now reserved.")
 
     def cancel_seat_reservation(self):
-        floor = self.select_floor(" to cancel reservation")
-        if not floor:
+        floor, seat, seat_number = self.get_selected_seat(" to cancel reservation", "cancel")
+        if not seat:
             return
 
-        result = self.select_seat(floor, "cancel")
-        if not result:
-            return
-
-        seat, seat_number = result
         if not seat.reserved:
             print(f"Seat number {seat_number} on floor {floor.number} is not currently reserved.")
             return
