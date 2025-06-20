@@ -1,5 +1,4 @@
 import sys, re
-from operator import truediv
 
 from src.model.coworking_model import Coworking, User
 
@@ -11,10 +10,11 @@ class ConsoleCoworkingApp:
     def print_menu(self):
         if self.coworking.is_current_user_exists():
             print("1. Show all seats")
-            print("2. Reserved seats")
-            print("3. Cancel reservation")
-            print("4. Logout")
-            print("5. Exit")
+            print("2. Show all reserved seats")
+            print("3. Reserve seat")
+            print("4. Cancel seat reservation")
+            print("5. Logout")
+            print("6. Exit")
         else:
             print("1. Registration")
             print("2. Login")
@@ -25,13 +25,15 @@ class ConsoleCoworkingApp:
             if option == "1":
                 return self.handle_show_seats_option()
             elif option == "2":
-                self.handle_reserve_seat_option()
+                self.handle_show_reserved_seats_option()
             elif option == "3":
+                self.handle_reserve_seat_option()
+            elif option == "4":
                 self.handle_cancel_reservation_option()
-            elif option =="4":
+            elif option == "5":
                 self.handle_logout_option()
                 return "auto"
-            elif option == "5":
+            elif option == "6":
                 print("Exit.")
                 sys.exit(0)
             else:
@@ -68,15 +70,15 @@ class ConsoleCoworkingApp:
 
         while True:
             email = input("Email: ").strip()
-            if not re.match(r"^[\w\.-]+@[\w\.-]+\.\w+$", email):
+            if not re.match(r"^[\w.-]+@[\w.-]+\.\w+$", email):
                 print("Invalid email address. Try again.")
             else:
                 break
 
         while True:
             phone = input("Phone number: ").strip()
-            if not phone.isdigit():
-                print("Phone number must contain digits only. Try again.")
+            if not (phone.isdigit() and len(phone) == 9):
+                print("Phone number must contain 9 digits only. Try again.")
             else:
                 break
 
@@ -91,7 +93,7 @@ class ConsoleCoworkingApp:
             if not login:
                 print("Login cannot be empty. Please try again or type 'r' to return to the main menu.")
                 continue
-            elif login == "r":
+            elif login.lower() == "r":
                 return
             user = self.coworking.login_user(login)
             if user:
@@ -104,35 +106,54 @@ class ConsoleCoworkingApp:
         self.coworking.logout_user()
         print("You have been logged out.")
 
-    def handle_show_seats_option(self):
+    def handle_show_seats_common(self, display_function):
         while True:
             floor_numbers = [floor.number for floor in self.coworking.floors]
             option = input(f"Please select floor number {floor_numbers} or print 'r' to return to the main menu: ")
-            if option == "r":
+            if option.lower() == "r":
                 return "auto"
-            else:
-                try:
-                    floor = self.coworking.find_floor(int(option))
-                    if floor is not None:
-                        self.print_floor(floor)
-                    else:
-                        print(f"Invalid floor number.")
-                except ValueError:
-                    print("Invalid input.")
+            try:
+                floor_number = int(option)
+                floor = self.coworking.find_floor(floor_number)
+                if floor:
+                    display_function(floor)
+                else:
+                    print(f"Invalid floor number.")
+            except ValueError:
+                print("Invalid input.")
+
+    def handle_show_seats_option(self):
+        self.handle_show_seats_common(self.print_floor)
+
+    def handle_show_reserved_seats_option(self):
+        self.handle_show_seats_common(self.print_reserved_seats)
 
     def handle_reserve_seat_option(self):
-        self.coworking.reserve_seat(1, 1)
-        print(f"Seat number {1} on the {1} floor is reserved.")
+        self.coworking.reserve_seat()
 
     def handle_cancel_reservation_option(self):
-        self.coworking.cancel_seat_reservation(1, 1)
-        print(f"Reservation for seat number {1} on the {1} floor is canceled.")
+        self.coworking.cancel_seat_reservation()
 
     @staticmethod
     def print_floor(floor):
         print(f"       =======  Floor {floor.number}  =======    ")
         for i, seat in enumerate(floor.seats, 1):
             print(f"{seat.number:>3}({'X' if seat.reserved else 'O'})", end="  ")
+            if i % 5 == 0:
+                print()
+        print()
+
+    @staticmethod
+    def print_reserved_seats(floor):
+        print(f"   ======= Reserved Seats on Floor {floor.number} =======")
+        reserved_seats = [seat for seat in floor.seats if seat.reserved]
+
+        if not reserved_seats:
+            print("No seats are currently reserved on this floor.")
+            return
+
+        for i, seat in enumerate(reserved_seats, 1):
+            print(f"{seat.number:>3}(X)", end="  ")
             if i % 5 == 0:
                 print()
         print()

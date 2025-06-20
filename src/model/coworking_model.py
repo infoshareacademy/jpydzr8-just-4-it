@@ -1,4 +1,3 @@
-
 class Coworking:
     def __init__(self, floors, users):
         self.floors = floors
@@ -22,11 +21,73 @@ class Coworking:
     def is_current_user_exists(self):
         return self.current_user is not None
 
-    def reserve_seat(self, floor_number, seat_number):
-        return False
+    def select_floor(self, action_text=""):
+        floor_numbers = [str(floor.number) for floor in self.floors]
+        while True:
+            floor_number_input = input(
+                f"Please select floor number {floor_numbers}{action_text} or 'r' to return: ").strip()
+            if floor_number_input.lower() == 'r':
+                return None
+            if floor_number_input not in floor_numbers:
+                print(f"Invalid floor number. Please choose from: {', '.join(floor_numbers)}.")
+                continue
+            floor = self.find_floor(int(floor_number_input))
+            if floor:
+                return floor
+            else:
+                print(f"Floor {floor_number_input} does not exist.")
 
-    def cancel_seat_reservation(self, floor_number, seat_number):
-        return False
+    @staticmethod
+    def select_seat(floor, action="select"):
+        while True:
+            seat_input = input(
+                f"Please {action} seat number (1 to {len(floor.seats)}) or 'r' to return: ").strip()
+            if seat_input.lower() == 'r':
+                return None
+            try:
+                seat_number = int(seat_input)
+                if 1 <= seat_number <= len(floor.seats):
+                    return floor.seats[seat_number - 1], seat_number
+                else:
+                    print(f"Invalid seat number. Must be between 1 and {len(floor.seats)}.")
+            except ValueError:
+                print("Invalid input. Please enter a numeric seat number.")
+
+    def get_selected_seat(self, action_desc="", seat_action=""):
+        floor = self.select_floor(action_desc)
+        if not floor:
+            return None, None, None
+
+        result = self.select_seat(floor, seat_action)
+        if not result:
+            return None, None, None
+
+        seat, seat_number = result
+        return floor, seat, seat_number
+
+    def reserve_seat(self):
+        floor, seat, seat_number = self.get_selected_seat("", "reserve")
+        if not seat:
+            return
+
+        if seat.reserved:
+            print(f"Seat number {seat_number} on floor {floor.number} is already reserved.")
+            return
+
+        seat.reserved = True
+        print(f"Seat number {seat_number} on floor {floor.number} is now reserved.")
+
+    def cancel_seat_reservation(self):
+        floor, seat, seat_number = self.get_selected_seat(" to cancel reservation", "cancel")
+        if not seat:
+            return
+
+        if not seat.reserved:
+            print(f"Seat number {seat_number} on floor {floor.number} is not currently reserved.")
+            return
+
+        seat.reserved = False
+        print(f"Reservation for seat number {seat_number} on floor {floor.number} has been canceled.")
 
     def find_floor(self, floor_number):
         for floor in self.floors:
