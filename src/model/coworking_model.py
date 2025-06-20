@@ -74,3 +74,6 @@ class Coworking:
             return cls(floors)
         except FileNotFoundError:
             return None
+        except json.JSONDecodeError:
+            print(f"Error decoding JSON from {filename}. File might be corrupted.")
+            return None

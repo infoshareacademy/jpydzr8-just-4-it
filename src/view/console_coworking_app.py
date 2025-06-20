@@ -1,6 +1,6 @@
 import sys
 
-from src.model.coworking_model import Coworking
+from src.model.coworking_model import Coworking, Floor
 
 
 class ConsoleCoworkingApp:
@@ -14,7 +14,8 @@ class ConsoleCoworkingApp:
         print("2. Reserve a seat")
         print("3. Cancel reservation")
         print("4. Save data")
-        print("5. Exit")
+        print("5. Load data")
+        print("6. Exit")
 
     def handle_menu_option(self, option):
         if option == "1":
@@ -29,6 +30,8 @@ class ConsoleCoworkingApp:
             self.coworking.save_to_json(self.data_file)
             print("Data saved successfully.")
         elif option == "5":
+            self.handle_load_data_option()
+        elif option == "6":
             print("Exit.")
             sys.exit(0)
         else:
@@ -75,6 +78,15 @@ class ConsoleCoworkingApp:
                 print("Seat is not reserved or does not exist.")
         except ValueError:
             print("Invalid input. Please enter valid numbers.")
+
+    def handle_load_data_option(self):
+        loaded_coworking = Coworking.load_from_json(self.data_file)
+        if loaded_coworking:
+            self.coworking = loaded_coworking
+            print("Data loaded successfully.")
+        else:
+            print("Could not load data. File not found or data is corrupted. Current data remains unchanged.")
+
 
     @staticmethod
     def print_floor(floor):
