@@ -13,8 +13,10 @@ class ConsoleCoworkingApp:
             print("2. Show all reserved seats")
             print("3. Reserve seat")
             print("4. Cancel seat reservation")
-            print("5. Logout")
-            print("6. Exit")
+            print("5. Save data to json")
+            print("6. Load data from json")
+            print("7. Logout")
+            print("8. Exit")
         else:
             print("1. Registration")
             print("2. Login")
@@ -31,9 +33,13 @@ class ConsoleCoworkingApp:
             elif option == "4":
                 self.handle_cancel_reservation_option()
             elif option == "5":
+                self.handle_save_data_option()
+            elif option == "6":
+                self.handle_load_data_option()
+            elif option == "7":
                 self.handle_logout_option()
                 return "auto"
-            elif option == "6":
+            elif option == "8":
                 print("Exit.")
                 sys.exit(0)
             else:
@@ -133,6 +139,48 @@ class ConsoleCoworkingApp:
 
     def handle_cancel_reservation_option(self):
         self.coworking.cancel_seat_reservation()
+
+    def handle_save_data_option(self):
+        while True:
+            filename = input("Enter filename (e.g., data.json) or 'r' to return: ").strip()
+            if filename.lower() == 'r':
+                return
+            if not filename.endswith(".json"):
+                print("Filename must end with '.json'. Please try again.")
+                continue
+            self.coworking.save_to_json(filename)
+            break
+
+    def handle_load_data_option(self):
+        while True:
+            filename = input("Enter filename to load (e.g., data.json) or 'r' to return: ").strip()
+            if filename.lower() == 'r':
+                return
+            if not filename.endswith(".json"):
+                print("Filename must end with '.json'. Please try again.")
+                continue
+
+            current_logged_in_user = self.coworking.current_user
+
+            loaded_coworking = Coworking.load_from_json(filename)
+            if loaded_coworking:
+                self.coworking = loaded_coworking
+                if current_logged_in_user:
+                    found_user = None
+                    for user in self.coworking.users:
+                        if user.email == current_logged_in_user.email and user.phone == current_logged_in_user.phone:
+                            found_user = user
+                            break
+                    if found_user:
+                        self.coworking.current_user = found_user
+                        print(f"Data loaded successfully from {filename}. Welcome back, {found_user.first_name}!")
+                    else:
+                        self.coworking.current_user = None
+                        print(f"Data loaded successfully from {filename}. Your previous user session could not be restored.")
+                else:
+                    print(f"Data loaded successfully from {filename}.")
+                break
+
 
     @staticmethod
     def print_floor(floor):

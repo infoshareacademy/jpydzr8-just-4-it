@@ -1,3 +1,5 @@
+import json
+
 class Coworking:
     def __init__(self, floors, users):
         self.floors = floors
@@ -94,6 +96,65 @@ class Coworking:
             if floor.number == floor_number:
                 return floor
         return None
+
+    def save_to_json(self, filename):
+        data = {
+            "floors": [
+                {
+                    "number": floor.number,
+                    "seats": [{"number": seat.number, "reserved": seat.reserved} for seat in floor.seats]
+                }
+                for floor in self.floors
+            ],
+            "users": [
+                {
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "email": user.email,
+                    "phone": user.phone,
+                }
+                for user in self.users
+            ]
+        }
+        with open(filename, 'w') as f:
+            json.dump(data, f, indent=4)
+        print(f"Data saved to {filename}")
+
+    @classmethod
+    def load_from_json(cls, filename):
+        try:
+            with open(filename, 'r') as f:
+                data = json.load(f)
+
+            floors = []
+            for floor_data in data["floors"]:
+                # When loading, we create a Floor object but don't re-generate seats
+                # Instead, we populate seats from the loaded data
+                floor = Floor(floor_data["number"], 0)
+                floor.seats = [Seat(seat_data["number"], seat_data["reserved"]) for seat_data in floor_data["seats"]]
+                floors.append(floor)
+
+            users = []
+            for user_data in data["users"]:
+                user = User(
+                    user_data["first_name"],
+                    user_data["last_name"],
+                    user_data["email"],
+                    user_data["phone"],
+                )
+                users.append(user)
+
+            coworking = cls(floors, users)
+            print(f"Data loaded from {filename}")
+            return coworking
+
+        except FileNotFoundError:
+            print(f"File {filename} not found.")
+            return None
+        except json.JSONDecodeError:
+            print(f"Error decoding JSON from {filename}. Check file format.")
+            return None
+
 
 class Floor:
     def __init__(self, number, number_of_seats):
