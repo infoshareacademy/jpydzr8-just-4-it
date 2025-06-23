@@ -11,12 +11,13 @@ class ConsoleCoworkingApp:
         if self.coworking.is_current_user_exists():
             print("1. Show all seats")
             print("2. Show all reserved seats")
-            print("3. Reserve seat")
-            print("4. Cancel seat reservation")
-            print("5. Save data to json")
-            print("6. Load data from json")
-            print("7. Logout")
-            print("8. Exit")
+            print("3. Check seat availability")
+            print("4. Reserve seat")
+            print("5. Cancel seat reservation")
+            print("6. Save data to json")
+            print("7. Load data from json")
+            print("8. Logout")
+            print("9. Exit")
         else:
             print("1. Registration")
             print("2. Login")
@@ -29,17 +30,19 @@ class ConsoleCoworkingApp:
             elif option == "2":
                 self.handle_show_reserved_seats_option()
             elif option == "3":
-                self.handle_reserve_seat_option()
+                self.check_seat_availability_option()
             elif option == "4":
-                self.handle_cancel_reservation_option()
+                self.handle_reserve_seat_option()
             elif option == "5":
-                self.handle_save_data_option()
+                self.handle_cancel_reservation_option()
             elif option == "6":
-                self.handle_load_data_option()
+                self.handle_save_data_option()
             elif option == "7":
+                self.handle_load_data_option()
+            elif option == "8":
                 self.handle_logout_option()
                 return "auto"
-            elif option == "8":
+            elif option == "9":
                 print("Exit.")
                 sys.exit(0)
             else:
@@ -139,6 +142,9 @@ class ConsoleCoworkingApp:
 
     def handle_cancel_reservation_option(self):
         self.coworking.cancel_seat_reservation()
+
+    def check_seat_availability_option(self):
+       self.coworking.check_seat_availability_option()
 
     def handle_save_data_option(self):
         while True:
