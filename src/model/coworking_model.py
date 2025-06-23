@@ -97,28 +97,40 @@ class Coworking:
                 return floor
         return None
 
+
+
     def save_to_json(self, filename):
         data = {
             "floors": [
                 {
                     "number": floor.number,
-                    "seats": [{"number": seat.number, "reserved": seat.reserved} for seat in floor.seats]
+                    "seats": [
+                        {
+                            "number": seat.number,
+                            "reserved": seat.reserved,
+                            "is_docking_station": seat.is_docking_station,
+                            "has_2_screens": seat.has_2_screens,
+                            "is_electrical_desk_adjustment": seat.is_electrical_desk_adjustment,
+                        }
+                        for seat in floor.seats
+                    ]
                 }
                 for floor in self.floors
-            ],
-            "users": [
-                {
-                    "first_name": user.first_name,
-                    "last_name": user.last_name,
-                    "email": user.email,
-                    "phone": user.phone,
-                }
-                for user in self.users
-            ]
-        }
+                ],
+                "users": [
+                    {
+                        "first_name": user.first_name,
+                        "last_name": user.last_name,
+                        "email": user.email,
+                        "phone": user.phone,
+                    }
+                    for user in self.users
+                ]
+            }
         with open(filename, 'w') as f:
             json.dump(data, f, indent=4)
         print(f"Data saved to {filename}")
+
 
     @classmethod
     def load_from_json(cls, filename):
@@ -128,10 +140,17 @@ class Coworking:
 
             floors = []
             for floor_data in data["floors"]:
-                # When loading, we create a Floor object but don't re-generate seats
-                # Instead, we populate seats from the loaded data
                 floor = Floor(floor_data["number"], 0)
-                floor.seats = [Seat(seat_data["number"], seat_data["reserved"]) for seat_data in floor_data["seats"]]
+                floor.seats = [
+                    Seat(
+                        seat_data["number"],
+                        seat_data["reserved"],
+                        seat_data.get("is_docking_station", False),
+                        seat_data.get("has_2_screens", False),
+                        seat_data.get("is_electrical_desk_adjustment", False),
+                    )
+                    for seat_data in floor_data["seats"]
+                ]
                 floors.append(floor)
 
             users = []
@@ -160,16 +179,18 @@ class Floor:
     def __init__(self, number, number_of_seats):
         self.number = number
         self.seats = self.generate_seats(number_of_seats)
-
     @staticmethod
-    def generate_seats(number_of_seats):
+    def generate_seats(self, number_of_seats):
         return [Seat(num, False) for num in range(1, number_of_seats + 1)]
 
 
 class Seat:
-    def __init__(self, number, reserved):
+    def __init__(self, number, reserved, is_docking_station=False, has_2_screens=False, is_electrical_desk_adjustment=False):
         self.number = number
         self.reserved = reserved
+        self.is_docking_station = is_docking_station
+        self.has_2_screens = has_2_screens
+        self.is_electrical_desk_adjustment = is_electrical_desk_adjustment
 
 class User:
     def __init__(self, first_name: object, last_name: object, email: object, phone: object) -> None:
