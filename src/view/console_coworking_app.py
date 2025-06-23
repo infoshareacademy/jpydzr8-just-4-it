@@ -13,10 +13,11 @@ class ConsoleCoworkingApp:
             print("2. Show all reserved seats")
             print("3. Reserve seat")
             print("4. Cancel seat reservation")
-            print("5. Save data to json")
-            print("6. Load data from json")
-            print("7. Logout")
-            print("8. Exit")
+            print("5. Show filtered seats")
+            print("6. Save data to json")
+            print("7. Load data from json")
+            print("8. Logout")
+            print("9. Exit")
         else:
             print("1. Registration")
             print("2. Login")
@@ -33,13 +34,15 @@ class ConsoleCoworkingApp:
             elif option == "4":
                 self.handle_cancel_reservation_option()
             elif option == "5":
-                self.handle_save_data_option()
+                self.handle_show_filtered_seats_option()
             elif option == "6":
-                self.handle_load_data_option()
+                self.handle_save_data_option()
             elif option == "7":
+                self.handle_load_data_option()
+            elif option == "8":
                 self.handle_logout_option()
                 return "auto"
-            elif option == "8":
+            elif option == "9":
                 print("Exit.")
                 sys.exit(0)
             else:
@@ -123,19 +126,19 @@ class ConsoleCoworkingApp:
                 floor = self.coworking.find_floor(floor_number)
                 if floor:
                     display_function(floor)
+                    return "manual"
                 else:
                     print(f"Invalid floor number.")
             except ValueError:
                 print("Invalid input.")
 
     def handle_show_seats_option(self):
-        self.handle_show_seats_common(self.print_floor)
+        self.handle_show_seats_common(lambda floor: self.print_floor(floor, floor.seats))
 
-    def handle_show_reserved_seats_option(self):
-        self.handle_show_seats_common(self.print_reserved_seats)
 
     def handle_reserve_seat_option(self):
-        self.coworking.reserve_seat()
+        self.coworking.reserve_seat(self.print_floor)
+
 
     def handle_cancel_reservation_option(self):
         self.coworking.cancel_seat_reservation()
@@ -181,15 +184,59 @@ class ConsoleCoworkingApp:
                     print(f"Data loaded successfully from {filename}.")
                 break
 
+    def handle_show_filtered_seats_option(self):
+        print("\n--- Show Filtered Seats ---")
+        filters = {}
+        filters['docking_station'] = input("Filter by docking station? (y/n): ").strip().lower() == 'y'
+        filters['two_screens'] = input("Filter by two monitors? (y/n): ").strip().lower() == 'y'
+        filters['electrical_desk'] = input("Filter by electrical desk adjustment? (y/n): ").strip().lower() == 'y'
+
+        while True:
+            floor_numbers = [floor.number for floor in self.coworking.floors]
+            option = input(f"Please select floor number {floor_numbers} or print 'r' to return to the main menu: ")
+            if option.lower() == "r":
+                return "auto"
+            try:
+                floor_number = int(option)
+                floor = self.coworking.find_floor(floor_number)
+                if floor:
+                    filtered_seats = floor.get_filtered_seats(
+                        filters['docking_station'],
+                        filters['two_screens'],
+                        filters['electrical_desk']
+                    )
+                    if filtered_seats:
+                        self.print_floor(floor, filtered_seats)
+                    else:
+                        print("No seats match your filter criteria on this floor.")
+                else:
+                    print(f"Invalid floor number.")
+            except ValueError:
+                print("Invalid input.")
 
     @staticmethod
-    def print_floor(floor):
+    def print_floor(floor, seats_to_display=None):
+        if seats_to_display is None:
+            seats_to_display = floor.seats
+
         print(f"       =======  Floor {floor.number}  =======    ")
+        if not seats_to_display:
+            print("No seats to display based on current selection/filters.")
+            print()
+            return
+
+
         for i, seat in enumerate(floor.seats, 1):
-            print(f"{seat.number:>3}({'X' if seat.reserved else 'O'})", end="  ")
+            if seat in seats_to_display:
+                print(f"{seat.number:>3}({'X' if seat.reserved else 'O'})", end="  ")
+            else:
+                # Pokazujemy niedostępne/niepasujące miejsca z '-'
+                print(f"{seat.number:>3}(-) ", end="  ")
             if i % 5 == 0:
                 print()
         print()
+
+
 
     @staticmethod
     def print_reserved_seats(floor):
