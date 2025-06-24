@@ -67,6 +67,13 @@ class Coworking:
         seat, seat_number = result
         return floor, seat, seat_number
 
+    def check_seat_availability_option(self):
+        floor, seat, seat_number = self.get_selected_seat("", "check")
+        if not seat:
+            return
+
+        print(f"Seat {seat.number} on floor {floor.number} is {'reserved' if seat.reserved else 'free'}.")
+
     def reserve_seat(self):
         floor, seat, seat_number = self.get_selected_seat("", "reserve")
         if not seat:
