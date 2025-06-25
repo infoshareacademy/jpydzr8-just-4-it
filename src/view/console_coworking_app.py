@@ -1,4 +1,5 @@
-import sys, re
+import sys
+import re
 
 from src.model.coworking_model import Coworking, User
 
@@ -6,6 +7,7 @@ from src.model.coworking_model import Coworking, User
 class ConsoleCoworkingApp:
     def __init__(self, coworking: Coworking):
         self.coworking = coworking
+
 
     def print_menu(self):
         if self.coworking.is_current_user_exists():
@@ -16,12 +18,14 @@ class ConsoleCoworkingApp:
             print("5. Cancel seat reservation")
             print("6. Save data to json")
             print("7. Load data from json")
-            print("8. Logout")
-            print("9. Exit")
+            print("8. Filter by seat enhancements")
+            print("9. Logout")
+            print("10. Exit")
         else:
             print("1. Registration")
             print("2. Login")
             print("3. Exit")
+
 
     def handle_menu_option(self, option):
         if self.coworking.is_current_user_exists():
@@ -40,9 +44,11 @@ class ConsoleCoworkingApp:
             elif option == "7":
                 self.handle_load_data_option()
             elif option == "8":
+                self.handle_filter_by_enhancement()
+            elif option == "9":
                 self.handle_logout_option()
                 return "auto"
-            elif option == "9":
+            elif option == "10":
                 print("Exit.")
                 sys.exit(0)
             else:
@@ -60,6 +66,7 @@ class ConsoleCoworkingApp:
             else:
                 print("Invalid option. Please try again.")
             return "manual"
+
 
     def handle_registration_option(self):
         print(f"\n=== Registration ===")
@@ -95,6 +102,7 @@ class ConsoleCoworkingApp:
         self.coworking.register_user(user)
         print(f"\nWelcome, {first_name} {last_name}!")
 
+
     def handle_login_option(self):
         print(f"\n=== Login ===")
         while True:
@@ -111,9 +119,11 @@ class ConsoleCoworkingApp:
             else:
                 print("User not found. Please try again or type 'r' to return to the main menu.")
 
+
     def handle_logout_option(self):
         self.coworking.logout_user()
         print("You have been logged out.")
+
 
     def handle_show_seats_common(self, display_function):
         while True:
@@ -131,20 +141,26 @@ class ConsoleCoworkingApp:
             except ValueError:
                 print("Invalid input.")
 
+
     def handle_show_seats_option(self):
         self.handle_show_seats_common(self.print_floor)
+
 
     def handle_show_reserved_seats_option(self):
         self.handle_show_seats_common(self.print_reserved_seats)
 
+
     def handle_reserve_seat_option(self):
         self.coworking.reserve_seat()
+
 
     def handle_cancel_reservation_option(self):
         self.coworking.cancel_seat_reservation()
 
+
     def check_seat_availability_option(self):
-       self.coworking.check_seat_availability_option()
+        self.coworking.check_seat_availability_option()
+
 
     def handle_save_data_option(self):
         while True:
@@ -156,6 +172,7 @@ class ConsoleCoworkingApp:
                 continue
             self.coworking.save_to_json(filename)
             break
+
 
     def handle_load_data_option(self):
         while True:
@@ -172,30 +189,81 @@ class ConsoleCoworkingApp:
             if loaded_coworking:
                 self.coworking = loaded_coworking
                 if current_logged_in_user:
-                    found_user = None
-                    for user in self.coworking.users:
-                        if user.email == current_logged_in_user.email and user.phone == current_logged_in_user.phone:
-                            found_user = user
-                            break
+                    found_user = (
+                        next((user for user in self.coworking.users if user.email == current_logged_in_user.email
+                              and user.phone == current_logged_in_user.phone), None))
+                    self.coworking.current_user = found_user
                     if found_user:
-                        self.coworking.current_user = found_user
                         print(f"Data loaded successfully from {filename}. Welcome back, {found_user.first_name}!")
                     else:
-                        self.coworking.current_user = None
                         print(f"Data loaded successfully from {filename}. Your previous user session could not be restored.")
                 else:
                     print(f"Data loaded successfully from {filename}.")
                 break
 
 
+    def handle_filter_by_enhancement(self):
+        print("\nFilter by:")
+        print("1. Docking Station")
+        print("2. Dual Screens")
+        print("3. Electrical Desk Adjustment")
+        enhancement = input("Choose enhancement (1-3): ").strip()
+
+        if enhancement == "1":
+            attribute = "is_docking_station"
+        elif enhancement == "2":
+            attribute = "has_2_screens"
+        elif enhancement == "3":
+            attribute = "is_electrical_desk_adjustment"
+        else:
+            print("Invalid option.")
+            return
+
+        any_matches = False
+        for floor in self.coworking.floors:
+            matching_seats = [
+                seat for seat in floor.seats
+                if getattr(seat, attribute) and not seat.reserved
+            ]
+            if matching_seats:
+                any_matches = True
+                print(f"\nFloor {floor.number} - Matching available seats:")
+                for i, seat in enumerate(matching_seats, 1):
+                    print(f"{seat.number:>3}(O)", end="  ")
+                    if i % 5 == 0:
+                        print()
+                print()
+        if not any_matches:
+            print("No available seats with the selected feature were found.")
+
+
     @staticmethod
     def print_floor(floor):
         print(f"       =======  Floor {floor.number}  =======    ")
         for i, seat in enumerate(floor.seats, 1):
-            print(f"{seat.number:>3}({'X' if seat.reserved else 'O'})", end="  ")
+            symbol = "O"
+            if seat.reserved:
+                if seat.is_docking_station and seat.has_2_screens and seat.is_electrical_desk_adjustment:
+                    symbol = "DSE"
+                elif seat.is_docking_station and seat.has_2_screens:
+                    symbol = "DS"
+                elif seat.is_docking_station and seat.is_electrical_desk_adjustment:
+                    symbol = "DE"
+                elif seat.has_2_screens and seat.is_electrical_desk_adjustment:
+                    symbol = "SE"
+                elif seat.is_docking_station:
+                    symbol = "D"
+                elif seat.has_2_screens:
+                    symbol = "S"
+                elif seat.is_electrical_desk_adjustment:
+                    symbol = "E"
+                else:
+                    symbol = "X"
+            print(f"{f'{seat.number}({symbol})':<11}", end="")
             if i % 5 == 0:
                 print()
         print()
+
 
     @staticmethod
     def print_reserved_seats(floor):
@@ -207,10 +275,26 @@ class ConsoleCoworkingApp:
             return
 
         for i, seat in enumerate(reserved_seats, 1):
-            print(f"{seat.number:>3}(X)", end="  ")
+            symbol = "X"
+            if seat.is_docking_station and seat.has_2_screens and seat.is_electrical_desk_adjustment:
+                symbol = "DSE"
+            elif seat.is_docking_station and seat.has_2_screens:
+                symbol = "DS"
+            elif seat.is_docking_station and seat.is_electrical_desk_adjustment:
+                symbol = "DE"
+            elif seat.has_2_screens and seat.is_electrical_desk_adjustment:
+                symbol = "SE"
+            elif seat.is_docking_station:
+                symbol = "D"
+            elif seat.has_2_screens:
+                symbol = "S"
+            elif seat.is_electrical_desk_adjustment:
+                symbol = "E"
+            print(f"{seat.number:>3}({symbol})", end="  ")
             if i % 5 == 0:
                 print()
         print()
+
 
     def start(self):
         print("Welcome to the Coworking Space Reservation System!")
@@ -221,6 +305,11 @@ class ConsoleCoworkingApp:
             if status == "auto":
                 continue
             else:
-                is_continue = input("Do you want to continue? (y/n): ")
-                if is_continue.strip().lower() != "y":
-                    break
+                while True:
+                    is_continue = input("Do you want to continue? (y/n): ").strip().lower()
+                    if is_continue == 'y':
+                        break
+                    elif is_continue == 'n':
+                        return
+                    else:
+                        print("Invalid input. Please enter 'y' or 'n'.")
