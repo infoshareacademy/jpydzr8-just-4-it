@@ -24,7 +24,8 @@ class ConsoleCoworkingApp:
         else:
             print("1. Registration")
             print("2. Login")
-            print("3. Exit")
+            print("3. Load user and seats from JSON")
+            print("4. Exit")
 
 
     def handle_menu_option(self, option):
@@ -61,6 +62,9 @@ class ConsoleCoworkingApp:
             elif option == "2":
                 self.handle_login_option()
             elif option == "3":
+                self.handle_load_data_option(unregistered=True)
+                return "auto"
+            elif option == "4":
                 print("Exit.")
                 sys.exit(0)
             else:
@@ -174,7 +178,7 @@ class ConsoleCoworkingApp:
             break
 
 
-    def handle_load_data_option(self):
+    def handle_load_data_option(self, unregistered=False):
         while True:
             filename = input("Enter filename to load (e.g., data.json) or 'r' to return: ").strip()
             if filename.lower() == 'r':
@@ -183,22 +187,42 @@ class ConsoleCoworkingApp:
                 print("Filename must end with '.json'. Please try again.")
                 continue
 
-            current_logged_in_user = self.coworking.current_user
-
             loaded_coworking = Coworking.load_from_json(filename)
             if loaded_coworking:
+                old_user = self.coworking.current_user
+
                 self.coworking = loaded_coworking
-                if current_logged_in_user:
-                    found_user = (
-                        next((user for user in self.coworking.users if user.email == current_logged_in_user.email
-                              and user.phone == current_logged_in_user.phone), None))
-                    self.coworking.current_user = found_user
-                    if found_user:
-                        print(f"Data loaded successfully from {filename}. Welcome back, {found_user.first_name}!")
+                print(f"Data loaded successfully from {filename}.")
+
+                if old_user:
+                    matched_user = next(
+                        (user for user in self.coworking.users
+                         if user.email == old_user.email and user.phone == old_user.phone),
+                        None
+                    )
+                    if matched_user:
+                        self.coworking.current_user = matched_user
+                        print(f"Welcome back, {matched_user.first_name}!")
                     else:
-                        print(f"Data loaded successfully from {filename}. Your previous user session could not be restored.")
-                else:
-                    print(f"Data loaded successfully from {filename}.")
+                        self.coworking.current_user = None
+                        print("Your previous user session could not be restored.")
+
+                elif self.coworking.users and unregistered:
+                    print("Do you want to log in as one of the loaded users?")
+                    while True:
+                        answer = input("Login now? (y/n): ").strip().lower()
+                        if answer == 'y':
+                            login = input("Enter email or phone: ").strip()
+                            user = self.coworking.login_user(login)
+                            if user:
+                                print(f"Welcome, {user.first_name} {user.last_name}!")
+                            else:
+                                print("User not found in loaded data.")
+                            break
+                        elif answer == 'n':
+                            break
+                        else:
+                            print("Please enter 'y' or 'n'.")
                 break
 
 
