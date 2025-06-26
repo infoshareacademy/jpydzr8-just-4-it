@@ -1,4 +1,5 @@
 import json
+import random
 
 class Coworking:
     def __init__(self, floors, users):
@@ -6,7 +7,7 @@ class Coworking:
         self.users = users
         self.current_user = None
 
-    def login_user(self,login):
+    def login_user(self, login):
         for user in self.users:
             if user.email == login or user.phone == login:
                 self.current_user = user
@@ -109,9 +110,16 @@ class Coworking:
             "floors": [
                 {
                     "number": floor.number,
-                    "seats": [{"number": seat.number, "reserved": seat.reserved} for seat in floor.seats]
-                }
-                for floor in self.floors
+                    "seats": [
+                        {
+                            "number": seat.number,
+                            "reserved": seat.reserved,
+                            "is_docking_station": seat.is_docking_station,
+                            "has_2_screens": seat.has_2_screens,
+                            "is_electrical_desk_adjustment": seat.is_electrical_desk_adjustment,
+                        } for seat in floor.seats
+                    ]
+                } for floor in self.floors
             ],
             "users": [
                 {
@@ -119,8 +127,7 @@ class Coworking:
                     "last_name": user.last_name,
                     "email": user.email,
                     "phone": user.phone,
-                }
-                for user in self.users
+                } for user in self.users
             ]
         }
         with open(filename, 'w') as f:
@@ -135,21 +142,26 @@ class Coworking:
 
             floors = []
             for floor_data in data["floors"]:
-                # When loading, we create a Floor object but don't re-generate seats
-                # Instead, we populate seats from the loaded data
                 floor = Floor(floor_data["number"], 0)
-                floor.seats = [Seat(seat_data["number"], seat_data["reserved"]) for seat_data in floor_data["seats"]]
+                floor.seats = [
+                    Seat(
+                        seat_data["number"],
+                        seat_data["reserved"],
+                        seat_data.get("is_docking_station", False),
+                        seat_data.get("has_2_screens", False),
+                        seat_data.get("is_electrical_desk_adjustment", False),
+                    ) for seat_data in floor_data["seats"]
+                ]
                 floors.append(floor)
 
-            users = []
-            for user_data in data["users"]:
-                user = User(
+            users = [
+                User(
                     user_data["first_name"],
                     user_data["last_name"],
                     user_data["email"],
-                    user_data["phone"],
-                )
-                users.append(user)
+                    user_data["phone"])
+                for user_data in data["users"]
+            ]
 
             coworking = cls(floors, users)
             print(f"Data loaded from {filename}")
@@ -170,20 +182,29 @@ class Floor:
 
     @staticmethod
     def generate_seats(number_of_seats):
-        return [Seat(num, False) for num in range(1, number_of_seats + 1)]
+        return [
+            Seat(
+                num,
+                reserved=False,
+                is_docking_station=random.choice([True, False]),
+                has_2_screens=random.choice([True, False]),
+                is_electrical_desk_adjustment=random.choice([True, False]),
+            ) for num in range(1, number_of_seats + 1)
+        ]
 
 
 class Seat:
-    def __init__(self, number, reserved):
+    def __init__(self, number, reserved, is_docking_station=False, has_2_screens=False, is_electrical_desk_adjustment=False):
         self.number = number
         self.reserved = reserved
+        self.is_docking_station = is_docking_station
+        self.has_2_screens = has_2_screens
+        self.is_electrical_desk_adjustment = is_electrical_desk_adjustment
+
 
 class User:
-    def __init__(self, first_name: object, last_name: object, email: object, phone: object) -> None:
+    def __init__(self, first_name, last_name, email, phone):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.phone = phone
-
-
-
