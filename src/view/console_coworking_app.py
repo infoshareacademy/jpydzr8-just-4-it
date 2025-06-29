@@ -226,11 +226,38 @@ class ConsoleCoworkingApp:
                 break
 
 
+    @staticmethod
+    def display_matching_seats(matching_seats_per_floor, label):
+        any_matches = False
+        for floor, seats in matching_seats_per_floor:
+            if seats:
+                any_matches = True
+                print(f"\nFloor {floor.number} - {label}:")
+                for i, seat in enumerate(seats, 1):
+                    print(f"{seat.number:>3}(O)", end="  ")
+                    if i % 5 == 0:
+                        print()
+                print()
+        if not any_matches:
+            print("No available seats were found.")
+
+
+    def filter_no_enhancements(self):
+        matching_seats_per_floor = [
+            (floor, [seat for seat in floor.seats
+                     if not seat.is_docking_station and not seat.has_2_screens
+                     and not seat.is_electrical_desk_adjustment and not seat.reserved])
+            for floor in self.coworking.floors
+        ]
+        self.display_matching_seats(matching_seats_per_floor, label="Matching available seats")
+
+
     def handle_filter_by_enhancement(self):
         print("\nFilter by:")
         print("1. Docking Station")
         print("2. Dual Screens")
         print("3. Electrical Desk Adjustment")
+        print("4. No enhancements")
         enhancement = input("Choose enhancement (1-3): ").strip()
 
         if enhancement == "1":
@@ -239,26 +266,18 @@ class ConsoleCoworkingApp:
             attribute = "has_2_screens"
         elif enhancement == "3":
             attribute = "is_electrical_desk_adjustment"
+        elif enhancement == "4":
+            self.filter_no_enhancements()
+            return
         else:
             print("Invalid option.")
             return
 
-        any_matches = False
-        for floor in self.coworking.floors:
-            matching_seats = [
-                seat for seat in floor.seats
-                if getattr(seat, attribute) and not seat.reserved
-            ]
-            if matching_seats:
-                any_matches = True
-                print(f"\nFloor {floor.number} - Matching available seats:")
-                for i, seat in enumerate(matching_seats, 1):
-                    print(f"{seat.number:>3}(O)", end="  ")
-                    if i % 5 == 0:
-                        print()
-                print()
-        if not any_matches:
-            print("No available seats with the selected feature were found.")
+        matching_seats_per_floor = [
+            (floor, [seat for seat in floor.seats if getattr(seat, attribute) and not seat.reserved])
+            for floor in self.coworking.floors
+        ]
+        self.display_matching_seats(matching_seats_per_floor, label="Matching available seats")
 
 
     @staticmethod
