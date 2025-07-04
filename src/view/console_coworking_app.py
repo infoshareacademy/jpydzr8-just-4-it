@@ -72,6 +72,28 @@ class ConsoleCoworkingApp:
             return "manual"
 
 
+    @staticmethod
+    def show_legend(all_legend=True):
+        print("----------------------------------------------------------------------------------------------")
+        answer = input("Show legend? (y/n): ").strip().lower()
+        if answer == 'y':
+            print("----------------------------------------------------------------------------------------------")
+            print("Legend: - how unreserved and reserved seat is denoted:")
+            print("Each seat has its number and sign in the brackets, e.g. 1(X)")
+            print("Seat with sign 0: e.g. 1(0) - unreserved seat")
+            if all_legend:
+                print("Seat with sign X: e.g. 1(X) - reserved seat without any enhancements")
+                print("Seat with sign D: e.g. 1(D) - reserved seat with docking station")
+                print("Seat with sign D: e.g. 1(S) - reserved seat with two screens")
+                print("Seat with sign D: e.g. 1(E) - reserved seat with electrical desk adjustment")
+                print("Seat with sign with any combination of enhancements e.g. 1(DS) - docking station & two screens")
+                print("Seat with sign with any combination of enhancements e.g. 1(DSE) - full: all three enhancements")
+            print("----------------------------------------------------------------------------------------------")
+        else:
+            print("Legend is not shown.")
+            print("----------------------------------------------------------------------------------------------")
+
+
     def handle_registration_option(self):
         print(f"\n=== Registration ===")
         while True:
@@ -132,6 +154,7 @@ class ConsoleCoworkingApp:
     def handle_show_seats_common(self, display_function):
         while True:
             floor_numbers = [floor.number for floor in self.coworking.floors]
+            self.show_legend()
             option = input(f"Please select floor number {floor_numbers} or print 'r' to return to the main menu: ")
             if option.lower() == "r":
                 return "auto"
@@ -253,12 +276,13 @@ class ConsoleCoworkingApp:
 
 
     def handle_filter_by_enhancement(self):
+        self.show_legend(all_legend=False)
         print("\nFilter by:")
         print("1. Docking Station")
         print("2. Dual Screens")
         print("3. Electrical Desk Adjustment")
         print("4. No enhancements")
-        enhancement = input("Choose enhancement (1-3): ").strip()
+        enhancement = input("Choose enhancement (1-3) or no enhancements (4): ").strip()
 
         if enhancement == "1":
             attribute = "is_docking_station"
