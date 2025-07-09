@@ -164,7 +164,7 @@ class ConsoleCoworkingApp:
                 if floor:
                     display_function(floor)
                 else:
-                    print(f"Invalid floor number.")
+                    print("Invalid floor number.")
             except ValueError:
                 print("Invalid input.")
 
@@ -276,42 +276,44 @@ class ConsoleCoworkingApp:
 
 
     def handle_filter_by_enhancement(self):
-        self.show_legend(all_legend=False)
-        print("\nFilter by enhancements:")
-        print("D - Docking Station")
-        print("S - Dual Screens")
-        print("E - Electrical Desk Adjustment")
-        print("X - No enhancements (i.e., no D, S, or E)")
+        while True:
+            self.show_legend(all_legend=False)
+            print("\nFilter by enhancements:")
+            print("D - Docking Station")
+            print("S - Dual Screens")
+            print("E - Electrical Desk Adjustment")
+            print("X - No enhancements (i.e., no D, S, or E)")
 
-        user_input = input("Enter enhancement codes (e.g., D, DS, DSE, or X): ").strip().upper()
+            user_input = input("Enter enhancement codes (e.g., D, DS, DSE, or X): ").strip().upper()
 
-        valid_inputs = {"D", "S", "E", "DS", "DE", "SE", "DSE", "X"}
-        if not user_input or not all(c in "DSEX" for c in user_input):
-            print("Invalid input. Please enter a combination of D, S, E, or X.")
+            valid_inputs = {"X", "D", "S", "E", "DS", "SD", "DE", "ED", "SE", "ES",
+                            "DSE", "SDE", "DES", "ESD", "SED", "EDS"}
+            if not user_input or not (user_input in valid_inputs):
+                print("Invalid input. Please enter a combination of D, S, E, or X.")
+                continue
+
+            if "X" in user_input:
+                self.filter_no_enhancements()
+                return
+
+            enhancement_attributes = {
+                "D": "is_docking_station",
+                "S": "has_2_screens",
+                "E": "is_electrical_desk_adjustment"
+            }
+
+            selected_attrs = [enhancement_attributes[c] for c in user_input if c in enhancement_attributes]
+
+            matching_seats_per_floor = []
+            for floor in self.coworking.floors:
+                matching_seats = []
+                for seat in floor.seats:
+                    if not seat.reserved and all(getattr(seat, attr) for attr in selected_attrs):
+                        matching_seats.append(seat)
+                matching_seats_per_floor.append((floor, matching_seats))
+
+            self.display_matching_seats(matching_seats_per_floor, label="Matching available seats")
             return
-
-        if "X" in user_input:
-            self.filter_no_enhancements()
-            return
-
-        enhancement_attributes = {
-            "D": "is_docking_station",
-            "S": "has_2_screens",
-            "E": "is_electrical_desk_adjustment"
-        }
-
-        selected_attrs = [enhancement_attributes[c] for c in user_input if c in enhancement_attributes]
-
-        matching_seats_per_floor = []
-        for floor in self.coworking.floors:
-            matching_seats = []
-            for seat in floor.seats:
-                if not seat.reserved and all(getattr(seat, attr) for attr in selected_attrs):
-                    matching_seats.append(seat)
-            matching_seats_per_floor.append((floor, matching_seats))
-
-        self.display_matching_seats(matching_seats_per_floor, label="Matching available seats")
-
 
 
     @staticmethod

@@ -1,5 +1,5 @@
-from src.model.coworking_model import Floor, Coworking, User
-from src.view.console_coworking_app import ConsoleCoworkingApp
+from model.coworking_model import Floor, Coworking, User
+from view.console_coworking_app import ConsoleCoworkingApp
 
 
 def main():
@@ -9,7 +9,6 @@ def main():
     coworking = Coworking(floors,[john_doe])
     app = ConsoleCoworkingApp(coworking)
     app.start()
-
 
 
 if __name__ == "__main__":
