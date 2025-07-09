@@ -286,9 +286,8 @@ class ConsoleCoworkingApp:
 
             user_input = input("Enter enhancement codes (e.g., D, DS, DSE, or X): ").strip().upper()
 
-            valid_inputs = {"X", "D", "S", "E", "DS", "SD", "DE", "ED", "SE", "ES",
-                            "DSE", "SDE", "DES", "ESD", "SED", "EDS"}
-            if not user_input or not (user_input in valid_inputs):
+            valid_letters = {"D", "S", "E"}
+            if not (user_input == "X" or all(c in valid_letters for c in user_input)):
                 print("Invalid input. Please enter a combination of D, S, E, or X.")
                 continue
 
