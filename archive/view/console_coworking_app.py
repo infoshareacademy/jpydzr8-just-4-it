@@ -1,7 +1,7 @@
 import sys
 import re
 
-from src.model.coworking_model import Coworking, User
+from model.coworking_model import Coworking, User
 
 
 class ConsoleCoworkingApp:
