@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application - Show All Seats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style_1.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card seats-card">
+            <h1 class="welcome-title">Show All Seats</h1>
+            <p class="subtitle">Select a seat to view details or make a reservation.</p>
+
+            <div class="legend-modern">
+                <div class="legend-item"><span class="seat-symbol free"><i class="fas fa-desktop"></i></span><span>Unreserved</span></div>
+                <div class="legend-item"><span class="seat-symbol reserved"><i class="fas fa-user-tie"></i></span><span>Reserved</span></div>
+                <div class="legend-item"><span class="seat-symbol reserved-D"><i class="fas fa-laptop-house"></i></span><span>Docking station</span></div>
+                <div class="legend-item"><span class="seat-symbol reserved-S"><i class="fas fa-chalkboard-teacher"></i></span><span>Two screens</span></div>
+                <div class="legend-item"><span class="seat-symbol reserved-E"><i class="fas fa-cogs"></i></span><span>Elec. desk adjustment</span></div>
+                <div class="legend-item"><span class="seat-symbol reserved-DS"><i class="fas fa-laptop-code"></i></span><span>D. station & 2 screens</span></div>
+                <div class="legend-item"><span class="seat-symbol reserved-DSE"><i class="fas fa-rocket"></i></span><span>Full</span></div>
+            </div>
+
+            <div class="floor-section">
+                <h2 class="floor-title">Floor 4 (20 seats)</h2>
+                <div class="seats-grid" id="floor-4-seats">
+                </div>
+            </div>
+            
+            <div class="floor-section">
+                <h2 class="floor-title">Floor 5 (30 seats)</h2>
+                <div class="seats-grid" id="floor-5-seats">
+                </div>
+            </div>
+            
+            <div class="floor-section">
+                <h2 class="floor-title">Floor 6 (25 seats)</h2>
+                <div class="seats-grid" id="floor-6-seats">
+                </div>
+            </div>
+            
+            <div class="floor-section">
+                <h2 class="floor-title">Floor 7 (35 seats)</h2>
+                <div class="seats-grid" id="floor-7-seats">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const floors = [
+                { id: 'floor-4-seats', totalSeats: 20 },
+                { id: 'floor-5-seats', totalSeats: 30 },
+                { id: 'floor-6-seats', totalSeats: 25 },
+                { id: 'floor-7-seats', totalSeats: 35 }
+            ];
+
+            const enhancements = ['D', 'S', 'E', 'DS', 'DSE'];
+            const getRandomEnhancement = () => enhancements[Math.floor(Math.random() * enhancements.length)];
+
+            floors.forEach(floor => {
+                const grid = document.getElementById(floor.id);
+                for (let i = 1; i <= floor.totalSeats; i++) {
+                    const seat = document.createElement('div');
+                    const isReserved = Math.random() > 0.7;
+                    
+                    if (isReserved) {
+                        const enhancement = Math.random() > 0.5 ? getRandomEnhancement() : 'x';
+                        seat.classList.add('seat-item-styled');
+                        let iconClass = 'fa-user-tie';
+                        if (enhancement === 'D') seat.classList.add('seat-reserved-D');
+                        if (enhancement === 'S') seat.classList.add('seat-reserved-S');
+                        if (enhancement === 'E') seat.classList.add('seat-reserved-E');
+                        if (enhancement === 'DS') seat.classList.add('seat-reserved-DS');
+                        if (enhancement === 'DSE') seat.classList.add('seat-reserved-DSE');
+                        if (enhancement === 'x') seat.classList.add('seat-reserved');
+
+                        if (enhancement === 'D') iconClass = 'fa-laptop-house';
+                        if (enhancement === 'S') iconClass = 'fa-chalkboard-teacher';
+                        if (enhancement === 'E') iconClass = 'fa-cogs';
+                        if (enhancement === 'DS') iconClass = 'fa-laptop-code';
+                        if (enhancement === 'DSE') iconClass = 'fa-rocket';
+                        
+                        seat.innerHTML = `<span class="seat-icon"><i class="fas ${iconClass}"></i></span><span class="seat-label">${i}(${enhancement})</span>`;
+                    } else {
+                        seat.classList.add('seat-item-styled', 'seat-unreserved');
+                        seat.innerHTML = `<span class="seat-icon"><i class="fas fa-desktop"></i></span><span class="seat-label">${i}(0)</span>`;
+                    }
+                    
+                    seat.setAttribute('data-seat-id', `${floor.id.split('-')[1]}-${i}`);
+                    grid.appendChild(seat);
+                }
+            });
+
+            document.querySelectorAll('.seat-item-styled').forEach(seat => {
+                seat.addEventListener('click', (e) => {
+                    const seatId = e.currentTarget.getAttribute('data-seat-id');
+                    alert(`Selected seat: ${seatId}. This is where you would navigate to the reservation view.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

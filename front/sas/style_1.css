@@ -1,0 +1,207 @@
+
+.welcome-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #FF6B6B, #FFB86B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 5px rgba(255, 107, 107, 0.2);
+    position: relative;
+    padding-bottom: 15px;
+    display: inline-block;
+}
+
+.welcome-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #FF6B6B, #FFB86B);
+    transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.welcome-title:hover::after {
+    width: 100%;
+}
+
+
+.legend-modern {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px 30px;
+    padding: 25px 30px;
+    background-color: #f7f9fc;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.legend-modern .legend-item {
+    font-size: 0.9rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.legend-modern .seat-symbol {
+    font-size: 1rem;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: #fff;
+}
+
+/* Kolory symboli w legendzie */
+.seat-symbol.free {
+    background-color: #4CAF50;
+}
+.seat-symbol.reserved {
+    background-color: #F44336;
+}
+.seat-symbol.reserved-D {
+    background-color: #FFC107;
+}
+.seat-symbol.reserved-S {
+    background-color: #03A9F4;
+}
+.seat-symbol.reserved-E {
+    background-color: #9C27B0;
+}
+.seat-symbol.reserved-DS {
+    background-color: #2196F3;
+}
+.seat-symbol.reserved-DSE {
+    background-color: #FF5722;
+}
+
+/* Układ siatki dla miejsc */
+.seats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+/* Nowe, subtelne style dla kafelków miejsc */
+.seat-item-styled {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+
+.seat-item-styled:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background-color: #f0f2f5;
+}
+
+.seat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.seat-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    text-align: center;
+}
+
+
+.seat-unreserved {
+    border-color: #a5d6a7;
+}
+.seat-unreserved .seat-icon {
+    color: #4CAF50;
+}
+
+.seat-reserved {
+    border-color: #ef9a9a;
+}
+.seat-reserved .seat-icon {
+    color: #F44336;
+}
+
+.seat-reserved-D {
+    border-color: #ffcc80;
+}
+.seat-reserved-D .seat-icon {
+    color: #FFC107;
+}
+
+.seat-reserved-S {
+    border-color: #90caf9;
+}
+.seat-reserved-S .seat-icon {
+    color: #03A9F4;
+}
+
+.seat-reserved-E {
+    border-color: #ce93d8;
+}
+.seat-reserved-E .seat-icon {
+    color: #9C27B0;
+}
+
+.seat-reserved-DS {
+    border-color: #81d4fa;
+}
+.seat-reserved-DS .seat-icon {
+    color: #2196F3;
+}
+
+.seat-reserved-DSE {
+    border-color: #ffab91;
+}
+.seat-reserved-DSE .seat-icon {
+    color: #FF5722;
+}
+
+/* Media query dla mniejszych ekranów */
+@media (max-width: 768px) {
+    .legend-modern {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .seat-item-styled {
+        padding: 15px 10px;
+    }
+    
+    .seat-icon {
+        font-size: 1.2rem;
+    }
+    
+    .seat-label {
+        font-size: 0.8rem;
+    }
+}
