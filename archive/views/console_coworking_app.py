@@ -1,9 +1,10 @@
 import sys
 import re
+from django.shortcuts import render
+from ..models.coworking_model import Coworking, User
 
-from src.model.coworking_model import Coworking, User
-
-
+def index(request):
+    return render(request, 'index.html')
 class ConsoleCoworkingApp:
     def __init__(self, coworking: Coworking):
         self.coworking = coworking
