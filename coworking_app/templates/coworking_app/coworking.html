@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ workspace_name }} — Seat Reservation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/coworking.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="card layout">
+            <div class="main">
+                <h1 class="welcome-title">{{ workspace_name }} — Seat Reservation System</h1>
+                <p class="subtitle">Click a seat to reserve or view details. Reservations are stored locally for demo purposes.</p>
+
+                <div class="controls-row">
+                    <div id="status-filter" class="status-filter">
+                        <button class="filter-btn active" data-status="all">All</button>
+                        <button class="filter-btn" data-status="available">Available</button>
+                        <button class="filter-btn" data-status="occupied">Occupied</button>
+                    </div>
+                </div>
+
+                <div class="legend-modern" id="legend-root" aria-hidden="true">
+                    <!-- legend items (feature filters) injected by JS -->
+                </div>
+
+                <div class="floor-section">
+                    <h2 class="floor-title">Floor 4 (20 seats)</h2>
+                    <div class="seats-grid" id="floor-4-seats"></div>
+                </div>
+
+                <div class="floor-section">
+                    <h2 class="floor-title">Floor 5 (30 seats)</h2>
+                    <div class="seats-grid" id="floor-5-seats"></div>
+                </div>
+
+                <div class="floor-section">
+                    <h2 class="floor-title">Floor 6 (25 seats)</h2>
+                    <div class="seats-grid" id="floor-6-seats"></div>
+                </div>
+
+                <div class="floor-section">
+                    <h2 class="floor-title">Floor 7 (35 seats)</h2>
+                    <div class="seats-grid" id="floor-7-seats"></div>
+                </div>
+            </div>
+
+            <div class="side">
+                <div class="reservations-panel">
+                    <div class="panel-controls">
+                        <h3>Your reservations</h3>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <button class="btn btn-ghost" id="export-json" title="Export JSON"><i class="fas fa-file-export"></i></button>
+                            <button class="btn btn-ghost" id="import-json" title="Import JSON"><i class="fas fa-file-import"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="reservations-list"></div>
+
+                    <div style="display:flex;gap:8px;margin-top:8px;align-items:center;justify-content:space-between;">
+                        <div class="muted">Storage: <span class="badge">localStorage (demo)</span></div>
+                        <button class="btn btn-primary" id="clear-all">Clear all</button>
+                    </div>
+
+                    <div class="stats-box" id="stats-box">
+                        <div style="font-weight:700;margin-bottom:8px;">Statistics</div>
+                        <div class="stat-row"><div class="stat-left"><span class="small-icon" style="background:#4CAF50"><i class="fas fa-desktop"></i></span><div>Available seats</div></div><div id="stat-free">0</div></div>
+                        <div class="stat-row"><div class="stat-left"><span class="small-icon" style="background:#F44336"><i class="fas fa-user-tie"></i></span><div>Occupied seats</div></div><div id="stat-occupied">0</div></div>
+                        <div class="stat-row"><div class="stat-left"><span class="small-icon" style="background:#2b6aa3"><i class="fas fa-calendar-day"></i></span><div>Reservations today</div></div><div id="stat-today">0</div></div>
+                        <hr style="border:none;border-top:1px dashed #f0f4fa;margin:8px 0;">
+                        <div id="feature-counts"><!-- feature counts injected --></div>
+                    </div>
+
+                    <hr style="margin:12px 0;border:none;border-top:1px solid #eef4fb;">
+                    <div class="small muted">Tip: Shift+click = quick reserve (today 09:00–17:00). Hover for a tooltip.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-root" style="display:none;"></div>
+    <div id="toast-container" aria-live="polite"></div>
+    <div id="tooltip" class="tooltip"></div>
+
+    <script src="{% static 'js/coworking.js' %}"></script>
+</body>
+</html>
