@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rezerwacje miejsc — Rezerwuj / Anuluj</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+  <!-- Datepicker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="card seats-card">
+      <h1 class="welcome-title">Reserve seats</h1>
+      <p class="subtitle">Select a seat and make a reservation.</p>
+
+      <!-- Link do strony anulowania -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="reserve"><i class="fas fa-calendar-check"></i> Reservation</button>
+        <button class="tab-btn" data-tab="cancel"><i class="fas fa-calendar-times"></i> Cancel</button>
+      </div>
+
+      <div class="legend-modern">
+        <div class="legend-item"><span class="seat-symbol free"><i class="fas fa-desktop"></i></span><span>Unreserved</span></div>
+        <div class="legend-item"><span class="seat-symbol reserved"><i class="fas fa-user-tie"></i></span><span>Reserved</span></div>
+        <div class="legend-item"><span class="seat-symbol reserved-D"><i class="fas fa-laptop-house"></i></span><span>Docking station</span></div>
+        <div class="legend-item"><span class="seat-symbol reserved-S"><i class="fas fa-chalkboard-teacher"></i></span><span>Two screens</span></div>
+        <div class="legend-item"><span class="seat-symbol reserved-E"><i class="fas fa-cogs"></i></span><span>Elec. desk adjustment</span></div>
+        <div class="legend-item"><span class="seat-symbol reserved-DS"><i class="fas fa-laptop-code"></i></span><span>D. station & 2 screens</span></div>
+        <div class="legend-item"><span class="seat-symbol reserved-DSE"><i class="fas fa-rocket"></i></span><span>Full</span></div>
+      </div>
+
+      <!-- SYSTEM 1: REZERWUJ -->
+      <section id="tab-reserve" class="tab-panel active">
+        <div class="toolbar">
+          <input type="text" id="searchSeat" class="input" placeholder="Search for a place (e.g. 5-12)..." />
+          <select id="filterStatus" class="input">
+            <option value="all">All</option>
+            <option value="free">Free</option>
+            <option value="reserved">Occupied</option>
+          </select>
+          <select id="filterFeature" class="input">
+            <option value="all">All amenities</option>
+            <option value="D">D – Docking station</option>
+            <option value="S">S – Two screens</option>
+            <option value="E">E – Elektryczna regulacja</option>
+            <option value="DS">DS – Dock + 2 monitory</option>
+            <option value="DSE">DSE – Full</option>
+            <option value="0">Absence</option>
+          </select>
+        </div>
+
+        <div class="floor-section">
+          <h2 class="floor-title">Floor 4 (20 seats)</h2>
+          <div class="seats-grid" id="floor-4-seats"></div>
+        </div>
+
+        <div class="floor-section">
+          <h2 class="floor-title">Floor 5 (30 seats)</h2>
+          <div class="seats-grid" id="floor-5-seats"></div>
+        </div>
+
+        <div class="floor-section">
+          <h2 class="floor-title">Floor 6 (25 seats)</h2>
+          <div class="seats-grid" id="floor-6-seats"></div>
+        </div>
+
+        <div class="floor-section">
+          <h2 class="floor-title">Floor 7 (35 seats)</h2>
+          <div class="seats-grid" id="floor-7-seats"></div>
+        </div>
+
+        <div class="summary" id="summary"></div>
+      </section>
+
+      <!-- SYSTEM 2: ANULUJ -->
+      <section id="tab-cancel" class="tab-panel">
+        <div class="cancel-tools">
+          <input type="text" id="cancelId" class="input" placeholder="ID reservation..." />
+          <input type="text" id="cancelDate" class="input" placeholder="Date reservation..." />
+          <button id="btnFind" class="btn"><i class="fas fa-search"></i> Search</button>
+          <button id="btnListAll" class="btn alt"><i class="fas fa-list"></i> All</button>
+        </div>
+        <div id="cancelResults" class="results"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Modal rezerwacji -->
+  <div class="modal" id="reserveModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close><i class="fas fa-times"></i></button>
+      <h3><i class="fas fa-calendar-plus"></i> Nowa rezerwacja</h3>
+      <form id="reserveForm">
+        <div class="form-row">
+          <label>Place</label>
+          <input type="text" id="formSeat" class="input" readonly />
+        </div>
+        <div class="form-row">
+          <label>Name and Surname</label>
+          <input type="text" id="formName" class="input" required />
+        </div>
+        <div class="form-row">
+          <label>Email</label>
+          <input type="email" id="formEmail" class="input" required />
+        </div>
+        <div class="form-row">
+          <label>Date</label>
+          <input type="text" id="formDate" class="input" required />
+        </div>
+        <div class="form-row">
+          <label>Comments</label>
+          <textarea id="formNotes" class="input" rows="3" placeholder="e.g.I need adapter USB-C..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary"><i class="fas fa-check"></i> Reservation</button>
+        </div>
+      </form>
+      <div class="tiny-note" id="reservationInfo"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+
+  <script src="ics.js"></script>
+  <script src="reserve_api_bridge_strict.js"></script>
+  <script src="cancel_api_bridge.js"></script>
+  <link rel="stylesheet" href="reservation_summary.css">
+<script src="reservation_summary.js"></script>
+<script src="reservation_summary_hook.js"></script>
+
+  <script src="reserve_api_bridge_strict_noredirect.js"></script>
+  <link rel="stylesheet" href="reservation_summary.css">
+<script src="reservation_summary.js"></script>
+<script src="reservation_summary_hook.js"></script>
+<script src="reserve_api_bridge_strict_noredirect.js"></script>
+<script src="modal_stay_guard.js"></script>
+
+
+
+
+</body>
+</html>

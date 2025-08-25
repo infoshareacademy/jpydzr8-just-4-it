@@ -1,0 +1,19 @@
+
+/* reservation_summary.css (persistent) */
+.rs-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:99999}
+.rs-card{background:var(--card-bg,#fff);color:var(--fg,#111);border-radius:18px;box-shadow:0 16px 60px rgba(0,0,0,.3);padding:22px;max-width:520px;width:92%;font-family:Inter,system-ui,Roboto,Arial,sans-serif;position:relative}
+.rs-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rs-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:#22c55e;color:#fff;font-weight:700}
+.rs-title{margin:0;font-size:20px}
+.rs-row{display:flex;justify-content:space-between;gap:10px;margin:8px 0}
+.rs-row .k{opacity:.75}
+.rs-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.rs-btn{padding:10px 14px;border-radius:10px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
+.rs-btn.primary{background:#4f46e5;border-color:#4f46e5;color:#fff}
+.rs-btn.ghost{background:transparent}
+.rs-close{position:absolute;right:14px;top:10px;border:none;background:transparent;font-size:20px;cursor:pointer;opacity:.7}
+@media (prefers-color-scheme: dark){
+  .rs-card{background:#111827;color:#f3f4f6;border:1px solid #1f2937}
+  .rs-btn{background:#1f2937;border-color:#374151;color:#e5e7eb}
+  .rs-btn.primary{background:#6366f1;border-color:#6366f1;color:#fff}
+}
