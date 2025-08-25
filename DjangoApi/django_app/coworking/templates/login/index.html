@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Reuse your main style.css for full visual consistency -->
+  <!-- Tiny, additive tweaks only for the login layout (keeps the same look&feel) -->
+    <link rel="stylesheet" href="{% static 'frontend/login/style_login_inputs_upgrade.css' %}">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Login</h1>
+      <p>Welcome back! Please enter your details to sign in.</p>
+
+      <form class="login-form" autocomplete="on">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group password-group">
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="password" name="password" required>
+            <button type="button" class="toggle-pass" aria-label="Show password">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-row-minor">
+          <label class="remember">
+            <input type="checkbox" id="remember" name="remember">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Log In</button>
+          <button type="button" class="btn btn-tertiary" id="btnBack" data-action="back">Back</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static 'frontend/login/script_login.js' %}"></script>
+  <script>
+(function(){
+  const API_BASE = window.location.origin; // np. http://127.0.0.1:8000
+
+  async function doLogin(){
+    const emailEl = document.querySelector('#email,[name=email],[type=email]');
+    const passEl  = document.querySelector('#password,[name=password],[type=password]');
+    const email = emailEl && emailEl.value ? emailEl.value.trim() : '';
+    const password = passEl && passEl.value ? passEl.value : '';
+    if(!email || !password){ alert('Email and password are required.'); return; }
+
+    try{
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email, password })
+      });
+      let data = {};
+      try { data = await res.json(); } catch(_) {}
+      if(!res.ok){
+        console.error('Login failed:', res.status, data);
+        alert((data && data.detail) || `Login failed (${res.status})`);
+        return;
+      }
+      localStorage.setItem('token', data.access_token || data.token);
+      location.href = '/dashboard';
+    }catch(err){
+      console.error('Network error:', err);
+      alert('Network error: ' + (err.message || err));
+    }
+  }
+
+  // przechwycenie klików „Log in / Sign in”
+  document.addEventListener('click', function(e){
+    const el = e.target.closest('button,a,[data-login]');
+    if(!el) return;
+    const label = (el.textContent||'').toLowerCase();
+    const isLogin = el.hasAttribute('data-login') || label.includes('log in') || label.includes('sign in') || label.includes('zaloguj');
+    if(isLogin){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      doLogin();
+    }
+  }, true);
+
+  // submit formularza (Enter)
+  const form = document.querySelector('form');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      doLogin();
+    }, true);
+  }
+})();
+</script>
+<script>
+(function(){
+  const form = document.querySelector('form');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const email = form.querySelector('[name=email]').value.trim();
+    const password = form.querySelector('[name=password]').value;
+
+    try{
+      const res = await fetch('/api/auth/login', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || 'Login failed');
+
+      localStorage.setItem('token', data.access_token || data.token);
+      window.location.href = '/dashboard';
+    }catch(err){
+      alert(err.message || String(err));
+    }
+  });
+})();
+</script>
+
+
+<script>
+/* Force real login to API, ignore demo handlers */
+(function(){
+  const API = window.location.origin;
+
+  // 1) Klik „Log in / Sign in” zawsze uruchamia nasze logowanie
+  document.addEventListener('click', function(ev){
+    const el = ev.target.closest('button,a,[data-login],[data-action]');
+    if(!el) return;
+    const lbl = (el.textContent||'').toLowerCase();
+    const isLogin = el.hasAttribute('data-login') || el.getAttribute('data-action')==='login' ||
+                    /\b(log in|sign in|zaloguj)\b/.test(lbl);
+    if(!isLogin) return;
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+    doLogin();
+  }, true);
+
+  // 2) Obsłuż submit formularza (Enter)
+  const form = document.querySelector('form');
+  if(form){
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault(); ev.stopImmediatePropagation();
+      doLogin();
+    }, true);
+  }
+
+  async function doLogin(){
+    const emailEl = document.querySelector('#email,[name=email],[type=email]');
+    const passEl  = document.querySelector('#password,[name=password],[type=password]');
+    const email = (emailEl && emailEl.value || '').trim();
+    const password = passEl && passEl.value || '';
+    if(!email || !password){ alert('Email and password are required.'); return; }
+
+    try{
+      const res = await fetch(`${API}/api/auth/login`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email, password })
+      });
+      let data = {}; try{ data = await res.json(); }catch(_){}
+      if(!res.ok) throw new Error(data.detail || `Login failed (${res.status})`);
+      localStorage.setItem('token', data.access_token || data.token);
+      window.location.assign('/dashboard');
+    }catch(err){
+      console.error('Login error:', err);
+      alert(err.message || String(err));
+    }
+  }
+})();
+</script>
+<script>
+// Show/Hide password
+(function(){
+  var pwd = document.querySelector('#password,[name=password]');
+  var btn = document.querySelector('.toggle-pass,[data-password-toggle]');
+  if(pwd && btn){
+    btn.addEventListener('click', function(){ pwd.type = (pwd.type === 'password' ? 'text' : 'password'); });
+  }
+})();
+
+// Back
+(function(){
+  var back = document.querySelector('#btnBack,[data-action="back"],.btn-tertiary');
+  if(back){
+    back.addEventListener('click', function(e){
+      e.preventDefault();
+      var href = back.getAttribute('data-href');
+      if(href){ location.href = href; }
+      else if(document.referrer){ history.back(); }
+      else { location.href = '/welcome/index.html'; }
+    });
+  }
+})();
+</script>
+<link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength.css' %}">
+<script src="{% static 'frontend/common/auth_ui_patch.js' %}"></script>
+<link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength.css' %}">
+<script src="{% static 'frontend/common/auth_ui_patch.js' %}"></script>
+<link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength_fix.css' %}">
+<script src="{% static 'frontend/common/auth_ui_patch_position_fix.js' %}"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logged out</title>
+  <link rel="stylesheet" href="{% static 'frontend/goodbye/logout_goodbye_white.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Goodbye overlay -->
+  <div class="goodbye-intro" aria-hidden="true">
+    <div class="goodbye-inner">
+      <h1 class="goodbye-title" aria-label="Goodbye!">
+        <span id="gbText" class="goodbye-word" data-text="Goodbye!"></span>
+      </h1>
+      <p class="goodbye-sub">See you soon 👋</p>
+    </div>
+  </div>
+
+  <!-- Card after logout -->
+  <div class="container goodbye-app">
+    <div class="card">
+      <h1>You’ve been logged out</h1>
+      <p>Thanks for visiting. You’ll be redirected to the welcome page.</p>
+      <div class="button-group">
+        <a class="btn btn-primary" href="/welcome/index.html">Go now</a>
+        <a class="btn btn-tertiary" href="/login/">Log in again</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'frontend/goodbye/logout_goodbye_white.js' %}"></script>
+  <script>
+    // 1) wyczyść token natychmiast
+    try { localStorage.removeItem('token'); } catch(_) {}
+
+    // 2) po 3s przejdź na welcome (fallback: 5s)
+    setTimeout(() => { location.href = '/welcome/index.html'; }, 3000);
+
+    // 3) jeśli z jakiegoś powodu /welcome nie działa, po 5s wróć na /login
+    setTimeout(() => {
+      if (!document.hidden && location.pathname.indexOf('/welcome/') === -1) {
+        location.href = '/login/';
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
