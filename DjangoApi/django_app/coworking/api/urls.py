@@ -1,12 +1,19 @@
 from django .urls import path ,include ,re_path 
 from django .shortcuts import redirect 
 from rest_framework .routers import DefaultRouter 
-
+from .views import CsrfTokenView
 from .views import (
-RegisterView ,EmailLoginView ,LogoutView ,MeView ,CsrfView ,
-ReservationViewSet ,
-ics_reservation ,ics_reservation_cancel ,
+    CsrfTokenView,
+    LoginView,          
+    RegisterView,
+    LogoutView,
+    MeView,
+    ReservationViewSet, 
+    ics_reservation,           
+    ics_reservation_cancel,
 )
+
+from .views import CsrfTokenView, LoginView, RegisterView, LogoutView, MeView
 
 
 router =DefaultRouter ()
@@ -19,12 +26,11 @@ def _reservations_redirect (request ):
     return redirect ("/api/reservations/"+(f"?{qs}"if qs else ""),permanent =False )
 
 urlpatterns =[
-
-path ("auth/register",RegisterView .as_view (),name ="auth_register"),
-path ("auth/login",EmailLoginView .as_view (),name ="auth_login"),
-path ("auth/logout",LogoutView .as_view (),name ="auth_logout"),
-path ("auth/me",MeView .as_view (),name ="auth_me"),
-path ("auth/csrf",CsrfView .as_view (),name ="auth_csrf"),
+path("auth/csrf", CsrfTokenView.as_view(), name="csrf"),
+path ("auth/register",RegisterView.as_view (),name ="register"),
+path ("auth/login",LoginView.as_view (),name ="login"),
+path ("auth/logout",LogoutView.as_view (),name ="logout"),
+path ("auth/me",MeView.as_view (),name ="me"),
 
 
 path ("ics/reservations/<str:pk>.ics",ics_reservation ,name ="ics_reservation"),

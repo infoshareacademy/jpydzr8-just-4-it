@@ -6,6 +6,8 @@ from django .http import HttpResponse
 from django .middleware .csrf import get_token 
 from django .views .decorators .csrf import ensure_csrf_cookie 
 from django .views .decorators .http import require_GET 
+from django.utils.decorators import method_decorator
+
 
 from rest_framework import status ,viewsets ,permissions 
 from rest_framework .response import Response 
@@ -30,9 +32,9 @@ class RegisterView (APIView ):
         name =request .data .get ("name")or request .data .get ("username")or ""
         if not email or not password :
             return Response ({"detail":"email and password are required"},status =400 )
-        if User .objects .filter (Q (username =email )|Q (email =email )).exists ():
+        if User.objects.filter(email=email).exists ():
             return Response ({"detail":"User already exists"},status =400 )
-        user =User .objects .create_user (username =email ,email =email ,password =password )
+        user =User.objects .create_user (email =email ,password =password )
         if name :
 
             if hasattr (user ,"first_name"):
@@ -50,7 +52,7 @@ class EmailLoginView (APIView ):
         if not email or not password :
             return Response ({"detail":"email and password are required"},status =400 )
 
-        user =authenticate (request ,username =email ,password =password )
+        user =authenticate (request ,email=email ,password =password )
         if user is None :
 
             try :
@@ -62,6 +64,8 @@ class EmailLoginView (APIView ):
             return Response ({"detail":"Invalid credentials"},status =400 )
         login (request ,user )
         return Response ({"ok":True })
+        
+LoginView = EmailLoginView
 
 
 class LogoutView (APIView ):
@@ -84,14 +88,13 @@ class MeView (APIView ):
         })
 
 
-class CsrfView (APIView ):
-    permission_classes =[permissions .AllowAny ]
+class CsrfTokenView(APIView):
+    permission_classes = [permissions.AllowAny]
 
-    @ensure_csrf_cookie 
-    def get (self ,request ):
-        token =get_token (request )
-
-        return Response ({"csrfToken":token })
+    @method_decorator(ensure_csrf_cookie)
+    def get(self, request, *args, **kwargs):
+        token = get_token(request)          
+        return Response({"csrfToken": token})
 
 
 
