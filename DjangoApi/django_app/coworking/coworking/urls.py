@@ -7,7 +7,10 @@ from django .conf import settings
 from django .conf .urls .static import static 
 from django .views .static import serve as static_serve 
 from pathlib import Path 
+from django.views.generic.base import RedirectView
+from django.contrib import admin
 
+admin.site.site_url = "/menu/dashboard.html"
 
 FRONTEND_ROOT =(settings .BASE_DIR /"static"/"frontend").resolve ()
 ASSET_EXTS =r"(?:css|js|png|jpg|jpeg|gif|svg|webp|ico|ttf|woff|woff2|map)"
@@ -145,9 +148,12 @@ def serve_template (request ,tpl_path :str =""):
     return render_first (request ,default_candidates (tpl_path ))
 
 
-urlpatterns +=[
-path ("admin/",admin .site .urls ),
-path ("api/",include ("api.urls")),
-path ("",serve_template ,name ="home"),
-re_path (r"^(?P<tpl_path>.*)$",serve_template ,name ="any_page"),
+urlpatterns += [
+    path("admin/", admin.site.urls),
+    path("api/", include("api.urls")),
+    # tylko JEDEN root – przekierowanie na dashboard
+    path("", RedirectView.as_view(url="/menu/dashboard.html", permanent=False), name="home"),
+    # catch-all NA KOŃCU i nie łap pustej ścieżki
+    re_path(r"^(?P<tpl_path>.+)$", serve_template, name="any_page"),
 ]
+

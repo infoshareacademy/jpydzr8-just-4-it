@@ -1,0 +1,15 @@
+{% extends "admin/index.html" %}
+{% block content %}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:16px">
+  <div class="module"><h2>Today</h2><div class="inside">
+    <p>Total reservations: {{ request.reservations_today|default:"—" }}</p>
+    <p>Occupancy: {{ request.occupancy_today|default:"—" }}%</p>
+  </div></div>
+  <div class="module"><h2>Shortcuts</h2><div class="inside">
+    <p><a href="/menu/reserve.html">Open reservation UI</a></p>
+    <p><a href="{% url 'seat_generate' %}">Generate seats</a></p>
+    <p><a href="{% url 'seat_import_csv' %}">Import seats (CSV)</a></p>
+  </div></div>
+</div>
+{{ block.super }}
+{% endblock %}

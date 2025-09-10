@@ -1,0 +1,11 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Import seats (CSV)</h1>
+<p>CSV columns: <code>code,floor,features</code> • features: 0, D, S, E, DS, DE, SE, DSE</p>
+<form method="post" enctype="multipart/form-data" style="margin:12px 0">
+  {% csrf_token %}
+  <input type="file" name="file" accept=".csv" required>
+  <button class="button default">Upload</button>
+</form>
+<p><a href="{% url 'admin:coworking_seat_changelist' %}">⬅ Back</a></p>
+{% endblock %}

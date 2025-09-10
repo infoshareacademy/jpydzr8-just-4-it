@@ -36,7 +36,7 @@ ROOT_URLCONF ='coworking.urls'
 TEMPLATES =[
 {
 'BACKEND':'django.template.backends.django.DjangoTemplates',
-'DIRS':[BASE_DIR /'templates'],
+"DIRS": [ BASE_DIR / "django_app" / "coworking" / "templates" ],
 'APP_DIRS':True ,
 'OPTIONS':{
 'context_processors':[
@@ -44,6 +44,7 @@ TEMPLATES =[
 'django.template.context_processors.request',
 'django.contrib.auth.context_processors.auth',
 'django.contrib.messages.context_processors.messages',
+"api.context_processors.admin_metrics",
 ],
 },
 },
