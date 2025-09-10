@@ -69,3 +69,101 @@
 @media (max-width: 640px) {
   .menu-grid { grid-template-columns: 1fr; }
 }
+
+/* Dashboard: spójność kolorów z theme.css */
+.btn.primary{
+  background: var(--brand2);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn.primary:hover{ filter: brightness(.95); }
+
+.btn.ghost{
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.link{ color: var(--brand2); text-decoration: underline dotted; }
+.summary-card .pill{ border:1px solid var(--border); }
+
+/* FullCalendar – kolory pod brand */
+.fc .fc-button-primary{
+  background: var(--brand2);
+  border-color: var(--brand2);
+}
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:focus,
+.fc .fc-button-primary:hover{
+  background: var(--brand1);
+  border-color: var(--brand1);
+}
+.fc .fc-daygrid-day.fc-day-today{ background: var(--tile-yellow); }
+.fc .fc-highlight{ background: color-mix(in srgb, var(--brand2) 16%, transparent); }
+
+/* Drobne ujednolicenia „kafelków” */
+.hero-widget{ background: var(--card); border:1px solid var(--border); }
+.menu-tile{ background: var(--card); border:1px solid var(--border); }
+.recent-item{ border:1px solid var(--border); }
+
+/* === Palette unify for Dashboard (scoped) === */
+.page-dashboard .btn.primary{
+  background: var(--brand2, var(--accent, #4f46e5)) !important;
+  border-color: var(--brand2, var(--accent, #4f46e5)) !important;
+  color: #fff !important;
+}
+.page-dashboard .btn.primary:hover{
+  filter: brightness(.95);
+}
+
+.page-dashboard .btn.ghost{
+  background: transparent !important;
+  border: 1px solid var(--border, #e2e6ef) !important;
+  color: var(--text, #2c2f36) !important;
+}
+
+/* linki i ikonki w kafelkach jak w reszcie widoków */
+.page-dashboard a,
+.page-dashboard .link { color: var(--brand2, var(--accent, #4f46e5)) !important; }
+.page-dashboard .menu-tile i { color: var(--brand2, var(--accent, #4f46e5)) !important; }
+
+/* kafelki i karty z tym samym tłem/obramowaniem co reszta */
+.page-dashboard .menu-tile,
+.page-dashboard .hero-widget,
+.page-dashboard .summary-card,
+.page-dashboard .recent-item {
+  background: var(--card, #fff) !important;
+  border: 1px solid var(--border, #e2e6ef) !important;
+}
+
+/* “pill” na kartach – obramowanie jak w reszcie */
+.page-dashboard .summary-card .pill{
+  border: 1px solid var(--border, #e2e6ef) !important;
+}
+
+/* FullCalendar pod brand */
+.page-dashboard .fc .fc-button-primary{
+  background: var(--brand2, var(--accent, #4f46e5)) !important;
+  border-color: var(--brand2, var(--accent, #4f46e5)) !important;
+  color: #fff !important;
+}
+.page-dashboard .fc .fc-button-primary:not(:disabled).fc-button-active,
+.page-dashboard .fc .fc-button-primary:hover,
+.page-dashboard .fc .fc-button-primary:focus{
+  background: var(--brand1, var(--brand2, var(--accent, #4f46e5))) !important;
+  border-color: var(--brand1, var(--brand2, var(--accent, #4f46e5))) !important;
+}
+.page-dashboard .fc .fc-daygrid-day.fc-day-today{
+  background: var(--tile-yellow, #fff8e1) !important;
+}
+.page-dashboard .fc .fc-highlight{
+  /* delikatne zaznaczenie w oparciu o brand2 */
+  background: color-mix(in srgb, var(--brand2, #4f46e5) 16%, transparent) !important;
+}
+

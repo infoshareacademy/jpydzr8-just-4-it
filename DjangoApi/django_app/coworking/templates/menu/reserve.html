@@ -26,16 +26,26 @@
         <button class="tab-btn active" data-tab="reserve"><i class="fas fa-calendar-check"></i> Reservation</button>
         <button class="tab-btn" data-tab="cancel"><i class="fas fa-calendar-times"></i> Cancel</button>
       </div>
+     <div class="legend-modern">
+  <div class="legend-item"><span class="seat-symbol free">0</span><span>Unreserved</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved">R</span><span>Reserved</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-D">D</span><span>Docking station</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-S">S</span><span>Two screens</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-E">E</span><span>Electric desk</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-DS">DS</span><span>Docking + Screens</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-DE">DE</span><span>Docking + Electric</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-SE">SE</span><span>Screens + Electric</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-DSE">DSE</span><span>Docking + Screens + Electric</span></div>
+</div>
+<!-- Filtry widoku: Show all / Reserved + Back -->
+<div class="filters" role="group" aria-label="Filtry widoku">
+  <button id="btnShowAll" class="filter-btn" aria-pressed="true">Show all seats</button>
+  <button id="btnReserved" class="filter-btn" aria-pressed="false">Reserved seats</button>
+  <button id="btnBack" class="filter-btn" aria-pressed="false" title="Powrót do poprzedniego widoku">Back</button>
+</div>
 
-      <div class="legend-modern">
-        <div class="legend-item"><span class="seat-symbol free"><i class="fas fa-desktop"></i></span><span>Unreserved</span></div>
-        <div class="legend-item"><span class="seat-symbol reserved"><i class="fas fa-user-tie"></i></span><span>Reserved</span></div>
-        <div class="legend-item"><span class="seat-symbol reserved-D"><i class="fas fa-laptop-house"></i></span><span>Docking station</span></div>
-        <div class="legend-item"><span class="seat-symbol reserved-S"><i class="fas fa-chalkboard-teacher"></i></span><span>Two screens</span></div>
-        <div class="legend-item"><span class="seat-symbol reserved-E"><i class="fas fa-cogs"></i></span><span>Elec. desk adjustment</span></div>
-        <div class="legend-item"><span class="seat-symbol reserved-DS"><i class="fas fa-laptop-code"></i></span><span>D. station & 2 screens</span></div>
-        <div class="legend-item"><span class="seat-symbol reserved-DSE"><i class="fas fa-rocket"></i></span><span>Full</span></div>
-      </div>
+
+      
 
       <!-- SYSTEM 1: REZERWUJ -->
       <section id="tab-reserve" class="tab-panel active">

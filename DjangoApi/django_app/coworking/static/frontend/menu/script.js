@@ -5,9 +5,12 @@ const floors = [
   { id: 'floor-6-seats', totalSeats: 25, floor: 6 },
   { id: 'floor-7-seats', totalSeats: 35, floor: 7 }
 ];
-const enhancements = ['D', 'S', 'E', 'DS', 'DSE', '0'];
+const enhancements = ['D', 'S', 'E', 'DS', 'DE', 'SE', 'DSE', '0'];
+
 const enhancementIcon = (enh) => ({
-  'D':'fa-laptop-house','S':'fa-chalkboard-teacher','E':'fa-cogs','DS':'fa-laptop-code','DSE':'fa-rocket','0':'fa-desktop'
+  'D':'fa-laptop-house','S':'fa-chalkboard-teacher','E':'fa-cogs','DS':'fa-laptop-code','DSE':'fa-rocket','0':'fa-desktop', 'DE':'fa-cogs',
+'SE':'fa-chalkboard-teacher',
+
 }[enh] || 'fa-desktop');
 
 // ====== LocalStorage helpers ======
@@ -50,7 +53,7 @@ function buildGrids() {
         seat.classList.add('seat-unreserved');
       }
 
-      seat.innerHTML = `<span class="seat-icon"><i class="fas ${iconClass}"></i></span><span class="seat-label">${i}(${enhancement})</span>`;
+      seat.innerHTML = `<span class="seat-icon"><i class="fas ${iconClass}"></i></span><span class="seat-label">${i} ${enhancement === '0' ? '0' : enhancement}</span>`;
       grid.appendChild(seat);
     }
   });
@@ -298,3 +301,163 @@ if (document.getElementById('results')) {
 
   search();
 }
+// === Sterowanie filtrem statusu przez kafelki + Back ===
+(function () {
+  const btnShowAll  = document.getElementById('btnShowAll');
+  const btnReserved = document.getElementById('btnReserved');
+  const btnBack     = document.getElementById('btnBack');
+
+  // istniejące kontrolki filtrów w Twoim UI:
+  const inputSearch   = document.getElementById('searchSeat');     // już jest w projekcie
+  const selectStatus  = document.getElementById('filterStatus');   // "all" | "free" | "reserved"
+  const selectFeature  = document.getElementById('filterFeature'); // "all" | D | S | E | DS | DE | SE | DSE | 0
+
+  if (!btnShowAll || !btnReserved || !btnBack || !selectStatus) return;
+
+  // przechowuj poprzedni stan
+  let prev = {
+    status:  selectStatus.value,
+    feature: selectFeature ? selectFeature.value : 'all',
+    query:   inputSearch ? (inputSearch.value || '') : ''
+  };
+
+  function savePrev() {
+    prev = {
+      status:  selectStatus.value,
+      feature: selectFeature ? selectFeature.value : 'all',
+      query:   inputSearch ? (inputSearch.value || '') : ''
+    };
+  }
+
+  function restorePrev() {
+    if (selectStatus)  selectStatus.value  = prev.status  || 'all';
+    if (selectFeature) selectFeature.value = prev.feature || 'all';
+    if (inputSearch)   inputSearch.value   = prev.query   || '';
+    setPressed(selectStatus.value);
+    if (typeof applyFilters === 'function') applyFilters();
+  }
+
+  function setPressed(active) {
+    // aria-pressed tylko informacyjnie dla UX
+    btnShowAll.setAttribute('aria-pressed', active === 'all' ? 'true' : 'false');
+    btnReserved.setAttribute('aria-pressed', active === 'reserved' ? 'true' : 'false');
+    btnBack.setAttribute('aria-pressed', 'false');
+  }
+
+  // klik w "Show all seats"
+  btnShowAll.addEventListener('click', () => {
+    savePrev();
+    if (selectStatus) selectStatus.value = 'all';
+    setPressed('all');
+    if (typeof applyFilters === 'function') applyFilters();
+  });
+
+  // klik w "Reserved seats"
+  btnReserved.addEventListener('click', () => {
+    savePrev();
+    if (selectStatus) selectStatus.value = 'reserved';
+    setPressed('reserved');
+    if (typeof applyFilters === 'function') applyFilters();
+  });
+
+  // klik w "Back" -> poprzedni stan filtrów
+  btnBack.addEventListener('click', () => {
+    restorePrev();
+  });
+
+  // jeżeli ktoś zmieni selecty ręcznie — aktualizuj aria-pressed
+  if (selectStatus) {
+    selectStatus.addEventListener('change', () => setPressed(selectStatus.value));
+  }
+
+})();
+// Back: poprzednia strona lub dashboard
+(function(){
+  const btn = document.getElementById('btnBackNav');
+  if (!btn) return;
+
+  
+  try {
+    const ref = document.referrer;
+    if (ref && new URL(ref).origin === location.origin) {
+      sessionStorage.setItem('prevViewURL', ref);
+    }
+  } catch(_) {}
+
+  btn.addEventListener('click', () => {
+    const prev = sessionStorage.getItem('prevViewURL');
+    if (prev) { location.href = prev; return; }
+    if (history.length > 1) { history.back(); return; }
+    // fallback gdy użytkownik wszedł bezpośrednio
+    location.href = '/menu/dashboard.html';
+  });
+})();
+// === Stały (deterministyczny) stan miejsc + literka "R" na kafelku ===
+(function(){
+  // prosta funkcja skrótu — ZAWSZE zwraca tę samą liczbę dla danego ID
+  function hash(str){
+    let h = 0;
+    for (let i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h |= 0; }
+    return Math.abs(h);
+  }
+
+  // stały wybór ulepszenia na podstawie ID (zawsze taki sam)
+  const ENH = ['D','S','E','DS','DE','SE','DSE','0'];
+  function pickEnhancement(id){ return ENH[ hash(id) % ENH.length ]; }
+
+  // stała reguła: co ~4-te miejsce jest „reserved” (zawsze te same)
+  function pickReserved(id){ return (hash(id + '::R') % 4) === 0; }
+
+  // poczekaj aż siatki miejsc się zbudują i „zablokuj” stan
+  function lockSeats(){
+    const allSeats = document.querySelectorAll('.seats-grid .seat-item-styled');
+    if (!allSeats.length) return;
+
+    allSeats.forEach(el => {
+      // ID: bierz z atrybutu data-seat-id, a jak nie ma – z etykiety
+      const id = el.dataset.seatId
+        || (el.querySelector('.seat-label')?.textContent?.trim().split(/\s|\(/)[0])
+        || '';
+
+      if (!id) return;
+
+      const enhancement = pickEnhancement(id);
+      const reserved = pickReserved(id);
+
+      
+      el.classList.remove(
+        'seat-unreserved','seat-reserved',
+        'seat-reserved-D','seat-reserved-S','seat-reserved-E',
+        'seat-reserved-DS','seat-reserved-DE','seat-reserved-SE','seat-reserved-DSE'
+      );
+      el.classList.add(reserved ? 'seat-reserved' : 'seat-unreserved');
+      if (reserved && enhancement !== '0') el.classList.add('seat-reserved-' + enhancement);
+
+      el.dataset.status = reserved ? 'reserved' : 'free';
+      el.dataset.feature = enhancement;
+      el.dataset.seatId = id;
+
+      
+      const iconClass = (typeof enhancementIcon === 'function')
+        ? enhancementIcon(enhancement)
+        : 'fa-desktop';
+
+      // literka R na zarezerwowanych
+      const rBadge = reserved ? '<span class="seat-symbol reserved r-badge">R</span>' : '';
+
+      
+      const labelEnh = (enhancement === '0') ? '0' : enhancement;
+      el.innerHTML =
+        rBadge +
+        `<span class="seat-icon"><i class="fas ${iconClass}"></i></span>` +
+        `<span class="seat-label">${id} ${labelEnh}</span>`;
+    });
+  }
+
+  // uruchom po załadowaniu i na wszelki wypadek po chwili
+  if (document.readyState === 'complete') lockSeats();
+  else window.addEventListener('load', lockSeats);
+  setTimeout(lockSeats, 200); // gdyby siatka doszła chwilę później
+})();
+
+

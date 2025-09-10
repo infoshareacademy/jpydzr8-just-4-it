@@ -132,3 +132,72 @@ body { margin: 0; font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Rob
 .result-card { border:1px solid var(--border); border-radius: 12px; padding: 12px; background:#fff; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; }
 .badge { padding: 4px 8px; border-radius: 999px; border:1px solid var(--border); background:#f7f9fc; font-size: .85rem; }
 .tiny-note { margin-top: 10px; font-size:.9rem; color:#555; }
+
+/* Legend badges — uzupełnienie brakujących kombinacji */
+.seat-symbol.reserved-DE { background-color: #3F51B5; } /* D+E (indigo) */
+.seat-symbol.reserved-SE { background-color: #009688; } /* S+E (teal) */
+
+/* Kafelki miejsc — uzupełnienie brakujących kombinacji */
+.seat-reserved-DE  { border-color: #9FA8DA; }
+.seat-reserved-DE .seat-icon { color: #3F51B5; }
+.seat-reserved-SE  { border-color: #80CBC4; }
+.seat-reserved-SE .seat-icon { color: #009688; }
+
+/* ==== HOTFIX: wyłącz wzorek/pseudo-element na reserved ==== */
+.seat-item-styled[data-status="reserved"]::after { 
+  content: none !important; 
+  background: none !important; 
+}
+
+.seat-reserved::after { 
+  content: none !important; 
+  background: none !important; 
+}
+
+/* (dla pewności) usuń ewentualny background-pattern na reserved */
+.seat-item-styled[data-status="reserved"],
+.seat-reserved {
+  background-image: none !important;
+}
+
+/* === Guard dla layoutu miejsc (żeby nic nie „wylało” poza kafelki) === */
+.seats-card::before, .seats-card::after,
+.seats-grid::before, .seats-grid::after,
+.seat-item-styled::before, .seat-item-styled::after {
+  content: none !important;
+  background: none !important;
+}
+
+.seat-item-styled { position: relative; overflow: hidden; } /* dla pewności */
+
+/* Toolbar nad listą miejsc */
+.page-toolbar{
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+
+.btn-back{
+  border: 1px dashed var(--border);
+  background: #fff;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-back:hover{ outline: 2px solid var(--accent); }
+
+/* R-badge w rogu kafelka (spójny kolor jak w legendzie) */
+.seat-item-styled { position: relative; } /* dla pewności */
+.r-badge {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 22px; height: 22px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 6px; font-weight: 700; font-size: .9rem; line-height: 1;
+}
+.r-badge.reserved { background-color: #F44336; color: #fff; } /* to samo co .seat-symbol.reserved */
+
+

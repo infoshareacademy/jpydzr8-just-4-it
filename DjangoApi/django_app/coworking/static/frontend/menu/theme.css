@@ -142,3 +142,15 @@ html, body {
   background: var(--btn);
   color: var(--btn-text);
 }
+.seat-item-styled[data-status="reserved"]::after,
+.seat-reserved::after { content:none !important; background:none !important; }
+.seat-item-styled[data-status="reserved"],
+.seat-reserved { background-image:none !important; }
+
+
+/* === Overlay guard (tylko korzeń dokumentu) === */
+html::before, html::after,
+body::before, body::after {
+  content: none !important;
+  background: none !important;
+}
