@@ -47,28 +47,3 @@ class Reservation (models .Model ):
         constraints =[
         models .UniqueConstraint (fields =['seat_id','date'],name ='uq_resv_seat_date')
         ]
-
-
-FEATURE_CHOICES = [
-    ("0","0"),
-    ("D","D"),
-    ("S","S"),
-    ("E","E"),
-    ("DS","DS"),
-    ("DE","DE"),
-    ("SE","SE"),
-    ("DSE","DSE"),
-]
-
-class Seat(models.Model):
-    code = models.CharField(max_length=32, unique=True)
-    floor = models.IntegerField(default=0)
-    features = models.CharField(max_length=3, choices=FEATURE_CHOICES, default="0")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ["code"]
-
-    def __str__(self):
-        return self.code
