@@ -14,6 +14,8 @@
   <!-- Datepicker -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
   <link rel="stylesheet" href="{% static 'frontend/menu/theme.css' %}"/>
+  
+
 </head>
 <body>
   <div class="container">
@@ -29,7 +31,7 @@
 
       <div class="legend-modern">
   <div class="legend-item">
-    <span class="seat-symbol free">0</span><span>Unreserved</span>
+    <span class="seat-symbol free">0</span><span>Absence</span>
   </div>
   <div class="legend-item">
     <span class="seat-symbol reserved">R</span><span>Reserved</span>
@@ -137,5 +139,8 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="{% static 'frontend/menu/script.js' %}"></script>
   <link rel="stylesheet" href="{% static 'frontend/menu/style.css' %}"/>
+  <script src="{% static 'frontend/menu/reserved_toggle_persist.js' %}"></script>
+
+
 </body>
 </html>

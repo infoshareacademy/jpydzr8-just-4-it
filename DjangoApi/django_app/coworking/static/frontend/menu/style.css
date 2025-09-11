@@ -107,8 +107,8 @@ body { margin: 0; font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Rob
 .input { padding:10px 12px; border:1px solid var(--border); border-radius: 12px; outline:none; min-width: 180px; }
 .btn { padding:10px 14px; border:1px solid var(--border); border-radius: 12px; background:#fff; cursor:pointer; font-weight:600; }
 .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.06); }
-.btn.primary { background: linear-gradient(135deg, var(--brand1), var(--brand2)); color:#fff; border-color: transparent; }
-.btn.alt { background:#f7f9fc; }
+.btn.primary { background: linear-gradient(135deg, var(--brand1), var(--brand2)); color:black; border-color: transparent; }
+.btn.alt { background:#f7f9fc; color: black; }
 
 .floor-title { margin: 16px 0 6px; color:#333; }
 
@@ -199,5 +199,35 @@ body { margin: 0; font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Rob
   border-radius: 6px; font-weight: 700; font-size: .9rem; line-height: 1;
 }
 .r-badge.reserved { background-color: #F44336; color: #fff; } /* to samo co .seat-symbol.reserved */
+/* Upewnij się, że kafelek ma pozycję relatywną */
+.seat-item-styled { position: relative; }
+
+/* Mała czerwona literka R w rogu, gdy miejsce jest zarezerwowane */
+.seat-item-styled[data-status="reserved"]::before,
+.seat-item-styled.seat-reserved::before {
+  content: 'R';
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 22px; height: 22px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  font-weight: 700; font-size: .9rem; line-height: 1;
+  background-color: #F44336; color: #fff;  /* ten sam kolor co w legendzie */
+}
+
+/* Nasz niezależny znacznik R — tylko gdy jest klasa seat-r */
+.seat-item-styled { position: relative; } /* pewność pozycjonowania */
+.seat-item-styled.seat-r::before {
+  content: 'R';
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 22px; height: 22px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  font-weight: 700; font-size: .9rem; line-height: 1;
+  background-color: #F44336; color: #fff; /* jak w legendzie */
+}
+
+
 
 

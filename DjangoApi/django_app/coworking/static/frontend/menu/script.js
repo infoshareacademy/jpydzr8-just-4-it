@@ -460,4 +460,3 @@ if (document.getElementById('results')) {
   setTimeout(lockSeats, 200); // gdyby siatka doszła chwilę później
 })();
 
-

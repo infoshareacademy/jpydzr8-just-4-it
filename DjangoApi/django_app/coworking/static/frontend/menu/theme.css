@@ -52,7 +52,7 @@ html, body {
 }
 .btn {
   background: var(--btn);
-  color: var(--btn-text);
+  color: black;
   border: none;
   border-radius: 12px;
   padding: 10px 14px;

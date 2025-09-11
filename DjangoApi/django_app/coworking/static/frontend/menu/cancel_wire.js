@@ -26,17 +26,17 @@
         const chk = await apiCheck(seat, date);
         if(chk && chk.reserved && chk.reservation_id) id = chk.reservation_id;
       }
-      if(!id){ alert('Nie znaleziono rezerwacji do anulowania.'); return; }
+      if(!id){ alert('No reservations found to cancel.'); return; }
     }
 
-    if(!confirm('Anulować rezerwację '+id+'?')) return;
+    if(!confirm('Cancel your reservation '+id+'?')) return;
     const ok = await apiDelete(id);
     if(ok){
       const row = btn.closest('.cancel-row') || btn.closest('[data-reservation-row]');
       if(row) row.remove();
       window.dispatchEvent(new CustomEvent('reservation:deleted', { detail: { id } }));
     }else{
-      alert('Nie udało się anulować.');
+      alert('Cancellation failed.');
     }
   });
 })();

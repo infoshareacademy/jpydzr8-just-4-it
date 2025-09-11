@@ -46,16 +46,16 @@
 <body>
 <div class="container">
   <div class="card">
-    <h1 class="welcome-title">Anuluj rezerwację</h1>
-    <p class="subtitle">Wyszukaj i anuluj istniejące rezerwacje (API)</p>
+    <h1 class="welcome-title">Cancel reservation</h1>
+    <p class="subtitle">Search and cancel existing reservations (API)</p>
 
     <div class="cancel-tools">
-      <input type="text" id="filterId" class="input" placeholder="ID rezerwacji..." />
-      <input type="text" id="filterDate" class="input" placeholder="Data (YYYY-MM-DD)..." />
-      <input type="text" id="filterSeat" class="input" placeholder="Miejsce..." />
-      <input type="text" id="filterName" class="input" placeholder="Imię/Nazwisko..." />
-      <button id="btnSearch" class="btn"><i class="fas fa-search"></i> Szukaj</button>
-      <button id="btnListAll" class="btn alt"><i class="fas fa-list"></i> Wszystkie</button>
+      <input type="text" id="filterId" class="input" placeholder="ID reservation..." />
+      <input type="text" id="filterDate" class="input" placeholder="Date (YYYY-MM-DD)..." />
+      <input type="text" id="filterSeat" class="input" placeholder="Place..." />
+      <input type="text" id="filterName" class="input" placeholder="Name/Last Name..." />
+      <button id="btnSearch" class="btn"><i class="fas fa-search"></i> Search</button>
+      <button id="btnListAll" class="btn alt"><i class="fas fa-list"></i> All</button>
       <button id="btnExportCSV" class="btn alt"><i class="fas fa-file-csv"></i> CSV</button>
       <button id="btnExportJSON" class="btn alt"><i class="fas fa-file-code"></i> JSON</button>
     </div>
@@ -70,11 +70,11 @@
   <div class="modal-backdrop" data-close></div>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
     <button class="modal-close" data-close><i class="fas fa-times"></i></button>
-    <h3 id="confirmTitle">Potwierdź anulowanie</h3>
+    <h3 id="confirmTitle">Confirm cancellation</h3>
     <div id="confirmDetails"></div>
     <div class="form-actions">
-      <button id="btnConfirmCancel" class="btn primary"><i class="fas fa-check"></i> Tak, anuluj</button>
-      <button class="btn" data-close>Nie</button>
+      <button id="btnConfirmCancel" class="btn primary"><i class="fas fa-check"></i> Yes, cancel</button>
+      <button class="btn" data-close>No</button>
     </div>
   </div>
 </div>

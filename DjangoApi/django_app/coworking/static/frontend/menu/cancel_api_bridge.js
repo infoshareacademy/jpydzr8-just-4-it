@@ -38,13 +38,13 @@
     div.className = 'cancel-row';
     div.textContent = `${r.date} — ${r.seat_id} — ${r.name} <${r.email}>`;
     const btn = document.createElement('button');
-    btn.textContent = 'Usuń';
+    btn.textContent = 'Cancel';
     btn.addEventListener('click', async ()=>{
       try{
         await delById(r.id);
         div.remove();
-        info.innerHTML = 'Usunięto: ' + r.id + ` — <a href="/api/ics/reservations/${encodeURIComponent(r.id)}/cancel.ics" download>Usuń z kalendarza (.ics)</a>`;
-      }catch(err){ info.textContent = 'Błąd: ' + err.message; }
+        info.innerHTML = 'Deleted: ' + r.id + ` — <a href="/api/ics/reservations/${encodeURIComponent(r.id)}/cancel.ics" download>Remove from calendar (.ics)</a>`;
+      }catch(err){ info.textContent = 'Error: ' + err.message; }
     });
     div.appendChild(btn);
     return div;
@@ -58,8 +58,8 @@
     if(id){
       try{
         await delById(id);
-        info.innerHTML = 'Usunięto rezerwację: ' + id + ` — <a href="/api/ics/reservations/${encodeURIComponent(id)}/cancel.ics" download>Usuń z kalendarza (.ics)</a>`;
-      }catch(err){ info.textContent = 'Błąd: ' + err.message; }
+        info.innerHTML = 'Delete reservation: ' + id + ` — <a href="/api/ics/reservations/${encodeURIComponent(id)}/cancel.ics" download>Remove from calendar (.ics)</a>`;
+      }catch(err){ info.textContent = 'Error: ' + err.message; }
       return;
     }
     const date = val('date') || val('cancelDate') || '';
@@ -67,13 +67,13 @@
       try{
         const items = await listByDate(date);
         if(!Array.isArray(items) || !items.length){
-          info.textContent = 'Brak rezerwacji na tę datę.';
+          info.textContent = 'No reservations for this date.';
           return;
         }
         items.forEach(r => results.appendChild(row(r)));
-      }catch(err){ info.textContent = 'Błąd: ' + err.message; }
+      }catch(err){ info.textContent = 'Error: ' + err.message; }
       return;
     }
-    info.textContent = 'Podaj ID rezerwacji lub datę.';
+    info.textContent = 'Please provide your booking ID or date.';
   });
 })();

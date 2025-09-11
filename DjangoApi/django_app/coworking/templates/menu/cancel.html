@@ -25,8 +25,8 @@
   <header class="topbar">
     <div class="brand">Workspace <span>Bookings</span></div>
     <nav style="display:flex;gap:8px;">
-      <a class="btn" href="dashboard.html">Dashboard</a>
-      <a class="btn" href="index.html">Reserve</a>
+      <a class="btn primary" href="dashboard.html">Dashboard</a>
+      <a class="btn primary" href="index.html">Reserve</a>
       <a class="btn primary" href="cancel.html">Cancel</a>
     </nav>
   </header>
@@ -38,7 +38,7 @@
         <input id="cancelId" placeholder="Reservation ID (optional)">
         <input id="cancelSeat" placeholder="Seat (e.g. A1)">
         <input id="cancelDate" type="date" placeholder="YYYY-MM-DD">
-        <button class="btn primary" type="submit">Cancel</button>
+        <button class="btn primary" type="submit">Find</button>
       </form>
       <div class="hint">Enter the <b>ID</b> or <b>seat + date</b>. If you enter only the <b>date</b>, we’ll show a list to choose from.</div>
       <div id="cancelInfo" class="hint"></div>
@@ -47,9 +47,6 @@
     <section class="card list">
       <h3>Results</h3>
       <div id="cancelResults"></div>
-      <div style="margin-top:6px">
-        <button id="btnFind" class="btn">Find</button>
-      </div>
     </section>
   </main>
 
