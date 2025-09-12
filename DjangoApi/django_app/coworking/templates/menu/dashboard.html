@@ -32,7 +32,7 @@
     <div class="brand">Workspace <span>Bookings</span></div>
     <nav style="display:flex;gap:8px;">
       <a class="btn ghost" href="dashboard.html">Dashboard</a>
-      <a class="btn ghost" href="/menu/index.html">Reserve</a>
+      <a class="btn ghost" href="/menu/reserve.html">Reserve</a>
       <a class="btn ghost" href="/menu/cancel.html">Cancel</a>
     </nav>
     <div style="display:flex; gap:8px; align-items:center;">
@@ -129,7 +129,7 @@
 <script src="{% static 'frontend/menu/dashboard_ics_snackbar.js' %}"></script>
   <script src="{% static 'frontend/menu/dashboard_quick.js' %}"></script>
   <script src="{% static 'frontend/menu/dashboard.js' %}"></script>
-  <script src="{% static 'frontend/menu/guard.js' %}"></script>
+  <script src="{% static 'frontend/menu/guard.js' %}?v=5"></script>
   <script src="{% static 'frontend/menu/dashboard_flash_handoff.js' %}"></script>
   <script src="{% static 'frontend/menu/cancel_api_bridge.js' %}"></script>
   <link rel="stylesheet" href="{% static 'frontend/menu/reservation_summary.css' %}">
@@ -145,6 +145,9 @@
 
 <script src="{% static 'frontend/menu/reservation_table.js' %}"></script>
 <script src="{% static 'frontend/menu/reserved_toggle_persist.js' %}"></script>
+<link rel="stylesheet" href="{% static 'frontend/menu/occupied.css' %}">
+<script src="{% static 'frontend/menu/occupied.js' %}"></script>
+
 
 </body>
 </html>

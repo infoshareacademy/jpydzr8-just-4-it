@@ -114,9 +114,9 @@
 
 /* === Palette unify for Dashboard (scoped) === */
 .page-dashboard .btn.primary{
-  background: var(--brand2, var(--accent, #4f46e5)) !important;
+  background: var(--brand2, var(--accent, #4f46e5)) !;
   border-color: var(--brand2, var(--accent, #4f46e5)) !important;
-  color: #fff !important;
+  color: #fff ;
 }
 .page-dashboard .btn.primary:hover{
   filter: brightness(.95);
@@ -130,21 +130,21 @@
 
 /* linki i ikonki w kafelkach jak w reszcie widoków */
 .page-dashboard a,
-.page-dashboard .link { color: var(--brand2, var(--accent, #4f46e5)) !important; }
-.page-dashboard .menu-tile i { color: var(--brand2, var(--accent, #4f46e5)) !important; }
+.page-dashboard .link { color: var(--brand2, var(--accent, #4f46e5)); }
+.page-dashboard .menu-tile i { color: var(--brand2, var(--accent, #4f46e5)); }
 
 /* kafelki i karty z tym samym tłem/obramowaniem co reszta */
 .page-dashboard .menu-tile,
 .page-dashboard .hero-widget,
 .page-dashboard .summary-card,
 .page-dashboard .recent-item {
-  background: var(--card, #fff) !important;
-  border: 1px solid var(--border, #e2e6ef) !important;
+  background: var(--card, #fff) ;
+  border: 1px solid var(--border, #e2e6ef) ;
 }
 
 /* “pill” na kartach – obramowanie jak w reszcie */
 .page-dashboard .summary-card .pill{
-  border: 1px solid var(--border, #e2e6ef) !important;
+  border: 1px solid var(--border, #e2e6ef) ;
 }
 
 /* FullCalendar pod brand */
@@ -156,14 +156,14 @@
 .page-dashboard .fc .fc-button-primary:not(:disabled).fc-button-active,
 .page-dashboard .fc .fc-button-primary:hover,
 .page-dashboard .fc .fc-button-primary:focus{
-  background: var(--brand1, var(--brand2, var(--accent, #4f46e5))) !important;
-  border-color: var(--brand1, var(--brand2, var(--accent, #4f46e5))) !important;
+  background: var(--brand1, var(--brand2, var(--accent, #4f46e5))) ;
+  border-color: var(--brand1, var(--brand2, var(--accent, #4f46e5)));
 }
 .page-dashboard .fc .fc-daygrid-day.fc-day-today{
   background: var(--tile-yellow, #fff8e1) !important;
 }
 .page-dashboard .fc .fc-highlight{
   /* delikatne zaznaczenie w oparciu o brand2 */
-  background: color-mix(in srgb, var(--brand2, #4f46e5) 16%, transparent) !important;
+  background: color-mix(in srgb, var(--brand2, #4f46e5) 16%, transparent) ;
 }
 

@@ -38,7 +38,7 @@
     div.className = 'cancel-row';
     div.textContent = `${r.date} — ${r.seat_id} — ${r.name} <${r.email}>`;
     const btn = document.createElement('button');
-    btn.textContent = 'Cancel';
+    btn.textContent = 'Cancel reservation';
     btn.addEventListener('click', async ()=>{
       try{
         await delById(r.id);

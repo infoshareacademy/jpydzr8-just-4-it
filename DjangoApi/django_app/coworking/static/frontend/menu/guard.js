@@ -8,7 +8,7 @@
     }
     const me = await res.json();
 
-    
+   
     const span = document.getElementById('userName');
     if (span) {
       // priorytet: first_name → full_name (pierwsze słowo) → email (przed @) → 'User'
@@ -23,7 +23,7 @@
       span.textContent = first;
     }
 
-    
+   
     const h1 = document.querySelector('.dashboard-title');
     if (h1 && !document.getElementById('userName')) {
       h1.innerHTML = h1.innerHTML.replace(/User<\/span>|User\b/i, (m)=> (span?.textContent || first || 'User'));

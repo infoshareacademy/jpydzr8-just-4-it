@@ -67,7 +67,7 @@
     const first = txt(fFirst);
     const last  = txt(fLast);
 
-    if (!email) return { error: 'E-mail jest wymagany.' };
+    if (!email) return { error: 'E-mail is required.' };
 
     const payload = { email };
 
@@ -76,17 +76,17 @@
 
     if (pw.p) {
       const v = txt(pw.p);
-      if (!v) return { error: 'Hasło jest wymagane.' };
+      if (!v) return { error: 'Password is required.' };
       payload.password = v;
     } else if (pw.p1 || pw.p2) {
       const v1 = txt(pw.p1);
       const v2 = txt(pw.p2);
-      if (!v1 || !v2) return { error: 'Podaj oba pola hasła.' };
-      if (v1 !== v2) return { error: 'Hasła nie są identyczne.' };
+      if (!v1 || !v2) return { error: 'Enter both password fields.' };
+      if (v1 !== v2) return { error: 'The passwords are not identical.' };
       payload.password1 = v1;
       payload.password2 = v2;
     } else {
-      return { error: 'Nie znaleziono pola hasła.' };
+      return { error: 'Password fields not found.' };
     }
 
     return { payload };
@@ -128,11 +128,11 @@
           else msgs.push(`${k}: ${JSON.stringify(v)}`);
         }
       }
-      if (!msgs.length) msgs.push('Rejestracja nieudana. Spróbuj ponownie.');
+      if (!msgs.length) msgs.push('Registration failed, please try again.');
       showErrors(msgs);
     } catch (err) {
       console.error(err);
-      showErrors('Błąd sieci. Sprawdź połączenie i spróbuj ponownie.');
+      showErrors('Network error. Please check your connection and try again.');
     }
   }
 

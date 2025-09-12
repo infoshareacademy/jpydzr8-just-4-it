@@ -40,11 +40,9 @@
   <div class="legend-item"><span class="seat-symbol reserved-DSE">DSE</span><span>Docking + Screens + Electric</span></div>
 </div>
 <!-- Filtry widoku: Show all / Reserved + Back -->
-<div class="filters" role="group" aria-label="Filtry widoku">
-  <button id="btnShowAll" class="filter-btn" aria-pressed="true">Show all seats</button>
-  <button id="btnReserved" class="filter-btn" aria-pressed="false">Reserved seats</button>
-  <button id="btnBack" class="filter-btn" aria-pressed="false" title="Powrót do poprzedniego widoku">Back</button>
-</div>
+<div class="page-toolbar">
+        <button id="btnBackNav" class="btn-back" type="button" title="Back to previous view">← Back</button>
+      </div>
 
 
       
@@ -158,6 +156,9 @@
 <script src="{% static 'frontend/menu/reserve_api_bridge_strict_noredirect.js' %}"></script>
 <script src="{% static 'frontend/menu/modal_stay_guard.js' %}"></script>
 <script src="{% static 'frontend/menu/reserved_toggle_persist.js' %}"></script>
+<link rel="stylesheet" href="{% static 'frontend/menu/occupied.css' %}">
+<script src="{% static 'frontend/menu/occupied.js' %}"></script>
+
 
 
 
