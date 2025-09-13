@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Application - Welcome (Brand Colors)</title>
+  <link rel="stylesheet" href="{% static 'frontend/login/style_white2.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Intro overlay -->
+  <div class="intro" aria-hidden="true">
+    <div class="intro-inner">
+      <h1 class="welcome-title" aria-label="Welcome">
+        <span id="welcomeText" class="welcome-word" data-text="Welcome"></span>
+      </h1>
+      <p class="welcome-sub">Enjoy your experience 👋</p>
+    </div>
+    <button class="skip-intro" type="button" aria-label="Skip intro">Skip</button>
+  </div>
+
+  <!-- Main app view -->
+  <div class="container app hidden">
+    <div class="card">
+      <h1>Welcome to the Application</h1>
+      <p>Please select an option to continue.</p>
+      <div class="button-group">
+        <button class="btn btn-primary">Sign Up</button>
+        <button class="btn btn-primary">Log In</button>
+        <button class="btn btn-secondary">Exit</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'frontend/login/script_explode.js' %}"></script>
+  <script>
+(function(){
+  // Mapa dokąd prowadzą linki
+  const MAP = {
+    login: '/login/index.html',
+    register: '/register'
+  };
+
+  // Obsługa kliknięcia na element z data-route
+  document.querySelectorAll('[data-route]').forEach(el => {
+    const key = el.getAttribute('data-route');
+    const target = MAP[key] || el.getAttribute('href');
+    if (!target) return;
+    el.addEventListener('click', function(ev){
+      ev.preventDefault();
+      window.location.href = target;
+    });
+  });
+})();
+</script>
+
+<script>
+/* Force routing from welcome, regardless of other scripts/overlays */
+(function(){
+  const map = { login:'/login/index.html', register:'/register' };
+
+  // 1) Upewnij się, że na klikalnych elementach można kliknąć
+  document.querySelectorAll('a,button,[role="button"],[data-route]').forEach(el=>{
+    el.style.pointerEvents = 'auto';
+    el.style.cursor = 'pointer';
+  });
+
+  // 2) Zdejmij blokujące overlaye
+  document.querySelectorAll('.overlay, .backdrop, #intro, [data-overlay], [aria-hidden="true"]').forEach(el=>{
+    el.style.pointerEvents = 'none';
+  });
+
+  // 3) Przechwyć klik ZANIM inne skrypty go zablokują
+  function pickTarget(el){
+    const key = (el.getAttribute && el.getAttribute('data-route')) || '';
+    const txt = (el.textContent || '').toLowerCase().trim();
+    if (key === 'login' || /(^|\s)(sign in|log in|zaloguj)\b/.test(txt)) return map.login;
+    if (key === 'register' || /(^|\s)(sign up|register|create)\b/.test(txt)) return map.register;
+    return null;
+  }
+
+  document.addEventListener('click', function(ev){
+    const el = ev.target.closest('a,button,[role="button"],[data-route]');
+    if(!el) return;
+    const to = pickTarget(el);
+    if(!to) return;
+    ev.preventDefault();
+    ev.stopImmediatePropagation(); // zatrzymaj wszystkie inne handlery
+    window.location.assign(to);
+  }, true); // capture = BEFORE other listeners
+})();
+</script>
+<!-- EXIT OVERLAY -->
+<div id="exitOverlay" class="overlay-hidden">
+  <button id="exitClose" class="btn btn-primary">Close ✖</button>
+  <iframe src="thank_you_spaced_clean.html"></iframe>
+</div>
+
+<style>
+/* Fullscreen overlay */
+#exitOverlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 9999;
+  display: none;
+}
+#exitOverlay.show { display: block; }
+#exitOverlay iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Elegancki przycisk close */
+#exitClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 10000;
+  background: linear-gradient(135deg, #ff6b6b, #ffc94a, #1a73e8, #2ecc71);
+  background-size: 300% 100%;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  transition: background-position .5s ease, transform .15s ease;
+}
+#exitClose:hover {
+  background-position: 100% 0;
+  transform: scale(1.05);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const exitBtn = Array.from(document.querySelectorAll("button"))
+  .find(btn => btn.textContent.trim().toLowerCase() === "exit");
+
+  const overlay = document.getElementById("exitOverlay");
+  const closeBtn = document.getElementById("exitClose");
+
+  if (exitBtn) {
+    exitBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      overlay.classList.add("show");
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      overlay.classList.remove("show");
+    });
+  }
+});
+</script>
+
+</body>
+</html>
