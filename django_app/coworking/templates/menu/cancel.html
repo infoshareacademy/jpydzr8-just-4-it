@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cancel Reservation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/menu/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'frontend/menu/dashboard.css' %}"/>
+  <style>
+    .wrap{max-width:960px;margin:20px auto;padding:0 12px}
+    .card{background:var(--card-bg,#fff);border-radius:16px;padding:16px;box-shadow:0 6px 20px rgba(0,0,0,.06);margin-bottom:16px}
+    .row{display:grid;gap:12px;grid-template-columns:1fr 1fr 1fr 140px}
+    .row input{padding:10px;border:1px solid #ddd;border-radius:10px}
+    .btn{padding:10px 14px;border-radius:10px;border:1px solid #ccc;background:#f8f8f8;cursor:pointer}
+    .btn.primary{background:#4f46e5;color:#fff;border:none}
+    .hint{font-size:14px;opacity:.75;margin-top:8px}
+    .list .cancel-row{display:flex;gap:8px;align-items:center;border:1px solid #ddd;padding:8px;border-radius:10px;margin:6px 0}
+    .list code{background:rgba(0,0,0,.06);padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Workspace <span>Bookings</span></div>
+    <nav style="display:flex;gap:8px;">
+      <a class="btn primary" href="dashboard.html">Dashboard</a>
+      <a class="btn primary" href="reserve.html">Reserve</a>
+      <a class="btn primary" href="cancel.html">Cancel</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>Cancel reservation</h2>
+      <form id="cancelForm" class="row">
+        <input id="cancelId" placeholder="Reservation ID (optional)">
+        <input id="cancelSeat" placeholder="Seat (e.g. A1)">
+        <input id="cancelDate" type="date" placeholder="YYYY-MM-DD">
+        <button class="btn primary" type="submit">Find</button>
+      </form>
+      <div class="hint">Enter the <b>ID</b> or <b>seat + date</b>. If you enter only the <b>date</b>, we’ll show a list to choose from.</div>
+      <div id="cancelInfo" class="hint"></div>
+    </section>
+
+    <section class="card list">
+      <h3>Results</h3>
+      <div id="cancelResults"></div>
+    </section>
+  </main>
+
+  <script src="{% static 'frontend/menu/cancel_api_bridge.js' %}"></script>
+  <script src="{% static 'frontend/menu/cancel_wire.js' %}"></script>
+</body>
+</html>

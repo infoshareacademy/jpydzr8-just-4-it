@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/menu/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'frontend/menu/dashboard.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <link rel="stylesheet" href="{% static 'frontend/menu/reservation_edit.css' %}">
+
+</head>
+<body class="page-dashboard">
+  <header class="topbar">
+    <div class="brand">Workspace <span>Bookings</span></div>
+    <nav style="display:flex;gap:8px;">
+      <a class="btn ghost" href="dashboard.html">Dashboard</a>
+      <a class="btn ghost" href="/menu/reserve.html">Reserve</a>
+      <a class="btn ghost" href="/menu/cancel.html">Cancel</a>
+    </nav>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button id="themeToggle" class="btn icon" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      <a href="#" id="logoutBtn" class="btn ghost"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card hero">
+      <div>
+        <h1 class="dashboard-title">Good day, <span id="userName">User</span></h1>
+        <p class="subtitle-alt">Manage your seat reservations with ease.</p>
+      </div>
+      <div>
+        <button class="btn primary" id="quickBookBtn"><i class="fas fa-bolt"></i> Quick‑book</button>
+      </div>
+    </section>
+
+    <section class="dash-grid">
+      <div class="card flex">
+        <h3 style="margin:0 0 8px"><i class="fas fa-calendar"></i> Schedule</h3>
+        <div id="calendar"></div>
+      </div>
+      <div>
+        <div class="card flex chart-wrap">
+          <h3 style="margin:0 0 8px"><i class="fas fa-chart-column"></i> Reservations (last 14 days)</h3>
+          <canvas id="resvChart"></canvas>
+        </div>
+        <div class="card summary-card" style="margin-top:16px">
+          <h3 style="margin:0 0 8px"><i class="fas fa-user-clock"></i> My summary</h3>
+          <div class="row"><span class="muted">Next reservation</span><span id="sumNext" class="big">—</span></div>
+          <div class="row"><span class="muted">Last reservation</span><span id="sumLast" class="big">—</span></div>
+          <div class="row"><span class="muted">Upcoming (30d)</span><span id="sumCount" class="pill">0</span></div>
+          <div class="row"><span class="muted">Actions</span>
+            <span>
+              <a href="#" id="sumIcs" class="link">Add next to calendar (.ics)</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:16px">
+      <h3 style="margin:0 0 8px"><i class="fas fa-table"></i> Reservations — upcoming 30 days</h3>
+      <div id="resvTableWrap"><em>Loading…</em></div>
+    </section>
+
+    <section class="menu-grid">
+      <a href="/menu/index.html" class="menu-tile tile-blue">
+        <i class="fas fa-chair"></i>
+        <h2>Show All Seats</h2>
+        <p>Browse the complete list of available seats.</p>
+      </a>
+      <a href="/menu/reserve.html" class="menu-tile tile-yellow">
+        <i class="fas fa-calendar-plus"></i>
+        <h2>Reserve Seat</h2>
+        <p>Book a seat for your preferred date.</p>
+      </a>
+      <a href="/menu/cancel.html" class="menu-tile tile-red">
+        <i class="fas fa-times-circle"></i>
+        <h2>Cancel Reservation</h2>
+        <p>Cancel an existing booking.</p>
+      </a>
+      <a href="#" id="logoutTile" class="menu-tile tile-purple">
+        <i class="fas fa-sign-out-alt"></i>
+        <h2>Logout</h2>
+        <p>Sign out of your account.</p>
+      </a>
+    </section>
+  </main>
+
+  <div class="qb-modal" id="qbModal" aria-hidden="true">
+    <div class="qb-card">
+      <h3 class="qb-title"><i class="fas fa-bolt"></i> Quick‑book</h3>
+      <div class="qb-row"><label>Date</label><input id="qbDate" class="qb-input" type="date"></div>
+      <div class="qb-row"><label>Seat</label><input id="qbSeat" class="qb-input" placeholder="e.g. A1"></div>
+      <div class="qb-row"><label>Name</label><input id="qbName" class="qb-input" placeholder="Your name"></div>
+      <div class="qb-row"><label>Email</label><input id="qbEmail" class="qb-input" type="email" placeholder="you@mail.com"></div>
+      <div class="qb-actions">
+        <button class="btn ghost" id="qbCancel">Cancel</button>
+        <button class="btn primary" id="qbCreate">Create</button>
+      </div>
+      <div id="qbInfo" style="margin-top:8px;opacity:.8"></div>
+    </div>
+  </div>
+
+  <script src="{% static 'frontend/menu/dashboard_extras.js' %}"></script>
+  <script src="{% static 'frontend/menu/dashboard_metrics_patch_v2.js' %}"></script>
+
+  <script src="{% static 'frontend/menu/dashboard_flash_handoff.js' %}"></script>
+<script src="{% static 'frontend/menu/dashboard_ics_snackbar.js' %}"></script>
+  <script src="{% static 'frontend/menu/dashboard_quick.js' %}"></script>
+  <script src="{% static 'frontend/menu/dashboard.js' %}"></script>
+  <script src="{% static 'frontend/menu/guard.js' %}?v=5"></script>
+  <script src="{% static 'frontend/menu/dashboard_flash_handoff.js' %}"></script>
+  <script src="{% static 'frontend/menu/cancel_api_bridge.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'frontend/menu/reservation_summary.css' %}">
+  <script src="{% static 'frontend/menu/reserve_api_bridge_strict_noredirect.js' %}"></script>
+<script src="{% static 'frontend/menu/reservation_summary.js' %}"></script>
+<script src="{% static 'frontend/menu/reservation_summary_hook.js' %}"></script>
+<link rel="stylesheet" href="{% static 'frontend/menu/reservation_summary.css' %}">
+<script src="{% static 'frontend/menu/reservation_summary.js' %}"></script>
+<script src="{% static 'frontend/menu/reservation_summary_hook.js' %}"></script>
+
+<script src="{% static 'frontend/menu/reservation_table.js' %}"></script>
+<script src="{% static 'frontend/menu/reserved_toggle_persist.js' %}"></script>
+<link rel="stylesheet" href="{% static 'frontend/menu/occupied.css' %}">
+<script src="{% static 'frontend/menu/occupied.js' %}"></script>
+
+</body>
+</html>
