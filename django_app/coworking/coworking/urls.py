@@ -6,6 +6,7 @@ from django.template.loader import get_template
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve as static_serve
+from django.views.i18n import set_language
 from pathlib import Path
 FRONTEND_ROOT = (settings.BASE_DIR / 'static' / 'frontend').resolve()
 ASSET_EXTS = '(?:css|js|png|jpg|jpeg|gif|svg|webp|ico|ttf|woff|woff2|map)'
@@ -54,7 +55,7 @@ def serve_template(request, tpl_path: str=''):
         return render_first(request, ['menu/index.html', 'menu/dashboard.html', 'welcome/index.html'])
     if key in {'reserve.html'}:
         return render_first(request, ['menu/reserve.html', 'reserve/index.html', 'reserve.html'])
-    if key in {'cancel.html'}:
+    if key in {'cancel.html', 'menu/cancel.html'}:
         return render_first(request, ['menu/cancel.html', 'cancel/index.html', 'cancel.html'])
     if key in {'', 'home', 'welcome'}:
         return render_first(request, ['welcome/index.html', 'index.html'])
@@ -67,10 +68,10 @@ def serve_template(request, tpl_path: str=''):
     if key in {'reserve', 'reservation', 'book', 'booking'}:
         return render_first(request, ['reserve/index.html', 'reserve.html', 'menu/reserve.html'])
     if key in {'cancel', 'cancellation'}:
-        return render_first(request, ['cancel/index.html', 'cancel.html'])
+        return render_first(request, ['cancel/index.html', 'cancel.html', 'menu/cancel.html'])
     if key in {'goodbye', 'logout', 'logout_goodbye_white'}:
         return render_first(request, ['goodbye/logout_goodbye_white.html', 'goodbye/index.html', 'goodbye.html'])
     if key in {'thank_you_spaced_clean.html'}:
         return render_first(request, ['thank_you_spaced_clean.html', 'welcome/thank_you_spaced_clean.html'])
     return render_first(request, default_candidates(tpl_path))
-urlpatterns += [path('admin/', admin.site.urls), path('api/', include('api.urls')), path('', serve_template, name='home'), re_path('^(?P<tpl_path>.*)$', serve_template, name='any_page')]
+urlpatterns += [path('admin/', admin.site.urls), path('api/', include('api.urls')), path('i18n/', include('django.conf.urls.i18n')), path('', serve_template, name='home'), re_path('^(?P<tpl_path>.*)$', serve_template, name='any_page')]

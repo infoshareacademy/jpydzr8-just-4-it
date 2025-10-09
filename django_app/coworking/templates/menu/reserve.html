@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 
 {% load static %}
-<html lang="pl">
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rezerwacje miejsc — Rezerwuj / Anuluj</title>
+  <title>{% trans 'Seat Reservations – Reserve / Cancel' %}</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
@@ -17,61 +19,64 @@
 <body>
   <div class="container">
     <div class="card seats-card">
-      <h1 class="welcome-title">Reserve seats</h1>
-      <p class="subtitle">Select a seat and make a reservation.</p>
+      <div style="position: absolute; top: 20px; right: 20px;">
+        {% include 'common/language_switcher.html' %}
+      </div>
+      <h1 class="welcome-title">{% trans 'Reserve seats' %}</h1>
+      <p class="subtitle">{% trans 'Select a seat and make a reservation.' %}</p>
 
      <div class="legend-modern">
-  <div class="legend-item"><span class="seat-symbol free">0</span><span>Absence</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved">R</span><span>Reserved</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved-D">D</span><span>Docking station</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved-S">S</span><span>Two screens</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved-E">E</span><span>Electric desk</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved-DS">DS</span><span>Docking + Screens</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved-DE">DE</span><span>Docking + Electric</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved-SE">SE</span><span>Screens + Electric</span></div>
-  <div class="legend-item"><span class="seat-symbol reserved-DSE">DSE</span><span>Docking + Screens + Electric</span></div>
+  <div class="legend-item"><span class="seat-symbol free">0</span><span>{% trans 'Absence' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved">R</span><span>{% trans 'Reserved' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-D">D</span><span>{% trans 'Docking station' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-S">S</span><span>{% trans 'Two screens' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-E">E</span><span>{% trans 'Electric desk' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-DS">DS</span><span>{% trans 'Docking + Screens' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-DE">DE</span><span>{% trans 'Docking + Electric' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-SE">SE</span><span>{% trans 'Screens + Electric' %}</span></div>
+  <div class="legend-item"><span class="seat-symbol reserved-DSE">DSE</span><span>{% trans 'Docking + Screens + Electric' %}</span></div>
 </div>
 
 <div class="page-toolbar">
-        <button id="btnBackNav" class="btn-back" type="button" title="Back to previous view">← Back</button>
+        <button id="btnBackNav" class="btn-back" type="button" title="{% trans 'Back to previous view' %}">← {% trans 'Back' %}</button>
       </div>
 
       <section id="tab-reserve" class="tab-panel active">
         <div class="toolbar">
-          <input type="text" id="searchSeat" class="input" placeholder="Search for a place (e.g. 5-12)..." />
+          <input type="text" id="searchSeat" class="input" placeholder="{% trans 'Search for a place (e.g. 5-12)...' %}" />
           <select id="filterStatus" class="input">
-            <option value="all">All</option>
-            <option value="free">Free</option>
-            <option value="reserved">Occupied</option>
+            <option value="all">{% trans 'All' %}</option>
+            <option value="free">{% trans 'Free' %}</option>
+            <option value="reserved">{% trans 'Occupied' %}</option>
           </select>
           <select id="filterFeature" class="input">
-            <option value="all">All amenities</option>
-            <option value="D">D – Docking station</option>
-            <option value="S">S – Two screens</option>
-            <option value="E">E – Electrical adjustment</option>
-            <option value="DS">DS – Dock + 2 screens</option>
-            <option value="DSE">DSE – Full</option>
-            <option value="0">Absence</option>
+            <option value="all">{% trans 'All amenities' %}</option>
+            <option value="D">{% trans 'D – Docking station' %}</option>
+            <option value="S">{% trans 'S – Two screens' %}</option>
+            <option value="E">{% trans 'E – Electrical adjustment' %}</option>
+            <option value="DS">{% trans 'DS – Dock + 2 screens' %}</option>
+            <option value="DSE">{% trans 'DSE – Full' %}</option>
+            <option value="0">{% trans 'Absence' %}</option>
           </select>
         </div>
 
         <div class="floor-section">
-          <h2 class="floor-title">Floor 4 (20 seats)</h2>
+          <h2 class="floor-title">{% trans 'Floor 4 (20 seats)' %}</h2>
           <div class="seats-grid" id="floor-4-seats"></div>
         </div>
 
         <div class="floor-section">
-          <h2 class="floor-title">Floor 5 (30 seats)</h2>
+          <h2 class="floor-title">{% trans 'Floor 5 (30 seats)' %}</h2>
           <div class="seats-grid" id="floor-5-seats"></div>
         </div>
 
         <div class="floor-section">
-          <h2 class="floor-title">Floor 6 (25 seats)</h2>
+          <h2 class="floor-title">{% trans 'Floor 6 (25 seats)' %}</h2>
           <div class="seats-grid" id="floor-6-seats"></div>
         </div>
 
         <div class="floor-section">
-          <h2 class="floor-title">Floor 7 (35 seats)</h2>
+          <h2 class="floor-title">{% trans 'Floor 7 (35 seats)' %}</h2>
           <div class="seats-grid" id="floor-7-seats"></div>
         </div>
 
@@ -80,10 +85,10 @@
 
       <section id="tab-cancel" class="tab-panel">
         <div class="cancel-tools">
-          <input type="text" id="cancelId" class="input" placeholder="ID reservation..." />
-          <input type="text" id="cancelDate" class="input" placeholder="Date reservation..." />
-          <button id="btnFind" class="btn"><i class="fas fa-search"></i> Search</button>
-          <button id="btnListAll" class="btn alt"><i class="fas fa-list"></i> All</button>
+          <input type="text" id="cancelId" class="input" placeholder="{% trans 'ID reservation...' %}" />
+          <input type="text" id="cancelDate" class="input" placeholder="{% trans 'Date reservation...' %}" />
+          <button id="btnFind" class="btn"><i class="fas fa-search"></i> {% trans 'Search' %}</button>
+          <button id="btnListAll" class="btn alt"><i class="fas fa-list"></i> {% trans 'All' %}</button>
         </div>
         <div id="cancelResults" class="results"></div>
       </section>
@@ -94,30 +99,30 @@
     <div class="modal-backdrop" data-close></div>
     <div class="modal-card">
       <button class="modal-close" data-close><i class="fas fa-times"></i></button>
-      <h3><i class="fas fa-calendar-plus"></i> New reservation</h3>
+      <h3><i class="fas fa-calendar-plus"></i> {% trans 'New reservation' %}</h3>
       <form id="reserveForm">
         <div class="form-row">
-          <label>Place</label>
+          <label>{% trans 'Place' %}</label>
           <input type="text" id="formSeat" class="input" readonly />
         </div>
         <div class="form-row">
-          <label>Name and Surname</label>
+          <label>{% trans 'Name and Surname' %}</label>
           <input type="text" id="formName" class="input" required />
         </div>
         <div class="form-row">
-          <label>Email</label>
+          <label>{% trans 'Email' %}</label>
           <input type="email" id="formEmail" class="input" required />
         </div>
         <div class="form-row">
-          <label>Date</label>
+          <label>{% trans 'Date' %}</label>
           <input type="text" id="formDate" class="input" required />
         </div>
         <div class="form-row">
-          <label>Comments</label>
-          <textarea id="formNotes" class="input" rows="3" placeholder="e.g.I need adapter USB-C..."></textarea>
+          <label>{% trans 'Comments' %}</label>
+          <textarea id="formNotes" class="input" rows="3" placeholder="{% trans 'e.g. I need adapter USB-C...' %}"></textarea>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn primary"><i class="fas fa-check"></i> Reservation</button>
+          <button type="submit" class="btn primary"><i class="fas fa-check"></i> {% trans 'Reservation' %}</button>
         </div>
       </form>
       <div class="tiny-note" id="reservationInfo"></div>

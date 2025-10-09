@@ -11,13 +11,56 @@
     localStorage.setItem('theme', cur); applyTheme(cur);
   });
 
+  // Translation helper function
+  window.t = function(english, polish) {
+    const isPolish = document.documentElement.lang === 'pl' || document.querySelector('html').getAttribute('lang') === 'pl';
+    return isPolish ? polish : english;
+  };
+
+  // Function to update calendar locale
+  window.updateCalendarLocale = function() {
+    if (window.calendar) {
+      const isPolish = document.documentElement.lang === 'pl' || document.querySelector('html').getAttribute('lang') === 'pl';
+      const newLocale = isPolish ? 'pl' : 'en';
+      console.log('Updating calendar locale to:', newLocale, 'isPolish:', isPolish);
+      
+      // Update locale
+      window.calendar.setOption('locale', newLocale);
+      
+      // Update button texts
+      window.calendar.setOption('buttonText', {
+        today: isPolish ? 'Dzisiaj' : 'Today',
+        month: isPolish ? 'Miesiąc' : 'Month',
+        week: isPolish ? 'Tydzień' : 'Week',
+        day: isPolish ? 'Dzień' : 'Day'
+      });
+    } else {
+      console.log('Calendar not found, retrying...');
+      setTimeout(() => {
+        if (window.calendar) {
+          const isPolish = document.documentElement.lang === 'pl' || document.querySelector('html').getAttribute('lang') === 'pl';
+          const newLocale = isPolish ? 'pl' : 'en';
+          console.log('Retry: Updating calendar locale to:', newLocale);
+          
+          window.calendar.setOption('locale', newLocale);
+          window.calendar.setOption('buttonText', {
+            today: isPolish ? 'Dzisiaj' : 'Today',
+            month: isPolish ? 'Miesiąc' : 'Month',
+            week: isPolish ? 'Tydzień' : 'Week',
+            day: isPolish ? 'Dzień' : 'Day'
+          });
+        }
+      }, 1000);
+    }
+  };
+
   const goLogout = (e)=>{ e?.preventDefault(); try{localStorage.removeItem('token');}catch(_){}; location.href='/logout'; };
   document.getElementById('logoutBtn')?.addEventListener('click', goLogout);
   document.getElementById('logoutTile')?.addEventListener('click', goLogout);
 
   if(window.Toastify && !sessionStorage.getItem('welcomed')){
     sessionStorage.setItem('welcomed', '1');
-    Toastify({ text: "Welcome back! 🎉", duration: 2200, gravity: "top", position: "right", close: true }).showToast();
+    Toastify({ text: t("Welcome back! 🎉", "Witaj ponownie! 🎉"), duration: 2200, gravity: "top", position: "right", close: true }).showToast();
   }
 
   window.downloadICS = function({title='Reservation', startDate, description='', location=''}){
@@ -38,14 +81,24 @@
   };
 
   const calEl = document.getElementById('calendar');
-  let calendar = null;
   if(calEl && window.FullCalendar){
-    calendar = new FullCalendar.Calendar(calEl, {
+    // Determine current language
+    const isPolish = document.documentElement.lang === 'pl' || document.querySelector('html').getAttribute('lang') === 'pl';
+    const currentLocale = isPolish ? 'pl' : 'en';
+    
+    window.calendar = new FullCalendar.Calendar(calEl, {
       initialView: 'dayGridMonth',
       height: 'auto',
       selectable: true,
       editable: true,
       eventDurationEditable: false,
+      locale: currentLocale,
+      buttonText: {
+        today: isPolish ? 'Dzisiaj' : 'Today',
+        month: isPolish ? 'Miesiąc' : 'Month',
+        week: isPolish ? 'Tydzień' : 'Week',
+        day: isPolish ? 'Dzień' : 'Day'
+      },
       headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' },
       events: [],
       dateClick: (info)=>{
@@ -59,15 +112,15 @@
             body: JSON.stringify({ date: info.event.startStr.slice(0,10) })
           });
           if(!res.ok){
-            if(window.Toastify) Toastify({text:'Move rejected', duration:2000, gravity:'bottom'}).showToast();
+            if(window.Toastify) Toastify({text: t('Move rejected', 'Przeniesienie odrzucone'), duration:2000, gravity:'bottom'}).showToast();
             info.revert();
           }else{
-            if(window.Toastify) Toastify({text:'Moved ✔', duration:1500, gravity:'bottom'}).showToast();
+            if(window.Toastify) Toastify({text: t('Moved ✔', 'Przeniesiono ✔'), duration:1500, gravity:'bottom'}).showToast();
           }
         }catch(_){ info.revert(); }
       }
     });
-    calendar.render();
+    window.calendar.render();
   }
 
   async function listRange(from, to){
@@ -128,4 +181,14 @@
       if(res.ok){ const me = await res.json(); const span = document.getElementById('userName'); if(span) span.textContent = me.full_name || me.email || 'User'; }
     }catch(_){}
   })();
+
+  // Update calendar locale on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    // Small delay to ensure calendar is fully initialized
+    setTimeout(() => {
+      if (window.updateCalendarLocale) {
+        window.updateCalendarLocale();
+      }
+    }, 500);
+  });
 })();

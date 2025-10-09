@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 
 {% load static %}
-<html lang="en" data-theme="light">
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>User Dashboard</title>
+  <title>{% trans 'User Dashboard' %}</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'frontend/menu/theme.css' %}"/>
   <link rel="stylesheet" href="{% static 'frontend/menu/dashboard.css' %}"/>
@@ -24,47 +26,48 @@
 </head>
 <body class="page-dashboard">
   <header class="topbar">
-    <div class="brand">Workspace <span>Bookings</span></div>
+    <div class="brand">{% trans 'Workspace Bookings' %}</div>
     <nav style="display:flex;gap:8px;">
-      <a class="btn ghost" href="dashboard.html">Dashboard</a>
-      <a class="btn ghost" href="/menu/reserve.html">Reserve</a>
-      <a class="btn ghost" href="/menu/cancel.html">Cancel</a>
+      <a class="btn ghost" href="dashboard.html">{% trans 'Dashboard' %}</a>
+      <a class="btn ghost" href="/menu/reserve.html">{% trans 'Reserve' %}</a>
+      <a class="btn ghost" href="/menu/cancel.html">{% trans 'Cancel' %}</a>
     </nav>
     <div style="display:flex; gap:8px; align-items:center;">
-      <button id="themeToggle" class="btn icon" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
-      <a href="#" id="logoutBtn" class="btn ghost"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      {% include 'common/language_switcher.html' %}
+      <button id="themeToggle" class="btn icon" aria-label="{% trans 'Toggle dark mode' %}"><i class="fas fa-moon"></i></button>
+      <a href="#" id="logoutBtn" class="btn ghost"><i class="fas fa-sign-out-alt"></i> {% trans 'Logout' %}</a>
     </div>
   </header>
 
   <main class="container">
     <section class="card hero">
       <div>
-        <h1 class="dashboard-title">Good day, <span id="userName">User</span></h1>
-        <p class="subtitle-alt">Manage your seat reservations with ease.</p>
+        <h1 class="dashboard-title">{% trans 'Good day' %}, <span id="userName">{% trans 'User' %}</span></h1>
+        <p class="subtitle-alt">{% trans 'Manage your seat reservations with ease.' %}</p>
       </div>
       <div>
-        <button class="btn primary" id="quickBookBtn"><i class="fas fa-bolt"></i> Quick‑book</button>
+        <button class="btn primary" id="quickBookBtn"><i class="fas fa-bolt"></i> {% trans 'Quick‑book' %}</button>
       </div>
     </section>
 
     <section class="dash-grid">
       <div class="card flex">
-        <h3 style="margin:0 0 8px"><i class="fas fa-calendar"></i> Schedule</h3>
+        <h3 style="margin:0 0 8px"><i class="fas fa-calendar"></i> {% trans 'Schedule' %}</h3>
         <div id="calendar"></div>
       </div>
       <div>
         <div class="card flex chart-wrap">
-          <h3 style="margin:0 0 8px"><i class="fas fa-chart-column"></i> Reservations (last 14 days)</h3>
+          <h3 style="margin:0 0 8px"><i class="fas fa-chart-column"></i> {% trans 'Reservations (last 14 days)' %}</h3>
           <canvas id="resvChart"></canvas>
         </div>
         <div class="card summary-card" style="margin-top:16px">
-          <h3 style="margin:0 0 8px"><i class="fas fa-user-clock"></i> My summary</h3>
-          <div class="row"><span class="muted">Next reservation</span><span id="sumNext" class="big">—</span></div>
-          <div class="row"><span class="muted">Last reservation</span><span id="sumLast" class="big">—</span></div>
-          <div class="row"><span class="muted">Upcoming (30d)</span><span id="sumCount" class="pill">0</span></div>
-          <div class="row"><span class="muted">Actions</span>
+          <h3 style="margin:0 0 8px"><i class="fas fa-user-clock"></i> {% trans 'My summary' %}</h3>
+          <div class="row"><span class="muted">{% trans 'Next reservation' %}</span><span id="sumNext" class="big">—</span></div>
+          <div class="row"><span class="muted">{% trans 'Last reservation' %}</span><span id="sumLast" class="big">—</span></div>
+          <div class="row"><span class="muted">{% trans 'Upcoming (30d)' %}</span><span id="sumCount" class="pill">0</span></div>
+          <div class="row"><span class="muted">{% trans 'Actions' %}</span>
             <span>
-              <a href="#" id="sumIcs" class="link">Add next to calendar (.ics)</a>
+              <a href="#" id="sumIcs" class="link">{% trans 'Add next to calendar (.ics)' %}</a>
             </span>
           </div>
         </div>
@@ -72,44 +75,44 @@
     </section>
 
     <section class="card" style="margin-top:16px">
-      <h3 style="margin:0 0 8px"><i class="fas fa-table"></i> Reservations — upcoming 30 days</h3>
-      <div id="resvTableWrap"><em>Loading…</em></div>
+      <h3 style="margin:0 0 8px"><i class="fas fa-table"></i> {% trans 'Reservations — upcoming 30 days' %}</h3>
+      <div id="resvTableWrap"><em>{% trans 'Loading…' %}</em></div>
     </section>
 
     <section class="menu-grid">
       <a href="/menu/index.html" class="menu-tile tile-blue">
         <i class="fas fa-chair"></i>
-        <h2>Show All Seats</h2>
-        <p>Browse the complete list of available seats.</p>
+        <h2>{% trans 'Show All Seats' %}</h2>
+        <p>{% trans 'Browse the complete list of available seats.' %}</p>
       </a>
       <a href="/menu/reserve.html" class="menu-tile tile-yellow">
         <i class="fas fa-calendar-plus"></i>
-        <h2>Reserve Seat</h2>
-        <p>Book a seat for your preferred date.</p>
+        <h2>{% trans 'Reserve Seat' %}</h2>
+        <p>{% trans 'Book a seat for your preferred date.' %}</p>
       </a>
       <a href="/menu/cancel.html" class="menu-tile tile-red">
         <i class="fas fa-times-circle"></i>
-        <h2>Cancel Reservation</h2>
-        <p>Cancel an existing booking.</p>
+        <h2>{% trans 'Cancel Reservation' %}</h2>
+        <p>{% trans 'Cancel an existing booking.' %}</p>
       </a>
       <a href="#" id="logoutTile" class="menu-tile tile-purple">
         <i class="fas fa-sign-out-alt"></i>
-        <h2>Logout</h2>
-        <p>Sign out of your account.</p>
+        <h2>{% trans 'Logout' %}</h2>
+        <p>{% trans 'Sign out of your account.' %}</p>
       </a>
     </section>
   </main>
 
   <div class="qb-modal" id="qbModal" aria-hidden="true">
     <div class="qb-card">
-      <h3 class="qb-title"><i class="fas fa-bolt"></i> Quick‑book</h3>
-      <div class="qb-row"><label>Date</label><input id="qbDate" class="qb-input" type="date"></div>
-      <div class="qb-row"><label>Seat</label><input id="qbSeat" class="qb-input" placeholder="e.g. A1"></div>
-      <div class="qb-row"><label>Name</label><input id="qbName" class="qb-input" placeholder="Your name"></div>
-      <div class="qb-row"><label>Email</label><input id="qbEmail" class="qb-input" type="email" placeholder="you@mail.com"></div>
+      <h3 class="qb-title"><i class="fas fa-bolt"></i> {% trans 'Quick‑book' %}</h3>
+      <div class="qb-row"><label>{% trans 'Date' %}</label><input id="qbDate" class="qb-input" type="date"></div>
+      <div class="qb-row"><label>{% trans 'Seat' %}</label><input id="qbSeat" class="qb-input" placeholder="{% trans 'e.g. A1' %}"></div>
+      <div class="qb-row"><label>{% trans 'Name' %}</label><input id="qbName" class="qb-input" placeholder="{% trans 'Your name' %}"></div>
+      <div class="qb-row"><label>{% trans 'Email' %}</label><input id="qbEmail" class="qb-input" type="email" placeholder="{% trans 'you@mail.com' %}"></div>
       <div class="qb-actions">
-        <button class="btn ghost" id="qbCancel">Cancel</button>
-        <button class="btn primary" id="qbCreate">Create</button>
+        <button class="btn ghost" id="qbCancel">{% trans 'Cancel' %}</button>
+        <button class="btn primary" id="qbCreate">{% trans 'Create' %}</button>
       </div>
       <div id="qbInfo" style="margin-top:8px;opacity:.8"></div>
     </div>

@@ -1,44 +1,63 @@
 <!DOCTYPE html>
 
 {% load static %}
-<html lang="pl">
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application - Registration</title>
+    <title>{% trans "Application - Registration" %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'frontend/login/style.css' %}">
     <link rel="stylesheet" href="{% static 'frontend/login/style_login_inputs_upgrade.css' %}">
 <link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength.css' %}">
-<link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength_fix.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength_fix.css' %}">
+    <style>
+        .reg-errors {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+        }
+        .reg-error-item {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="card">
-            <h1>Registration</h1>
-            <p>Please fill out the form to create an account.</p>
-            <form class="registration-form" id="regForm">
+            <div style="position: absolute; top: 20px; right: 20px;">
+                {% include 'common/language_switcher.html' %}
+            </div>
+            <h1>{% trans "Registration" %}</h1>
+            <p>{% trans "Please fill out the form to create an account." %}</p>
+            <div id="regErrors" class="reg-errors" style="display: none;"></div>
+            <form class="registration-form" id="registerForm">
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
+                    <label for="firstName">{% trans "First Name" %}</label>
                     <input type="text" id="firstName" name="firstName" required>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name</label>
+                    <label for="lastName">{% trans "Last Name" %}</label>
                     <input type="text" id="lastName" name="lastName" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">{% trans "Email" %}</label>
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group password-group">
-                    <label for="password">Password</label>
+                    <label for="password">{% trans "Password" %}</label>
                     <input type="password" id="password" name="password" required>
                     <button type="button" class="toggle-password" data-password-toggle="#password">👁</button>
                     <div class="password-strength" id="password-strength"></div>
                 </div>
                 <div class="button-group">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                    <button type="button" class="btn btn-tertiary" id="btnCancel" data-action="cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Register" %}</button>
+                    <button type="button" class="btn btn-tertiary" id="btnCancel" data-action="cancel">{% trans "Cancel" %}</button>
 
                 </div>
             </form>
@@ -93,15 +112,14 @@
 })();
 </script>
 
+    {% if LANGUAGE_CODE == 'pl' %}
+    <script src="{% static 'frontend/registration/registration_form.js' %}"></script>
+    {% else %}
     <script src="{% static 'frontend/registration/form.js' %}"></script>
+    {% endif %}
     <link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength.css' %}">
 <script src="{% static 'frontend/common/auth_ui_patch.js' %}"></script>
 <link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength_fix.css' %}">
 <script src="{% static 'frontend/common/auth_ui_patch_position_fix.js' %}"></script>
-
-<script src="{% static 'frontend/common/auth_ui_patch.js' %}"></script>
-<script src="{% static 'frontend/common/auth_ui_patch_position_fix.js' %}"></script>
-
-<script src="{% static 'frontend/registration/form.js' %}"></script>
 </body>
 </html>

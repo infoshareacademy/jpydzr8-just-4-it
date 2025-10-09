@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 
 {% load static %}
-<html lang="en">
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Application - Welcome (Brand Colors)</title>
+  <title>{% trans "Application - Welcome" %}</title>
   <link rel="stylesheet" href="{% static 'frontend/login/style_white2.css' %}" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -13,22 +15,25 @@
 
   <div class="intro" aria-hidden="true">
     <div class="intro-inner">
-      <h1 class="welcome-title" aria-label="Welcome">
-        <span id="welcomeText" class="welcome-word" data-text="Welcome"></span>
+      <h1 class="welcome-title" aria-label="{% trans 'Welcome' %}">
+        <span id="welcomeText" class="welcome-word" data-text="{% trans 'Welcome' %}">{% trans 'Welcome' %}</span>
       </h1>
-      <p class="welcome-sub">Enjoy your experience 👋</p>
+      <p class="welcome-sub">{% trans 'Enjoy your experience' %} 👋</p>
     </div>
-    <button class="skip-intro" type="button" aria-label="Skip intro">Skip</button>
+    <button class="skip-intro" type="button" aria-label="{% trans 'Skip intro' %}">{% trans 'Skip' %}</button>
   </div>
 
   <div class="container app hidden">
     <div class="card">
-      <h1>Welcome to the Application</h1>
-      <p>Please select an option to continue.</p>
+      <div style="position: absolute; top: 20px; right: 20px;">
+        {% include 'common/language_switcher.html' %}
+      </div>
+      <h1>{% trans 'Welcome to the Application' %}</h1>
+      <p>{% trans 'Please select an option to continue.' %}</p>
       <div class="button-group">
-        <button class="btn btn-primary">Sign Up</button>
-        <button class="btn btn-primary">Log In</button>
-        <button class="btn btn-secondary">Exit</button>
+        <button class="btn btn-primary">{% trans 'Sign Up' %}</button>
+        <button class="btn btn-primary">{% trans 'Log In' %}</button>
+        <button class="btn btn-secondary">{% trans 'Exit' %}</button>
       </div>
     </div>
   </div>
@@ -71,7 +76,7 @@
     const key = (el.getAttribute && el.getAttribute('data-route')) || '';
     const txt = (el.textContent || '').toLowerCase().trim();
     if (key === 'login' || /(^|\s)(sign in|log in|zaloguj)\b/.test(txt)) return map.login;
-    if (key === 'register' || /(^|\s)(sign up|register|create)\b/.test(txt)) return map.register;
+    if (key === 'register' || /(^|\s)(sign up|register|create|zarejestruj|zarejestruj się|rejestracja)\b/.test(txt)) return map.register;
     return null;
   }
 
