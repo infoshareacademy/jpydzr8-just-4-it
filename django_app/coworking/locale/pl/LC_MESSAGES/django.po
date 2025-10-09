@@ -1,0 +1,369 @@
+# Polish translations for Coworking App
+msgid ""
+msgstr ""
+"Project-Id-Version: Coworking App 1.0\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+# ===== Basic Translations =====
+msgid "Welcome"
+msgstr "Witamy"
+
+msgid "Login"
+msgstr "Logowanie"
+
+msgid "Dashboard"
+msgstr "Panel"
+
+msgid "Reserve"
+msgstr "Rezerwuj"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Show All Seats"
+msgstr "Pokaż wszystkie miejsca"
+
+msgid "Reserve seats"
+msgstr "Zarezerwuj miejsca"
+
+msgid "Back"
+msgstr "Wstecz"
+
+msgid "Search"
+msgstr "Szukaj"
+
+msgid "Results"
+msgstr "Wyniki"
+
+msgid "Absence"
+msgstr "Nieobecność"
+
+msgid "Reserved"
+msgstr "Zarezerwowane"
+
+msgid "Docking station"
+msgstr "Stacja dokująca"
+
+msgid "Two screens"
+msgstr "Dwa ekrany"
+
+msgid "Electric desk"
+msgstr "Elektryczne biurko"
+
+msgid "Docking + Screens"
+msgstr "Dok + Ekrany"
+
+msgid "Docking + Electric"
+msgstr "Dok + Elektryczne"
+
+msgid "Screens + Electric"
+msgstr "Ekrany + Elektryczne"
+
+msgid "Docking + Screens + Electric"
+msgstr "Dok + Ekrany + Elektryczne"
+
+msgid "Workspace Bookings"
+msgstr "Rezerwacje miejsc pracy"
+
+msgid "Good day"
+msgstr "Dzień dobry"
+
+msgid "User"
+msgstr "Użytkownik"
+
+msgid "Manage your seat reservations with ease."
+msgstr "Zarządzaj swoimi rezerwacjami miejsc z łatwością."
+
+msgid "Quick‑book"
+msgstr "Szybka rezerwacja"
+
+msgid "Schedule"
+msgstr "Harmonogram"
+
+msgid "Reservations (last 14 days)"
+msgstr "Rezerwacje (ostatnie 14 dni)"
+
+msgid "My summary"
+msgstr "Moje podsumowanie"
+
+msgid "Next reservation"
+msgstr "Następna rezerwacja"
+
+msgid "Last reservation"
+msgstr "Ostatnia rezerwacja"
+
+msgid "Upcoming (30d)"
+msgstr "Nadchodzące (30 dni)"
+
+msgid "Actions"
+msgstr "Akcje"
+
+msgid "Add next to calendar (.ics)"
+msgstr "Dodaj do kalendarza (.ics)"
+
+msgid "Reservations — upcoming 30 days"
+msgstr "Rezerwacje — nadchodzące 30 dni"
+
+msgid "Loading…"
+msgstr "Ładowanie…"
+
+msgid "Browse the complete list of available seats."
+msgstr "Przeglądaj pełną listę dostępnych miejsc."
+
+msgid "Book a seat for your preferred date."
+msgstr "Zarezerwuj miejsce na wybrany termin."
+
+msgid "Cancel an existing booking."
+msgstr "Anuluj istniejącą rezerwację."
+
+msgid "Sign out of your account."
+msgstr "Wyloguj się ze swojego konta."
+
+msgid "Toggle dark mode"
+msgstr "Przełącz tryb ciemny"
+
+msgid "Logout"
+msgstr "Wyloguj"
+
+msgid "Your name"
+msgstr "Twoje imię"
+
+msgid "Create"
+msgstr "Utwórz"
+
+msgid "e.g. A1"
+msgstr "np. A1"
+
+msgid "you@mail.com"
+msgstr "ty@email.com"
+
+msgid "Application - Welcome"
+msgstr "Aplikacja - Witamy"
+
+msgid "Application - Login"
+msgstr "Aplikacja - Logowanie"
+
+msgid "User Dashboard"
+msgstr "Panel użytkownika"
+
+msgid "Cancel Reservation"
+msgstr "Anuluj rezerwację"
+
+msgid "Welcome back! Please enter your details to sign in."
+msgstr "Witaj ponownie! Podaj swoje dane, aby się zalogować."
+
+msgid "Remember me"
+msgstr "Zapamiętaj mnie"
+
+msgid "Forgot password?"
+msgstr "Zapomniałeś hasła?"
+
+msgid "Show password"
+msgstr "Pokaż hasło"
+
+msgid "Please select an option to continue."
+msgstr "Proszę wybrać opcję, aby kontynuować."
+
+msgid "Sign Up"
+msgstr "Zarejestruj się"
+
+msgid "Log In"
+msgstr "Zaloguj się"
+
+msgid "Exit"
+msgstr "Wyjście"
+
+msgid "Skip"
+msgstr "Pomiń"
+
+msgid "Enjoy your experience"
+msgstr "Miłego korzystania"
+
+msgid "Welcome to the Application"
+msgstr "Witamy w aplikacji"
+
+msgid "Skip intro"
+msgstr "Pomiń wprowadzenie"
+
+msgid "Change language"
+msgstr "Zmień język"
+
+msgid "Polski"
+msgstr "Polski"
+
+msgid "English"
+msgstr "English"
+
+msgid "Select language"
+msgstr "Wybierz język"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Name"
+msgstr "Imię"
+
+msgid "Reserve Seat"
+msgstr "Zarezerwuj miejsce"
+
+msgid "Seat"
+msgstr "Miejsce"
+
+msgid "Password"
+msgstr "Hasło"
+
+msgid "Reservation Place"
+msgstr "Miejsce rezerwacji"
+
+msgid "Select a seat to view details or make a reservation."
+msgstr "Wybierz miejsce, aby zobaczyć szczegóły lub dokonać rezerwacji."
+
+msgid "Back to previous view"
+msgstr "Powrót do poprzedniego widoku"
+
+msgid "Floor 4 (20 seats)"
+msgstr "Piętro 4 (20 miejsc)"
+
+msgid "Floor 5 (30 seats)"
+msgstr "Piętro 5 (30 miejsc)"
+
+msgid "Floor 6 (25 seats)"
+msgstr "Piętro 6 (25 miejsc)"
+
+msgid "Floor 7 (35 seats)"
+msgstr "Piętro 7 (35 miejsc)"
+
+msgid "Seat Reservations – Reserve / Cancel"
+msgstr "Rezerwacje miejsc – Rezerwuj / Anuluj"
+
+msgid "Select a seat and make a reservation."
+msgstr "Wybierz miejsce i dokonaj rezerwacji."
+
+msgid "Search for a place (e.g. 5-12)..."
+msgstr "Szukaj miejsca (np. 5-12)..."
+
+msgid "All"
+msgstr "Wszystkie"
+
+msgid "Free"
+msgstr "Wolne"
+
+msgid "Occupied"
+msgstr "Zajęte"
+
+msgid "All amenities"
+msgstr "Wszystkie udogodnienia"
+
+msgid "D – Docking station"
+msgstr "D – Stacja dokująca"
+
+msgid "S – Two screens"
+msgstr "S – Dwa ekrany"
+
+msgid "E – Electrical adjustment"
+msgstr "E – Regulacja elektryczna"
+
+msgid "DS – Dock + 2 screens"
+msgstr "DS – Dok + 2 ekrany"
+
+msgid "DSE – Full"
+msgstr "DSE – Pełne"
+
+msgid "ID reservation..."
+msgstr "ID rezerwacji..."
+
+msgid "Date reservation..."
+msgstr "Data rezerwacji..."
+
+msgid "New reservation"
+msgstr "Nowa rezerwacja"
+
+msgid "Place"
+msgstr "Miejsce"
+
+msgid "Name and Surname"
+msgstr "Imię i nazwisko"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Comments"
+msgstr "Komentarze"
+
+msgid "e.g. I need adapter USB-C..."
+msgstr "np. Potrzebuję adaptera USB-C..."
+
+msgid "Reservation"
+msgstr "Rezerwacja"
+
+msgid "Logged out"
+msgstr "Wylogowano"
+
+msgid "Goodbye!"
+msgstr "Do widzenia!"
+
+msgid "See you soon"
+msgstr "Do zobaczenia wkrótce"
+
+msgid "You have been logged out"
+msgstr "Zostałeś wylogowany"
+
+msgid "Thanks for visiting. Come back anytime."
+msgstr "Dziękujemy za wizytę. Wracaj kiedy chcesz."
+
+msgid "Log in again"
+msgstr "Zaloguj się ponownie"
+
+msgid "Close"
+msgstr "Zamknij"
+
+msgid "Cancel reservation"
+msgstr "Anuluj rezerwację"
+
+msgid "Reservation ID (optional)"
+msgstr "ID rezerwacji (opcjonalne)"
+
+msgid "Seat (e.g. A1)"
+msgstr "Miejsce (np. A1)"
+
+msgid "YYYY-MM-DD"
+msgstr "RRRR-MM-DD"
+
+msgid "Find"
+msgstr "Znajdź"
+
+msgid "Enter the <b>ID</b> or <b>seat + date</b>. If you enter only the <b>date</b>, we'll show a list to choose from."
+msgstr "Podaj <b>ID</b> lub <b>miejsce + datę</b>. Jeśli podasz tylko <b>datę</b>, pokażemy listę do wyboru."
+
+msgid "Book now"
+msgstr "Rezerwuj teraz"
+
+msgid "Reservation ID..."
+msgstr "ID rezerwacji..."
+
+msgid "Date (YYYY-MM-DD)..."
+msgstr "Data (RRRR-MM-DD)..."
+
+# ===== Registration Translations =====
+msgid "Application - Registration"
+msgstr "Aplikacja - Rejestracja"
+
+msgid "Registration"
+msgstr "Rejestracja"
+
+msgid "Please fill out the form to create an account."
+msgstr "Proszę wypełnić formularz, aby utworzyć konto."
+
+msgid "First Name"
+msgstr "Imię"
+
+msgid "Last Name"
+msgstr "Nazwisko"
+
+msgid "Register"
+msgstr "Zarejestruj się"
+
