@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Admin Dashboard - Coworking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 10px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e5e5e7;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #86868b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1d1d1f;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #667eea;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: #e5e5e7;
+            color: #1d1d1f;
+        }
+
+        .action-btn.secondary:hover {
+            background: #d1d1d6;
+        }
+
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .recent-item:last-child {
+            border-bottom: none;
+        }
+
+        .recent-info {
+            flex: 1;
+        }
+
+        .recent-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .recent-meta {
+            font-size: 12px;
+            color: #86868b;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #5a67d8;
+            transform: scale(1.1);
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .dark-mode {
+            background: #1d1d1f;
+            color: #f5f5f7;
+        }
+
+        .dark-mode .section,
+        .dark-mode .stat-card {
+            background: #2c2c2e;
+            border-color: #3a3a3c;
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, #4c63d2 0%, #6b46c1 100%);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Admin Dashboard</h1>
+            <p>Real-time Coworking Management</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalUsers">-</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeUsers">-</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalReservations">-</div>
+                <div class="stat-label">Reservations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayReservations">-</div>
+                <div class="stat-label">Today</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <div class="section-title">Quick Actions</div>
+            <div class="quick-actions">
+                <a href="/admin/api/user/" class="action-btn">Manage Users</a>
+                <a href="/admin/api/reservation/" class="action-btn">Reservations</a>
+                <button class="action-btn secondary" onclick="generateReport()">Generate Report</button>
+                <button class="action-btn secondary" onclick="cleanupSystem()">Cleanup</button>
+                <button class="action-btn secondary" onclick="toggleDarkMode()">Dark Mode</button>
+                <a href="/admin/logout/" class="action-btn secondary">Logout</a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="section">
+            <div class="section-title">Recent Activity</div>
+            <div id="recentActivity">
+                <div class="recent-item">
+                    <div class="recent-info">
+                        <div class="recent-title">Loading...</div>
+                        <div class="recent-meta">Please wait</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Health -->
+        <div class="section">
+            <div class="section-title">System Health</div>
+            <div id="systemHealth">
+                <div class="recent-item">
+                    <div class="recent-info">
+                        <div class="recent-title">Database</div>
+                        <div class="recent-meta">Checking...</div>
+                    </div>
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+                <div class="recent-item">
+                    <div class="recent-info">
+                        <div class="recent-title">API Status</div>
+                        <div class="recent-meta">Checking...</div>
+                    </div>
+                    <span class="status-badge status-pending">Pending</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="refresh-btn" onclick="refreshData()" title="Refresh Data">
+        ↻
+    </button>
+
+    <script>
+        // Global variables
+        let refreshInterval;
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            loadDashboardData();
+            startAutoRefresh();
+        });
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                document.body.classList.add('loading');
+                
+                // Load stats
+                const statsResponse = await fetch('/api/admin/stats');
+                if (statsResponse.ok) {
+                    const stats = await statsResponse.json();
+                    updateStats(stats.overview);
+                    updateRecentActivity(stats.recent_reservations);
+                }
+
+                // Load system health
+                const healthResponse = await fetch('/api/admin/health');
+                if (healthResponse.ok) {
+                    const health = await healthResponse.json();
+                    updateSystemHealth(health);
+                }
+
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showError('Failed to load dashboard data');
+            } finally {
+                document.body.classList.remove('loading');
+            }
+        }
+
+        // Update statistics
+        function updateStats(overview) {
+            document.getElementById('totalUsers').textContent = overview.total_users || 0;
+            document.getElementById('activeUsers').textContent = overview.active_users || 0;
+            document.getElementById('totalReservations').textContent = overview.total_reservations || 0;
+            document.getElementById('todayReservations').textContent = overview.today_reservations || 0;
+        }
+
+        // Update recent activity
+        function updateRecentActivity(reservations) {
+            const container = document.getElementById('recentActivity');
+            
+            if (!reservations || reservations.length === 0) {
+                container.innerHTML = '<div class="recent-item"><div class="recent-info"><div class="recent-title">No recent activity</div></div></div>';
+                return;
+            }
+
+            container.innerHTML = reservations.slice(0, 5).map(res => `
+                <div class="recent-item">
+                    <div class="recent-info">
+                        <div class="recent-title">${res.name} - ${res.seat_id}</div>
+                        <div class="recent-meta">${res.date} • ${res.email}</div>
+                    </div>
+                    <span class="status-badge status-active">New</span>
+                </div>
+            `).join('');
+        }
+
+        // Update system health
+        function updateSystemHealth(health) {
+            const container = document.getElementById('systemHealth');
+            
+            const databaseStatus = health.database === 'OK' ? 'status-active' : 'status-inactive';
+            const apiStatus = health.status === 'healthy' ? 'status-active' : 'status-inactive';
+            
+            container.innerHTML = `
+                <div class="recent-item">
+                    <div class="recent-info">
+                        <div class="recent-title">Database</div>
+                        <div class="recent-meta">${health.database} • ${health.active_users_24h} active users</div>
+                    </div>
+                    <span class="status-badge ${databaseStatus}">${health.database}</span>
+                </div>
+                <div class="recent-item">
+                    <div class="recent-info">
+                        <div class="recent-title">API Status</div>
+                        <div class="recent-meta">Response time: ${health.avg_response_time || 'N/A'}ms</div>
+                    </div>
+                    <span class="status-badge ${apiStatus}">${health.status}</span>
+                </div>
+            `;
+        }
+
+        // Refresh data
+        function refreshData() {
+            loadDashboardData();
+        }
+
+        // Start auto-refresh
+        function startAutoRefresh() {
+            refreshInterval = setInterval(loadDashboardData, 30000); // 30 seconds
+        }
+
+        // Stop auto-refresh
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        // Generate report
+        function generateReport() {
+            if (confirm('Generate weekly report?')) {
+                fetch('/api/mobile/api/quick-action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({action: 'generate_report'})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`Report generated successfully!\nFile: ${data.data.filename}\nSize: ${data.data.file_size} bytes`);
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Report generation error:', error);
+                    alert('Error generating report. Check console for details.');
+                });
+            }
+        }
+
+        // Cleanup system
+        function cleanupSystem() {
+            if (confirm('Clean up old data? This will remove expired reservations.')) {
+                fetch('/api/mobile/api/quick-action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({action: 'cleanup'})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        refreshData();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Cleanup error:', error);
+                    alert('Error during cleanup. Check console for details.');
+                });
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            // Simple error display - in production, use a proper notification system
+            console.error(message);
+        }
+
+        // Get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Pause auto-refresh when page is not visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopAutoRefresh();
+            } else {
+                startAutoRefresh();
+                refreshData(); // Refresh immediately when page becomes visible
+            }
+        });
+    </script>
+</body>
+</html>
