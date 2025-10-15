@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans 'Email Confirmation' %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/login/style_login_inputs_upgrade.css' %}">
+  <style>
+    .email-confirmation {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .email-confirmation .success-icon {
+      font-size: 64px;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+    
+    .email-confirmation .error-icon {
+      font-size: 64px;
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+    
+    .email-confirmation h1 {
+      color: #333;
+      margin-bottom: 16px;
+      font-size: 28px;
+      font-weight: 500;
+    }
+    
+    .email-confirmation p {
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    .email-confirmation .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: all 0.2s;
+      margin: 8px;
+    }
+    
+    .email-confirmation .btn-primary {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+    
+    .email-confirmation .btn-primary:hover {
+      background-color: #0056b3;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .email-confirmation .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+    }
+    
+    .email-confirmation .btn-secondary:hover {
+      background-color: #545b62;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .email-confirmation .info-box {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .email-confirmation .info-box h3 {
+      color: #495057;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .email-confirmation .info-box p {
+      color: #6c757d;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div style="position: absolute; top: 20px; right: 20px;">
+        {% include 'common/language_switcher.html' %}
+      </div>
+      
+      <div class="email-confirmation">
+        {% if confirmation %}
+          <!-- Successful confirmation -->
+          <div class="success-icon">✓</div>
+          <h1>{% trans 'Email Confirmed!' %}</h1>
+          <p>{% trans 'Thank you for confirming your email address. Your account is now fully activated.' %}</p>
+          
+          <div class="info-box">
+            <h3>{% trans 'What's next?' %}</h3>
+            <p>{% trans 'You can now log in to your account and access all features.' %}</p>
+            <p>{% trans 'Your email address is confirmed and secure.' %}</p>
+          </div>
+          
+          <a href="/login" class="btn btn-primary">{% trans 'Go to Login' %}</a>
+          <a href="/" class="btn btn-secondary">{% trans 'Go to Home' %}</a>
+          
+        {% else %}
+          <!-- Error or invalid confirmation -->
+          <div class="error-icon">✗</div>
+          <h1>{% trans 'Confirmation Failed' %}</h1>
+          <p>{% trans 'This email confirmation link is invalid or has expired.' %}</p>
+          
+          <div class="info-box">
+            <h3>{% trans 'What can you do?' %}</h3>
+            <p>{% trans 'Check if you copied the link correctly from your email.' %}</p>
+            <p>{% trans 'Request a new confirmation email if needed.' %}</p>
+            <p>{% trans 'Contact support if you continue to have issues.' %}</p>
+          </div>
+          
+          <a href="/register" class="btn btn-primary">{% trans 'Register Again' %}</a>
+          <a href="/login" class="btn btn-secondary">{% trans 'Try Login' %}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Auto redirect after 5 seconds if successful
+    {% if confirmation %}
+    setTimeout(function() {
+      if (confirm('{% trans "Redirect to login page?" %}')) {
+        window.location.href = '/login';
+      }
+    }, 5000);
+    {% endif %}
+    
+    // Add some interactive feedback
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 150);
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+

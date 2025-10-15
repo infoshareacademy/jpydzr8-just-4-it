@@ -1,0 +1,3005 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-12 16:08+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\api\views.py:319
+msgid "Email required"
+msgstr ""
+
+#: .\api\views.py:326
+msgid "If an account with this email exists, a login link has been sent."
+msgstr ""
+
+#: .\api\views.py:337
+msgid "Login link sent to your email"
+msgstr ""
+
+#: .\api\views.py:342
+msgid "Failed to send email"
+msgstr ""
+
+#: .\api\views.py:374
+msgid "Login successful"
+msgstr ""
+
+#: .\api\views.py:387
+msgid "Invalid or expired link"
+msgstr ""
+
+#: .\templates\account\404.html:10 .\templates\account\404.html:105
+msgid "Page Not Found"
+msgstr ""
+
+#: .\templates\account\404.html:106
+msgid "Sorry, the page you are looking for does not exist."
+msgstr ""
+
+#: .\templates\account\404.html:109
+#: .\templates\socialaccount\login_error.html:147
+msgid "What you can do:"
+msgstr ""
+
+#: .\reservations\templates\reservations\floor.html:14
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\templates\menu\index.html:63
+msgid "Floor 4 (20 seats)"
+msgstr "Floor 4 (24 seats)"
+
+#: .\templates\menu\index.html:68
+msgid "Floor 5 (30 seats)"
+msgstr "Floor 5 (34 seats)"
+
+#: .\templates\menu\index.html:73
+msgid "Floor 6 (25 seats)"
+msgstr "Floor 6 (29 seats)"
+
+#: .\templates\menu\index.html:78
+msgid "Floor 7 (35 seats)"
+msgstr "Floor 7 (39 seats)"
+
+#: .\reservations\templates\reservations\my_reservations.html:13
+msgid "My Reservations"
+msgstr "My Reservations"
+
+#: .\reservations\templates\reservations\my_reservations.html:18
+msgid "Back to Plans"
+msgstr "Back to Plans"
+
+#: .\reservations\templates\reservations\floor.html:3
+msgid "Floor"
+msgstr "Floor"
+
+#: .\reservations\templates\reservations\floor.html:3
+msgid "Reservations"
+msgstr "Reservations"
+
+#: .\reservations\templates\reservations\floor.html:29
+msgid "Seat reservation system"
+msgstr "Seat reservation system"
+
+#: .\reservations\templates\reservations\floor.html:60
+msgid "Edit Layout"
+msgstr "Edit Layout"
+
+#: .\reservations\templates\reservations\floor.html:86
+msgid "Reset"
+msgstr "Reset"
+
+#: .\reservations\templates\reservations\floor.html:217
+msgid "Seats"
+msgstr "Seats"
+
+#: .\reservations\templates\reservations\floor.html:219
+msgid "seats"
+msgstr "seats"
+
+#: .\reservations\templates\reservations\my_reservations.html:33
+msgid "Show Reservations"
+msgstr "Show Reservations"
+
+
+#: .\reservations\templates\reservations\my_reservations.html:106
+msgid "No Reservations"
+msgstr "No Reservations"
+
+#: .\reservations\templates\reservations\my_reservations.html:107
+msgid "No active reservations found for this email address."
+msgstr "No active reservations found for this email address."
+
+#: .\reservations\templates\reservations\my_reservations.html:114
+msgid "Are you sure you want to cancel this reservation?"
+msgstr "Are you sure you want to cancel this reservation?"
+
+#: .\reservations\templates\reservations\my_reservations.html:139
+msgid "Error occurred:"
+msgstr "Error occurred:"
+
+#: .\reservations\templates\reservations\my_reservations.html:139
+msgid "Failed to cancel reservation"
+msgstr "Failed to cancel reservation"
+
+#: .\reservations\templates\reservations\_desk_modal.html:15
+msgid "Desk Lock"
+msgstr "Desk Lock"
+
+#: .\reservations\templates\reservations\_desk_modal.html:29
+msgid "Desk Locked"
+msgstr "Desk Locked"
+
+#: .\reservations\templates\reservations\_desk_modal.html:30
+msgid "5 minutes to reserve"
+msgstr "5 minutes to reserve"
+
+#: .\reservations\templates\reservations\_desk_modal.html:75
+msgid "After confirming the reservation, you will download .ICS or add to Google Calendar."
+msgstr "After confirming the reservation, you will download .ICS or add to Google Calendar."
+
+#: .\reservations\templates\reservations\_desk_modal.html:87
+msgid "Check if desk is locked"
+msgstr "Check if desk is locked"
+
+#: .\reservations\templates\reservations\_desk_modal.html:110
+msgid "Reservation confirmed"
+msgstr "Reservation confirmed"
+
+#: .\reservations\templates\reservations\_desk_modal.html:123
+msgid "Reservation error:"
+msgstr "Reservation error:"
+
+#: .\reservations\templates\reservations\_desk_modal.html:123
+msgid "Reservation error. Check data and try again."
+msgstr "Reservation error. Check data and try again."
+
+#: .\reservations\templates\reservations\_desk_modal.html:136
+msgid "Enter email to lock desk"
+msgstr "Enter email to lock desk"
+
+#: .\reservations\templates\reservations\_desk_modal.html:166
+msgid "Desk lock expired! Desk has been released."
+msgstr "Desk lock expired! Desk has been released."
+
+#: .\reservations\templates\reservations\_desk_modal.html:199
+msgid "Failed to lock desk"
+msgstr "Failed to lock desk"
+
+#: .\reservations\templates\reservations\_desk_modal.html:280
+msgid "Desk has been unlocked!"
+msgstr "Desk has been unlocked!"
+
+
+#: .\reservations\templates\reservations\_desk_modal.html:311
+msgid "Automatically lock desk when opening modal"
+msgstr "Automatically lock desk when opening modal"
+
+#: .\reservations\templates\reservations\_ai_panel.html:82
+msgid "Enter your email to see favorite desks:"
+msgstr "Enter your email to see favorite desks:"
+
+#: .\reservations\templates\reservations\_ai_panel.html:134
+msgid "No favorite desks. Set preferences!"
+msgstr "No favorite desks. Set preferences!"
+
+#: .\reservations\templates\reservations\_desk_modal.html:10
+msgid "Amenities"
+msgstr "Amenities"
+
+#: .\reservations\templates\reservations\_desk_modal.html:68
+msgid "Recurring"
+msgstr "Recurring"
+
+#: .\reservations\templates\reservations\_desk_card.html:10
+msgid "Deep Work"
+msgstr "Deep Work"
+
+#: .\reservations\templates\reservations\_desk_card.html:10
+msgid "Open"
+msgstr "Open"
+
+#: .\reservations\templates\reservations\_desk_card.html:15
+msgid "Features"
+msgstr "Features"
+
+#: .\reservations\templates\reservations\_desk_card.html:22
+msgid "Dock"
+msgstr "Dock"
+
+#: .\reservations\templates\reservations\_desk_card.html:30
+msgid "Adjustable"
+msgstr "Adjustable"
+
+#: .\reservations\templates\reservations\_desk_card.html:38
+msgid "Dual Monitors"
+msgstr "Dual Monitors"
+
+#: .\reservations\templates\reservations\_desk_card.html:42
+msgid "Basic"
+msgstr "Basic"
+
+#: .\reservations\templates\reservations\_desk_card.html:49
+msgid "Reserve Seat"
+msgstr "Reserve Seat"
+
+#: .\reservations\templates\reservations\_desk_modal.html:51
+msgid "First and Last Name"
+msgstr "First and Last Name"
+
+
+
+#: .\reservations\templates\reservations\_desk_modal.html:55
+msgid "From"
+msgstr "From"
+
+#: .\reservations\templates\reservations\_desk_modal.html:56
+msgid "To"
+msgstr "To"
+
+#: .\reservations\templates\reservations\_desk_modal.html:37
+msgid "Unlock"
+msgstr "Unlock"
+
+#: .\reservations\templates\reservations\_desk_modal.html:61
+msgid "Alternative"
+msgstr "Alternative"
+
+#: .\reservations\templates\reservations\_ai_panel.html:7
+msgid "AI Assistant"
+msgstr "AI Assistant"
+
+#: .\reservations\templates\reservations\_ai_panel.html:12
+msgid "Preferences"
+msgstr "Preferences"
+
+#: .\reservations\templates\reservations\_ai_panel.html:44
+msgid "Recommend"
+msgstr "Recommend"
+
+#: .\reservations\templates\reservations\_ai_panel.html:50
+msgid "Your Favorites"
+msgstr "Your Favorites"
+
+#: .\reservations\templates\reservations\_ai_panel.html:56
+msgid "Surprise Me"
+msgstr "Surprise Me"
+
+#: .\reservations\templates\reservations\_ai_panel.html:78
+msgid "No recommendations."
+msgstr "No recommendations."
+
+
+#: .\reservations\templates\reservations\_ai_panel.html:86
+msgid "Set default date to today if no date selected"
+msgstr "Set default date to today if no date selected"
+
+#: .\reservations\templates\reservations\_ai_panel.html:105
+msgid "Sending request to:"
+msgstr "Sending request to:"
+
+#: .\reservations\templates\reservations\_ai_panel.html:113
+msgid "Response:"
+msgstr "Response:"
+
+#: .\reservations\templates\reservations\_ai_panel.html:116
+msgid "Highlight favorite seats"
+msgstr "Highlight favorite seats"
+
+#: .\reservations\templates\reservations\_ai_panel.html:121
+msgid "Pink color for favorites"
+msgstr "Pink color for favorites"
+
+#: .\reservations\templates\reservations\_ai_panel.html:141
+msgid "Error:"
+msgstr "Error:"
+
+#: .\reservations\templates\reservations\_ai_panel.html:162
+msgid "No available seats."
+msgstr "No available seats."
+
+#: .\reservations\templates\reservations\_ai_panel.html:165
+msgid "Set default date on page load"
+msgstr "Set default date on page load"
+
+#: .\reservations\templates\reservations\my_reservations.html:25
+msgid "Enter your email"
+msgstr "Enter your email"
+
+#: .\reservations\templates\reservations\my_reservations.html:27
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: .\reservations\templates\reservations\my_reservations.html:69
+msgid "Hours"
+msgstr "Hours"
+
+#: .\reservations\templates\reservations\my_reservations.html:85
+msgid "Download .ics"
+msgstr "Download .ics"
+
+#: .\reservations\templates\reservations\my_reservations.html:92
+msgid "Cancel"
+msgstr "Cancel"
+
+#: .\reservations\templates\reservations\my_reservations.html:121
+msgid "Error: Missing CSRF token"
+msgstr "Error: Missing CSRF token"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:3
+msgid "Recurring Reservations"
+msgstr "Recurring Reservations"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:19
+msgid "Automatic reservations for daily, weekly or monthly"
+msgstr "Automatic reservations for daily, weekly or monthly"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:26
+msgid "Back"
+msgstr "Back"
+
+
+#: .\reservations\templates\reservations\recurring_reservations.html:75
+msgid "no end"
+msgstr "no end"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:89
+msgid "Daily"
+msgstr "Daily"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:90
+msgid "Weekly"
+msgstr "Weekly"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:91
+msgid "Monthly"
+msgstr "Monthly"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:95
+msgid "All days"
+msgstr "All days"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:96
+msgid "Mon-Fri"
+msgstr "Mon-Fri"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:97
+msgid "Selected days"
+msgstr "Selected days"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:119
+msgid "No Recurring Reservations"
+msgstr "No Recurring Reservations"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:120
+msgid "You do not have any recurring reservations for this email yet."
+msgstr "You do not have any recurring reservations for this email yet."
+
+#: .\reservations\templates\reservations\recurring_reservations.html:125
+msgid "Create First Reservation"
+msgstr "Create First Reservation"
+
+#: .\reservations\templates\reservations\recurring_reservations.html:133
+msgid "Are you sure you want to cancel this recurring reservation?"
+msgstr "Are you sure you want to cancel this recurring reservation?"
+
+
+#: .\templates\account\404.html:110
+msgid "Check the URL for typos"
+msgstr ""
+
+#: .\templates\account\404.html:111
+msgid "Go back to the main page"
+msgstr ""
+
+#: .\templates\account\404.html:112
+msgid "Use the navigation menu"
+msgstr ""
+
+#: .\templates\account\404.html:113
+msgid "Contact support if you need help"
+msgstr ""
+
+#: .\templates\account\404.html:116 .\templates\account\email_confirm.html:123
+#: .\templates\account\verification_sent.html:188
+msgid "Go to Home"
+msgstr ""
+
+#: .\templates\account\404.html:117 .\templates\account\email_confirm.html:122
+msgid "Go to Login"
+msgstr ""
+
+#: .\templates\account\email.html:10
+msgid "Email Sent"
+msgstr ""
+
+#: .\templates\account\email.html:137
+msgid "Check Your Email"
+msgstr ""
+
+#: .\templates\account\email.html:138
+msgid "We have sent you an email with a confirmation link."
+msgstr ""
+
+#: .\templates\account\email.html:141
+msgid "Email sent to:"
+msgstr ""
+
+#: .\templates\account\email.html:146
+msgid "What to do next:"
+msgstr ""
+
+#: .\templates\account\email.html:147
+msgid "Check your email inbox (and spam folder)"
+msgstr ""
+
+#: .\templates\account\email.html:148
+msgid "Click the confirmation link in the email"
+msgstr ""
+
+#: .\templates\account\email.html:149
+msgid "Complete your account activation"
+msgstr ""
+
+#: .\templates\account\email.html:153
+msgid "Didn"
+msgstr ""
+
+#: .\templates\account\email.html:154
+#: .\templates\account\verification_sent.html:181
+msgid "Check your spam/junk folder"
+msgstr ""
+
+#: .\templates\account\email.html:155
+msgid "Wait a few minutes and try again"
+msgstr ""
+
+#: .\templates\account\email.html:156
+msgid "Make sure the email address is correct"
+msgstr ""
+
+#: .\templates\account\email.html:159
+#: .\templates\socialaccount\login_cancelled.html:116
+#: .\templates\socialaccount\login_error.html:153
+msgid "Try Again"
+msgstr ""
+
+#: .\templates\account\email.html:160
+#: .\templates\account\email_verification_sent.html:174
+#: .\templates\account\verification_sent.html:187
+#: .\templates\socialaccount\login.html:122
+msgid "Back to Login"
+msgstr ""
+
+#: .\templates\account\email.html:204
+msgid "Still waiting for email confirmation..."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:10
+msgid "Email Confirmation"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:113
+msgid "Email Confirmed!"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:114
+msgid ""
+"Thank you for confirming your email address. Your account is now fully "
+"activated."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:117
+msgid "What"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:118
+msgid "You can now log in to your account and access all features."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:119
+msgid "Your email address is confirmed and secure."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:128
+msgid "Confirmation Failed"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:129
+msgid "This email confirmation link is invalid or has expired."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:132
+msgid "What can you do?"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:133
+msgid "Check if you copied the link correctly from your email."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:134
+msgid "Request a new confirmation email if needed."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:135
+msgid "Contact support if you continue to have issues."
+msgstr ""
+
+#: .\templates\account\email_confirm.html:138
+msgid "Register Again"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:139
+msgid "Try Login"
+msgstr ""
+
+#: .\templates\account\email_confirm.html:149
+msgid "Redirect to login page?"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:10
+msgid "Email Verification Sent"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:147
+msgid "Email Verification Required"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:148
+msgid ""
+"We need to verify your email address before you can access your account."
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:151
+msgid "Verification email sent to:"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:156
+#: .\templates\account\verification_sent.html:222
+msgid "Email sent successfully!"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:157
+msgid "Check your inbox for the verification email"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:158
+msgid "Click the verification link to activate your account"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:159
+msgid "You can then log in normally"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:163
+msgid "Important notes:"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:164
+msgid "The verification link expires in 24 hours"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:165
+msgid "Check your spam folder if you don"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:166
+msgid "You can request a new verification email if needed"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:170
+msgid "You can request a new verification email in:"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:170
+msgid "seconds"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:173
+msgid "Resend Verification Email"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:238
+msgid "Verification email sent again!"
+msgstr ""
+
+#: .\templates\account\email_verification_sent.html:276
+msgid "Checking verification status..."
+msgstr ""
+
+#: .\templates\account\profile.html:10
+msgid "User Profile"
+msgstr ""
+
+#: .\templates\account\profile.html:146
+msgid "Welcome to Your Profile!"
+msgstr ""
+
+#: .\templates\account\profile.html:147
+msgid "You have successfully logged in to your account."
+msgstr ""
+
+#: .\templates\account\profile.html:151
+#: .\templates\socialaccount\signup.html:131
+msgid "Your Account Information:"
+msgstr ""
+
+#: .\templates\account\profile.html:152
+#: .\templates\socialaccount\signup.html:132
+msgid "Email:"
+msgstr ""
+
+#: .\templates\account\profile.html:153
+#: .\templates\socialaccount\signup.html:133
+msgid "Name:"
+msgstr ""
+
+#: .\templates\account\profile.html:154
+#: .\templates\socialaccount\signup.html:134
+msgid "Account Status:"
+msgstr ""
+
+#: .\templates\account\profile.html:156
+#: .\templates\socialaccount\signup.html:136
+msgid "Active"
+msgstr ""
+
+#: .\templates\account\profile.html:158
+#: .\templates\socialaccount\signup.html:138
+msgid "Inactive"
+msgstr ""
+
+#: .\templates\account\profile.html:161
+msgid "Member Since:"
+msgstr ""
+
+#: .\templates\account\profile.html:166
+#: .\templates\socialaccount\signup.html:145
+msgid "What you can do now:"
+msgstr ""
+
+#: .\templates\account\profile.html:167
+#: .\templates\socialaccount\signup.html:146
+msgid "Access the main dashboard"
+msgstr ""
+
+#: .\templates\account\profile.html:168
+#: .\templates\socialaccount\signup.html:147
+msgid "Make reservations"
+msgstr ""
+
+#: .\templates\account\profile.html:169
+#: .\templates\socialaccount\signup.html:148
+msgid "Manage your account settings"
+msgstr ""
+
+#: .\templates\account\profile.html:170
+msgid "View your reservation history"
+msgstr ""
+
+#: .\templates\account\profile.html:174
+msgid "Quick Actions:"
+msgstr ""
+
+#: .\templates\account\profile.html:175
+msgid "Go to dashboard to start using the application"
+msgstr ""
+
+#: .\templates\account\profile.html:176
+msgid "Configure your security settings (2FA, etc.)"
+msgstr ""
+
+#: .\templates\account\profile.html:177
+msgid "Update your profile information"
+msgstr ""
+
+#: .\templates\account\profile.html:180
+#: .\templates\socialaccount\signup.html:152
+msgid "Go to Dashboard"
+msgstr ""
+
+#: .\templates\account\profile.html:181 .\templates\menu\security.html:9
+#: .\templates\menu\security.html:19 .\templates\socialaccount\signup.html:153
+msgid "Security Settings"
+msgstr ""
+
+#: .\templates\account\profile.html:214
+#: .\templates\socialaccount\signup.html:186
+msgid "Redirecting to dashboard in 3 seconds..."
+msgstr ""
+
+#: .\templates\account\verification_sent.html:10
+msgid "Verification Sent"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:159
+msgid "Verification Email Sent!"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:160
+msgid "We have successfully sent you a verification email."
+msgstr ""
+
+#: .\templates\account\verification_sent.html:163
+msgid "Sent to:"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:172
+msgid "What happens next?"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:173
+msgid "Check your email inbox"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:174
+msgid "Click the verification link"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:175
+msgid "Complete your account setup"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:176
+msgid "Start using your account"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:180
+msgid "Need help?"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:182
+msgid "Email may take a few minutes to arrive"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:183
+msgid "Verification link expires in 24 hours"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:184
+msgid "Contact support if you have issues"
+msgstr ""
+
+#: .\templates\account\verification_sent.html:234
+msgid "Would you like to go back to the login page?"
+msgstr ""
+
+#: .\templates\common\language_switcher.html:7
+msgid "Change language"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:7
+#: .\templates\emails\magic_link_body.html:70
+msgid "Your Login Link"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:69
+#: .\templates\emails\magic_link_body.html:99
+#: .\templates\emails\magic_link_body.txt:12
+msgid "Coworking App"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:73
+#: .\templates\emails\magic_link_body.txt:1
+msgid "Hello"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:75
+msgid "Click the button below to log in:"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:79
+msgid "Log In Automatically"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:84
+msgid "Important information:"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:86
+#, python-format
+msgid "This link is valid for <strong>%(minutes)s minutes</strong>"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:87
+msgid "You can use it only once"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:88
+msgid "If you did not try to log in, ignore this email"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:92
+msgid ""
+"If the button does not work, copy and paste this link into your browser:"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:98
+msgid "This email was sent automatically. Do not reply to it."
+msgstr ""
+
+#: .\templates\emails\magic_link_body.html:99
+msgid "All rights reserved."
+msgstr ""
+
+#: .\templates\emails\magic_link_body.txt:3
+msgid "Click the link below to log in:"
+msgstr ""
+
+#: .\templates\emails\magic_link_body.txt:7
+#, python-format
+msgid "This link is valid for %(minutes)s minutes."
+msgstr ""
+
+#: .\templates\emails\magic_link_body.txt:9
+msgid "If you did not try to log in, ignore this email."
+msgstr ""
+
+#: .\templates\emails\magic_link_subject.txt:1
+msgid "Your Login Link - Coworking App"
+msgstr ""
+
+#: .\templates\goodbye\logout_goodbye_white.html:10
+msgid "Logged out"
+msgstr ""
+
+#: .\templates\goodbye\logout_goodbye_white.html:18
+#: .\templates\goodbye\logout_goodbye_white.html:19
+msgid "Goodbye!"
+msgstr ""
+
+#: .\templates\goodbye\logout_goodbye_white.html:21
+msgid "See you soon"
+msgstr ""
+
+#: .\templates\goodbye\logout_goodbye_white.html:27
+msgid "You have been logged out"
+msgstr ""
+
+#: .\templates\goodbye\logout_goodbye_white.html:28
+msgid "Thanks for visiting. Come back anytime."
+msgstr ""
+
+#: .\templates\goodbye\logout_goodbye_white.html:30
+msgid "Log in again"
+msgstr ""
+
+#: .\templates\goodbye\logout_goodbye_white.html:31
+msgid "Close"
+msgstr ""
+
+#: .\templates\login\index.html:10
+msgid "Application - Login"
+msgstr ""
+
+#: .\templates\login\index.html:21
+msgid "Login"
+msgstr ""
+
+#: .\templates\login\index.html:22
+msgid "Welcome back! Please enter your details to sign in."
+msgstr ""
+
+#: .\templates\login\index.html:26 .\templates\menu\dashboard.html:112
+#: .\templates\menu\index.html:112 .\templates\menu\reserve.html:113
+#: .\templates\registration\index.html:49
+msgid "Email"
+msgstr ""
+
+#: .\templates\login\index.html:31 .\templates\registration\index.html:53
+msgid "Password"
+msgstr ""
+
+#: .\templates\login\index.html:34
+msgid "Show password"
+msgstr ""
+
+#: .\templates\login\index.html:41
+msgid "Remember me"
+msgstr ""
+
+#: .\templates\login\index.html:43
+msgid "Forgot password?"
+msgstr ""
+
+#: .\templates\login\index.html:47 .\templates\welcome\index.html:35
+msgid "Log In"
+msgstr ""
+
+
+#: .\templates\login\index.html:52 .\templates\login\magic_link.html:145
+#: .\templates\registration\index.html:64
+#: .\venv\Lib\site-packages\django\utils\text.py:287
+msgid "or"
+msgstr ""
+
+#: .\templates\login\index.html:63 .\templates\login\magic_link.html:156
+#: .\templates\registration\index.html:75
+#: .\templates\socialaccount\login.html:109
+msgid "Continue with Google"
+msgstr ""
+
+#: .\templates\login\index.html:68
+msgid "Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\login\index.html:69
+msgid "Enter the verification code sent to your email"
+msgstr ""
+
+#: .\templates\login\index.html:71
+msgid "Verification Code"
+msgstr ""
+
+#: .\templates\login\index.html:74
+msgid "Verify"
+msgstr ""
+
+#: .\templates\login\index.html:75
+msgid "Resend Code"
+msgstr ""
+
+#: .\templates\login\magic_link.html:10
+msgid "Application - Magic Link Login"
+msgstr ""
+
+#: .\templates\login\magic_link.html:94
+msgid "Magic Link Login"
+msgstr ""
+
+#: .\templates\login\magic_link.html:95
+msgid "Enter your email address and we will send you a secure login link!"
+msgstr ""
+
+#: .\templates\login\magic_link.html:99
+msgid "Email Address"
+msgstr ""
+
+#: .\templates\login\magic_link.html:100 .\templates\login\magic_link.html:106
+msgid "Enter your email address"
+msgstr ""
+
+#: .\templates\login\magic_link.html:104
+msgid "How it works:"
+msgstr ""
+
+#: .\templates\login\magic_link.html:107
+msgid "Check your email for a secure login link"
+msgstr ""
+
+#: .\templates\login\magic_link.html:108
+msgid "Click the link to log in automatically"
+msgstr ""
+
+#: .\templates\login\magic_link.html:109
+msgid "No password required!"
+msgstr ""
+
+#: .\templates\login\magic_link.html:115
+msgid "Send Login Link"
+msgstr ""
+
+#: .\templates\login\magic_link.html:125
+msgid "Sending login link..."
+msgstr ""
+
+#: .\templates\login\magic_link.html:129
+msgid "Check Your Email!"
+msgstr ""
+
+#: .\templates\login\magic_link.html:130
+msgid "We have sent a secure login link to your email address."
+msgstr ""
+
+#: .\templates\login\magic_link.html:131
+msgid "Click the link in your email to log in automatically."
+msgstr ""
+
+#: .\templates\login\magic_link.html:132
+msgid "The link will expire in 15 minutes."
+msgstr ""
+
+#: .\templates\login\magic_link.html:134
+msgid "Send Another Link"
+msgstr ""
+
+#: .\templates\login\magic_link.html:139 .\templates\menu\security.html:116
+msgid "Error"
+msgstr ""
+
+#: .\templates\menu\cancel.html:10 .\templates\menu\dashboard.html:95
+msgid "Cancel Reservation"
+msgstr ""
+
+#: .\templates\menu\cancel.html:28 .\templates\menu\dashboard.html:29
+msgid "Workspace Bookings"
+msgstr ""
+
+
+#: .\templates\menu\cancel.html:31 .\templates\menu\dashboard.html:32
+msgid "Reserve"
+msgstr ""
+
+
+#: .\templates\menu\cancel.html:41
+msgid "Cancel reservation"
+msgstr ""
+
+#: .\templates\menu\cancel.html:43
+msgid "Reservation ID (optional)"
+msgstr ""
+
+#: .\templates\menu\cancel.html:44
+msgid "Seat (e.g. A1)"
+msgstr ""
+
+#: .\templates\menu\cancel.html:45
+msgid "YYYY-MM-DD"
+msgstr ""
+
+#: .\templates\menu\cancel.html:46
+msgid "Find"
+msgstr ""
+
+#: .\templates\menu\cancel.html:48
+msgid ""
+"Enter the <b>ID</b> or <b>seat + date</b>. If you enter only the <b>date</"
+"b>, we"
+msgstr ""
+
+#: .\templates\menu\cancel.html:53
+msgid "Results"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:10
+msgid "User Dashboard"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:37
+msgid "Toggle dark mode"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:38 .\templates\menu\dashboard.html:100
+msgid "Logout"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:45
+msgid "Good day"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:45
+msgid "User"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:46
+msgid "Manage your seat reservations with ease."
+msgstr ""
+
+#: .\templates\menu\dashboard.html:49 .\templates\menu\dashboard.html:108
+msgid "Quick‑book"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:55
+msgid "Schedule"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:60
+msgid "Reservations (last 14 days)"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:64
+msgid "My summary"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:65
+msgid "Next reservation"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:66
+msgid "Last reservation"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:67
+msgid "Upcoming (30d)"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:68
+msgid "Actions"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:70
+msgid "Add next to calendar (.ics)"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:78
+msgid "Reservations — upcoming 30 days"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:79
+msgid "Loading…"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:85 .\templates\menu\index.html:25
+msgid "Show All Seats"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:86
+msgid "Browse the complete list of available seats."
+msgstr ""
+
+
+#: .\templates\menu\dashboard.html:91
+msgid "Book a seat for your preferred date."
+msgstr ""
+
+#: .\templates\menu\dashboard.html:96
+msgid "Cancel an existing booking."
+msgstr ""
+
+#: .\templates\menu\dashboard.html:101
+msgid "Sign out of your account."
+msgstr ""
+
+#: .\templates\menu\dashboard.html:109 .\templates\menu\index.html:116
+#: .\templates\menu\reserve.html:117
+msgid "Date"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:110
+msgid "Seat"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:110
+msgid "e.g. A1"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:111
+msgid "Name"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:111
+msgid "Your name"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:112
+msgid "you@mail.com"
+msgstr ""
+
+#: .\templates\menu\dashboard.html:115
+msgid "Create"
+msgstr ""
+
+#: .\templates\menu\index.html:10
+msgid "Reservation Place"
+msgstr ""
+
+#: .\templates\menu\index.html:26
+msgid "Select a seat to view details or make a reservation."
+msgstr ""
+
+#: .\templates\menu\index.html:29 .\templates\menu\reserve.html:41
+msgid "Back to previous view"
+msgstr ""
+
+#: .\templates\menu\index.html:34 .\templates\menu\reserve.html:29
+#: .\templates\menu\reserve.html:59
+msgid "Absence"
+msgstr ""
+
+#: .\templates\menu\index.html:37 .\templates\menu\reserve.html:30
+msgid "Reserved"
+msgstr ""
+
+#: .\templates\menu\index.html:40 .\templates\menu\reserve.html:31
+msgid "Docking station"
+msgstr ""
+
+#: .\templates\menu\index.html:43 .\templates\menu\reserve.html:32
+msgid "Two screens"
+msgstr ""
+
+#: .\templates\menu\index.html:46 .\templates\menu\reserve.html:33
+msgid "Electric desk"
+msgstr ""
+
+#: .\templates\menu\index.html:49 .\templates\menu\reserve.html:34
+msgid "Docking + Screens"
+msgstr ""
+
+#: .\templates\menu\index.html:52 .\templates\menu\reserve.html:35
+msgid "Docking + Electric"
+msgstr ""
+
+#: .\templates\menu\index.html:55 .\templates\menu\reserve.html:36
+msgid "Screens + Electric"
+msgstr ""
+
+#: .\templates\menu\index.html:58 .\templates\menu\reserve.html:37
+msgid "Docking + Screens + Electric"
+msgstr ""
+
+
+#: .\templates\menu\index.html:101 .\templates\menu\reserve.html:102
+msgid "New reservation"
+msgstr ""
+
+#: .\templates\menu\index.html:104 .\templates\menu\reserve.html:105
+msgid "Place"
+msgstr ""
+
+#: .\templates\menu\index.html:108 .\templates\menu\reserve.html:109
+msgid "Name and Surname"
+msgstr ""
+
+#: .\templates\menu\index.html:120 .\templates\menu\reserve.html:121
+msgid "Comments"
+msgstr ""
+
+#: .\templates\menu\index.html:121 .\templates\menu\reserve.html:122
+msgid "e.g. I need adapter USB-C..."
+msgstr ""
+
+#: .\templates\menu\index.html:124
+msgid "Book now"
+msgstr ""
+
+#: .\templates\menu\reserve.html:10
+msgid "Seat Reservations – Reserve / Cancel"
+msgstr ""
+
+#: .\templates\menu\reserve.html:25
+msgid "Reserve seats"
+msgstr ""
+
+#: .\templates\menu\reserve.html:26
+msgid "Select a seat and make a reservation."
+msgstr ""
+
+#: .\templates\menu\reserve.html:46
+msgid "Search for a place (e.g. 5-12)..."
+msgstr ""
+
+#: .\templates\menu\reserve.html:48 .\templates\menu\reserve.html:91
+msgid "All"
+msgstr ""
+
+#: .\templates\menu\reserve.html:49
+msgid "Free"
+msgstr ""
+
+#: .\templates\menu\reserve.html:50
+msgid "Occupied"
+msgstr ""
+
+#: .\templates\menu\reserve.html:53
+msgid "All amenities"
+msgstr ""
+
+#: .\templates\menu\reserve.html:54
+msgid "D – Docking station"
+msgstr ""
+
+#: .\templates\menu\reserve.html:55
+msgid "S – Two screens"
+msgstr ""
+
+#: .\templates\menu\reserve.html:56
+msgid "E – Electrical adjustment"
+msgstr ""
+
+#: .\templates\menu\reserve.html:57
+msgid "DS – Dock + 2 screens"
+msgstr ""
+
+#: .\templates\menu\reserve.html:58
+msgid "DSE – Full"
+msgstr ""
+
+#: .\templates\menu\reserve.html:88
+msgid "ID reservation..."
+msgstr ""
+
+#: .\templates\menu\reserve.html:89
+msgid "Date reservation..."
+msgstr ""
+
+#: .\templates\menu\reserve.html:90
+msgid "Search"
+msgstr ""
+
+#: .\templates\menu\reserve.html:125
+msgid "Reservation"
+msgstr ""
+
+#: .\templates\menu\security.html:20
+msgid "Manage your account security and two-factor authentication"
+msgstr ""
+
+#: .\templates\menu\security.html:23
+msgid "Two-Factor Authentication (2FA)"
+msgstr ""
+
+#: .\templates\menu\security.html:24
+msgid "Add an extra layer of security to your account"
+msgstr ""
+
+#: .\templates\menu\security.html:28
+msgid "Status:"
+msgstr ""
+
+#: .\templates\menu\security.html:29
+msgid "Checking..."
+msgstr ""
+
+#: .\templates\menu\security.html:35
+msgid "Enable 2FA"
+msgstr ""
+
+#: .\templates\menu\security.html:38 .\templates\menu\security.html:72
+msgid "Disable 2FA"
+msgstr ""
+
+#: .\templates\menu\security.html:43
+msgid "Setup Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\menu\security.html:44
+msgid "A verification code has been sent to your email address."
+msgstr ""
+
+#: .\templates\menu\security.html:47
+msgid "Enter verification code:"
+msgstr ""
+
+#: .\templates\menu\security.html:53
+msgid "Verify & Enable"
+msgstr ""
+
+#: .\templates\menu\security.html:62
+msgid "Disable Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\menu\security.html:63
+msgid "Enter your password to confirm disabling 2FA"
+msgstr ""
+
+#: .\templates\menu\security.html:66
+msgid "Current password:"
+msgstr ""
+
+#: .\templates\menu\security.html:82
+msgid "Back to Dashboard"
+msgstr ""
+
+#: .\templates\menu\security.html:103
+msgid "Enabled"
+msgstr ""
+
+#: .\templates\menu\security.html:107
+msgid "Disabled"
+msgstr ""
+
+#: .\templates\registration\index.html:10
+msgid "Application - Registration"
+msgstr ""
+
+#: .\templates\registration\index.html:36
+msgid "Registration"
+msgstr ""
+
+#: .\templates\registration\index.html:37
+msgid "Please fill out the form to create an account."
+msgstr ""
+
+#: .\templates\registration\index.html:41
+msgid "First Name"
+msgstr ""
+
+#: .\templates\registration\index.html:45
+msgid "Last Name"
+msgstr ""
+
+#: .\templates\registration\index.html:59
+msgid "Register"
+msgstr ""
+
+#: .\templates\socialaccount\login.html:9
+msgid "Google Authentication"
+msgstr ""
+
+#: .\templates\socialaccount\login.html:97
+msgid "Sign in with Google"
+msgstr ""
+
+#: .\templates\socialaccount\login.html:98
+msgid "Click the button below to authenticate with your Google account."
+msgstr ""
+
+#: .\templates\socialaccount\login.html:114
+msgid "What happens next:"
+msgstr ""
+
+#: .\templates\socialaccount\login.html:115
+msgid "You will be redirected to Google"
+msgstr ""
+
+#: .\templates\socialaccount\login.html:116
+msgid "Sign in with your Google account"
+msgstr ""
+
+#: .\templates\socialaccount\login.html:117
+msgid "Grant permission to access your basic profile"
+msgstr ""
+
+#: .\templates\socialaccount\login.html:118
+msgid "Return to the application logged in"
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:10
+#: .\templates\socialaccount\login_cancelled.html:105
+msgid "Login Cancelled"
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:106
+msgid "You cancelled the Google login process."
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:109
+msgid "What happened:"
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:110
+msgid "You chose not to complete the Google login"
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:111
+msgid "Your account was not created or accessed"
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:112
+msgid "You can try again anytime"
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:113
+msgid "Or use standard email/password login"
+msgstr ""
+
+#: .\templates\socialaccount\login_cancelled.html:117
+#: .\templates\socialaccount\login_error.html:154
+msgid "Register with Email"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:10
+#: .\templates\socialaccount\login_error.html:126
+msgid "Login Error"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:127
+msgid "There was an error during the Google login process."
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:131
+msgid "Error Details:"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:139
+msgid "Possible causes:"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:140
+msgid "Google OAuth configuration issue"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:141
+msgid "Network connection problem"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:142
+msgid "Google account access denied"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:143
+msgid "Application configuration error"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:148
+msgid "Try logging in again"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:149
+msgid "Use standard email/password login"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:150
+msgid "Contact support if the problem persists"
+msgstr ""
+
+#: .\templates\socialaccount\login_error.html:172
+msgid "Would you like to try logging in again?"
+msgstr ""
+
+#: .\templates\socialaccount\signup.html:11
+msgid "Complete Registration"
+msgstr ""
+
+#: .\templates\socialaccount\signup.html:126
+msgid "Welcome to Our Application!"
+msgstr ""
+
+#: .\templates\socialaccount\signup.html:127
+msgid "Your account has been created successfully using Google."
+msgstr ""
+
+#: .\templates\socialaccount\signup.html:149
+msgid "Set up additional security (2FA)"
+msgstr ""
+
+#: .\templates\welcome\index.html:10
+msgid "Application - Welcome"
+msgstr ""
+
+#: .\templates\welcome\index.html:18 .\templates\welcome\index.html:19
+msgid "Welcome"
+msgstr ""
+
+#: .\templates\welcome\index.html:21
+msgid "Enjoy your experience"
+msgstr ""
+
+#: .\templates\welcome\index.html:23
+msgid "Skip intro"
+msgstr ""
+
+#: .\templates\welcome\index.html:23
+msgid "Skip"
+msgstr ""
+
+#: .\templates\welcome\index.html:31
+msgid "Welcome to the Application"
+msgstr ""
+
+#: .\templates\welcome\index.html:32
+msgid "Please select an option to continue."
+msgstr ""
+
+#: .\templates\welcome\index.html:34
+msgid "Sign Up"
+msgstr ""
+
+#: .\templates\welcome\index.html:36
+msgid "Exit"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:153
+#: .\venv\Lib\site-packages\django\forms\fields.py:775
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:200
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:211
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:309
+#: .\venv\Lib\site-packages\django\core\validators.py:318
+#: .\venv\Lib\site-packages\django\core\validators.py:332
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:311
+msgid "IPv4"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:320
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:43
+msgid "IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:334
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:514
+#: .\venv\Lib\site-packages\django\forms\fields.py:366
+#: .\venv\Lib\site-packages\django\forms\fields.py:405
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:659
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1600
+#: .\venv\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1602
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1163
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1165
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1215
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1217
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1326
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1427
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1431
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1566
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1435
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1562
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1570
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1575
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1702
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1704
+msgid "Decimal number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1868
+msgid "Duration"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1920
+msgid "Email address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1945
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2025
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2067
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2180
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2188
+msgid "IPv4 address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2219
+msgid "IP address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2310
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2364
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2379
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2394
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2446
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2534
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2642
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2666
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2733
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:979
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:982
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1276
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1333
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1335
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1383
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:315
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:486
+#: .\venv\Lib\site-packages\django\forms\fields.py:1267
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:509
+#: .\venv\Lib\site-packages\django\forms\fields.py:1268
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:536
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:570
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:571
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:640
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:641
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:642
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:644
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:649
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:717
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:889
+#: .\venv\Lib\site-packages\django\forms\fields.py:975
+#: .\venv\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:977
+#: .\venv\Lib\site-packages\django\forms\fields.py:1096
+#: .\venv\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1097
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1339
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1369
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:97
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:922
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:229
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:527
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:528
+msgid "Currently"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:529
+msgid "Change"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:866
+msgid "Unknown"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:867
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:868
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:306
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:353
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:68
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\reservations\templates\reservations\advanced_features.html:21
+msgid "Advanced Features"
+msgstr "Advanced Features"
+
+#: .\reservations\templates\reservations\advanced_features.html:22
+msgid "All new reservation system capabilities"
+msgstr "All new reservation system capabilities"
+
+#: .\reservations\templates\reservations\advanced_features.html:46
+msgid "My Recurring Reservations"
+msgstr "My Recurring Reservations"
+
+#: .\reservations\templates\reservations\advanced_features.html:47
+msgid "Manage your automatic reservations"
+msgstr "Manage your automatic reservations"
+
+#: .\reservations\templates\reservations\advanced_features.html:64
+msgid "Waitlist"
+msgstr "Waitlist"
+
+#: .\reservations\templates\reservations\advanced_features.html:66
+msgid "Join the waitlist when your favorite seat is occupied"
+msgstr "Join the waitlist when your favorite seat is occupied"
+
+#: .\reservations\templates\reservations\advanced_features.html:69
+msgid "How it works?"
+msgstr "How it works?"
+
+#: .\reservations\templates\reservations\advanced_features.html:71
+msgid "You will receive a notification when the seat becomes available"
+msgstr "You will receive a notification when the seat becomes available"
+
+#: .\reservations\templates\reservations\advanced_features.html:83
+msgid "Team Rooms"
+msgstr "Team Rooms"
+
+#: .\reservations\templates\reservations\advanced_features.html:85
+msgid "Book entire zones for teams and meetings"
+msgstr "Book entire zones for teams and meetings"
+
+#: .\reservations\templates\reservations\advanced_features.html:88
+msgid "View Team Rooms"
+msgstr "View Team Rooms"
+
+#: .\reservations\templates\reservations\advanced_features.html:90
+msgid "Available on all floors"
+msgstr "Available on all floors"
+
+#: .\reservations\templates\reservations\advanced_features.html:102
+msgid "Guest Access"
+msgstr "Guest Access"
+
+#: .\reservations\templates\reservations\advanced_features.html:104
+msgid "Book seats for external guests"
+msgstr "Book seats for external guests"
+
+#: .\reservations\templates\reservations\advanced_features.html:109
+msgid "Host and guest data required"
+msgstr "Host and guest data required"
+
+#: .\reservations\templates\reservations\advanced_features.html:121
+msgid "Notifications"
+msgstr "Notifications"
+
+#: .\reservations\templates\reservations\advanced_features.html:123
+msgid "Receive notifications about reservations and availability"
+msgstr "Receive notifications about reservations and availability"
+
+#: .\reservations\templates\reservations\advanced_features.html:126
+msgid "Notification Settings"
+msgstr "Notification Settings"
+
+#: .\reservations\templates\reservations\advanced_features.html:128
+msgid "Available"
+msgstr "Available"
+
+#: .\reservations\templates\reservations\advanced_features.html:140
+msgid "Group Reservations"
+msgstr "Group Reservations"
+
+#: .\reservations\templates\reservations\advanced_features.html:142
+msgid "Book multiple seats next to each other"
+msgstr "Book multiple seats next to each other"
+
+#: .\reservations\templates\reservations\advanced_features.html:170
+msgid "Slack Integration"
+msgstr "Slack Integration"
+
+#: .\reservations\templates\reservations\advanced_features.html:172
+msgid "Book seats directly through Slack"
+msgstr "Book seats directly through Slack"
+
+#: .\reservations\templates\reservations\advanced_features.html:175
+msgid "Bot Configuration"
+msgstr "Bot Configuration"
+
+#: .\reservations\templates\reservations\advanced_features.html:184
+msgid "Quick Actions"
+msgstr "Quick Actions"
+
+#: .\reservations\templates\reservations\advanced_features.html:190
+msgid "Floor Plans"
+msgstr "Floor Plans"
+
+#: .\reservations\templates\reservations\advanced_features.html:202
+msgid "Help"
+msgstr "Help"
+
+#: .\reservations\templates\reservations\advanced_features.html:210
+msgid "Waitlist:"
+msgstr "Waitlist:"
+
+#: .\reservations\templates\reservations\advanced_features.html:210
+msgid "Join when your favorite seat is occupied"
+msgstr "Join when your favorite seat is occupied"
+
+#: .\reservations\templates\reservations\advanced_features.html:210
+msgid "You will receive an email when it becomes available"
+msgstr "You will receive an email when it becomes available"
+
+#: .\reservations\templates\reservations\advanced_features.html:210
+msgid "Automatic notifications"
+msgstr "Automatic notifications"
+
+#: .\reservations\templates\reservations\advanced_features.html:210
+msgid "First on the list has priority"
+msgstr "First on the list has priority"
+
+#: .\reservations\templates\reservations\advanced_features.html:213
+msgid "Guest Access:"
+msgstr "Guest Access:"
+
+#: .\reservations\templates\reservations\advanced_features.html:213
+msgid "Special marking in the system"
+msgstr "Special marking in the system"
+
+#: .\reservations\templates\reservations\advanced_features.html:213
+msgid "Host is responsible for the guest"
+msgstr "Host is responsible for the guest"
+
+#: .\reservations\templates\reservations\advanced_features.html:217
+msgid "Notifications:"
+msgstr "Notifications:"
+
+#: .\reservations\templates\reservations\advanced_features.html:217
+msgid "Push notifications on phone"
+msgstr "Push notifications on phone"
+
+#: .\reservations\templates\reservations\advanced_features.html:217
+msgid "Reservation reminders"
+msgstr "Reservation reminders"
+
+#: .\reservations\templates\reservations\advanced_features.html:217
+msgid "Availability notifications"
+msgstr "Availability notifications"
+
+#: .\reservations\templates\reservations\advanced_features.html:217
+msgid "Calendar integration"
+msgstr "Calendar integration"
+
+#: .\reservations\templates\reservations\advanced_features.html:221
+msgid "Slack Integration:"
+msgstr "Slack Integration:"
+
+#: .\reservations\templates\reservations\advanced_features.html:221
+msgid "Bot for reservations through Slack"
+msgstr "Bot for reservations through Slack"
+
+#: .\reservations\templates\reservations\advanced_features.html:221
+msgid "Commands: /reserve, /cancel"
+msgstr "Commands: /reserve, /cancel"
+
+#: .\reservations\templates\reservations\advanced_features.html:221
+msgid "Channel notifications"
+msgstr "Channel notifications"
+
+#: .\reservations\templates\reservations\advanced_features.html:221
+msgid "Quick team reservations"
+msgstr "Quick team reservations"
+
+#: .\reservations\templates\reservations\advanced_features.html:225
+msgid "Help:"
+msgstr "Help:"
+
+#: .\reservations\templates\reservations\advanced_features.html:225
+msgid "All functions are intuitive"
+msgstr "All functions are intuitive"
+
+#: .\reservations\templates\reservations\advanced_features.html:225
+msgid "Click on icons to learn more"
+msgstr "Click on icons to learn more"
+
+#: .\reservations\templates\reservations\advanced_features.html:225
+msgid "Technical support available"
+msgstr "Technical support available"
+
+#: .\reservations\templates\reservations\advanced_features.html:225
+msgid "Regular system updates"
+msgstr "Regular system updates"
