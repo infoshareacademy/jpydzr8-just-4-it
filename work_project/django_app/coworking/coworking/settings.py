@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'change_me_in_env')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
@@ -21,6 +25,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
     # --- Twoje aplikacje ---
     'api',             # masz tam custom User
