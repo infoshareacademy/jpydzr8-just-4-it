@@ -144,6 +144,14 @@ def serve_template(request, tpl_path: str = ''):
         return render_first(request, ['cancel/index.html', 'cancel.html', 'menu/cancel.html'])
     if key in {'goodbye', 'logout', 'logout_goodbye_white'}:
         return render_first(request, ['goodbye/index.html', 'goodbye/logout_goodbye_white.html', 'goodbye.html'])
+    if key in {'forgot-password', 'forgot_password', 'reset-password'}:
+        # Check if token is in path for reset-password
+        if 'reset-password' in key and '/' in tpl_path:
+            parts = tpl_path.split('/')
+            if len(parts) >= 2:
+                token = parts[-1] if parts[-1] else parts[-2]
+                return render(request, 'password_reset/reset_password.html', {'token': token})
+        return render_first(request, ['password_reset/forgot_password.html', 'password_reset/index.html'])
     if key in {'thank_you_spaced_clean.html'}:
         return render_first(request, ['thank_you_spaced_clean.html', 'welcome/thank_you_spaced_clean.html'])
     if key in {'profile', 'accounts/profile'}:
@@ -190,6 +198,13 @@ urlpatterns += [
         'auth/magic-link/<str:token>/',
         lambda request, token: redirect(f'/api/auth/magic-link/{token}/'),
         name='magic_link_redirect',
+    ),
+    
+    # password reset
+    path(
+        'reset-password/<str:token>/',
+        lambda request, token: render(request, 'password_reset/reset_password.html', {'token': token}),
+        name='reset_password_page',
     ),
 
     # fallback frontend

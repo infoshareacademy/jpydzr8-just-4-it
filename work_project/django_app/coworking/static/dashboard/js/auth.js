@@ -36,8 +36,8 @@
     }
   }
 
-  // Password toggle - handles both .password-toggle and .registration-password-toggle
-  document.querySelectorAll('.password-toggle, .registration-password-toggle').forEach(btn => {
+  // Password toggle - handles both .password-toggle and .registration-password-toggle and login-password-toggle
+  document.querySelectorAll('.password-toggle, .registration-password-toggle, .login-password-toggle').forEach(btn => {
     btn.addEventListener('click', function() {
       const selector = this.getAttribute('data-password-toggle') || '#password';
       const input = document.querySelector(selector);

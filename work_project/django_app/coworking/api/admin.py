@@ -1,23 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.db.models import Count, Q
-from django.utils.html import format_html
-from django.urls import path
-from django.shortcuts import render
-from django.http import JsonResponse
-from .models import User, Reservation
-from datetime import datetime, timedelta
-
-
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.db.models import Count
-from django.urls import path
 from django.utils.html import format_html
+from django.urls import path
 from django.utils.timezone import now
 from django.shortcuts import render
+from datetime import datetime, timedelta
 
 from .models import User, Reservation
+from .password_reset import PasswordResetToken
 
 
 @admin.register(User)
@@ -107,6 +98,16 @@ class UserAdmin(BaseUserAdmin):
             'site_header': self.admin_site.site_header,
         }
         return render(request, 'admin/user_analytics.html', context)
+
+
+@admin.register(PasswordResetToken)
+class PasswordResetTokenAdmin(admin.ModelAdmin):
+    list_display = ('user', 'token', 'created_at', 'expires_at', 'used', 'used_at')
+    list_filter = ('used', 'created_at', 'expires_at')
+    search_fields = ('user__email', 'token')
+    readonly_fields = ('token', 'created_at', 'used_at')
+    ordering = ('-created_at',)
+    date_hierarchy = 'created_at'
 
 
 @admin.register(Reservation)

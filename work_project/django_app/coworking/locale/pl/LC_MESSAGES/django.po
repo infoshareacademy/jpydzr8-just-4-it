@@ -1392,10 +1392,11 @@ msgid "Go to Home"
 msgstr ""
 
 #: templates/account/404.html:117 templates/account/email_confirm.html:122
+#: templates/password_reset/reset_password.html
 #, fuzzy
 #| msgid "Login"
 msgid "Go to Login"
-msgstr "Logowanie"
+msgstr "Przejdź do Logowania"
 
 #: templates/account/email.html:10
 #, fuzzy
@@ -1458,8 +1459,10 @@ msgstr "Spróbuj ponownie"
 #: templates/account/email_verification_sent.html:174
 #: templates/account/verification_sent.html:187
 #: templates/socialaccount/login.html:122
+#: templates/password_reset/forgot_password.html
+#: templates/password_reset/reset_password.html
 msgid "Back to Login"
-msgstr ""
+msgstr "Powrót do Logowania"
 
 #: templates/account/email.html:204
 msgid "Still waiting for email confirmation..."
@@ -3459,3 +3462,103 @@ msgstr "Powiadomienia email"
 #: templates/login/magic_link.html
 msgid "Back to login"
 msgstr "Powrót do logowania"
+
+# Password Reset translations
+#: templates/password_reset/forgot_password.html
+msgid "Just 4 IT Coworking - Forgot Password"
+msgstr "Just 4 IT Coworking - Zapomniałem Hasła"
+
+#: templates/password_reset/forgot_password.html
+msgid "Forgot Password?"
+msgstr "Zapomniałeś Hasła?"
+
+#: templates/password_reset/forgot_password.html
+msgid "Enter your email address and we'll send you a link to reset your password"
+msgstr "Wprowadź swój adres email, a wyślemy Ci link do resetowania hasła"
+
+
+#: templates/password_reset/forgot_password.html
+msgid "Send Reset Link"
+msgstr "Wyślij Link Resetujący"
+
+#: templates/password_reset/reset_password.html
+msgid "Just 4 IT Coworking - Reset Password"
+msgstr "Just 4 IT Coworking - Resetuj Hasło"
+
+#: templates/password_reset/reset_password.html
+msgid "Reset Your Password"
+msgstr "Resetuj Swoje Hasło"
+
+#: templates/password_reset/reset_password.html
+msgid "Enter your new password below"
+msgstr "Wprowadź swoje nowe hasło poniżej"
+
+#: templates/password_reset/reset_password.html
+msgid "Reset Password"
+msgstr "Resetuj Hasło"
+
+
+#: templates/password_reset/forgot_password.html
+msgid "We have sent a password reset link to your email address."
+msgstr "Wysłaliśmy link do resetowania hasła na Twój adres email."
+
+#: templates/password_reset/forgot_password.html
+msgid "Click the link in your email to reset your password."
+msgstr "Kliknij link w swojej wiadomości email, aby zresetować hasło."
+
+#: templates/password_reset/forgot_password.html
+msgid "The link will expire in 60 minutes."
+msgstr "Link wygaśnie za 60 minut."
+
+
+#: templates/password_reset/reset_password.html
+msgid "Password Reset Successful!"
+msgstr "Hasło Zostało Pomyślnie Zresetowane!"
+
+#: templates/password_reset/reset_password.html
+msgid "Your password has been reset successfully."
+msgstr "Twoje hasło zostało pomyślnie zresetowane."
+
+#: templates/password_reset/reset_password.html
+msgid "You can now log in with your new password."
+msgstr "Możesz teraz zalogować się używając nowego hasła."
+
+
+# API Password Reset translations
+#: api/views.py
+msgid "If an account with this email exists, a password reset link has been sent."
+msgstr "Jeśli konto z tym adresem email istnieje, link do resetowania hasła został wysłany."
+
+#: api/views.py
+msgid "Password reset link sent to your email"
+msgstr "Link do resetowania hasła został wysłany na Twój email"
+
+
+#: api/views.py
+msgid "Token and new password are required"
+msgstr "Token i nowe hasło są wymagane"
+
+#: api/views.py
+msgid "Passwords do not match"
+msgstr "Hasła nie pasują do siebie"
+
+#: api/views.py
+msgid "Invalid or expired token"
+msgstr "Nieprawidłowy lub wygasły token"
+
+#: api/views.py
+msgid "Password validation failed"
+msgstr "Walidacja hasła nie powiodła się"
+
+#: api/views.py
+msgid "Password has been reset successfully"
+msgstr "Hasło zostało pomyślnie zresetowane"
+
+#: api/password_reset.py
+msgid "Password Reset Request - Just 4 IT Coworking"
+msgstr "Prośba o Reset Hasła - Just 4 IT Coworking"
+
+#: api/password_reset.py
+#, python-format
+msgid "Hello %(name)s,\n\nYou requested a password reset for your account.\n\nClick the link below to reset your password:\n%(url)s\n\nThis link will expire in %(minutes)d minutes.\n\nIf you did not request this, please ignore this email.\n\nBest regards,\nJust 4 IT Coworking Team"
+msgstr "Witaj %(name)s,\n\nZłożyłeś prośbę o reset hasła do swojego konta.\n\nKliknij link poniżej, aby zresetować hasło:\n%(url)s\n\nTen link wygaśnie za %(minutes)d minut.\n\nJeśli nie złożyłeś tej prośby, zignoruj ten email.\n\nPozdrawiamy,\nZespół Just 4 IT Coworking"

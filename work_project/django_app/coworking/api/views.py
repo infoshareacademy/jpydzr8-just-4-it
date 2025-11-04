@@ -10,6 +10,7 @@ from rest_framework import status, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .magic_link import MagicLinkService
+from .password_reset import PasswordResetService
 from django.utils.translation import gettext as _
 from .models import Reservation
 from .serializers import ReservationSerializer
@@ -435,3 +436,82 @@ class UpdateAuthPreferenceView(APIView):
             'use_magic_link': request.user.use_magic_link,
             'detail': _('Authentication preference updated successfully')
         })
+
+
+class RequestPasswordResetView(APIView):
+    """Request password reset - send reset link to email"""
+    permission_classes = [permissions.AllowAny]
+    
+    def post(self, request):
+        email = (request.data.get('email') or '').strip().lower()
+        
+        if not email:
+            return Response({'detail': _('Email required')}, status=400)
+        
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # Don't reveal if user exists or not for security
+            return Response({
+                'detail': _('If an account with this email exists, a password reset link has been sent.'),
+                'email_sent': True
+            })
+        
+        # Create reset token
+        reset_token = PasswordResetService.create_reset_token(user)
+        
+        # Send email
+        try:
+            PasswordResetService.send_reset_email(user, reset_token, request)
+            return Response({
+                'detail': _('Password reset link sent to your email'),
+                'email_sent': True
+            })
+        except Exception as e:
+            return Response({
+                'detail': _('Failed to send email'),
+                'error': str(e)
+            }, status=500)
+
+
+class ResetPasswordView(APIView):
+    """Reset password using token"""
+    permission_classes = [permissions.AllowAny]
+    
+    def post(self, request):
+        token = request.data.get('token')
+        new_password = request.data.get('new_password')
+        confirm_password = request.data.get('confirm_password')
+        
+        if not token or not new_password:
+            return Response({'detail': _('Token and new password are required')}, status=400)
+        
+        if new_password != confirm_password:
+            return Response({'detail': _('Passwords do not match')}, status=400)
+        
+        # Validate password strength
+        from django.contrib.auth.password_validation import validate_password
+        from django.core.exceptions import ValidationError
+        
+        try:
+            reset_token = PasswordResetService.validate_token(token)
+            if not reset_token:
+                return Response({'detail': _('Invalid or expired token')}, status=400)
+            
+            validate_password(new_password, reset_token.user)
+        except ValidationError as e:
+            return Response({
+                'detail': _('Password validation failed'),
+                'errors': e.messages
+            }, status=400)
+        
+        # Reset password
+        user = PasswordResetService.reset_password(token, new_password)
+        
+        if user:
+            return Response({
+                'detail': _('Password has been reset successfully'),
+                'ok': True
+            })
+        
+        return Response({'detail': _('Invalid or expired token')}, status=400)

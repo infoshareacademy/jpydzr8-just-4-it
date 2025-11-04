@@ -6,7 +6,8 @@ from .views import (
     CsrfTokenView, LoginView, RegisterView, LogoutView, MeView, ReservationViewSet, 
     ics_reservation, ics_reservation_cancel,
     MagicLinkLoginView, MagicLinkAuthenticateView,
-    CheckAuthPreferenceView, UpdateAuthPreferenceView
+    CheckAuthPreferenceView, UpdateAuthPreferenceView,
+    RequestPasswordResetView, ResetPasswordView
 )
 from .admin_views import (
     admin_dashboard_stats, bulk_user_operations, bulk_reservation_operations,
@@ -45,6 +46,10 @@ urlpatterns = [
     # Authentication preference endpoints
     path('auth/check-preference', CheckAuthPreferenceView.as_view(), name='check_auth_preference'),
     path('auth/update-preference', UpdateAuthPreferenceView.as_view(), name='update_auth_preference'),
+    
+    # Password reset endpoints
+    path('auth/request-password-reset', RequestPasswordResetView.as_view(), name='request_password_reset'),
+    path('auth/reset-password', ResetPasswordView.as_view(), name='reset_password'),
     
     # Public endpoints
     path('seats/occupied', SeatsOccupiedView.as_view(), name='seats_occupied'),

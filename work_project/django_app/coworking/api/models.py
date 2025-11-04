@@ -47,3 +47,6 @@ class Reservation(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=['seat_id', 'date'], name='uq_resv_seat_date')]
+
+# Import PasswordResetToken from password_reset module
+from .password_reset import PasswordResetToken
