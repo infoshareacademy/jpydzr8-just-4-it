@@ -59,6 +59,12 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response({'ok': True})
+    
+    def get(self, request):
+        """Handle GET requests for logout (e.g., from links)"""
+        logout(request)
+        from django.shortcuts import redirect
+        return redirect('/goodbye')
 
 class MeView(APIView):
 

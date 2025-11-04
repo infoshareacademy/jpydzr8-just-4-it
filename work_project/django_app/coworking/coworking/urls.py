@@ -143,7 +143,7 @@ def serve_template(request, tpl_path: str = ''):
     if key in {'cancel', 'cancellation'}:
         return render_first(request, ['cancel/index.html', 'cancel.html', 'menu/cancel.html'])
     if key in {'goodbye', 'logout', 'logout_goodbye_white'}:
-        return render_first(request, ['goodbye/logout_goodbye_white.html', 'goodbye/index.html', 'goodbye.html'])
+        return render_first(request, ['goodbye/index.html', 'goodbye/logout_goodbye_white.html', 'goodbye.html'])
     if key in {'thank_you_spaced_clean.html'}:
         return render_first(request, ['thank_you_spaced_clean.html', 'welcome/thank_you_spaced_clean.html'])
     if key in {'profile', 'accounts/profile'}:

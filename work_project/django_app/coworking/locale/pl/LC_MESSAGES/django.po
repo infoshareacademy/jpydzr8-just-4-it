@@ -2237,6 +2237,26 @@ msgstr "Do widzenia!"
 msgid "See you soon"
 msgstr "Do zobaczenia wkrótce"
 
+#: templates/goodbye/index.html
+msgid "See You Soon!"
+msgstr "Do zobaczenia!"
+
+#: templates/goodbye/index.html
+msgid "You have been successfully logged out."
+msgstr "Zostałeś pomyślnie wylogowany."
+
+#: templates/goodbye/index.html
+msgid "Thanks for visiting. Come back anytime!"
+msgstr "Dziękujemy za wizytę. Wracaj kiedy chcesz!"
+
+#: templates/goodbye/index.html
+msgid "Back to Home"
+msgstr "Powrót do Strony Głównej"
+
+#: templates/goodbye/index.html
+msgid "Log In Again"
+msgstr "Zaloguj Się Ponownie"
+
 #: templates/goodbye/index.html:27
 #: templates/goodbye/logout_goodbye_white.html:27
 msgid "You have been logged out"
