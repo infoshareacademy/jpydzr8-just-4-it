@@ -28,6 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    use_magic_link = models.BooleanField(default=False, help_text='Use magic link authentication instead of password')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()

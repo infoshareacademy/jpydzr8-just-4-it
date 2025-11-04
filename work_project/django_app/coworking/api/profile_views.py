@@ -44,6 +44,7 @@ def get_user_profile(request):
             'created_at': user.created_at.isoformat() if user.created_at else None,
             'last_login': user.last_login.isoformat() if user.last_login else None,
             'avatar': getattr(user, 'avatar', '👤') or '👤',
+            'use_magic_link': getattr(user, 'use_magic_link', False),
             'statistics': {
                 'total_reservations': total_reservations,
                 'today_reservations': today_reservations,

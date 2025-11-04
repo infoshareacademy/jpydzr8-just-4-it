@@ -34,6 +34,7 @@ class ProfileManager {
     const profileModalClose = document.getElementById('profileModalClose');
     const profileCancelBtn = document.getElementById('profileCancelBtn');
     const passwordCancelBtn = document.getElementById('passwordCancelBtn');
+    const securityCancelBtn = document.getElementById('securityCancelBtn');
     
     if (profileModalClose) {
       profileModalClose.addEventListener('click', () => this.closeProfileModal());
@@ -43,6 +44,9 @@ class ProfileManager {
     }
     if (passwordCancelBtn) {
       passwordCancelBtn.addEventListener('click', () => this.closeProfileModal());
+    }
+    if (securityCancelBtn) {
+      securityCancelBtn.addEventListener('click', () => this.closeProfileModal());
     }
     
     if (profileModal) {
@@ -80,6 +84,12 @@ class ProfileManager {
     const passwordChangeBtn = document.getElementById('passwordChangeBtn');
     if (passwordChangeBtn) {
       passwordChangeBtn.addEventListener('click', () => this.changePassword());
+    }
+
+    // Save security settings
+    const securitySaveBtn = document.getElementById('securitySaveBtn');
+    if (securitySaveBtn) {
+      securitySaveBtn.addEventListener('click', () => this.saveSecuritySettings());
     }
   }
 
@@ -214,6 +224,11 @@ class ProfileManager {
     // Load statistics if switching to statistics tab
     if (tabName === 'statistics') {
       this.loadStatistics();
+    }
+    
+    // Load security settings if switching to security tab
+    if (tabName === 'security') {
+      this.loadSecuritySettings();
     }
   }
 
@@ -399,6 +414,61 @@ class ProfileManager {
       }
     } catch (error) {
       console.error('Error loading statistics:', error);
+    }
+  }
+
+  async loadSecuritySettings() {
+    try {
+      const response = await fetch('/api/dashboard/api/profile/', {
+        credentials: 'include',
+        headers: {
+          'X-CSRFToken': this.getCSRFToken()
+        }
+      });
+
+      if (!response.ok) throw new Error('Failed to load security settings');
+
+      const data = await response.json();
+      const magicLinkToggle = document.getElementById('magicLinkToggle');
+      
+      if (magicLinkToggle) {
+        magicLinkToggle.checked = data.use_magic_link || false;
+      }
+    } catch (error) {
+      console.error('Error loading security settings:', error);
+    }
+  }
+
+  async saveSecuritySettings() {
+    try {
+      const magicLinkToggle = document.getElementById('magicLinkToggle');
+      const useMagicLink = magicLinkToggle ? magicLinkToggle.checked : false;
+
+      const response = await fetch('/api/auth/update-preference', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': this.getCSRFToken()
+        },
+        body: JSON.stringify({
+          use_magic_link: useMagicLink
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const errorMsg = data.detail || data.error || (window.t ? window.t('Error saving settings') : 'Error saving settings');
+        throw new Error(errorMsg);
+      }
+
+      this.showNotification(window.t('Security settings updated successfully'), 'success');
+      this.closeProfileModal();
+    } catch (error) {
+      console.error('Error saving security settings:', error);
+      const errorMsg = error.message || (window.t ? window.t('Error saving settings') : 'Error saving settings');
+      this.showNotification(window.t(errorMsg) || errorMsg, 'error');
     }
   }
 

@@ -5,7 +5,8 @@ from .views_occupied import SeatsOccupiedView
 from .views import (
     CsrfTokenView, LoginView, RegisterView, LogoutView, MeView, ReservationViewSet, 
     ics_reservation, ics_reservation_cancel,
-    MagicLinkLoginView, MagicLinkAuthenticateView
+    MagicLinkLoginView, MagicLinkAuthenticateView,
+    CheckAuthPreferenceView, UpdateAuthPreferenceView
 )
 from .admin_views import (
     admin_dashboard_stats, bulk_user_operations, bulk_reservation_operations,
@@ -40,6 +41,10 @@ urlpatterns = [
     # Magic Link endpoints
     path('auth/magic-link-login/', MagicLinkLoginView.as_view(), name='magic_link_login'),
     path('auth/magic-link/<str:token>/', MagicLinkAuthenticateView.as_view(), name='magic_link_authenticate'),
+    
+    # Authentication preference endpoints
+    path('auth/check-preference', CheckAuthPreferenceView.as_view(), name='check_auth_preference'),
+    path('auth/update-preference', UpdateAuthPreferenceView.as_view(), name='update_auth_preference'),
     
     # Public endpoints
     path('seats/occupied', SeatsOccupiedView.as_view(), name='seats_occupied'),

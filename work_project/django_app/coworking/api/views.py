@@ -385,3 +385,47 @@ class MagicLinkAuthenticateView(APIView):
             return redirect('/login?error=invalid_link')
         
         return Response({'detail': _('Invalid or expired link')}, status=400)
+
+
+class CheckAuthPreferenceView(APIView):
+    """Check authentication preference for a given email (without requiring authentication)"""
+    permission_classes = [permissions.AllowAny]
+    
+    def post(self, request):
+        email = (request.data.get('email') or '').strip().lower()
+        
+        if not email:
+            return Response({'detail': _('Email required')}, status=400)
+        
+        try:
+            user = User.objects.get(email=email)
+            return Response({
+                'use_magic_link': user.use_magic_link,
+                'email_exists': True
+            })
+        except User.DoesNotExist:
+            # Don't reveal if user exists for security
+            return Response({
+                'use_magic_link': False,
+                'email_exists': False
+            })
+
+
+class UpdateAuthPreferenceView(APIView):
+    """Update authentication preference (requires authentication)"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def post(self, request):
+        use_magic_link = request.data.get('use_magic_link', False)
+        
+        if isinstance(use_magic_link, str):
+            use_magic_link = use_magic_link.lower() in ('true', '1', 'yes')
+        
+        request.user.use_magic_link = bool(use_magic_link)
+        request.user.save()
+        
+        return Response({
+            'ok': True,
+            'use_magic_link': request.user.use_magic_link,
+            'detail': _('Authentication preference updated successfully')
+        })

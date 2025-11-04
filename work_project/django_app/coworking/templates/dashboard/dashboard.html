@@ -504,6 +504,7 @@
           <div class="profile-tabs">
             <button class="profile-tab active" data-tab="profile">{% trans "Profile" %}</button>
             <button class="profile-tab" data-tab="password">{% trans "Password" %}</button>
+            <button class="profile-tab" data-tab="security">{% trans "Security" %}</button>
             <button class="profile-tab" data-tab="statistics">{% trans "Statistics" %}</button>
           </div>
           
@@ -594,6 +595,52 @@
               <button class="btn-modern primary" id="passwordChangeBtn">
                 <i class="fas fa-key"></i>
                 <span>{% trans "Change Password" %}</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Security Tab -->
+          <div class="profile-tab-content" id="tab-security">
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="magicLinkToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-link" style="margin-right: 0.5rem;"></i>
+                      {% trans "Magic Link Authentication" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "When enabled, you will log in using a secure link sent to your email instead of a password" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="magicLinkToggle" name="use_magic_link">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="form-group" style="margin-top: 1rem;">
+                <div style="padding: 1rem; background: var(--info-bg, rgba(59, 130, 246, 0.1)); border: 1px solid var(--info, #3b82f6); border-radius: 12px;">
+                  <h4 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 0.875rem; font-weight: 600;">
+                    <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--info, #3b82f6);"></i>
+                    {% trans "How it works:" %}
+                  </h4>
+                  <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary); font-size: 0.875rem;">
+                    <li>{% trans "Enter your email address on the login page" %}</li>
+                    <li>{% trans "We will send you a secure login link via email" %}</li>
+                    <li>{% trans "Click the link to log in automatically - no password needed!" %}</li>
+                    <li>{% trans "The link expires in 15 minutes for security" %}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="modal-actions" style="margin-top: 24px;">
+              <button class="btn-modern secondary" id="securityCancelBtn">{% trans "Cancel" %}</button>
+              <button class="btn-modern primary" id="securitySaveBtn">
+                <i class="fas fa-save"></i>
+                <span>{% trans "Save Settings" %}</span>
               </button>
             </div>
           </div>

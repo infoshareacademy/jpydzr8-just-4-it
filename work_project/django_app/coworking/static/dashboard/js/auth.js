@@ -134,18 +134,192 @@
     }
   }
 
-  // Login form handler
+  // Login form handler with dynamic magic link/password switching
   const loginForm = document.querySelector('.login-form');
   if (loginForm) {
+    const emailInput = loginForm.querySelector('[name="email"]');
+    const passwordGroup = loginForm.querySelector('.login-password-group');
+    const passwordInput = loginForm.querySelector('[name="password"]');
+    const rememberForgotRow = loginForm.querySelector('.login-form-row');
+    let useMagicLink = false;
+    let checkTimeout = null;
+
+    // Check authentication preference when email is entered
+    if (emailInput) {
+      emailInput.addEventListener('blur', async function() {
+        const email = this.value.trim().toLowerCase();
+        
+        if (!email || !email.includes('@')) {
+          return;
+        }
+
+        // Clear previous timeout
+        if (checkTimeout) {
+          clearTimeout(checkTimeout);
+        }
+
+        // Debounce the check
+        checkTimeout = setTimeout(async () => {
+          try {
+            const response = await fetch('/api/auth/check-preference', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken()
+              },
+              body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.email_exists) {
+              useMagicLink = data.use_magic_link || false;
+              toggleLoginMode(useMagicLink);
+            }
+          } catch (error) {
+            console.error('Error checking auth preference:', error);
+          }
+        }, 500);
+      });
+    }
+
+    // Toggle between password and magic link mode
+    function toggleLoginMode(isMagicLink) {
+      if (isMagicLink) {
+        // Hide password field and show magic link message
+        if (passwordGroup) {
+          passwordGroup.style.display = 'none';
+          // Remove required attribute from password when magic link is enabled
+          if (passwordInput) passwordInput.removeAttribute('required');
+        }
+        if (rememberForgotRow) rememberForgotRow.style.display = 'none';
+        
+        // Show magic link info
+        let magicLinkInfo = loginForm.querySelector('.magic-link-info');
+        if (!magicLinkInfo) {
+          magicLinkInfo = document.createElement('div');
+          magicLinkInfo.className = 'magic-link-info';
+          magicLinkInfo.innerHTML = `
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin: 1rem 0; text-align: center;">
+              <i class="fas fa-envelope-open-text" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
+              <p style="margin: 0.5rem 0; color: var(--text-primary);">
+                ${window.t?.('Magic link authentication is enabled for this account') || 'Magic link authentication is enabled for this account'}
+              </p>
+              <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                ${window.t?.('We will send you a secure login link to your email') || 'We will send you a secure login link to your email'}
+              </p>
+            </div>
+          `;
+          loginForm.insertBefore(magicLinkInfo, loginForm.querySelector('button[type="submit"]'));
+        }
+        magicLinkInfo.style.display = 'block';
+        
+        // Update submit button text
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          const icon = submitBtn.querySelector('i');
+          const span = submitBtn.querySelector('span');
+          if (icon) icon.className = 'fas fa-paper-plane';
+          if (span) span.textContent = window.t?.('Send Magic Link') || 'Send Magic Link';
+        }
+      } else {
+        // Show password field
+        if (passwordGroup) {
+          passwordGroup.style.display = '';
+          // Add required attribute back to password when magic link is disabled
+          if (passwordInput) passwordInput.setAttribute('required', 'required');
+        }
+        if (rememberForgotRow) rememberForgotRow.style.display = '';
+        
+        // Hide magic link info
+        const magicLinkInfo = loginForm.querySelector('.magic-link-info');
+        if (magicLinkInfo) magicLinkInfo.style.display = 'none';
+        
+        // Update submit button text
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          const icon = submitBtn.querySelector('i');
+          const span = submitBtn.querySelector('span');
+          if (icon) icon.className = 'fas fa-sign-in-alt';
+          if (span) span.textContent = window.t?.('Sign In') || 'Sign In';
+        }
+      }
+    }
+
     loginForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      const email = loginForm.querySelector('[name="email"]').value.trim();
-      const password = loginForm.querySelector('[name="password"]').value;
+      const email = emailInput?.value.trim();
+      const password = passwordInput?.value;
       const submitBtn = loginForm.querySelector('button[type="submit"]');
       
-      if (!email || !password) {
-        showError(window.t?.('Please fill in all fields') || 'Please fill in all fields');
+      if (!email) {
+        showError(window.t?.('Please enter your email') || 'Please enter your email');
+        submitBtn?.classList.remove('loading');
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // If magic link is enabled, use magic link flow
+      if (useMagicLink) {
+        // Set loading state
+        if (submitBtn) {
+          submitBtn.classList.add('loading');
+          submitBtn.disabled = true;
+        }
+        
+        try {
+          const response = await fetch('/api/auth/magic-link-login/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCsrfToken()
+            },
+            body: JSON.stringify({ email })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.detail || data.error || 'Failed to send magic link');
+          }
+
+          showSuccess(window.t?.('Magic link sent to your email! Check your inbox.') || 'Magic link sent to your email! Check your inbox.');
+          
+          // Show success message
+          const successDiv = document.createElement('div');
+          successDiv.className = 'magic-link-success';
+          successDiv.innerHTML = `
+            <div style="background: var(--success-bg, rgba(16, 185, 129, 0.1)); border: 1px solid var(--success, #10b981); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; text-align: center;">
+              <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success, #10b981); margin-bottom: 0.5rem;"></i>
+              <h3 style="margin: 0.5rem 0; color: var(--text-primary);">
+                ${window.t?.('Check Your Email!') || 'Check Your Email!'}
+              </h3>
+              <p style="margin: 0.5rem 0; color: var(--text-primary);">
+                ${window.t?.('We have sent a secure login link to your email address.') || 'We have sent a secure login link to your email address.'}
+              </p>
+              <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                ${window.t?.('Click the link in your email to log in automatically.') || 'Click the link in your email to log in automatically.'}
+              </p>
+            </div>
+          `;
+          
+          loginForm.innerHTML = '';
+          loginForm.appendChild(successDiv);
+        } catch (error) {
+          console.error('Magic link error:', error);
+          showError(error.message || (window.t?.('Failed to send magic link') || 'Failed to send magic link'));
+          if (submitBtn) {
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+          }
+        }
+        return;
+      }
+
+      // Normal password login
+      if (!password) {
+        showError(window.t?.('Please enter your password') || 'Please enter your password');
         submitBtn?.classList.remove('loading');
         submitBtn.disabled = false;
         return;

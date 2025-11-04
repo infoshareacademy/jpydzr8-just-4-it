@@ -110,12 +110,12 @@ def serve_template(request, tpl_path: str = ''):
         return render_first(request, ['welcome/index.html', 'index.html'])
     if key in {'login', 'log-in', 'signin', 'sign-in', 'login/index.html'}:
         return render_first(request, [
-            'login/magic_link.html',
             'login/index.html',
             'login.html',
             'registration/index.html',
             'registration/login.html',
             'welcome/login.html',
+            'login/magic_link.html',
             'welcome/index.html'
         ])
     if key in {'register', 'registration', 'signup', 'sign-up', 'register/index.html', 'signup/index.html'}:
