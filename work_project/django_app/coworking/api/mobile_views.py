@@ -18,6 +18,11 @@ def mobile_dashboard(request):
     """Mobile-responsive admin dashboard"""
     return render(request, 'admin/mobile_dashboard.html')
 
+@staff_member_required
+def modern_dashboard(request):
+    """Modern interactive admin dashboard"""
+    return render(request, 'admin/dashboard.html')
+
 @api_view(['GET'])
 @permission_classes([IsSuperUser])
 def mobile_api_stats(request):

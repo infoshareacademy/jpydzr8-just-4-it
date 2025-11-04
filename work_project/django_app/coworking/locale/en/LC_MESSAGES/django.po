@@ -115,7 +115,6 @@ msgstr "seats"
 msgid "Show Reservations"
 msgstr "Show Reservations"
 
-
 #: .\reservations\templates\reservations\my_reservations.html:106
 msgid "No Reservations"
 msgstr "No Reservations"
@@ -149,8 +148,12 @@ msgid "5 minutes to reserve"
 msgstr "5 minutes to reserve"
 
 #: .\reservations\templates\reservations\_desk_modal.html:75
-msgid "After confirming the reservation, you will download .ICS or add to Google Calendar."
-msgstr "After confirming the reservation, you will download .ICS or add to Google Calendar."
+msgid ""
+"After confirming the reservation, you will download .ICS or add to Google "
+"Calendar."
+msgstr ""
+"After confirming the reservation, you will download .ICS or add to Google "
+"Calendar."
 
 #: .\reservations\templates\reservations\_desk_modal.html:87
 msgid "Check if desk is locked"
@@ -183,7 +186,6 @@ msgstr "Failed to lock desk"
 #: .\reservations\templates\reservations\_desk_modal.html:280
 msgid "Desk has been unlocked!"
 msgstr "Desk has been unlocked!"
-
 
 #: .\reservations\templates\reservations\_desk_modal.html:311
 msgid "Automatically lock desk when opening modal"
@@ -241,8 +243,6 @@ msgstr "Reserve Seat"
 msgid "First and Last Name"
 msgstr "First and Last Name"
 
-
-
 #: .\reservations\templates\reservations\_desk_modal.html:55
 msgid "From"
 msgstr "From"
@@ -282,7 +282,6 @@ msgstr "Surprise Me"
 #: .\reservations\templates\reservations\_ai_panel.html:78
 msgid "No recommendations."
 msgstr "No recommendations."
-
 
 #: .\reservations\templates\reservations\_ai_panel.html:86
 msgid "Set default date to today if no date selected"
@@ -352,7 +351,6 @@ msgstr "Automatic reservations for daily, weekly or monthly"
 msgid "Back"
 msgstr "Back"
 
-
 #: .\reservations\templates\reservations\recurring_reservations.html:75
 msgid "no end"
 msgstr "no end"
@@ -396,7 +394,6 @@ msgstr "Create First Reservation"
 #: .\reservations\templates\reservations\recurring_reservations.html:133
 msgid "Are you sure you want to cancel this recurring reservation?"
 msgstr "Are you sure you want to cancel this recurring reservation?"
-
 
 #: .\templates\account\404.html:110
 msgid "Check the URL for typos"
@@ -894,15 +891,11 @@ msgstr ""
 msgid "Welcome back! Please enter your details to sign in."
 msgstr ""
 
-#: .\templates\login\index.html:26 .\templates\menu\dashboard.html:112
-#: .\templates\menu\index.html:112 .\templates\menu\reserve.html:113
-#: .\templates\registration\index.html:49
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
-#: .\templates\login\index.html:31 .\templates\registration\index.html:53
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: .\templates\login\index.html:34
 msgid "Show password"
@@ -919,7 +912,6 @@ msgstr ""
 #: .\templates\login\index.html:47 .\templates\welcome\index.html:35
 msgid "Log In"
 msgstr ""
-
 
 #: .\templates\login\index.html:52 .\templates\login\magic_link.html:145
 #: .\templates\registration\index.html:64
@@ -1029,11 +1021,9 @@ msgstr ""
 msgid "Workspace Bookings"
 msgstr ""
 
-
 #: .\templates\menu\cancel.html:31 .\templates\menu\dashboard.html:32
 msgid "Reserve"
 msgstr ""
-
 
 #: .\templates\menu\cancel.html:41
 msgid "Cancel reservation"
@@ -1069,21 +1059,18 @@ msgstr ""
 msgid "User Dashboard"
 msgstr ""
 
-#: .\templates\menu\dashboard.html:37
 msgid "Toggle dark mode"
-msgstr ""
+msgstr "Toggle dark mode"
 
-#: .\templates\menu\dashboard.html:38 .\templates\menu\dashboard.html:100
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: .\templates\menu\dashboard.html:45
 msgid "Good day"
 msgstr ""
 
-#: .\templates\menu\dashboard.html:45
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: .\templates\menu\dashboard.html:46
 msgid "Manage your seat reservations with ease."
@@ -1093,9 +1080,8 @@ msgstr ""
 msgid "Quick‑book"
 msgstr ""
 
-#: .\templates\menu\dashboard.html:55
 msgid "Schedule"
-msgstr ""
+msgstr "Schedule"
 
 #: .\templates\menu\dashboard.html:60
 msgid "Reservations (last 14 days)"
@@ -1113,9 +1099,8 @@ msgstr ""
 msgid "Last reservation"
 msgstr ""
 
-#: .\templates\menu\dashboard.html:67
 msgid "Upcoming (30d)"
-msgstr ""
+msgstr "Upcoming (30d)"
 
 #: .\templates\menu\dashboard.html:68
 msgid "Actions"
@@ -1141,7 +1126,6 @@ msgstr ""
 msgid "Browse the complete list of available seats."
 msgstr ""
 
-
 #: .\templates\menu\dashboard.html:91
 msgid "Book a seat for your preferred date."
 msgstr ""
@@ -1154,10 +1138,8 @@ msgstr ""
 msgid "Sign out of your account."
 msgstr ""
 
-#: .\templates\menu\dashboard.html:109 .\templates\menu\index.html:116
-#: .\templates\menu\reserve.html:117
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: .\templates\menu\dashboard.html:110
 msgid "Seat"
@@ -1167,13 +1149,11 @@ msgstr ""
 msgid "e.g. A1"
 msgstr ""
 
-#: .\templates\menu\dashboard.html:111
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
-#: .\templates\menu\dashboard.html:111
 msgid "Your name"
-msgstr ""
+msgstr "Your name"
 
 #: .\templates\menu\dashboard.html:112
 msgid "you@mail.com"
@@ -1231,7 +1211,6 @@ msgstr ""
 #: .\templates\menu\index.html:58 .\templates\menu\reserve.html:37
 msgid "Docking + Screens + Electric"
 msgstr ""
-
 
 #: .\templates\menu\index.html:101 .\templates\menu\reserve.html:102
 msgid "New reservation"
@@ -3003,3 +2982,274 @@ msgstr "Technical support available"
 #: .\reservations\templates\reservations\advanced_features.html:225
 msgid "Regular system updates"
 msgstr "Regular system updates"
+
+# Dashboard translations for English (add to django.po)
+msgid "Just 4 IT Coworking Dashboard"
+msgstr "Just 4 IT Coworking Dashboard"
+
+msgid "Floor Plan"
+msgstr "Floor Plan"
+
+msgid "Advanced"
+msgstr "Advanced"
+
+msgid "Mark all as read"
+msgstr "Mark all as read"
+
+msgid "Loading notifications..."
+msgstr "Loading notifications..."
+
+msgid "View all notifications"
+msgstr "View all notifications"
+
+msgid "My Profile"
+msgstr "My Profile"
+
+msgid "Statistics"
+msgstr "Statistics"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Welcome to Just 4 IT Coworking"
+msgstr "Welcome to Just 4 IT Coworking"
+
+msgid "Manage your desk reservations with a modern interface"
+msgstr "Manage your desk reservations with a modern interface"
+
+msgid "Today"
+msgstr "Today"
+
+msgid "This Week"
+msgstr "This Week"
+
+msgid "This Month"
+msgstr "This Month"
+
+msgid "Quick Reservation"
+msgstr "Quick Reservation"
+
+msgid "View Calendar"
+msgstr "View Calendar"
+
+msgid "Desks"
+msgstr "Desks"
+
+msgid "Team"
+msgstr "Team"
+
+msgid "All Reservations"
+msgstr "All Reservations"
+
+msgid "This month"
+msgstr "This month"
+
+msgid "Upcoming"
+msgstr "Upcoming"
+
+msgid "Next 30 days"
+msgstr "Next 30 days"
+
+msgid "Favorite Desks"
+msgstr "Favorite Desks"
+
+msgid "Most used"
+msgstr "Most used"
+
+msgid "Efficiency"
+msgstr "Efficiency"
+
+msgid "This week"
+msgstr "This week"
+
+msgid "Your upcoming reservations"
+msgstr "Your upcoming reservations"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "My Summary"
+msgstr "My Summary"
+
+msgid "Activity overview"
+msgstr "Activity overview"
+
+msgid "Next Reservation"
+msgstr "Next Reservation"
+
+msgid "No upcoming reservations"
+msgstr "No upcoming reservations"
+
+msgid "Last Reservation"
+msgstr "Last Reservation"
+
+msgid "No past reservations"
+msgstr "No past reservations"
+
+msgid "Scheduled reservations"
+msgstr "Scheduled reservations"
+
+msgid "View All"
+msgstr "View All"
+
+msgid "Application Features"
+msgstr "Application Features"
+
+msgid "Select an option that interests you"
+msgstr "Select an option that interests you"
+
+msgid "Interactive floor plan with desk markers"
+msgstr "Interactive floor plan with desk markers"
+
+msgid "Reserve a desk for a selected date"
+msgstr "Reserve a desk for a selected date"
+
+msgid "Manage Reservations"
+msgstr "Manage Reservations"
+
+msgid "View and cancel existing reservations"
+msgstr "View and cancel existing reservations"
+
+msgid "Group reservations, AI recommendations and more"
+msgstr "Group reservations, AI recommendations and more"
+
+msgid "Reserve multiple desks for your team"
+msgstr "Reserve multiple desks for your team"
+
+msgid "Set up regular desk reservations"
+msgstr "Set up regular desk reservations"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Choose Avatar"
+msgstr "Choose Avatar"
+
+msgid "Full Name"
+msgstr "Full Name"
+
+msgid "Your full name"
+msgstr "Your full name"
+
+msgid "Email cannot be changed"
+msgstr "Email cannot be changed"
+
+msgid "Account Creation Date"
+msgstr "Account Creation Date"
+
+msgid "Last Login"
+msgstr "Last Login"
+
+msgid "Save Changes"
+msgstr "Save Changes"
+
+msgid "Current Password"
+msgstr "Current Password"
+
+msgid "Enter current password"
+msgstr "Enter current password"
+
+msgid "New Password"
+msgstr "New Password"
+
+msgid "Enter new password"
+msgstr "Enter new password"
+
+msgid "Minimum 8 characters"
+msgstr "Minimum 8 characters"
+
+msgid "Confirm Password"
+msgstr "Confirm Password"
+
+msgid "Confirm new password"
+msgstr "Confirm new password"
+
+msgid "Password Requirements:"
+msgstr "Password Requirements:"
+
+msgid "Cannot be similar to other personal information"
+msgstr "Cannot be similar to other personal information"
+
+msgid "Cannot be a commonly used password"
+msgstr "Cannot be a commonly used password"
+
+msgid "Change Password"
+msgstr "Change Password"
+
+msgid "Favorite Seats"
+msgstr "Favorite Seats"
+
+msgid "Account Information"
+msgstr "Account Information"
+
+msgid "Member since:"
+msgstr "Member since:"
+
+msgid "Account status:"
+msgstr "Account status:"
+
+msgid "Reserve a desk in seconds"
+msgstr "Reserve a desk in seconds"
+
+msgid "Floor 4"
+msgstr "Floor 4"
+
+msgid "Floor 5"
+msgstr "Floor 5"
+
+msgid "Floor 6"
+msgstr "Floor 6"
+
+msgid "Floor 7"
+msgstr "Floor 7"
+
+msgid "Desk"
+msgstr "Desk"
+
+msgid "e.g. D1, O1"
+msgstr "e.g. D1, O1"
+
+msgid "Time From"
+msgstr "Time From"
+
+msgid "Time To"
+msgstr "Time To"
+
+msgid "Create Reservation"
+msgstr "Create Reservation"
+
+msgid "Manage your data and settings"
+msgstr "Manage your data and settings"
+
+msgid "Upcoming reservation"
+msgstr "Upcoming reservation"
+
+msgid "Latest reservation"
+msgstr "Latest reservation"
+
+msgid "Error loading summary"
+msgstr "Error loading summary"
+
+msgid "Missing required field: %(field)s"
+msgstr "Missing required field: %(field)s"
+
+msgid "Reservation already exists for this seat and date"
+msgstr "Reservation already exists for this seat and date"
+
+msgid "Invalid JSON data"
+msgstr "Invalid JSON data"
+
+msgid "Seat %(seat_id)s"
+msgstr "Seat %(seat_id)s"
+
+msgid "Floor: %(floor)s"
+msgstr "Floor: %(floor)s"
+
+msgid "From: %(time)s"
+msgstr "From: %(time)s"
+
+msgid "To: %(time)s"
+msgstr "To: %(time)s"

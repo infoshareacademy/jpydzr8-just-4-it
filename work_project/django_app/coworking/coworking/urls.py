@@ -64,6 +64,12 @@ def serve_template(request, tpl_path: str=''):
     if key in {'register', 'registration', 'signup', 'sign-up', 'register/index.html', 'signup/index.html'}:
         return render_first(request, ['register/index.html', 'register.html', 'registration/index.html', 'registration/register.html', 'registration/signup.html', 'signup/index.html', 'signup.html', 'welcome/register.html', 'welcome/signup.html'])
     if key in {'dashboard', 'panel', 'menu'}:
+        # Always prefer the modern dashboard for all users if available
+        try:
+            get_template('dashboard/dashboard.html')
+            return render(request, 'dashboard/dashboard.html')
+        except Exception:
+            pass
         return render_first(request, ['dashboard/index.html', 'dashboard.html', 'menu/dashboard.html', 'menu/index.html', 'welcome/index.html'])
     if key in {'reserve', 'reservation', 'book', 'booking'}:
         return render_first(request, ['reserve/index.html', 'reserve.html', 'menu/reserve.html'])

@@ -24,6 +24,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255, blank=True, default='')
+    avatar = models.CharField(max_length=10, blank=True, default='👤', help_text='Avatar emoji or short identifier')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

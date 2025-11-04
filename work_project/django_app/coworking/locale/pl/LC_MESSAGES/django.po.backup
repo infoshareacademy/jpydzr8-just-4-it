@@ -1918,6 +1918,11 @@ msgid "Find"
 msgstr "Znajdź"
 
 #: .\templates\menu\cancel.html:48
+#, fuzzy
+#| msgid ""
+#| "Enter the <b>ID</b> or <b>seat + date</b>. If you enter only the <b>date</"
+#| "b>, we'll show a list to choose from."
+
 #: .\templates\menu\cancel.html:53
 msgid "Results"
 msgstr "Wyniki"

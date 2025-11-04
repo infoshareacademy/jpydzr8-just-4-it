@@ -14,11 +14,12 @@ from .admin_views import (
 from .mobile_views import (
     mobile_dashboard, mobile_api_stats, mobile_quick_action,
     mobile_user_activity, mobile_reservation_insights, mobile_bulk_operation,
-    mobile_notifications
+    mobile_notifications, modern_dashboard
 )
 from .report_views import (
     generate_report_api, download_report, list_reports
 )
+from .dashboard_urls import urlpatterns as dashboard_urls
 
 router = DefaultRouter()
 router.trailing_slash = '/?'
@@ -55,6 +56,7 @@ urlpatterns = [
     
     # Mobile endpoints (superuser only)
     path('mobile/dashboard', mobile_dashboard, name='mobile_dashboard'),
+    path('admin/dashboard', modern_dashboard, name='modern_dashboard'),
     path('mobile/api/stats', mobile_api_stats, name='mobile_stats'),
     path('mobile/api/quick-action', mobile_quick_action, name='mobile_quick_action'),
     path('mobile/api/user-activity', mobile_user_activity, name='mobile_user_activity'),
@@ -66,6 +68,9 @@ urlpatterns = [
     path('admin/generate-report', generate_report_api, name='generate_report_api'),
     path('admin/download-report', download_report, name='download_report'),
     path('admin/list-reports', list_reports, name='list_reports'),
+    
+    # Dashboard endpoints
+    path('dashboard/', include(dashboard_urls)),
     
     # Router URLs
     re_path('^reservations$', _reservations_redirect),

@@ -118,3 +118,7 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@yourdomain.com')
 # Magic Link Configuration
 MAGIC_LINK_VALIDITY = 900  # 15 minutes
 MAGIC_LINK_LENGTH = 32  # characters
+
+# Redirects
+LOGIN_REDIRECT_URL = '/dashboard'
+ACCOUNT_LOGIN_REDIRECT_URL = '/dashboard'
