@@ -15,6 +15,12 @@ from api.models import Reservation
 
 User = get_user_model()
 
+# Import UserPreferences if available
+try:
+    from reservations.models import UserPreferences
+except ImportError:
+    UserPreferences = None
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -185,6 +191,86 @@ def get_user_statistics(request):
                     'created_at': r.created_at.isoformat() if r.created_at else None
                 } for r in recent_reservations
             ]
+        })
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_notification_preferences(request):
+    """Get user notification preferences"""
+    try:
+        user = request.user
+        
+        if not UserPreferences:
+            return Response({
+                'error': _('Notification preferences not available')
+            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        
+        preferences, created = UserPreferences.objects.get_or_create(
+            email=user.email,
+            defaults={
+                'email_notifications': True,
+                'reminder_before_booking': 30,
+                'daily_summary': True,
+                'weekly_report': False,
+            }
+        )
+        
+        return Response({
+            'email_notifications': preferences.email_notifications,
+            'reminder_before_booking': preferences.reminder_before_booking,
+            'daily_summary': preferences.daily_summary,
+            'weekly_report': preferences.weekly_report,
+        })
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_notification_preferences(request):
+    """Update user notification preferences"""
+    try:
+        user = request.user
+        data = request.data
+        
+        if not UserPreferences:
+            return Response({
+                'error': _('Notification preferences not available')
+            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        
+        preferences, created = UserPreferences.objects.get_or_create(
+            email=user.email
+        )
+        
+        # Update preferences
+        if 'email_notifications' in data:
+            preferences.email_notifications = bool(data['email_notifications'])
+        
+        if 'reminder_before_booking' in data:
+            reminder = int(data['reminder_before_booking'])
+            if reminder in [0, 5, 15, 30, 60, 120, 1440]:
+                preferences.reminder_before_booking = reminder
+        
+        if 'daily_summary' in data:
+            preferences.daily_summary = bool(data['daily_summary'])
+        
+        if 'weekly_report' in data:
+            preferences.weekly_report = bool(data['weekly_report'])
+        
+        preferences.save()
+        
+        return Response({
+            'success': True,
+            'message': _('Notification preferences updated successfully'),
+            'preferences': {
+                'email_notifications': preferences.email_notifications,
+                'reminder_before_booking': preferences.reminder_before_booking,
+                'daily_summary': preferences.daily_summary,
+                'weekly_report': preferences.weekly_report,
+            }
         })
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

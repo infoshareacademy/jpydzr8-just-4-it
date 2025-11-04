@@ -91,6 +91,18 @@ class ProfileManager {
     if (securitySaveBtn) {
       securitySaveBtn.addEventListener('click', () => this.saveSecuritySettings());
     }
+    
+    // Notifications cancel button
+    const notificationsCancelBtn = document.getElementById('notificationsCancelBtn');
+    if (notificationsCancelBtn) {
+      notificationsCancelBtn.addEventListener('click', () => this.closeProfileModal());
+    }
+    
+    // Save notification preferences
+    const notificationsSaveBtn = document.getElementById('notificationsSaveBtn');
+    if (notificationsSaveBtn) {
+      notificationsSaveBtn.addEventListener('click', () => this.saveNotificationPreferences());
+    }
   }
 
   async loadProfile() {
@@ -229,6 +241,11 @@ class ProfileManager {
     // Load security settings if switching to security tab
     if (tabName === 'security') {
       this.loadSecuritySettings();
+    }
+    
+    // Load notification preferences if switching to notifications tab
+    if (tabName === 'notifications') {
+      this.loadNotificationPreferences();
     }
   }
 
@@ -481,6 +498,97 @@ class ProfileManager {
       }
     }
     return '';
+  }
+
+  async loadNotificationPreferences() {
+    try {
+      const response = await fetch('/api/dashboard/api/profile/notifications/', {
+        credentials: 'include',
+        headers: {
+          'X-CSRFToken': this.getCSRFToken()
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to load notification preferences');
+      }
+
+      const data = await response.json();
+      
+      // Update form fields
+      const emailNotificationsToggle = document.getElementById('emailNotificationsToggle');
+      const reminderBeforeBooking = document.getElementById('reminderBeforeBooking');
+      const dailySummaryToggle = document.getElementById('dailySummaryToggle');
+      const weeklyReportToggle = document.getElementById('weeklyReportToggle');
+      
+      if (emailNotificationsToggle) {
+        emailNotificationsToggle.checked = data.email_notifications !== false;
+      }
+      
+      if (reminderBeforeBooking) {
+        reminderBeforeBooking.value = data.reminder_before_booking || 30;
+      }
+      
+      if (dailySummaryToggle) {
+        dailySummaryToggle.checked = data.daily_summary !== false;
+      }
+      
+      if (weeklyReportToggle) {
+        weeklyReportToggle.checked = data.weekly_report === true;
+      }
+    } catch (error) {
+      console.error('Error loading notification preferences:', error);
+      // Set defaults if error
+      const emailNotificationsToggle = document.getElementById('emailNotificationsToggle');
+      const reminderBeforeBooking = document.getElementById('reminderBeforeBooking');
+      const dailySummaryToggle = document.getElementById('dailySummaryToggle');
+      const weeklyReportToggle = document.getElementById('weeklyReportToggle');
+      
+      if (emailNotificationsToggle) emailNotificationsToggle.checked = true;
+      if (reminderBeforeBooking) reminderBeforeBooking.value = 30;
+      if (dailySummaryToggle) dailySummaryToggle.checked = true;
+      if (weeklyReportToggle) weeklyReportToggle.checked = false;
+    }
+  }
+
+  async saveNotificationPreferences() {
+    try {
+      const emailNotificationsToggle = document.getElementById('emailNotificationsToggle');
+      const reminderBeforeBooking = document.getElementById('reminderBeforeBooking');
+      const dailySummaryToggle = document.getElementById('dailySummaryToggle');
+      const weeklyReportToggle = document.getElementById('weeklyReportToggle');
+
+      const preferences = {
+        email_notifications: emailNotificationsToggle ? emailNotificationsToggle.checked : true,
+        reminder_before_booking: reminderBeforeBooking ? parseInt(reminderBeforeBooking.value) : 30,
+        daily_summary: dailySummaryToggle ? dailySummaryToggle.checked : true,
+        weekly_report: weeklyReportToggle ? weeklyReportToggle.checked : false,
+      };
+
+      const response = await fetch('/api/dashboard/api/profile/notifications/update/', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': this.getCSRFToken()
+        },
+        body: JSON.stringify(preferences)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const errorMsg = data.error || (window.t ? window.t('Error saving notification preferences') : 'Error saving notification preferences');
+        throw new Error(errorMsg);
+      }
+
+      this.showNotification(window.t('Notification preferences updated successfully'), 'success');
+      this.closeProfileModal();
+    } catch (error) {
+      console.error('Error saving notification preferences:', error);
+      const errorMsg = error.message || (window.t ? window.t('Error saving notification preferences') : 'Error saving notification preferences');
+      this.showNotification(window.t(errorMsg) || errorMsg, 'error');
+    }
   }
 
   showNotification(message, type = 'info') {

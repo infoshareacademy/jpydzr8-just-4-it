@@ -210,8 +210,11 @@ class DashboardManager {
   }
 
   refresh() {
-    this.loadReservations();
     this.loadSummary();
+    // Also refresh calendar if available
+    if (window.calendarManager) {
+      window.calendarManager.loadReservations();
+    }
   }
 
   bindEvents() {

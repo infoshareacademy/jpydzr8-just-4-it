@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.db import models
+from django.conf import settings
 from datetime import datetime, timedelta
 from .models import Notification, UserPreferences, Reservation, Waitlist
 import json
@@ -17,46 +18,74 @@ def send_notification_email(email, subject, message, notification_type='CONFIRMA
         except UserPreferences.DoesNotExist:
             pass  # Wyślij domyślnie
         
-        # Wyślij email
+        # Wyślij email używając skonfigurowanego backendu
         send_mail(
             subject=subject,
             message=message,
-            from_email='noreply@office-reservations.com',
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[email],
             fail_silently=False,
         )
         
-        # Zapisz powiadomienie w bazie
-        Notification.objects.create(
-            email=email,
-            type=notification_type,
-            title=subject,
-            message=message,
-            is_sent=True,
-            sent_at=timezone.now()
-        )
+        # Zapisz powiadomienie w bazie (jeśli model istnieje)
+        try:
+            Notification.objects.create(
+                email=email,
+                type=notification_type,
+                title=subject,
+                message=message,
+                is_sent=True,
+                sent_at=timezone.now()
+            )
+        except Exception:
+            pass  # Ignoruj jeśli model nie istnieje
         
         return True
     except Exception as e:
-        print(f"Błąd wysyłania powiadomienia: {e}")
+        print(f"❌ Błąd wysyłania powiadomienia: {e}")
+        import traceback
+        print(traceback.format_exc())
         return False
 
-def send_reservation_reminder(reservation):
+def send_reservation_reminder(reservation, minutes_before=30):
     """Wyślij przypomnienie o rezerwacji"""
-    subject = f"Przypomnienie: Rezerwacja {reservation.desk.label} za 30 minut"
+    from django.utils.translation import gettext as _
     
-    message = f"""
-Przypomnienie o rezerwacji
+    subject = _("Reminder: Reservation %(desk)s in %(minutes)d minutes") % {
+        'desk': reservation.desk.label if hasattr(reservation, 'desk') else reservation.seat_id,
+        'minutes': minutes_before
+    }
+    
+    # Formatuj datę i czas
+    if hasattr(reservation, 'date') and hasattr(reservation, 'time_from'):
+        date_str = reservation.date.strftime('%Y-%m-%d') if hasattr(reservation.date, 'strftime') else str(reservation.date)
+        time_str = f"{reservation.time_from} - {reservation.time_to}" if hasattr(reservation, 'time_to') else str(reservation.time_from)
+        desk_label = reservation.desk.label if hasattr(reservation, 'desk') else reservation.seat_id
+        floor_info = f" (Floor {reservation.desk.floor.number})" if hasattr(reservation, 'desk') and hasattr(reservation.desk, 'floor') else ""
+    else:
+        # Dla modelu Reservation z api/models.py
+        date_str = reservation.date
+        time_str = "All day"
+        desk_label = reservation.seat_id
+        floor_info = ""
+    
+    message = _("""
+Reservation Reminder
 
-Stanowisko: {reservation.desk.label} (Piętro {reservation.desk.floor.number})
-Data: {reservation.date}
-Godziny: {reservation.time_from} - {reservation.time_to}
+Desk: %(desk)s%(floor)s
+Date: %(date)s
+Time: %(time)s
 
-Miłej pracy!
+Have a great day!
 
 ---
-System rezerwacji stanowisk
-    """
+Just 4 IT Coworking Reservation System
+    """) % {
+        'desk': desk_label,
+        'floor': floor_info,
+        'date': date_str,
+        'time': time_str
+    }
     
     return send_notification_email(
         reservation.email, 
@@ -91,27 +120,45 @@ System rezerwacji stanowisk
 
 def send_daily_summary(email, reservations):
     """Wyślij dzienne podsumowanie"""
+    from django.utils.translation import gettext as _
+    
     if not reservations:
-        return
+        return False
     
-    subject = f"Podsumowanie rezerwacji na {reservations[0].date}"
+    # Pobierz datę z pierwszej rezerwacji
+    first_res = reservations[0]
+    if hasattr(first_res, 'date'):
+        date_str = first_res.date.strftime('%Y-%m-%d') if hasattr(first_res.date, 'strftime') else str(first_res.date)
+    else:
+        date_str = str(first_res.date)
     
-    message = f"""
-Dzienne podsumowanie rezerwacji
+    subject = _("Reservation Summary for %(date)s") % {'date': date_str}
+    
+    message = _("""
+Daily Reservation Summary
 
-Masz {len(reservations)} rezerwacji na {reservations[0].date}:
+You have %(count)d reservation(s) for %(date)s:
 
-"""
+""") % {'count': len(reservations), 'date': date_str}
     
     for res in reservations:
-        message += f"• {res.desk.label} (Piętro {res.desk.floor.number}) - {res.time_from} - {res.time_to}\n"
+        if hasattr(res, 'desk'):
+            desk_label = res.desk.label
+            floor_info = f" (Floor {res.desk.floor.number})" if hasattr(res.desk, 'floor') else ""
+            time_info = f"{res.time_from} - {res.time_to}" if hasattr(res, 'time_to') else str(res.time_from)
+        else:
+            desk_label = res.seat_id
+            floor_info = ""
+            time_info = "All day"
+        
+        message += f"• {desk_label}{floor_info} - {time_info}\n"
     
-    message += """
-Miłego dnia!
+    message += _("""
+Have a great day!
 
 ---
-System rezerwacji stanowisk
-    """
+Just 4 IT Coworking Reservation System
+    """)
     
     return send_notification_email(
         email, 
@@ -122,21 +169,28 @@ System rezerwacji stanowisk
 
 def send_weekly_report(email, stats):
     """Wyślij tygodniowy raport"""
-    subject = "Tygodniowy raport rezerwacji"
+    from django.utils.translation import gettext as _
     
-    message = f"""
-Tygodniowy raport rezerwacji
+    subject = _("Weekly Reservation Report")
+    
+    message = _("""
+Weekly Reservation Report
 
-Liczba rezerwacji: {stats.get('total_reservations', 0)}
-Ulubione stanowisko: {stats.get('favorite_desk', 'Brak')}
-Ulubione piętro: {stats.get('favorite_floor', 'Brak')}
-Średni czas rezerwacji: {stats.get('avg_duration', 'Brak')} godzin
+Total reservations: %(total)d
+Favorite desk: %(desk)s
+Favorite floor: %(floor)s
+Average duration: %(duration)s hours
 
-Dziękujemy za korzystanie z systemu rezerwacji!
+Thank you for using Just 4 IT Coworking!
 
 ---
-System rezerwacji stanowisk
-    """
+Just 4 IT Coworking Reservation System
+    """) % {
+        'total': stats.get('total_reservations', 0),
+        'desk': stats.get('favorite_desk', _('None')),
+        'floor': stats.get('favorite_floor', _('None')),
+        'duration': stats.get('avg_duration', 'N/A')
+    }
     
     return send_notification_email(
         email, 
@@ -145,22 +199,88 @@ System rezerwacji stanowisk
         'WEEKLY_REPORT'
     )
 
-def send_cancellation_notification(reservation):
-    """Wyślij powiadomienie o anulowaniu"""
-    subject = f"Rezerwacja {reservation.desk.label} została anulowana"
+def send_reservation_confirmation(reservation):
+    """Wyślij email potwierdzający utworzenie rezerwacji"""
+    from django.utils.translation import gettext as _
     
-    message = f"""
-Rezerwacja została anulowana
+    subject = _("Reservation Confirmed: %(desk)s") % {
+        'desk': reservation.desk.label if hasattr(reservation, 'desk') else reservation.seat_id
+    }
+    
+    # Formatuj informacje o rezerwacji
+    if hasattr(reservation, 'date') and hasattr(reservation, 'time_from'):
+        date_str = reservation.date.strftime('%Y-%m-%d') if hasattr(reservation.date, 'strftime') else str(reservation.date)
+        time_str = f"{reservation.time_from} - {reservation.time_to}" if hasattr(reservation, 'time_to') else str(reservation.time_from)
+        desk_label = reservation.desk.label if hasattr(reservation, 'desk') else reservation.seat_id
+        floor_info = f" (Floor {reservation.desk.floor.number})" if hasattr(reservation, 'desk') and hasattr(reservation.desk, 'floor') else ""
+    else:
+        date_str = reservation.date
+        time_str = "All day"
+        desk_label = reservation.seat_id
+        floor_info = ""
+    
+    message = _("""
+Reservation Confirmed
 
-Stanowisko: {reservation.desk.label} (Piętro {reservation.desk.floor.number})
-Data: {reservation.date}
-Godziny: {reservation.time_from} - {reservation.time_to}
+Your reservation has been successfully created!
 
-Stanowisko jest ponownie dostępne dla innych.
+Desk: %(desk)s%(floor)s
+Date: %(date)s
+Time: %(time)s
+
+Thank you for using Just 4 IT Coworking!
 
 ---
-System rezerwacji stanowisk
-    """
+Just 4 IT Coworking Reservation System
+    """) % {
+        'desk': desk_label,
+        'floor': floor_info,
+        'date': date_str,
+        'time': time_str
+    }
+    
+    return send_notification_email(
+        reservation.email,
+        subject,
+        message,
+        'CONFIRMATION'
+    )
+
+def send_cancellation_notification(reservation):
+    """Wyślij powiadomienie o anulowaniu"""
+    from django.utils.translation import gettext as _
+    
+    desk_label = reservation.desk.label if hasattr(reservation, 'desk') else reservation.seat_id
+    floor_info = f" (Floor {reservation.desk.floor.number})" if hasattr(reservation, 'desk') and hasattr(reservation.desk, 'floor') else ""
+    
+    subject = _("Reservation Cancelled: %(desk)s") % {'desk': desk_label}
+    
+    if hasattr(reservation, 'date') and hasattr(reservation, 'time_from'):
+        date_str = reservation.date.strftime('%Y-%m-%d') if hasattr(reservation.date, 'strftime') else str(reservation.date)
+        time_str = f"{reservation.time_from} - {reservation.time_to}" if hasattr(reservation, 'time_to') else str(reservation.time_from)
+    else:
+        date_str = reservation.date
+        time_str = "All day"
+    
+    message = _("""
+Reservation Cancelled
+
+Your reservation has been cancelled.
+
+Desk: %(desk)s%(floor)s
+Date: %(date)s
+Time: %(time)s
+
+The desk is now available for others.
+
+---
+Just 4 IT Coworking Reservation System
+    """) % {
+        'desk': desk_label,
+        'floor': floor_info,
+        'date': date_str,
+        'time': time_str
+    }
     
     return send_notification_email(
         reservation.email, 
@@ -170,27 +290,75 @@ System rezerwacji stanowisk
     )
 
 def check_and_send_reminders():
-    """Sprawdź i wyślij przypomnienia o rezerwacjach"""
+    """Sprawdź i wyślij przypomnienia o rezerwacjach zgodnie z ustawieniami użytkownika"""
     now = timezone.now()
-    reminder_time = now + timedelta(minutes=30)
+    today = now.date()
+    today_str = today.strftime('%Y-%m-%d')
     
-    # Znajdź rezerwacje za 30 minut
-    reservations = Reservation.objects.filter(
-        date=now.date(),
-        time_from__hour=reminder_time.hour,
-        time_from__minute=reminder_time.minute,
-        is_cancelled=False
-    )
+    # Znajdź wszystkie aktywne rezerwacje na dziś z obu modeli
+    reservations_list = []
+    
+    # Model z reservations/models.py
+    try:
+        from reservations.models import Reservation as ReservationsReservation
+        reservations_list.extend(
+            ReservationsReservation.objects.filter(
+                date=today,
+                is_cancelled=False
+            )
+        )
+    except:
+        pass
+    
+    # Model z api/models.py
+    try:
+        from api.models import Reservation as ApiReservation
+        reservations_list.extend(
+            ApiReservation.objects.filter(
+                date=today_str
+            )
+        )
+    except:
+        pass
     
     sent_count = 0
-    for reservation in reservations:
+    
+    for reservation in reservations_list:
         try:
+            # Pobierz preferencje użytkownika
             prefs = UserPreferences.objects.get(email=reservation.email)
-            if prefs.reminder_before_booking == 30:  # Tylko dla 30-minutowych przypomnień
-                if send_reservation_reminder(reservation):
-                    sent_count += 1
+            reminder_minutes = prefs.reminder_before_booking
+            # Sprawdź czy użytkownik włączył powiadomienia email
+            if not prefs.email_notifications:
+                continue
         except UserPreferences.DoesNotExist:
-            if send_reservation_reminder(reservation):
+            # Domyślne przypomnienie 30 minut przed
+            reminder_minutes = 30
+        
+        # Oblicz czas rozpoczęcia rezerwacji
+        if hasattr(reservation, 'time_from') and reservation.time_from:
+            # Dla modelu z reservations/models.py
+            if isinstance(reservation.date, str):
+                reservation_date = datetime.strptime(reservation.date, '%Y-%m-%d').date()
+            else:
+                reservation_date = reservation.date
+            reservation_datetime = datetime.combine(reservation_date, reservation.time_from)
+            reservation_time = timezone.make_aware(reservation_datetime)
+        else:
+            # Dla modelu z api/models.py - przypomnienie o 9:00 (domyślnie)
+            if isinstance(reservation.date, str):
+                reservation_date = datetime.strptime(reservation.date, '%Y-%m-%d').date()
+            else:
+                reservation_date = reservation.date
+            reservation_datetime = datetime.combine(reservation_date, datetime.min.time().replace(hour=9))
+            reservation_time = timezone.make_aware(reservation_datetime)
+        
+        # Sprawdź czy czas na przypomnienie
+        time_diff = (reservation_time - now).total_seconds() / 60
+        
+        # Wyślij przypomnienie jeśli jest w przedziale 0-5 minut przed czasem przypomnienia
+        if reminder_minutes - 5 <= time_diff <= reminder_minutes + 5:
+            if send_reservation_reminder(reservation, reminder_minutes):
                 sent_count += 1
     
     return sent_count
@@ -198,19 +366,42 @@ def check_and_send_reminders():
 def send_daily_summaries():
     """Wyślij dzienne podsumowania"""
     tomorrow = timezone.now().date() + timedelta(days=1)
+    tomorrow_str = tomorrow.strftime('%Y-%m-%d')
     
-    # Znajdź wszystkich użytkowników z rezerwacjami na jutro
-    reservations = Reservation.objects.filter(
-        date=tomorrow,
-        is_cancelled=False
-    ).order_by('email', 'time_from')
+    # Znajdź wszystkich użytkowników z rezerwacjami na jutro z obu modeli
+    reservations_list = []
+    
+    # Model z reservations/models.py
+    try:
+        from reservations.models import Reservation as ReservationsReservation
+        reservations_list.extend(
+            ReservationsReservation.objects.filter(
+                date=tomorrow,
+                is_cancelled=False
+            ).order_by('email', 'time_from')
+        )
+    except:
+        pass
+    
+    # Model z api/models.py
+    try:
+        from api.models import Reservation as ApiReservation
+        reservations_list.extend(
+            ApiReservation.objects.filter(
+                date=tomorrow_str
+            ).order_by('email')
+        )
+    except:
+        pass
     
     # Grupuj po emailu
     user_reservations = {}
-    for res in reservations:
-        if res.email not in user_reservations:
-            user_reservations[res.email] = []
-        user_reservations[res.email].append(res)
+    for res in reservations_list:
+        email = getattr(res, 'email', None)
+        if email:
+            if email not in user_reservations:
+                user_reservations[email] = []
+            user_reservations[email].append(res)
     
     sent_count = 0
     for email, user_res in user_reservations.items():
@@ -220,6 +411,7 @@ def send_daily_summaries():
                 if send_daily_summary(email, user_res):
                     sent_count += 1
         except UserPreferences.DoesNotExist:
+            # Domyślnie wyślij jeśli użytkownik nie ma preferencji
             if send_daily_summary(email, user_res):
                 sent_count += 1
     
@@ -227,25 +419,68 @@ def send_daily_summaries():
 
 def send_weekly_reports():
     """Wyślij tygodniowe raporty"""
+    from django.utils.translation import gettext as _
+    
     # Znajdź użytkowników z włączonymi raportami tygodniowymi
     users_with_reports = UserPreferences.objects.filter(weekly_report=True)
     
     sent_count = 0
+    week_ago = timezone.now().date() - timedelta(days=7)
+    week_ago_str = week_ago.strftime('%Y-%m-%d')
+    
     for prefs in users_with_reports:
-        # Oblicz statystyki z ostatniego tygodnia
-        week_ago = timezone.now().date() - timedelta(days=7)
-        reservations = Reservation.objects.filter(
-            email=prefs.email,
-            date__gte=week_ago,
-            is_cancelled=False
-        )
+        # Zbierz rezerwacje z obu modeli
+        reservations_list = []
         
-        if reservations.exists():
+        # Model z reservations/models.py
+        try:
+            from reservations.models import Reservation as ReservationsReservation
+            reservations_list.extend(
+                ReservationsReservation.objects.filter(
+                    email=prefs.email,
+                    date__gte=week_ago,
+                    is_cancelled=False
+                )
+            )
+        except:
+            pass
+        
+        # Model z api/models.py
+        try:
+            from api.models import Reservation as ApiReservation
+            reservations_list.extend(
+                ApiReservation.objects.filter(
+                    email=prefs.email,
+                    date__gte=week_ago_str
+                )
+            )
+        except:
+            pass
+        
+        if reservations_list:
             # Oblicz statystyki
+            total = len(reservations_list)
+            
+            # Znajdź ulubione stanowisko
+            desk_counts = {}
+            for res in reservations_list:
+                desk_label = res.desk.label if hasattr(res, 'desk') else res.seat_id
+                desk_counts[desk_label] = desk_counts.get(desk_label, 0) + 1
+            
+            favorite_desk = max(desk_counts.items(), key=lambda x: x[1])[0] if desk_counts else _('None')
+            
+            # Znajdź ulubione piętro
+            floor_counts = {}
+            for res in reservations_list:
+                if hasattr(res, 'desk') and hasattr(res.desk, 'floor'):
+                    floor_num = res.desk.floor.number
+                    floor_counts[floor_num] = floor_counts.get(floor_num, 0) + 1
+            favorite_floor = max(floor_counts.items(), key=lambda x: x[1])[0] if floor_counts else _('None')
+            
             stats = {
-                'total_reservations': reservations.count(),
-                'favorite_desk': reservations.values('desk__label').annotate(count=models.Count('id')).order_by('-count').first()['desk__label'] if reservations.exists() else 'Brak',
-                'favorite_floor': reservations.values('desk__floor__number').annotate(count=models.Count('id')).order_by('-count').first()['desk__floor__number'] if reservations.exists() else 'Brak',
+                'total_reservations': total,
+                'favorite_desk': favorite_desk,
+                'favorite_floor': favorite_floor,
                 'avg_duration': 'N/A'  # Można dodać obliczenia
             }
             

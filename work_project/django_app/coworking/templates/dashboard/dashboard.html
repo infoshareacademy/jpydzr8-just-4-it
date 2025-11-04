@@ -505,6 +505,7 @@
             <button class="profile-tab active" data-tab="profile">{% trans "Profile" %}</button>
             <button class="profile-tab" data-tab="password">{% trans "Password" %}</button>
             <button class="profile-tab" data-tab="security">{% trans "Security" %}</button>
+            <button class="profile-tab" data-tab="notifications">{% trans "Notifications" %}</button>
             <button class="profile-tab" data-tab="statistics">{% trans "Statistics" %}</button>
           </div>
           
@@ -639,6 +640,93 @@
             <div class="modal-actions" style="margin-top: 24px;">
               <button class="btn-modern secondary" id="securityCancelBtn">{% trans "Cancel" %}</button>
               <button class="btn-modern primary" id="securitySaveBtn">
+                <i class="fas fa-save"></i>
+                <span>{% trans "Save Settings" %}</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Notifications Tab -->
+          <div class="profile-tab-content" id="tab-notifications">
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+              <!-- Email Notifications Toggle -->
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="emailNotificationsToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                      {% trans "Email Notifications" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "Receive notifications via email" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="emailNotificationsToggle" name="email_notifications">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Reminder Before Booking -->
+              <div class="form-group">
+                <label for="reminderBeforeBooking">{% trans "Reminder Before Booking" %}</label>
+                <select id="reminderBeforeBooking" class="modern-input">
+                  <option value="0">{% trans "Disabled" %}</option>
+                  <option value="5">{% trans "5 minutes" %}</option>
+                  <option value="15">{% trans "15 minutes" %}</option>
+                  <option value="30" selected>{% trans "30 minutes" %}</option>
+                  <option value="60">{% trans "1 hour" %}</option>
+                  <option value="120">{% trans "2 hours" %}</option>
+                  <option value="1440">{% trans "1 day" %}</option>
+                </select>
+                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block;">
+                  {% trans "When to send reminder before your reservation" %}
+                </small>
+              </div>
+              
+              <!-- Daily Summary Toggle -->
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="dailySummaryToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-calendar-day" style="margin-right: 0.5rem;"></i>
+                      {% trans "Daily Summary" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "Email with tomorrow's reservations" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="dailySummaryToggle" name="daily_summary">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Weekly Report Toggle -->
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="weeklyReportToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-chart-line" style="margin-right: 0.5rem;"></i>
+                      {% trans "Weekly Report" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "Weekly summary of your reservations" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="weeklyReportToggle" name="weekly_report">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="modal-actions" style="margin-top: 24px;">
+              <button class="btn-modern secondary" id="notificationsCancelBtn">{% trans "Cancel" %}</button>
+              <button class="btn-modern primary" id="notificationsSaveBtn">
                 <i class="fas fa-save"></i>
                 <span>{% trans "Save Settings" %}</span>
               </button>

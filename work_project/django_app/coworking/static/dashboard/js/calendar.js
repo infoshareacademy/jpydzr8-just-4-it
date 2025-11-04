@@ -138,18 +138,42 @@ class CalendarManager {
 
   async loadReservations() {
     try {
-      const response = await fetch('/api/dashboard/api/reservations/calendar/');
+      const response = await fetch('/api/dashboard/api/reservations/calendar/', {
+        credentials: 'include',
+        headers: {
+          'X-CSRFToken': this.getCSRFToken()
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
       const reservations = await response.json();
 
-      if (this.calendar) {
+      if (this.calendar && Array.isArray(reservations)) {
         this.calendar.removeAllEvents();
-        this.calendar.addEventSource(reservations);
+        // Add events directly instead of using addEventSource
+        reservations.forEach(event => {
+          this.calendar.addEvent(event);
+        });
       }
     } catch (error) {
       console.error('Error loading reservations:', error);
       const errorMsg = window.t ? window.t('Error loading calendar') : 'Error loading calendar';
       console.error(errorMsg, error);
     }
+  }
+
+  getCSRFToken() {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'csrftoken') {
+        return value;
+      }
+    }
+    return '';
   }
 
   bindCalendarControls() {

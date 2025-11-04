@@ -35,10 +35,14 @@ def api_reservations_calendar(request):
         start_date = timezone.now().date()
         end_date = start_date + timedelta(days=30)
         
-        # Get user's reservations
+        # Get user's email
+        user_email = request.user.email if hasattr(request.user, 'email') else None
+        
+        # Get user's reservations - IMPORTANT: Filter by email!
         reservations = Reservation.objects.filter(
             date__gte=start_date.strftime('%Y-%m-%d'),
-            date__lte=end_date.strftime('%Y-%m-%d')
+            date__lte=end_date.strftime('%Y-%m-%d'),
+            email=user_email
         ).order_by('date')
         
         events = []
@@ -200,6 +204,20 @@ def api_quick_reserve(request):
             email=data['email'],
             notes=notes
         )
+        
+        # Wyślij email potwierdzający rezerwację
+        try:
+            from reservations.notification_utils import send_reservation_confirmation
+            # Utwórz obiekt podobny do Reservation z reservations/models.py dla kompatybilności
+            class ReservationWrapper:
+                def __init__(self, res):
+                    self.seat_id = res.seat_id
+                    self.date = res.date
+                    self.email = res.email
+                    self.name = res.name
+            send_reservation_confirmation(ReservationWrapper(reservation))
+        except Exception as e:
+            print(f"⚠️ Could not send reservation confirmation email: {e}")
         
         return JsonResponse({
             'success': True,

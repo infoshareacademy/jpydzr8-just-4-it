@@ -221,13 +221,13 @@ class QuickBook {
   refreshDashboard() {
     // Refresh calendar and charts
     if (window.calendarManager) {
-      window.calendarManager.refresh();
+      window.calendarManager.loadReservations();  // Reload reservations from API
     }
     if (window.chartManager) {
       window.chartManager.refresh();
     }
     if (window.dashboardManager) {
-      window.dashboardManager.refresh();
+      window.dashboardManager.loadSummary();  // Reload summary with upcoming reservations count
     }
   }
 

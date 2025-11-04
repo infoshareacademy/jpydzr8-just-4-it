@@ -20,5 +20,9 @@ urlpatterns = [
     path('api/profile/update/', profile_views.update_user_profile, name='api_update_profile'),
     path('api/profile/change-password/', profile_views.change_password, name='api_change_password'),
     path('api/profile/statistics/', profile_views.get_user_statistics, name='api_user_statistics'),
+    
+    # Notification preferences endpoints
+    path('api/profile/notifications/', profile_views.get_notification_preferences, name='api_notification_preferences'),
+    path('api/profile/notifications/update/', profile_views.update_notification_preferences, name='api_update_notification_preferences'),
 ]
 

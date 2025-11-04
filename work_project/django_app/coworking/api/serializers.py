@@ -71,6 +71,22 @@ class ReservationSerializer(serializers.ModelSerializer):
             dt = validated_data.get('date') or ''
             validated_data['id'] = f'{sid}-{dt}'
         try:
-            return super().create(validated_data)
+            reservation = super().create(validated_data)
+            
+            # Wyślij email potwierdzający rezerwację
+            try:
+                from reservations.notification_utils import send_reservation_confirmation
+                # Utwórz obiekt podobny do Reservation z reservations/models.py dla kompatybilności
+                class ReservationWrapper:
+                    def __init__(self, res):
+                        self.seat_id = res.seat_id
+                        self.date = res.date
+                        self.email = res.email
+                        self.name = res.name
+                send_reservation_confirmation(ReservationWrapper(reservation))
+            except Exception as e:
+                print(f"⚠️ Could not send reservation confirmation email: {e}")
+            
+            return reservation
         except IntegrityError:
             raise serializers.ValidationError({'detail': 'Seat already reserved for this date.'})
