@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Coworking App 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-15 04:51+0200\n"
+"POT-Creation-Date: 2025-11-04 00:32+0000\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10,3510 +10,3344 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: .\api\views.py:319
+#: api/dashboard_views.py:48
+#, python-format
+msgid "Seat %(seat_id)s"
+msgstr "Stanowisko %(seat_id)s"
+
+# Dashboard translations for Polish (add to django.po)
+#: api/dashboard_views.py:175
+#, python-format
+msgid "Missing required field: %(field)s"
+msgstr "Brakuje wymaganego pola: %(field)s"
+
+#: api/dashboard_views.py:180
+#, python-format
+msgid "Floor: %(floor)s"
+msgstr "Piętro: %(floor)s"
+
+#: api/dashboard_views.py:182
+#, python-format
+msgid "From: %(time)s"
+msgstr "Od: %(time)s"
+
+#: api/dashboard_views.py:184
+#, python-format
+msgid "To: %(time)s"
+msgstr "Do: %(time)s"
+
+#: api/dashboard_views.py:193
+msgid "Reservation already exists for this seat and date"
+msgstr "Rezerwacja dla tego stanowiska i daty już istnieje"
+
+#: api/dashboard_views.py:207
+#, fuzzy
+#| msgid "Reservation reminders"
+msgid "Reservation created successfully"
+msgstr "Przypomnienia o rezerwacjach"
+
+#: api/dashboard_views.py:211
+msgid "Invalid JSON data"
+msgstr "Nieprawidłowe dane JSON"
+
+#: api/profile_views.py:78
+msgid "Profile updated successfully"
+msgstr ""
+
+#: api/profile_views.py:102
+#, fuzzy
+#| msgid "No password required!"
+msgid "All password fields are required"
+msgstr "Nie wymaga hasła!"
+
+#: api/profile_views.py:108
+#, fuzzy
+#| msgid "Forgot password?"
+msgid "Current password is incorrect"
+msgstr "Zapomniałeś hasła?"
+
+#: api/profile_views.py:114
+msgid "New passwords do not match"
+msgstr ""
+
+#: api/profile_views.py:131
+msgid "Password changed successfully"
+msgstr ""
+
+#: api/views.py:319
 msgid "Email required"
 msgstr "Email jest wymagany"
 
-#: .\api\views.py:326
+#: api/views.py:326
 msgid "If an account with this email exists, a login link has been sent."
 msgstr "Jeśli konto z tym emailem istnieje, link logowania został wysłany."
 
-#: .\api\views.py:337
+#: api/views.py:337
 msgid "Login link sent to your email"
 msgstr "Link logowania został wysłany na Twój email"
 
-#: .\api\views.py:342
+#: api/views.py:342
 msgid "Failed to send email"
 msgstr "Nie udało się wysłać emaila"
 
-#: .\api\views.py:374
+#: api/views.py:374
 msgid "Login successful"
 msgstr "Logowanie pomyślne"
 
-#: .\api\views.py:387
+#: api/views.py:387
 msgid "Invalid or expired link"
 msgstr "Nieprawidłowy lub wygasły link"
 
-#: .\reservations\templates\reservations\_ai_panel.html:7
+#: reservations/templates/reservations/_ai_panel.html:7
 msgid "AI Assistant"
 msgstr "AI Asystent"
 
-#: .\reservations\templates\reservations\_ai_panel.html:12
+#: reservations/templates/reservations/_ai_panel.html:12
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: .\reservations\templates\reservations\_ai_panel.html:16
-#: .\reservations\templates\reservations\_desk_card.html:23
-#: .\reservations\templates\reservations\group_reservation_success.html:64
-#: .\reservations\templates\reservations\my_reservations.html:50
+#: reservations/templates/reservations/_ai_panel.html:16
+#: reservations/templates/reservations/_desk_card.html:23
+#: reservations/templates/reservations/group_reservation_success.html:64
+#: reservations/templates/reservations/my_reservations.html:50
 msgid "Dock"
 msgstr "Dock"
 
-#: .\reservations\templates\reservations\_ai_panel.html:20
-#: .\reservations\templates\reservations\_desk_card.html:39
-#: .\reservations\templates\reservations\my_reservations.html:53
+#: reservations/templates/reservations/_ai_panel.html:20
+#: reservations/templates/reservations/_desk_card.html:39
+#: reservations/templates/reservations/my_reservations.html:53
 msgid "Dual Monitors"
 msgstr "2 monitory"
 
-#: .\reservations\templates\reservations\_ai_panel.html:24
-#: .\reservations\templates\reservations\_desk_card.html:31
-#: .\reservations\templates\reservations\my_reservations.html:56
+#: reservations/templates/reservations/_ai_panel.html:24
+#: reservations/templates/reservations/_desk_card.html:31
+#: reservations/templates/reservations/my_reservations.html:56
 msgid "Adjustable"
 msgstr "Regulowane"
 
-#: .\reservations\templates\reservations\_ai_panel.html:28
-#: .\reservations\templates\reservations\_desk_card.html:11
-#: .\reservations\templates\reservations\group_reservation_success.html:66
-#: .\reservations\templates\reservations\my_reservations.html:59
+#: reservations/templates/reservations/_ai_panel.html:28
+#: reservations/templates/reservations/_desk_card.html:11
+#: reservations/templates/reservations/group_reservation_success.html:66
+#: reservations/templates/reservations/my_reservations.html:59
 msgid "Deep Work"
 msgstr "Deep Work"
 
-#: .\reservations\templates\reservations\_ai_panel.html:44
+#: reservations/templates/reservations/_ai_panel.html:44
 msgid "Recommend"
 msgstr "Rekomenduj"
 
-#: .\reservations\templates\reservations\_ai_panel.html:50
+#: reservations/templates/reservations/_ai_panel.html:50
 msgid "Your Favorites"
 msgstr "Twoje ulubione"
 
-#: .\reservations\templates\reservations\_ai_panel.html:56
+#: reservations/templates/reservations/_ai_panel.html:56
 msgid "Surprise Me"
 msgstr "Zaskocz mnie"
 
-#: .\reservations\templates\reservations\_ai_panel.html:78
+#: reservations/templates/reservations/_ai_panel.html:78
 msgid "No recommendations."
 msgstr "Brak rekomendacji."
 
-#: .\reservations\templates\reservations\_ai_panel.html:83
+#: reservations/templates/reservations/_ai_panel.html:83
 msgid "Enter your email to see favorite desks:"
 msgstr "Wprowadź swój email, aby zobaczyć ulubione stanowiska:"
 
-#: .\reservations\templates\reservations\_ai_panel.html:86
+#: reservations/templates/reservations/_ai_panel.html:86
 msgid "Set default date to today if no date selected"
 msgstr "Ustaw domyślną datę na dzisiaj jeśli nie ma wybranej"
 
-#: .\reservations\templates\reservations\_ai_panel.html:105
+#: reservations/templates/reservations/_ai_panel.html:105
 msgid "Sending request to:"
 msgstr "Wysyłanie request do:"
 
-#: .\reservations\templates\reservations\_ai_panel.html:113
+#: reservations/templates/reservations/_ai_panel.html:113
 msgid "Response:"
 msgstr "Odpowiedź:"
 
-#: .\reservations\templates\reservations\_ai_panel.html:116
+#: reservations/templates/reservations/_ai_panel.html:116
 msgid "Highlight favorite seats"
 msgstr "Podświetl ulubione stanowiska"
 
-#: .\reservations\templates\reservations\_ai_panel.html:121
+#: reservations/templates/reservations/_ai_panel.html:121
 msgid "Pink color for favorites"
 msgstr "Różowy kolor dla ulubionych"
 
-#: .\reservations\templates\reservations\_ai_panel.html:135
-#: .\reservations\templates\reservations\_ai_panel.html:137
+#: reservations/templates/reservations/_ai_panel.html:135
+#: reservations/templates/reservations/_ai_panel.html:137
 msgid "No favorite desks. Set preferences!"
 msgstr "Brak ulubionych stanowisk. Ustaw preferencje!"
 
-#: .\reservations\templates\reservations\_ai_panel.html:141
-#: .\reservations\templates\reservations\_ai_panel.html:143
-#: .\reservations\templates\reservations\_ai_panel.html:145
+#: reservations/templates/reservations/_ai_panel.html:141
+#: reservations/templates/reservations/_ai_panel.html:143
+#: reservations/templates/reservations/_ai_panel.html:145
 msgid "Error:"
 msgstr "Błąd:"
 
-#: .\reservations\templates\reservations\_ai_panel.html:162
+#: reservations/templates/reservations/_ai_panel.html:162
 msgid "No available seats."
 msgstr "Brak wolnych miejsc."
 
-#: .\reservations\templates\reservations\_ai_panel.html:165
+#: reservations/templates/reservations/_ai_panel.html:165
 msgid "Set default date on page load"
 msgstr "Ustaw domyślną datę przy ładowaniu strony"
 
-#: .\reservations\templates\reservations\_desk_card.html:11
+#: reservations/templates/reservations/_desk_card.html:11
 msgid "Open"
 msgstr "Otwarte"
 
-#: .\reservations\templates\reservations\_desk_card.html:16
+#: reservations/templates/reservations/_desk_card.html:16
 msgid "Features"
 msgstr "Funkcje"
 
-#: .\reservations\templates\reservations\_desk_card.html:43
+#: reservations/templates/reservations/_desk_card.html:43
 msgid "Basic"
 msgstr "Podstawowe"
 
-#: .\reservations\templates\reservations\_desk_card.html:50
+#: reservations/templates/reservations/_desk_card.html:50
 msgid "Reserve Seat"
 msgstr "Rezerwuj stanowisko"
 
-#: .\reservations\templates\reservations\_desk_modal.html:10
+#: reservations/templates/reservations/_desk_modal.html:10
 msgid "Amenities"
 msgstr "Udogodnienia"
 
-#: .\reservations\templates\reservations\_desk_modal.html:16
+#: reservations/templates/reservations/_desk_modal.html:16
 msgid "Desk Lock"
 msgstr "Blokada stanowiska"
 
-#: .\reservations\templates\reservations\_desk_modal.html:30
+#: reservations/templates/reservations/_desk_modal.html:30
 msgid "Desk Locked"
 msgstr "Stanowisko zablokowane"
 
-#: .\reservations\templates\reservations\_desk_modal.html:31
+#: reservations/templates/reservations/_desk_modal.html:31
 msgid "5 minutes to reserve"
 msgstr "5 minut na rezerwację"
 
-#: .\reservations\templates\reservations\_desk_modal.html:37
+#: reservations/templates/reservations/_desk_modal.html:37
 msgid "Unlock"
 msgstr "Odblokuj"
 
-#: .\reservations\templates\reservations\_desk_modal.html:51
+#: reservations/templates/reservations/_desk_modal.html:51
 msgid "First and Last Name"
 msgstr "Imię i nazwisko"
 
-#: .\reservations\templates\reservations\_desk_modal.html:52
-#: .\templates\login\index.html:26 .\templates\menu\dashboard.html:125
-#: .\templates\menu\index.html:112 .\templates\menu\reserve.html:113
-#: .\templates\registration\index.html:49
+#: reservations/templates/reservations/_desk_modal.html:52
+#: templates/dashboard/dashboard.html:538
+#: templates/dashboard/dashboard.html:725 templates/login/index.html:75
+#: templates/menu/dashboard.html:125 templates/menu/index.html:116
+#: templates/menu/reserve.html:113 templates/registration/index.html:102
+#: venv/Lib/site-packages/allauth/account/forms.py:106
+#: venv/Lib/site-packages/allauth/account/forms.py:307
+#: venv/Lib/site-packages/allauth/account/forms.py:492
+#: venv/Lib/site-packages/allauth/account/forms.py:573
 msgid "Email"
 msgstr "Email"
 
-#: .\reservations\templates\reservations\_desk_modal.html:53
-#: .\reservations\templates\reservations\conference_room_reservation.html:117
-#: .\reservations\templates\reservations\group_reservations.html:55
-#: .\reservations\templates\reservations\my_reservations.html:65
-#: .\templates\menu\dashboard.html:122 .\templates\menu\index.html:116
-#: .\templates\menu\reserve.html:117
+#: reservations/templates/reservations/_desk_modal.html:53
+#: reservations/templates/reservations/conference_room_reservation.html:117
+#: reservations/templates/reservations/group_reservations.html:55
+#: reservations/templates/reservations/my_reservations.html:65
+#: templates/dashboard/dashboard.html:690 templates/menu/dashboard.html:122
+#: templates/menu/index.html:120 templates/menu/reserve.html:117
 msgid "Date"
 msgstr "Data"
 
-#: .\reservations\templates\reservations\_desk_modal.html:55
-#: .\reservations\templates\reservations\conference_room_reservation.html:124
-#: .\reservations\templates\reservations\group_reservations.html:59
+#: reservations/templates/reservations/_desk_modal.html:55
+#: reservations/templates/reservations/conference_room_reservation.html:124
+#: reservations/templates/reservations/group_reservations.html:59
 msgid "From"
 msgstr "Od"
 
-#: .\reservations\templates\reservations\_desk_modal.html:56
-#: .\reservations\templates\reservations\conference_room_reservation.html:131
-#: .\reservations\templates\reservations\group_reservations.html:63
+#: reservations/templates/reservations/_desk_modal.html:56
+#: reservations/templates/reservations/conference_room_reservation.html:131
+#: reservations/templates/reservations/group_reservations.html:63
 msgid "To"
 msgstr "Do"
 
-#: .\reservations\templates\reservations\_desk_modal.html:61
+#: reservations/templates/reservations/_desk_modal.html:61
 msgid "Alternative"
 msgstr "Alternatywa"
 
-#: .\reservations\templates\reservations\_desk_modal.html:68
-#: .\templates\menu\dashboard.html:34
+#: reservations/templates/reservations/_desk_modal.html:68
+#: templates/menu/dashboard.html:34
 msgid "Recurring"
 msgstr "Cykliczne"
 
-#: .\reservations\templates\reservations\_desk_modal.html:71
-#: .\reservations\templates\reservations\conference_room_reservation.html:161
-#: .\reservations\templates\reservations\my_reservations.html:92
-#: .\reservations\templates\reservations\recurring_reservations.html:109
-#: .\templates\menu\cancel.html:32 .\templates\menu\dashboard.html:127
-#: .\templates\menu\security.html:56 .\templates\menu\security.html:75
-#: .\templates\registration\index.html:60
+#: reservations/templates/reservations/_desk_modal.html:71
+#: reservations/templates/reservations/conference_room_reservation.html:161
+#: reservations/templates/reservations/my_reservations.html:92
+#: reservations/templates/reservations/recurring_reservations.html:109
+#: templates/dashboard/dashboard.html:555
+#: templates/dashboard/dashboard.html:593
+#: templates/dashboard/dashboard.html:731 templates/menu/cancel.html:32
+#: templates/menu/dashboard.html:127 templates/menu/security.html:56
+#: templates/menu/security.html:75
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: .\reservations\templates\reservations\_desk_modal.html:72
-#: .\reservations\templates\reservations\conference_rooms.html:121
-#: .\reservations\templates\reservations\group_reservations.html:244
-#: .\templates\menu\cancel.html:31 .\templates\menu\dashboard.html:32
+#: reservations/templates/reservations/_desk_modal.html:72
+#: reservations/templates/reservations/conference_rooms.html:121
+#: reservations/templates/reservations/group_reservations.html:244
+#: templates/menu/cancel.html:31 templates/menu/dashboard.html:32
 msgid "Reserve"
 msgstr "Rezerwuj"
 
-#: .\reservations\templates\reservations\_desk_modal.html:76
+#: reservations/templates/reservations/_desk_modal.html:76
+msgid ""
+"After confirming the reservation, you will download .ICS or add to Google "
+"Calendar."
+msgstr ""
 
-#: .\reservations\templates\reservations\_desk_modal.html:88
+#: reservations/templates/reservations/_desk_modal.html:88
 msgid "Check if desk is locked"
 msgstr "Sprawdź czy stanowisko jest zablokowane"
 
-#: .\reservations\templates\reservations\_desk_modal.html:111
+#: reservations/templates/reservations/_desk_modal.html:111
 msgid "Reservation confirmed"
 msgstr "Rezerwacja potwierdzona"
 
-#: .\reservations\templates\reservations\_desk_modal.html:123
+#: reservations/templates/reservations/_desk_modal.html:123
 msgid "Reservation error:"
 msgstr "Błąd rezerwacji:"
 
-#: .\reservations\templates\reservations\_desk_modal.html:124
+#: reservations/templates/reservations/_desk_modal.html:124
 msgid "Reservation error. Check data and try again."
 msgstr "Błąd rezerwacji. Sprawdź dane i spróbuj ponownie."
 
-#: .\reservations\templates\reservations\_desk_modal.html:137
+#: reservations/templates/reservations/_desk_modal.html:137
 msgid "Enter email to lock desk"
 msgstr "Wprowadź email, aby zablokować stanowisko"
 
-#: .\reservations\templates\reservations\_desk_modal.html:167
+#: reservations/templates/reservations/_desk_modal.html:167
 msgid "Desk lock expired! Desk has been released."
 msgstr "Blokada stanowiska wygasła! Stanowisko zostało zwolnione."
 
-#: .\reservations\templates\reservations\_desk_modal.html:200
+#: reservations/templates/reservations/_desk_modal.html:200
 msgid "Failed to lock desk"
 msgstr "Nie udało się zablokować stanowiska"
 
-#: .\reservations\templates\reservations\_desk_modal.html:281
-#: .\reservations\templates\reservations\_desk_modal.html:291
+#: reservations/templates/reservations/_desk_modal.html:281
+#: reservations/templates/reservations/_desk_modal.html:291
 msgid "Desk has been unlocked!"
 msgstr "Stanowisko zostało odblokowane!"
 
-#: .\reservations\templates\reservations\_desk_modal.html:312
+#: reservations/templates/reservations/_desk_modal.html:312
 msgid "Automatically lock desk when opening modal"
 msgstr "Automatycznie zablokuj stanowisko przy otwarciu modala"
 
-#: .\reservations\templates\reservations\advanced_features.html:3
-#: .\reservations\templates\reservations\advanced_features.html:21
-#: .\templates\menu\dashboard.html:36 .\templates\menu\dashboard.html:98
+#: reservations/templates/reservations/advanced_features.html:3
+#: reservations/templates/reservations/advanced_features.html:21
+#: templates/dashboard/dashboard.html:436 templates/menu/dashboard.html:36
+#: templates/menu/dashboard.html:98
 msgid "Advanced Features"
 msgstr "Zaawansowane funkcje"
 
-#: .\reservations\templates\reservations\advanced_features.html:22
+#: reservations/templates/reservations/advanced_features.html:22
 msgid "All new reservation system capabilities"
 msgstr "Wszystkie nowe możliwości systemu rezerwacji"
 
-#: .\reservations\templates\reservations\advanced_features.html:29
-#: .\reservations\templates\reservations\my_reservations.html:18
+#: reservations/templates/reservations/advanced_features.html:29
+#: reservations/templates/reservations/my_reservations.html:18
 msgid "Back to Plans"
 msgstr "Wróć do planów"
 
-#: .\reservations\templates\reservations\advanced_features.html:45
-#: .\reservations\templates\reservations\recurring_reservations.html:3
-#: .\reservations\templates\reservations\recurring_reservations.html:22
-#: .\templates\menu\dashboard.html:88
+#: reservations/templates/reservations/advanced_features.html:45
+#: reservations/templates/reservations/recurring_reservations.html:3
+#: reservations/templates/reservations/recurring_reservations.html:22
+#: templates/dashboard/dashboard.html:472 templates/menu/dashboard.html:88
 msgid "Recurring Reservations"
 msgstr "Cykliczne rezerwacje"
 
-#: .\reservations\templates\reservations\advanced_features.html:47
+#: reservations/templates/reservations/advanced_features.html:47
 #, fuzzy
 #| msgid "Automatic reservations for daily, weekly or monthly"
 msgid "Set up automatic reservations for daily, weekly or monthly"
 msgstr "Automatyczne rezerwacje na codziennie, tygodniowo lub miesięcznie"
 
-#: .\reservations\templates\reservations\advanced_features.html:50
+#: reservations/templates/reservations/advanced_features.html:50
 msgid "My Recurring Reservations"
 msgstr "Moje cykliczne rezerwacje"
 
-#: .\reservations\templates\reservations\advanced_features.html:52
+#: reservations/templates/reservations/advanced_features.html:52
 msgid "Manage your automatic reservations"
 msgstr "Zarządzaj swoimi automatycznymi rezerwacjami"
 
-#: .\reservations\templates\reservations\advanced_features.html:64
+#: reservations/templates/reservations/advanced_features.html:64
 msgid "Waitlist"
 msgstr "Lista oczekujących"
 
-#: .\reservations\templates\reservations\advanced_features.html:66
+#: reservations/templates/reservations/advanced_features.html:66
 msgid "Join the waitlist when your favorite seat is occupied"
 msgstr "Zapisz się na listę oczekujących gdy ulubione stanowisko jest zajęte"
 
-#: .\reservations\templates\reservations\advanced_features.html:69
-#: .\reservations\templates\reservations\advanced_features.html:108
+#: reservations/templates/reservations/advanced_features.html:69
+#: reservations/templates/reservations/advanced_features.html:108
 msgid "How it works?"
 msgstr "Jak to działa?"
 
-#: .\reservations\templates\reservations\advanced_features.html:71
+#: reservations/templates/reservations/advanced_features.html:71
 msgid "You will receive a notification when the seat becomes available"
 msgstr "Otrzymasz powiadomienie gdy stanowisko się zwolni"
 
-#: .\reservations\templates\reservations\advanced_features.html:84
-#: .\reservations\templates\reservations\conference_rooms.html:3
-#: .\reservations\templates\reservations\conference_rooms.html:21
+#: reservations/templates/reservations/advanced_features.html:84
+#: reservations/templates/reservations/conference_rooms.html:3
+#: reservations/templates/reservations/conference_rooms.html:21
 msgid "Conference Rooms"
 msgstr "Sale konferencyjne"
 
-#: .\reservations\templates\reservations\advanced_features.html:86
+#: reservations/templates/reservations/advanced_features.html:86
 msgid "Professional meeting rooms with modern equipment"
 msgstr "Profesjonalne sale spotkań z nowoczesnym wyposażeniem"
 
-#: .\reservations\templates\reservations\advanced_features.html:89
+#: reservations/templates/reservations/advanced_features.html:89
 msgid "View Conference Rooms"
 msgstr "Zobacz sale konferencyjne"
 
-#: .\reservations\templates\reservations\advanced_features.html:91
+#: reservations/templates/reservations/advanced_features.html:91
 msgid "Available on all floors"
 msgstr "Dostępne na wszystkich piętrach"
 
-#: .\reservations\templates\reservations\advanced_features.html:103
+#: reservations/templates/reservations/advanced_features.html:103
 msgid "Guest Access"
 msgstr "Dostęp dla gości"
 
-#: .\reservations\templates\reservations\advanced_features.html:105
-#: .\reservations\templates\reservations\advanced_features.html:215
+#: reservations/templates/reservations/advanced_features.html:105
+#: reservations/templates/reservations/advanced_features.html:215
 msgid "Book seats for external guests"
 msgstr "Rezerwuj stanowiska dla gości zewnętrznych"
 
-#: .\reservations\templates\reservations\advanced_features.html:110
-#: .\reservations\templates\reservations\advanced_features.html:215
+#: reservations/templates/reservations/advanced_features.html:110
+#: reservations/templates/reservations/advanced_features.html:215
 msgid "Host and guest data required"
 msgstr "Wymagane dane hosta i gościa"
 
-#: .\reservations\templates\reservations\advanced_features.html:122
+#: reservations/templates/reservations/advanced_features.html:122
+#: templates/dashboard/dashboard.html:77
 msgid "Notifications"
 msgstr "Powiadomienia"
 
-#: .\reservations\templates\reservations\advanced_features.html:124
+#: reservations/templates/reservations/advanced_features.html:124
 msgid "Receive notifications about reservations and availability"
 msgstr "Otrzymuj powiadomienia o rezerwacjach i dostępności"
 
-#: .\reservations\templates\reservations\advanced_features.html:127
-#: .\reservations\templates\reservations\notification_settings.html:3
-#: .\reservations\templates\reservations\notification_settings.html:17
+#: reservations/templates/reservations/advanced_features.html:127
+#: reservations/templates/reservations/notification_settings.html:3
+#: reservations/templates/reservations/notification_settings.html:17
 msgid "Notification Settings"
 msgstr "Ustawienia powiadomień"
 
-#: .\reservations\templates\reservations\advanced_features.html:129
-#: .\reservations\templates\reservations\advanced_features.html:159
-#: .\reservations\templates\reservations\advanced_features.html:178
-#: .\reservations\templates\reservations\conference_reservation_success.html:87
-#: .\reservations\templates\reservations\conference_reservation_success.html:99
-#: .\reservations\templates\reservations\conference_reservation_success.html:111
+#: reservations/templates/reservations/advanced_features.html:129
+#: reservations/templates/reservations/advanced_features.html:159
+#: reservations/templates/reservations/advanced_features.html:178
+#: reservations/templates/reservations/conference_reservation_success.html:87
+#: reservations/templates/reservations/conference_reservation_success.html:99
+#: reservations/templates/reservations/conference_reservation_success.html:111
 msgid "Available"
 msgstr "Dostępne"
 
-#: .\reservations\templates\reservations\advanced_features.html:141
-#: .\reservations\templates\reservations\group_reservations.html:3
-#: .\reservations\templates\reservations\group_reservations.html:17
+#: reservations/templates/reservations/advanced_features.html:141
+#: reservations/templates/reservations/group_reservations.html:3
+#: reservations/templates/reservations/group_reservations.html:17
+#: templates/dashboard/dashboard.html:454
 msgid "Group Reservations"
 msgstr "Wspólne rezerwacje"
 
-#: .\reservations\templates\reservations\advanced_features.html:143
-#: .\reservations\templates\reservations\group_reservations.html:18
+#: reservations/templates/reservations/advanced_features.html:143
+#: reservations/templates/reservations/group_reservations.html:18
 msgid "Book multiple seats next to each other"
 msgstr "Rezerwuj kilka stanowisk obok siebie"
 
-#: .\reservations\templates\reservations\advanced_features.html:147
-#: .\reservations\templates\reservations\advanced_features.html:150
-#: .\reservations\templates\reservations\advanced_features.html:153
-#: .\reservations\templates\reservations\advanced_features.html:156
-#: .\reservations\templates\reservations\conference_reservation_success.html:33
-#: .\reservations\templates\reservations\conference_room_reservation.html:23
-#: .\reservations\templates\reservations\conference_room_reservation.html:43
-#: .\reservations\templates\reservations\conference_rooms.html:3
-#: .\reservations\templates\reservations\conference_rooms.html:23
-#: .\reservations\templates\reservations\conference_rooms.html:55
-#: .\reservations\templates\reservations\conference_rooms.html:114
-#: .\reservations\templates\reservations\floor.html:3
-#: .\reservations\templates\reservations\floor.html:28
-#: .\reservations\templates\reservations\floor.html:36
-#: .\reservations\templates\reservations\floor.html:39
-#: .\reservations\templates\reservations\floor.html:217
-#: .\reservations\templates\reservations\group_reservation_success.html:61
-#: .\reservations\templates\reservations\group_reservations.html:3
-#: .\reservations\templates\reservations\group_reservations.html:18
-#: .\reservations\templates\reservations\my_reservations.html:47
-#: .\reservations\templates\reservations\recurring_reservations.html:72
+#: reservations/templates/reservations/advanced_features.html:147
+#: reservations/templates/reservations/advanced_features.html:150
+#: reservations/templates/reservations/advanced_features.html:153
+#: reservations/templates/reservations/advanced_features.html:156
+#: reservations/templates/reservations/conference_reservation_success.html:32
+#: reservations/templates/reservations/conference_reservation_success.html:33
+#: reservations/templates/reservations/conference_room_reservation.html:3
+#: reservations/templates/reservations/conference_room_reservation.html:23
+#: reservations/templates/reservations/conference_room_reservation.html:42
+#: reservations/templates/reservations/conference_room_reservation.html:43
+#: reservations/templates/reservations/conference_rooms.html:3
+#: reservations/templates/reservations/conference_rooms.html:23
+#: reservations/templates/reservations/conference_rooms.html:55
+#: reservations/templates/reservations/conference_rooms.html:72
+#: reservations/templates/reservations/conference_rooms.html:114
+#: reservations/templates/reservations/floor.html:3
+#: reservations/templates/reservations/floor.html:28
+#: reservations/templates/reservations/floor.html:36
+#: reservations/templates/reservations/floor.html:39
+#: reservations/templates/reservations/floor.html:217
+#: reservations/templates/reservations/group_reservation_success.html:61
+#: reservations/templates/reservations/group_reservations.html:3
+#: reservations/templates/reservations/group_reservations.html:18
+#: reservations/templates/reservations/my_reservations.html:47
+#: reservations/templates/reservations/recurring_reservations.html:72
+#: templates/dashboard/dashboard.html:695
 msgid "Floor"
 msgstr "Piętro"
 
-#: .\reservations\templates\reservations\advanced_features.html:171
-#: .\reservations\templates\reservations\slack_setup.html:3
-#: .\reservations\templates\reservations\slack_setup.html:17
+#: reservations/templates/reservations/advanced_features.html:171
+#: reservations/templates/reservations/slack_setup.html:3
+#: reservations/templates/reservations/slack_setup.html:17
 msgid "Slack Integration"
 msgstr "Integracja Slack"
 
-#: .\reservations\templates\reservations\advanced_features.html:173
-#: .\reservations\templates\reservations\slack_setup.html:18
+#: reservations/templates/reservations/advanced_features.html:173
+#: reservations/templates/reservations/slack_setup.html:18
 msgid "Book seats directly through Slack"
 msgstr "Rezerwuj stanowiska bezpośrednio przez Slack"
 
-#: .\reservations\templates\reservations\advanced_features.html:176
+#: reservations/templates/reservations/advanced_features.html:176
 msgid "Bot Configuration"
 msgstr "Konfiguracja bota"
 
-#: .\reservations\templates\reservations\advanced_features.html:185
+#: reservations/templates/reservations/advanced_features.html:185
 msgid "Quick Actions"
 msgstr "Szybkie akcje"
 
-#: .\reservations\templates\reservations\advanced_features.html:191
-#: .\reservations\templates\reservations\floor.html:67
-#: .\reservations\templates\reservations\my_reservations.html:3
-#: .\reservations\templates\reservations\my_reservations.html:13
-#: .\templates\menu\dashboard.html:108
+#: reservations/templates/reservations/advanced_features.html:191
+#: reservations/templates/reservations/floor.html:67
+#: reservations/templates/reservations/my_reservations.html:3
+#: reservations/templates/reservations/my_reservations.html:13
+#: templates/dashboard/dashboard.html:62 templates/menu/dashboard.html:108
 msgid "My Reservations"
 msgstr "Moje rezerwacje"
 
-#: .\reservations\templates\reservations\advanced_features.html:197
-#: .\templates\menu\dashboard.html:33 .\templates\menu\dashboard.html:103
+#: reservations/templates/reservations/advanced_features.html:197
+#: templates/menu/dashboard.html:33 templates/menu/dashboard.html:103
+#: templates/welcome/index.html:107
 msgid "Floor Plans"
 msgstr "Plany pięter"
 
-#: .\reservations\templates\reservations\advanced_features.html:203
+#: reservations/templates/reservations/advanced_features.html:203
 msgid "Help"
 msgstr "Pomoc"
 
-#: .\reservations\templates\reservations\advanced_features.html:211
+#: reservations/templates/reservations/advanced_features.html:211
 msgid "Waitlist:"
 msgstr "Lista oczekujących:"
 
-#: .\reservations\templates\reservations\advanced_features.html:211
+#: reservations/templates/reservations/advanced_features.html:211
 msgid "Join when your favorite seat is occupied"
 msgstr "Zapisz się gdy ulubione stanowisko jest zajęte"
 
-#: .\reservations\templates\reservations\advanced_features.html:211
+#: reservations/templates/reservations/advanced_features.html:211
 msgid "You will receive an email when it becomes available"
 msgstr "Otrzymasz email gdy się zwolni"
 
-#: .\reservations\templates\reservations\advanced_features.html:211
+#: reservations/templates/reservations/advanced_features.html:211
 msgid "Automatic notifications"
 msgstr "Automatyczne powiadomienia"
 
-#: .\reservations\templates\reservations\advanced_features.html:211
+#: reservations/templates/reservations/advanced_features.html:211
 msgid "First on the list has priority"
 msgstr "Pierwszy na liście ma pierwszeństwo"
 
-#: .\reservations\templates\reservations\advanced_features.html:215
+#: reservations/templates/reservations/advanced_features.html:215
 msgid "Guest Access:"
 msgstr "Dostęp dla gości:"
 
-#: .\reservations\templates\reservations\advanced_features.html:215
+#: reservations/templates/reservations/advanced_features.html:215
 msgid "Special marking in the system"
 msgstr "Specjalne oznaczenie w systemie"
 
-#: .\reservations\templates\reservations\advanced_features.html:215
+#: reservations/templates/reservations/advanced_features.html:215
 msgid "Host is responsible for the guest"
 msgstr "Host odpowiada za gościa"
 
-#: .\reservations\templates\reservations\advanced_features.html:219
+#: reservations/templates/reservations/advanced_features.html:219
 msgid "Notifications:"
 msgstr "Powiadomienia:"
 
-#: .\reservations\templates\reservations\advanced_features.html:219
+#: reservations/templates/reservations/advanced_features.html:219
 msgid "Push notifications on phone"
 msgstr "Push notifications na telefon"
 
-#: .\reservations\templates\reservations\advanced_features.html:219
+#: reservations/templates/reservations/advanced_features.html:219
 msgid "Reservation reminders"
 msgstr "Przypomnienia o rezerwacjach"
 
-#: .\reservations\templates\reservations\advanced_features.html:219
+#: reservations/templates/reservations/advanced_features.html:219
 msgid "Availability notifications"
 msgstr "Powiadomienia o dostępności"
 
-#: .\reservations\templates\reservations\advanced_features.html:219
+#: reservations/templates/reservations/advanced_features.html:219
 msgid "Calendar integration"
 msgstr "Integracja z kalendarzem"
 
-#: .\reservations\templates\reservations\advanced_features.html:223
+#: reservations/templates/reservations/advanced_features.html:223
 msgid "Slack Integration:"
 msgstr "Integracja Slack:"
 
-#: .\reservations\templates\reservations\advanced_features.html:223
+#: reservations/templates/reservations/advanced_features.html:223
 msgid "Bot for reservations through Slack"
 msgstr "Bot do rezerwacji przez Slack"
 
-#: .\reservations\templates\reservations\advanced_features.html:223
+#: reservations/templates/reservations/advanced_features.html:223
 msgid "Commands: /reserve, /cancel"
 msgstr "Komendy: /rezerwuj, /anuluj"
 
-#: .\reservations\templates\reservations\advanced_features.html:223
+#: reservations/templates/reservations/advanced_features.html:223
 msgid "Channel notifications"
 msgstr "Powiadomienia w kanałach"
 
-#: .\reservations\templates\reservations\advanced_features.html:223
+#: reservations/templates/reservations/advanced_features.html:223
 msgid "Quick team reservations"
 msgstr "Szybkie rezerwacje zespołowe"
 
-#: .\reservations\templates\reservations\advanced_features.html:227
+#: reservations/templates/reservations/advanced_features.html:227
 msgid "Help:"
 msgstr "Pomoc:"
 
-#: .\reservations\templates\reservations\advanced_features.html:227
+#: reservations/templates/reservations/advanced_features.html:227
 msgid "All functions are intuitive"
 msgstr "Wszystkie funkcje są intuicyjne"
 
-#: .\reservations\templates\reservations\advanced_features.html:227
+#: reservations/templates/reservations/advanced_features.html:227
 msgid "Click on icons to learn more"
 msgstr "Kliknij na ikony aby dowiedzieć się więcej"
 
-#: .\reservations\templates\reservations\advanced_features.html:227
+#: reservations/templates/reservations/advanced_features.html:227
 msgid "Technical support available"
 msgstr "Wsparcie techniczne dostępne"
 
-#: .\reservations\templates\reservations\advanced_features.html:227
+#: reservations/templates/reservations/advanced_features.html:227
 msgid "Regular system updates"
 msgstr "Regularne aktualizacje systemu"
 
-#: .\reservations\templates\reservations\base.html:6
-#: .\reservations\templates\reservations\floor.html:3
+#: reservations/templates/reservations/base.html:6
+#: reservations/templates/reservations/floor.html:3
 msgid "Reservations"
 msgstr "Rezerwacje"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:3
+#: reservations/templates/reservations/conference_reservation_success.html:3
 #, fuzzy
 #| msgid "Team Rooms"
 msgid "Conference Room Reserved"
 msgstr "Sale zespołowe"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:20
+#: reservations/templates/reservations/conference_reservation_success.html:20
 #, fuzzy
 #| msgid "Team Rooms"
 msgid "Conference Room Reserved!"
 msgstr "Sale zespołowe"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:21
+#: reservations/templates/reservations/conference_reservation_success.html:21
 #, fuzzy
 #| msgid "Your group has been successfully reserved"
 msgid "Your conference room has been successfully reserved"
 msgstr "Twoja grupa została pomyślnie zarezerwowana"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:26
-#: .\reservations\templates\reservations\group_reservation_success.html:21
+#: reservations/templates/reservations/conference_reservation_success.html:26
+#: reservations/templates/reservations/group_reservation_success.html:21
 msgid "Reservation Details"
 msgstr "Szczegóły rezerwacji"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:31
+#: reservations/templates/reservations/conference_reservation_success.html:31
+#: reservations/templates/reservations/conference_reservation_success.html:32
+#: reservations/templates/reservations/conference_room_reservation.html:3
+#: reservations/templates/reservations/conference_room_reservation.html:23
+#: reservations/templates/reservations/conference_room_reservation.html:42
+#: reservations/templates/reservations/conference_rooms.html:72
 #, fuzzy
 msgid "Conference Room"
 msgstr "Sala konferencyjna"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:37
-#: .\reservations\templates\reservations\conference_room_reservation.html:100
+#: reservations/templates/reservations/conference_reservation_success.html:37
+#: reservations/templates/reservations/conference_room_reservation.html:100
 msgid "Team Name"
 msgstr "Nazwa zespołu"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:42
-#: .\reservations\templates\reservations\conference_room_reservation.html:107
+#: reservations/templates/reservations/conference_reservation_success.html:42
+#: reservations/templates/reservations/conference_room_reservation.html:107
 msgid "Contact Email"
 msgstr "Email kontaktowy"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:47
-#: .\reservations\templates\reservations\group_reservation_success.html:36
+#: reservations/templates/reservations/conference_reservation_success.html:47
+#: reservations/templates/reservations/group_reservation_success.html:36
 msgid "Date and Time"
 msgstr "Data i godziny"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:55
-#: .\reservations\templates\reservations\conference_room_reservation.html:140
+#: reservations/templates/reservations/conference_reservation_success.html:55
+#: reservations/templates/reservations/conference_room_reservation.html:140
 msgid "Number of Attendees"
 msgstr "Liczba uczestników"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:56
-#: .\reservations\templates\reservations\conference_reservation_success.html:76
-#: .\reservations\templates\reservations\conference_room_reservation.html:48
-#: .\reservations\templates\reservations\conference_rooms.html:73
+#: reservations/templates/reservations/conference_reservation_success.html:56
+#: reservations/templates/reservations/conference_reservation_success.html:76
+#: reservations/templates/reservations/conference_room_reservation.html:48
+#: reservations/templates/reservations/conference_rooms.html:73
 msgid "people"
 msgstr "osoby"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:61
-#: .\reservations\templates\reservations\conference_room_reservation.html:148
-#: .\reservations\templates\reservations\group_reservation_success.html:45
-#: .\reservations\templates\reservations\group_reservations.html:80
+#: reservations/templates/reservations/conference_reservation_success.html:61
+#: reservations/templates/reservations/conference_room_reservation.html:148
+#: reservations/templates/reservations/group_reservation_success.html:45
+#: reservations/templates/reservations/group_reservations.html:80
 msgid "Meeting Purpose"
 msgstr "Cel spotkania"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:68
+#: reservations/templates/reservations/conference_reservation_success.html:68
 #, fuzzy
 #| msgid "Features"
 msgid "Room Features"
 msgstr "Funkcje"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:75
-#: .\reservations\templates\reservations\conference_room_reservation.html:47
-#: .\reservations\templates\reservations\conference_rooms.html:73
+#: reservations/templates/reservations/conference_reservation_success.html:75
+#: reservations/templates/reservations/conference_room_reservation.html:47
+#: reservations/templates/reservations/conference_rooms.html:73
 msgid "Capacity"
 msgstr "Pojemność"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:86
-#: .\reservations\templates\reservations\conference_room_reservation.html:66
-#: .\reservations\templates\reservations\conference_rooms.html:88
+#: reservations/templates/reservations/conference_reservation_success.html:86
+#: reservations/templates/reservations/conference_room_reservation.html:66
+#: reservations/templates/reservations/conference_rooms.html:88
 msgid "Projector"
 msgstr "Projektor"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:98
-#: .\reservations\templates\reservations\conference_room_reservation.html:74
-#: .\reservations\templates\reservations\conference_rooms.html:96
+#: reservations/templates/reservations/conference_reservation_success.html:98
+#: reservations/templates/reservations/conference_room_reservation.html:74
+#: reservations/templates/reservations/conference_rooms.html:96
 msgid "Whiteboard"
 msgstr "Tablica"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:110
-#: .\reservations\templates\reservations\conference_room_reservation.html:82
-#: .\reservations\templates\reservations\conference_rooms.html:104
+#: reservations/templates/reservations/conference_reservation_success.html:110
+#: reservations/templates/reservations/conference_room_reservation.html:82
+#: reservations/templates/reservations/conference_rooms.html:104
 msgid "Video Conference"
 msgstr "Wideokonferencja"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:126
-#: .\reservations\templates\reservations\group_reservation_success.html:82
-#: .\reservations\templates\reservations\group_reservations.html:27
+#: reservations/templates/reservations/conference_reservation_success.html:126
+#: reservations/templates/reservations/group_reservation_success.html:82
+#: reservations/templates/reservations/group_reservations.html:27
 #, fuzzy
 #| msgid "Back to Plans"
 msgid "Back to Plan"
 msgstr "Wróć do planów"
 
-#: .\reservations\templates\reservations\conference_reservation_success.html:133
+#: reservations/templates/reservations/conference_reservation_success.html:133
 #, fuzzy
 msgid "Reserve Another Room"
 msgstr "Zarezerwuj inną salę"
 
-#: .\reservations\templates\reservations\conference_room_reservation.html:3
-#: .\reservations\templates\reservations\conference_room_reservation.html:22
-#: .\reservations\templates\reservations\conference_room_reservation.html:167
+#: reservations/templates/reservations/conference_room_reservation.html:3
+#: reservations/templates/reservations/conference_room_reservation.html:22
+#: reservations/templates/reservations/conference_room_reservation.html:167
 msgid "Reserve Conference Room"
 msgstr "Zarezerwuj salę konferencyjną"
 
-#: .\reservations\templates\reservations\conference_room_reservation.html:30
-#: .\reservations\templates\reservations\notification_settings.html:27
-#: .\reservations\templates\reservations\recurring_reservations.html:30
-#: .\reservations\templates\reservations\slack_setup.html:27
-#: .\templates\login\index.html:48 .\templates\login\magic_link.html:118
-#: .\templates\menu\index.html:29 .\templates\menu\reserve.html:41
+#: reservations/templates/reservations/conference_room_reservation.html:30
+#: reservations/templates/reservations/notification_settings.html:27
+#: reservations/templates/reservations/recurring_reservations.html:30
+#: reservations/templates/reservations/slack_setup.html:27
+#: templates/login/magic_link.html:118 templates/menu/index.html:33
+#: templates/menu/reserve.html:41
 msgid "Back"
 msgstr "Wróć"
 
-#: .\reservations\templates\reservations\conference_room_reservation.html:38
+#: reservations/templates/reservations/conference_room_reservation.html:38
 msgid "Room Details"
 msgstr "Szczegóły sali"
 
-#: .\reservations\templates\reservations\conference_room_reservation.html:53
+#: reservations/templates/reservations/conference_room_reservation.html:53
 msgid "Description"
 msgstr "Opis"
 
-#: .\reservations\templates\reservations\conference_room_reservation.html:59
+#: reservations/templates/reservations/conference_room_reservation.html:59
 msgid "Equipment"
 msgstr "Wyposażenie"
 
-#: .\reservations\templates\reservations\conference_room_reservation.html:92
+#: reservations/templates/reservations/conference_room_reservation.html:92
 msgid "Reservation Form"
 msgstr "Formularz rezerwacji"
 
-#: .\reservations\templates\reservations\conference_room_reservation.html:148
-#: .\reservations\templates\reservations\group_reservations.html:80
+#: reservations/templates/reservations/conference_room_reservation.html:148
+#: reservations/templates/reservations/group_reservations.html:80
 msgid "optional"
 msgstr "opcjonalnie"
 
-#: .\reservations\templates\reservations\conference_rooms.html:23
-#: .\reservations\templates\reservations\conference_rooms.html:25
+#: reservations/templates/reservations/conference_rooms.html:23
+#: reservations/templates/reservations/conference_rooms.html:25
 msgid "Meeting rooms and conference facilities"
 msgstr "Sale spotkań i obiekty konferencyjne"
 
-#: .\reservations\templates\reservations\conference_rooms.html:34
-#: .\reservations\templates\reservations\conference_rooms.html:145
+#: reservations/templates/reservations/conference_rooms.html:34
+#: reservations/templates/reservations/conference_rooms.html:145
 msgid "Back to Features"
 msgstr "Wróć do funkcji"
 
-#: .\reservations\templates\reservations\conference_rooms.html:42
+#: reservations/templates/reservations/conference_rooms.html:42
 msgid "Select Floor"
 msgstr "Wybierz piętro"
 
-#: .\reservations\templates\reservations\conference_rooms.html:48
+#: reservations/templates/reservations/conference_rooms.html:48
 msgid "All Floors"
 msgstr "Wszystkie piętra"
 
-#: .\reservations\templates\reservations\conference_rooms.html:135
+#: reservations/templates/reservations/conference_rooms.html:135
 msgid "No Conference Rooms"
 msgstr "Brak sal konferencyjnych"
 
-#: .\reservations\templates\reservations\conference_rooms.html:136
+#: reservations/templates/reservations/conference_rooms.html:136
 msgid "There are no conference rooms available on this floor yet."
 msgstr "Na tym piętrze nie ma jeszcze dostępnych sal konferencyjnych."
 
-#: .\reservations\templates\reservations\conference_rooms.html:138
+#: reservations/templates/reservations/conference_rooms.html:138
 msgid "No Conference Rooms Found"
 msgstr "Nie znaleziono sal konferencyjnych"
 
-#: .\reservations\templates\reservations\conference_rooms.html:139
+#: reservations/templates/reservations/conference_rooms.html:139
 msgid "There are no conference rooms available yet."
 msgstr "Nie ma jeszcze dostępnych sal konferencyjnych."
 
-#: .\reservations\templates\reservations\floor.html:20
-#: .\templates\menu\cancel.html:30 .\templates\menu\dashboard.html:31
+#: reservations/templates/reservations/floor.html:20
+#: templates/dashboard/dashboard.html:54 templates/menu/cancel.html:30
+#: templates/menu/dashboard.html:31 templates/welcome/index.html:196
 msgid "Dashboard"
 msgstr "Panel główny"
 
-#: .\reservations\templates\reservations\floor.html:29
+#: reservations/templates/reservations/floor.html:29
 msgid "Seat reservation system"
 msgstr "System rezerwacji stanowisk"
 
-#: .\reservations\templates\reservations\floor.html:60
+#: reservations/templates/reservations/floor.html:60
 msgid "Edit Layout"
 msgstr "Edytuj układ"
 
-#: .\reservations\templates\reservations\floor.html:86
+#: reservations/templates/reservations/floor.html:86
 msgid "Reset"
 msgstr "Reset"
 
-#: .\reservations\templates\reservations\floor.html:217
+#: reservations/templates/reservations/floor.html:217
 msgid "Seats"
 msgstr "Stanowiska"
 
-#: .\reservations\templates\reservations\floor.html:219
-#: .\reservations\templates\reservations\group_reservations.html:71
-#: .\reservations\templates\reservations\group_reservations.html:72
-#: .\reservations\templates\reservations\group_reservations.html:73
-#: .\reservations\templates\reservations\group_reservations.html:74
-#: .\reservations\templates\reservations\group_reservations.html:75
-#: .\reservations\templates\reservations\group_reservations.html:199
-#: .\reservations\templates\reservations\group_reservations.html:244
+#: reservations/templates/reservations/floor.html:219
+#: reservations/templates/reservations/group_reservations.html:71
+#: reservations/templates/reservations/group_reservations.html:72
+#: reservations/templates/reservations/group_reservations.html:73
+#: reservations/templates/reservations/group_reservations.html:74
+#: reservations/templates/reservations/group_reservations.html:75
+#: reservations/templates/reservations/group_reservations.html:199
+#: reservations/templates/reservations/group_reservations.html:244
 msgid "seats"
 msgstr "stanowisk"
 
-#: .\reservations\templates\reservations\group_reservation_success.html:3
+#: reservations/templates/reservations/group_reservation_success.html:3
 #, fuzzy
 #| msgid "Group Reservations"
 msgid "Group Reservation Created"
 msgstr "Grupowa rezerwacja utworzona"
 
-#: .\reservations\templates\reservations\group_reservation_success.html:15
+#: reservations/templates/reservations/group_reservation_success.html:15
 msgid "Group Reservation Created!"
 msgstr "Grupowa rezerwacja utworzona!"
 
-#: .\reservations\templates\reservations\group_reservation_success.html:16
+#: reservations/templates/reservations/group_reservation_success.html:16
 msgid "Your group has been successfully reserved"
 msgstr "Twoja grupa została pomyślnie zarezerwowana"
 
-#: .\reservations\templates\reservations\group_reservation_success.html:26
-#: .\reservations\templates\reservations\group_reservations.html:44
+#: reservations/templates/reservations/group_reservation_success.html:26
+#: reservations/templates/reservations/group_reservations.html:44
 msgid "Group Name"
 msgstr "Nazwa grupy"
 
-#: .\reservations\templates\reservations\group_reservation_success.html:31
+#: reservations/templates/reservations/group_reservation_success.html:31
 msgid "Organizer"
 msgstr "Organizator"
 
-#: .\reservations\templates\reservations\group_reservation_success.html:52
+#: reservations/templates/reservations/group_reservation_success.html:52
 msgid "Reserved Seats"
 msgstr "Zarezerwowane stanowiska"
 
-#: .\reservations\templates\reservations\group_reservation_success.html:89
+#: reservations/templates/reservations/group_reservation_success.html:89
 msgid "New Group"
 msgstr "Nowa grupa"
 
-#: .\reservations\templates\reservations\group_reservations.html:36
+#: reservations/templates/reservations/group_reservations.html:36
 msgid "Create Group Reservation"
 msgstr "Utwórz grupową rezerwację"
 
-#: .\reservations\templates\reservations\group_reservations.html:45
+#: reservations/templates/reservations/group_reservations.html:45
 msgid "Team/project name"
 msgstr "Nazwa zespołu/projektu"
 
-#: .\reservations\templates\reservations\group_reservations.html:48
+#: reservations/templates/reservations/group_reservations.html:48
 msgid "Organizer Email"
 msgstr "Email organizatora"
 
-#: .\reservations\templates\reservations\group_reservations.html:49
-#: .\reservations\templates\reservations\my_reservations.html:27
-#: .\reservations\templates\reservations\notification_settings.html:38
-#: .\reservations\templates\reservations\recurring_reservations.html:40
+#: reservations/templates/reservations/group_reservations.html:49
+#: reservations/templates/reservations/my_reservations.html:27
+#: reservations/templates/reservations/notification_settings.html:38
+#: reservations/templates/reservations/recurring_reservations.html:40
+#: templates/dashboard/dashboard.html:726
 msgid "your@email.com"
 msgstr "twoj@email.com"
 
-#: .\reservations\templates\reservations\group_reservations.html:69
+#: reservations/templates/reservations/group_reservations.html:69
 msgid "Number of Seats"
 msgstr "Liczba stanowisk"
 
-#: .\reservations\templates\reservations\group_reservations.html:81
+#: reservations/templates/reservations/group_reservations.html:81
 msgid "Describe the purpose of the meeting..."
 msgstr "Opisz cel spotkania..."
 
-#: .\reservations\templates\reservations\group_reservations.html:90
+#: reservations/templates/reservations/group_reservations.html:90
 msgid "Find Seats"
 msgstr "Znajdź stanowiska"
 
-#: .\reservations\templates\reservations\group_reservations.html:93
+#: reservations/templates/reservations/group_reservations.html:93
 msgid "Reserve Group"
 msgstr "Zarezerwuj grupę"
 
-#: .\reservations\templates\reservations\group_reservations.html:112
+#: reservations/templates/reservations/group_reservations.html:112
 msgid "Suggested Seats"
 msgstr "Sugerowane stanowiska"
 
-#: .\reservations\templates\reservations\group_reservations.html:119
+#: reservations/templates/reservations/group_reservations.html:119
 msgid "Fill out the form and click \"Find Seats\""
 msgstr "Wypełnij formularz i kliknij \"Znajdź stanowiska\""
 
-#: .\reservations\templates\reservations\group_reservations.html:139
+#: reservations/templates/reservations/group_reservations.html:139
 msgid "Fill in all date and time fields"
 msgstr "Wypełnij wszystkie pola daty i czasu"
 
-#: .\reservations\templates\reservations\group_reservations.html:146
+#: reservations/templates/reservations/group_reservations.html:146
 msgid "Searching..."
 msgstr "Szukam..."
 
-#: .\reservations\templates\reservations\group_reservations.html:157
-#: .\reservations\templates\reservations\group_reservations.html:165
-#: .\templates\login\magic_link.html:139 .\templates\menu\security.html:116
+#: reservations/templates/reservations/group_reservations.html:157
+#: reservations/templates/reservations/group_reservations.html:165
+#: templates/login/magic_link.html:139 templates/menu/security.html:116
 msgid "Error"
 msgstr "Błąd"
 
-#: .\reservations\templates\reservations\group_reservations.html:172
+#: reservations/templates/reservations/group_reservations.html:172
 msgid "Error while searching for seats"
 msgstr "Błąd podczas wyszukiwania stanowisk"
 
-#: .\reservations\templates\reservations\group_reservations.html:189
+#: reservations/templates/reservations/group_reservations.html:189
 msgid "No available seats found for this group"
 msgstr "Nie znaleziono dostępnych stanowisk dla tej grupy"
 
-#: .\reservations\templates\reservations\group_reservations.html:198
+#: reservations/templates/reservations/group_reservations.html:198
 msgid "Option"
 msgstr "Opcja"
 
-#: .\reservations\templates\reservations\group_reservations.html:217
+#: reservations/templates/reservations/group_reservations.html:217
 msgid "Select this option"
 msgstr "Wybierz tę opcję"
 
-#: .\reservations\templates\reservations\my_reservations.html:25
-#: .\reservations\templates\reservations\recurring_reservations.html:38
+#: reservations/templates/reservations/my_reservations.html:25
+#: reservations/templates/reservations/recurring_reservations.html:38
+#: templates/login/index.html:82 templates/registration/index.html:109
 msgid "Enter your email"
 msgstr "Wprowadź swój email"
 
-#: .\reservations\templates\reservations\my_reservations.html:33
-#: .\reservations\templates\reservations\recurring_reservations.html:46
+#: reservations/templates/reservations/my_reservations.html:33
+#: reservations/templates/reservations/recurring_reservations.html:46
 msgid "Show Reservations"
 msgstr "Pokaż rezerwacje"
 
-#: .\reservations\templates\reservations\my_reservations.html:69
+#: reservations/templates/reservations/my_reservations.html:69
 msgid "Hours"
 msgstr "Godziny"
 
-#: .\reservations\templates\reservations\my_reservations.html:85
+#: reservations/templates/reservations/my_reservations.html:85
+#: templates/dashboard/dashboard.html:353
 msgid "Download .ics"
 msgstr "Pobierz .ics"
 
-#: .\reservations\templates\reservations\my_reservations.html:106
+#: reservations/templates/reservations/my_reservations.html:106
 msgid "No Reservations"
 msgstr "Brak rezerwacji"
 
-#: .\reservations\templates\reservations\my_reservations.html:107
+#: reservations/templates/reservations/my_reservations.html:107
 msgid "No active reservations found for this email address."
 msgstr "Nie znaleziono aktywnych rezerwacji dla tego adresu email."
 
-#: .\reservations\templates\reservations\my_reservations.html:114
+#: reservations/templates/reservations/my_reservations.html:114
 msgid "Are you sure you want to cancel this reservation?"
 msgstr "Czy na pewno chcesz anulować tę rezerwację?"
 
-#: .\reservations\templates\reservations\my_reservations.html:121
-#: .\reservations\templates\reservations\recurring_reservations.html:144
+#: reservations/templates/reservations/my_reservations.html:121
+#: reservations/templates/reservations/recurring_reservations.html:144
 msgid "Error: Missing CSRF token"
 msgstr "Błąd: Brak tokenu CSRF"
 
-#: .\reservations\templates\reservations\my_reservations.html:139
-#: .\reservations\templates\reservations\my_reservations.html:142
-#: .\reservations\templates\reservations\recurring_reservations.html:161
-#: .\reservations\templates\reservations\recurring_reservations.html:164
+#: reservations/templates/reservations/my_reservations.html:139
+#: reservations/templates/reservations/my_reservations.html:142
+#: reservations/templates/reservations/recurring_reservations.html:161
+#: reservations/templates/reservations/recurring_reservations.html:164
 msgid "Error occurred:"
 msgstr "Wystąpił błąd:"
 
-#: .\reservations\templates\reservations\my_reservations.html:139
-#: .\reservations\templates\reservations\recurring_reservations.html:161
+#: reservations/templates/reservations/my_reservations.html:139
+#: reservations/templates/reservations/recurring_reservations.html:161
 msgid "Failed to cancel reservation"
 msgstr "Nie udało się anulować rezerwacji"
 
-#: .\reservations\templates\reservations\notification_settings.html:18
+#: reservations/templates/reservations/notification_settings.html:18
 msgid "Manage your reservation notifications"
 msgstr "Zarządzaj powiadomieniami o rezerwacjach"
 
-#: .\reservations\templates\reservations\notification_settings.html:36
+#: reservations/templates/reservations/notification_settings.html:36
 msgid "Enter your email:"
 msgstr "Wprowadź swój email:"
 
-#: .\reservations\templates\reservations\notification_settings.html:44
+#: reservations/templates/reservations/notification_settings.html:44
 msgid "Show Settings"
 msgstr "Pokaż ustawienia"
 
-#: .\reservations\templates\reservations\notification_settings.html:62
+#: reservations/templates/reservations/notification_settings.html:62
 msgid "Notification Preferences"
 msgstr "Preferencje powiadomień"
 
-#: .\reservations\templates\reservations\notification_settings.html:71
+#: reservations/templates/reservations/notification_settings.html:71
 msgid "Email Notifications"
 msgstr "Powiadomienia email"
 
-#: .\reservations\templates\reservations\notification_settings.html:72
+#: reservations/templates/reservations/notification_settings.html:72
 msgid "Receive notifications via email"
 msgstr "Otrzymuj powiadomienia na email"
 
-#: .\reservations\templates\reservations\notification_settings.html:85
+#: reservations/templates/reservations/notification_settings.html:85
 msgid "Reservation Reminders"
 msgstr "Przypomnienia o rezerwacjach"
 
-#: .\reservations\templates\reservations\notification_settings.html:88
+#: reservations/templates/reservations/notification_settings.html:88
 msgid "Remind X minutes before reservation"
 msgstr "Przypomnij X minut przed rezerwacją"
 
-#: .\reservations\templates\reservations\notification_settings.html:90
-#: .\templates\menu\security.html:107
+#: reservations/templates/reservations/notification_settings.html:90
+#: templates/menu/security.html:107
 msgid "Disabled"
 msgstr "Wyłączone"
 
-#: .\reservations\templates\reservations\notification_settings.html:91
+#: reservations/templates/reservations/notification_settings.html:91
 msgid "15 minutes"
 msgstr "15 minut"
 
-#: .\reservations\templates\reservations\notification_settings.html:92
+#: reservations/templates/reservations/notification_settings.html:92
 msgid "30 minutes"
 msgstr "30 minut"
 
-#: .\reservations\templates\reservations\notification_settings.html:93
+#: reservations/templates/reservations/notification_settings.html:93
 msgid "1 hour"
 msgstr "1 godzina"
 
-#: .\reservations\templates\reservations\notification_settings.html:94
+#: reservations/templates/reservations/notification_settings.html:94
 msgid "2 hours"
 msgstr "2 godziny"
 
-#: .\reservations\templates\reservations\notification_settings.html:102
+#: reservations/templates/reservations/notification_settings.html:102
 #, fuzzy
 #| msgid "Notifications"
 msgid "Notification Types"
 msgstr "Powiadomienia"
 
-#: .\reservations\templates\reservations\notification_settings.html:106
+#: reservations/templates/reservations/notification_settings.html:106
 #, fuzzy
 #| msgid "My summary"
 msgid "Daily Summary"
 msgstr "Moje podsumowanie"
 
-#: .\reservations\templates\reservations\notification_settings.html:107
+#: reservations/templates/reservations/notification_settings.html:107
 msgid "Email with tomorrow's reservations"
 msgstr "Email z jutrzejszymi rezerwacjami"
 
-#: .\reservations\templates\reservations\notification_settings.html:119
+#: reservations/templates/reservations/notification_settings.html:119
 #, fuzzy
 #| msgid "Weekly"
 msgid "Weekly Report"
 msgstr "Tygodniowo"
 
-#: .\reservations\templates\reservations\notification_settings.html:120
+#: reservations/templates/reservations/notification_settings.html:120
 #, fuzzy
 #| msgid "Seat reservation system"
 msgid "Email with reservation statistics"
 msgstr "System rezerwacji stanowisk"
 
-#: .\reservations\templates\reservations\notification_settings.html:132
+#: reservations/templates/reservations/notification_settings.html:132
 #, fuzzy
 #| msgid "Availability notifications"
 msgid "Waitlist Notifications"
 msgstr "Powiadomienia o dostępności"
 
-#: .\reservations\templates\reservations\notification_settings.html:133
+#: reservations/templates/reservations/notification_settings.html:133
 #, fuzzy
 #| msgid "You will receive an email when it becomes available"
 msgid "When a seat becomes available"
 msgstr "Otrzymasz email gdy się zwolni"
 
-#: .\reservations\templates\reservations\notification_settings.html:145
+#: reservations/templates/reservations/notification_settings.html:145
 #, fuzzy
 #| msgid "Channel notifications"
 msgid "Cancellation Notifications"
 msgstr "Powiadomienia w kanałach"
 
-#: .\reservations\templates\reservations\notification_settings.html:146
+#: reservations/templates/reservations/notification_settings.html:146
 #, fuzzy
 #| msgid "Seat reservation system"
 msgid "When a reservation is cancelled"
 msgstr "System rezerwacji stanowisk"
 
-#: .\reservations\templates\reservations\notification_settings.html:160
+#: reservations/templates/reservations/notification_settings.html:160
 #, fuzzy
 #| msgid "Manage your reservation notifications"
 msgid "Enable Browser Notifications"
 msgstr "Zarządzaj powiadomieniami o rezerwacjach"
 
-#: .\reservations\templates\reservations\notification_settings.html:163
-#: .\reservations\templates\reservations\notification_settings.html:196
+#: reservations/templates/reservations/notification_settings.html:163
+#: reservations/templates/reservations/notification_settings.html:196
 #, fuzzy
 #| msgid "Notifications"
 msgid "Test Notification"
 msgstr "Powiadomienia"
 
-#: .\reservations\templates\reservations\notification_settings.html:166
+#: reservations/templates/reservations/notification_settings.html:166
 msgid "Save Settings"
 msgstr "Zapisz ustawienia"
 
-#: .\reservations\templates\reservations\notification_settings.html:181
+#: reservations/templates/reservations/notification_settings.html:181
 msgid "No Settings Found"
 msgstr "Nie znaleziono ustawień"
 
-#: .\reservations\templates\reservations\notification_settings.html:182
+#: reservations/templates/reservations/notification_settings.html:182
 #, fuzzy
 #| msgid "No active reservations found for this email address."
 msgid "No notification settings found for this email."
 msgstr "Nie znaleziono aktywnych rezerwacji dla tego adresu email."
 
-#: .\reservations\templates\reservations\notification_settings.html:183
+#: reservations/templates/reservations/notification_settings.html:183
 msgid "Settings will be created automatically after the first reservation."
 msgstr "Ustawienia zostaną utworzone automatycznie po pierwszej rezerwacji."
 
-#: .\reservations\templates\reservations\notification_settings.html:197
+#: reservations/templates/reservations/notification_settings.html:197
 msgid "This is a test notification from the reservation system"
 msgstr "To jest testowe powiadomienie z systemu rezerwacji"
 
-#: .\reservations\templates\reservations\notification_settings.html:201
+#: reservations/templates/reservations/notification_settings.html:201
 msgid "Notifications are blocked! Enable them in browser settings."
 msgstr "Powiadomienia są zablokowane! Włącz je w ustawieniach przeglądarki."
 
-#: .\reservations\templates\reservations\notification_settings.html:203
+#: reservations/templates/reservations/notification_settings.html:203
 msgid "First enable notifications! Click \\'Enable Browser Notifications\\'"
-msgstr "Najpierw włącz powiadomienia! Kliknij 'Włącz powiadomienia przeglądarki'"
+msgstr ""
+"Najpierw włącz powiadomienia! Kliknij 'Włącz powiadomienia przeglądarki'"
 
-#: .\reservations\templates\reservations\notification_settings.html:206
+#: reservations/templates/reservations/notification_settings.html:206
 msgid "Notifications are not supported in this browser!"
 msgstr "Powiadomienia nie są obsługiwane w tej przeglądarce!"
 
-#: .\reservations\templates\reservations\notification_settings.html:225
+#: reservations/templates/reservations/notification_settings.html:225
 #, fuzzy
 #| msgid "Enter your email"
 msgid "Enter email:"
 msgstr "Wprowadź swój email"
 
-#: .\reservations\templates\reservations\notification_settings.html:230
+#: reservations/templates/reservations/notification_settings.html:230
 msgid "Notifications have been enabled!"
 msgstr ""
 
-#: .\reservations\templates\reservations\notification_settings.html:231
+#: reservations/templates/reservations/notification_settings.html:231
 #, fuzzy
 #| msgid "Notifications"
 msgid "Notifications Enabled"
 msgstr "Powiadomienia"
 
-#: .\reservations\templates\reservations\notification_settings.html:234
+#: reservations/templates/reservations/notification_settings.html:234
 #, fuzzy
 #| msgid "Desk has been unlocked!"
 msgid "Notifications have been blocked!"
 msgstr "Stanowisko zostało odblokowane!"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:23
+#: reservations/templates/reservations/recurring_reservations.html:23
 msgid "Automatic reservations for daily, weekly or monthly"
 msgstr "Automatyczne rezerwacje na codziennie, tygodniowo lub miesięcznie"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:79
+#: reservations/templates/reservations/recurring_reservations.html:79
 msgid "no end"
 msgstr "bez końca"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:93
+#: reservations/templates/reservations/recurring_reservations.html:93
 msgid "Daily"
 msgstr "Codziennie"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:94
+#: reservations/templates/reservations/recurring_reservations.html:94
 msgid "Weekly"
 msgstr "Tygodniowo"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:95
+#: reservations/templates/reservations/recurring_reservations.html:95
 msgid "Monthly"
 msgstr "Miesięcznie"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:99
+#: reservations/templates/reservations/recurring_reservations.html:99
 msgid "All days"
 msgstr "Wszystkie dni"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:100
+#: reservations/templates/reservations/recurring_reservations.html:100
 msgid "Mon-Fri"
 msgstr "Pon-Pt"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:101
+#: reservations/templates/reservations/recurring_reservations.html:101
 msgid "Selected days"
 msgstr "Wybrane dni"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:123
+#: reservations/templates/reservations/recurring_reservations.html:123
 msgid "No Recurring Reservations"
 msgstr "Brak cyklicznych rezerwacji"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:124
+#: reservations/templates/reservations/recurring_reservations.html:124
 msgid "You do not have any recurring reservations for this email yet."
 msgstr "Nie masz jeszcze żadnych cyklicznych rezerwacji dla tego emaila."
 
-#: .\reservations\templates\reservations\recurring_reservations.html:129
+#: reservations/templates/reservations/recurring_reservations.html:129
 msgid "Create First Reservation"
 msgstr "Utwórz pierwszą rezerwację"
 
-#: .\reservations\templates\reservations\recurring_reservations.html:137
+#: reservations/templates/reservations/recurring_reservations.html:137
 msgid "Are you sure you want to cancel this recurring reservation?"
 msgstr "Czy na pewno chcesz anulować tę cykliczną rezerwację?"
 
-#: .\reservations\templates\reservations\slack_setup.html:35
+#: reservations/templates/reservations/slack_setup.html:35
 msgid "Slack Bot Configuration"
 msgstr "Konfiguracja Slack Bota"
 
-#: .\reservations\templates\reservations\slack_setup.html:42
+#: reservations/templates/reservations/slack_setup.html:42
 msgid "Create Slack App"
 msgstr "Utwórz Slack App"
 
-#: .\reservations\templates\reservations\slack_setup.html:43
+#: reservations/templates/reservations/slack_setup.html:43
 msgid "Go to"
 msgstr "Przejdź do"
 
-#: .\reservations\templates\reservations\slack_setup.html:43
+#: reservations/templates/reservations/slack_setup.html:43
 msgid "and click \"Create New App\""
 msgstr "i kliknij \"Create New App\""
 
-#: .\reservations\templates\reservations\slack_setup.html:46
+#: reservations/templates/reservations/slack_setup.html:46
 msgid "Select \"From scratch\""
 msgstr "Wybierz \"From scratch\""
 
-#: .\reservations\templates\reservations\slack_setup.html:47
+#: reservations/templates/reservations/slack_setup.html:47
 msgid "Name: \"Office Reservations Bot\""
 msgstr "Nazwa: \"Office Reservations Bot\""
 
-#: .\reservations\templates\reservations\slack_setup.html:48
+#: reservations/templates/reservations/slack_setup.html:48
 msgid "Choose workspace"
 msgstr "Wybierz workspace"
 
-#: .\reservations\templates\reservations\slack_setup.html:58
+#: reservations/templates/reservations/slack_setup.html:58
 msgid "Configure OAuth & Permissions"
 msgstr "Skonfiguruj OAuth & Permissions"
 
-#: .\reservations\templates\reservations\slack_setup.html:59
+#: reservations/templates/reservations/slack_setup.html:59
 msgid "In the \"OAuth & Permissions\" section, add the following scopes:"
 msgstr "W sekcji \"OAuth & Permissions\" dodaj następujące scopes:"
 
-#: .\reservations\templates\reservations\slack_setup.html:75
+#: reservations/templates/reservations/slack_setup.html:75
 msgid "Add Slash Commands"
 msgstr "Dodaj Slash Commands"
 
-#: .\reservations\templates\reservations\slack_setup.html:76
+#: reservations/templates/reservations/slack_setup.html:76
+#, fuzzy
+#| msgid "In the \"OAuth & Permissions\" section, add the following scopes:"
+msgid "In the \"Slash Commands\" section, add the following commands:"
+msgstr "W sekcji \"OAuth & Permissions\" dodaj następujące scopes:"
+
+#: reservations/templates/reservations/slack_setup.html:80
+#: reservations/templates/reservations/slack_setup.html:84
+#: reservations/templates/reservations/slack_setup.html:88
+#: reservations/templates/reservations/slack_setup.html:92
+#: reservations/templates/reservations/slack_setup.html:106
 msgid "Request URL:"
 msgstr "Request URL:"
 
-#: .\reservations\templates\reservations\slack_setup.html:102
+#: reservations/templates/reservations/slack_setup.html:102
 msgid "Configure Event Subscriptions"
 msgstr ""
 
-#: .\reservations\templates\reservations\slack_setup.html:103
+#: reservations/templates/reservations/slack_setup.html:103
 msgid "Enable Event Subscriptions and set:"
 msgstr ""
 
-#: .\reservations\templates\reservations\slack_setup.html:107
+#: reservations/templates/reservations/slack_setup.html:107
 msgid "Subscribe to bot events:"
 msgstr ""
 
-#: .\reservations\templates\reservations\slack_setup.html:117
+#: reservations/templates/reservations/slack_setup.html:117
 msgid "Install App"
 msgstr ""
 
-#: .\reservations\templates\reservations\slack_setup.html:118
+#: reservations/templates/reservations/slack_setup.html:118
+msgid ""
+"In the \"Install App\" section, click \"Install to Workspace\" and copy the "
+"Bot User OAuth Token"
+msgstr ""
 
-#: .\reservations\templates\reservations\slack_setup.html:126
+#: reservations/templates/reservations/slack_setup.html:126
 msgid "Environment Variables"
 msgstr ""
 
-#: .\reservations\templates\reservations\slack_setup.html:127
+#: reservations/templates/reservations/slack_setup.html:127
 msgid "Add the following variables to your .env file:"
 msgstr ""
 
-#: .\reservations\templates\reservations\slack_setup.html:139
+#: reservations/templates/reservations/slack_setup.html:139
 #, fuzzy
 #| msgid "Available"
 msgid "Available Commands"
 msgstr "Dostępne"
 
-#: .\reservations\templates\reservations\slack_setup.html:144
+#: reservations/templates/reservations/slack_setup.html:144
 #, fuzzy
 #| msgid "Reserve seats"
 msgid "Reserve a seat"
 msgstr "Zarezerwuj miejsca"
 
-#: .\reservations\templates\reservations\slack_setup.html:152
-#: .\templates\menu\cancel.html:41
+#: reservations/templates/reservations/slack_setup.html:152
+#: templates/menu/cancel.html:41
 msgid "Cancel reservation"
 msgstr "Anuluj rezerwację"
 
-#: .\reservations\templates\reservations\slack_setup.html:160
+#: reservations/templates/reservations/slack_setup.html:160
 #, fuzzy
 #| msgid "No available seats."
 msgid "Show available seats"
 msgstr "Brak wolnych miejsc."
 
-#: .\reservations\templates\reservations\slack_setup.html:168
+#: reservations/templates/reservations/slack_setup.html:168
 msgid "Show help"
 msgstr ""
 
-#: .\reservations\views.py:470
+#: reservations/views.py:470
 #, fuzzy, python-format
 #| msgid "No active reservations found for this email address."
 msgid "No settings found for %(email)s"
 msgstr "Nie znaleziono aktywnych rezerwacji dla tego adresu email."
 
-#: .\reservations\views.py:488
+#: reservations/views.py:488
 msgid "Settings have been saved!"
 msgstr ""
 
-#: .\reservations\views.py:491
+#: reservations/views.py:491
 #, python-format
 msgid "Error saving settings: %(error)s"
 msgstr ""
 
-#: .\reservations\views.py:546
+#: reservations/views.py:546
 msgid "Missing required parameters"
 msgstr "Brak wymaganych parametrów"
 
-#: .\reservations\views.py:553
+#: reservations/views.py:553
 msgid "Invalid date/time format"
 msgstr "Nieprawidłowy format daty/czasu"
 
-#: .\reservations\views.py:558
+#: reservations/views.py:558
 #, python-format
 msgid "Error finding suggestions: %(error)s"
 msgstr "Błąd podczas wyszukiwania sugestii: %(error)s"
 
-#: .\reservations\views.py:584
+#: reservations/views.py:584
 #, python-format
 msgid "Unexpected error: %(error)s"
 msgstr "Nieoczekiwany błąd: %(error)s"
 
-#: .\reservations\views.py:599
+#: reservations/views.py:599
 msgid "Select at least one seat"
 msgstr "Wybierz co najmniej jedno stanowisko"
 
-#: .\templates\account\404.html:10 .\templates\account\404.html:105
+#: templates/account/404.html:10 templates/account/404.html:105
 msgid "Page Not Found"
 msgstr ""
 
-#: .\templates\account\404.html:106
+#: templates/account/404.html:106
 msgid "Sorry, the page you are looking for does not exist."
 msgstr ""
 
-#: .\templates\account\404.html:109
-#: .\templates\socialaccount\login_error.html:147
+#: templates/account/404.html:109 templates/socialaccount/login_error.html:147
 msgid "What you can do:"
 msgstr ""
 
-#: .\templates\account\404.html:110
+#: templates/account/404.html:110
 msgid "Check the URL for typos"
 msgstr ""
 
-#: .\templates\account\404.html:111
+#: templates/account/404.html:111
 msgid "Go back to the main page"
 msgstr ""
 
-#: .\templates\account\404.html:112
+#: templates/account/404.html:112
 msgid "Use the navigation menu"
 msgstr ""
 
-#: .\templates\account\404.html:113
+#: templates/account/404.html:113
 msgid "Contact support if you need help"
 msgstr ""
 
-#: .\templates\account\404.html:116 .\templates\account\email_confirm.html:123
-#: .\templates\account\verification_sent.html:188
+#: templates/account/404.html:116 templates/account/email_confirm.html:123
+#: templates/account/verification_sent.html:188
 msgid "Go to Home"
 msgstr ""
 
-#: .\templates\account\404.html:117 .\templates\account\email_confirm.html:122
+#: templates/account/404.html:117 templates/account/email_confirm.html:122
 #, fuzzy
 #| msgid "Login"
 msgid "Go to Login"
 msgstr "Logowanie"
 
-#: .\templates\account\email.html:10
+#: templates/account/email.html:10
 #, fuzzy
 #| msgid "Email"
 msgid "Email Sent"
 msgstr "Email"
 
-#: .\templates\account\email.html:137
+#: templates/account/email.html:137
 msgid "Check Your Email"
 msgstr ""
 
-#: .\templates\account\email.html:138
+#: templates/account/email.html:138
 msgid "We have sent you an email with a confirmation link."
 msgstr ""
 
-#: .\templates\account\email.html:141
+#: templates/account/email.html:141
 msgid "Email sent to:"
 msgstr ""
 
-#: .\templates\account\email.html:146
+#: templates/account/email.html:146
 msgid "What to do next:"
 msgstr ""
 
-#: .\templates\account\email.html:147
+#: templates/account/email.html:147
 msgid "Check your email inbox (and spam folder)"
 msgstr ""
 
-#: .\templates\account\email.html:148
+#: templates/account/email.html:148
 msgid "Click the confirmation link in the email"
 msgstr ""
 
-#: .\templates\account\email.html:149
+#: templates/account/email.html:149
 msgid "Complete your account activation"
 msgstr ""
 
-#: .\templates\account\email.html:153
+#: templates/account/email.html:153
 msgid "Didn"
 msgstr ""
 
-#: .\templates\account\email.html:154
-#: .\templates\account\verification_sent.html:181
+#: templates/account/email.html:154
+#: templates/account/verification_sent.html:181
 msgid "Check your spam/junk folder"
 msgstr ""
 
-#: .\templates\account\email.html:155
+#: templates/account/email.html:155
 msgid "Wait a few minutes and try again"
 msgstr ""
 
-#: .\templates\account\email.html:156
+#: templates/account/email.html:156
 msgid "Make sure the email address is correct"
 msgstr ""
 
-#: .\templates\account\email.html:159
-#: .\templates\socialaccount\login_cancelled.html:116
-#: .\templates\socialaccount\login_error.html:153
+#: templates/account/email.html:159
+#: templates/socialaccount/login_cancelled.html:116
+#: templates/socialaccount/login_error.html:153
 msgid "Try Again"
-msgstr ""
+msgstr "Spróbuj ponownie"
 
-#: .\templates\account\email.html:160
-#: .\templates\account\email_verification_sent.html:174
-#: .\templates\account\verification_sent.html:187
-#: .\templates\socialaccount\login.html:122
+#: templates/account/email.html:160
+#: templates/account/email_verification_sent.html:174
+#: templates/account/verification_sent.html:187
+#: templates/socialaccount/login.html:122
 msgid "Back to Login"
 msgstr ""
 
-#: .\templates\account\email.html:204
+#: templates/account/email.html:204
 msgid "Still waiting for email confirmation..."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:10
+#: templates/account/email_confirm.html:10
 msgid "Email Confirmation"
 msgstr ""
 
-#: .\templates\account\email_confirm.html:113
+#: templates/account/email_confirm.html:113
 msgid "Email Confirmed!"
 msgstr ""
 
-#: .\templates\account\email_confirm.html:114
+#: templates/account/email_confirm.html:114
+msgid ""
+"Thank you for confirming your email address. Your account is now fully "
+"activated."
+msgstr ""
 
-#: .\templates\account\email_confirm.html:117
+#: templates/account/email_confirm.html:117
 msgid "What"
 msgstr ""
 
-#: .\templates\account\email_confirm.html:118
+#: templates/account/email_confirm.html:118
 msgid "You can now log in to your account and access all features."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:119
+#: templates/account/email_confirm.html:119
 msgid "Your email address is confirmed and secure."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:128
+#: templates/account/email_confirm.html:128
 msgid "Confirmation Failed"
 msgstr ""
 
-#: .\templates\account\email_confirm.html:129
+#: templates/account/email_confirm.html:129
 msgid "This email confirmation link is invalid or has expired."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:132
+#: templates/account/email_confirm.html:132
 msgid "What can you do?"
 msgstr ""
 
-#: .\templates\account\email_confirm.html:133
+#: templates/account/email_confirm.html:133
 msgid "Check if you copied the link correctly from your email."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:134
+#: templates/account/email_confirm.html:134
 msgid "Request a new confirmation email if needed."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:135
+#: templates/account/email_confirm.html:135
 msgid "Contact support if you continue to have issues."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:138
+#: templates/account/email_confirm.html:138
 #, fuzzy
 #| msgid "Registration"
 msgid "Register Again"
 msgstr "Rejestracja"
 
-#: .\templates\account\email_confirm.html:139
+#: templates/account/email_confirm.html:139
 #, fuzzy
 #| msgid "Login"
 msgid "Try Login"
 msgstr "Logowanie"
 
-#: .\templates\account\email_confirm.html:149
+#: templates/account/email_confirm.html:149
 msgid "Redirect to login page?"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:10
+#: templates/account/email_verification_sent.html:10
 msgid "Email Verification Sent"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:147
+#: templates/account/email_verification_sent.html:147
 msgid "Email Verification Required"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:148
+#: templates/account/email_verification_sent.html:148
+msgid ""
+"We need to verify your email address before you can access your account."
+msgstr ""
 
-#: .\templates\account\email_verification_sent.html:151
+#: templates/account/email_verification_sent.html:151
 msgid "Verification email sent to:"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:156
-#: .\templates\account\verification_sent.html:222
+#: templates/account/email_verification_sent.html:156
+#: templates/account/verification_sent.html:222
 msgid "Email sent successfully!"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:157
+#: templates/account/email_verification_sent.html:157
 msgid "Check your inbox for the verification email"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:158
+#: templates/account/email_verification_sent.html:158
 msgid "Click the verification link to activate your account"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:159
+#: templates/account/email_verification_sent.html:159
 msgid "You can then log in normally"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:163
+#: templates/account/email_verification_sent.html:163
 msgid "Important notes:"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:164
+#: templates/account/email_verification_sent.html:164
 msgid "The verification link expires in 24 hours"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:165
+#: templates/account/email_verification_sent.html:165
 msgid "Check your spam folder if you don"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:166
+#: templates/account/email_verification_sent.html:166
 msgid "You can request a new verification email if needed"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:170
+#: templates/account/email_verification_sent.html:170
 msgid "You can request a new verification email in:"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:170
+#: templates/account/email_verification_sent.html:170
 msgid "seconds"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:173
+#: templates/account/email_verification_sent.html:173
 msgid "Resend Verification Email"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:238
+#: templates/account/email_verification_sent.html:238
 msgid "Verification email sent again!"
 msgstr ""
 
-#: .\templates\account\email_verification_sent.html:276
+#: templates/account/email_verification_sent.html:276
 msgid "Checking verification status..."
 msgstr ""
 
-#: .\templates\account\profile.html:10
+#: templates/account/profile.html:10
 msgid "User Profile"
 msgstr ""
 
-#: .\templates\account\profile.html:146
+#: templates/account/profile.html:146
 msgid "Welcome to Your Profile!"
 msgstr ""
 
-#: .\templates\account\profile.html:147
+#: templates/account/profile.html:147
 msgid "You have successfully logged in to your account."
 msgstr ""
 
-#: .\templates\account\profile.html:151
-#: .\templates\socialaccount\signup.html:131
+#: templates/account/profile.html:151 templates/socialaccount/signup.html:131
 msgid "Your Account Information:"
 msgstr ""
 
-#: .\templates\account\profile.html:152
-#: .\templates\socialaccount\signup.html:132
+#: templates/account/profile.html:152 templates/socialaccount/signup.html:132
 #, fuzzy
 #| msgid "Email"
 msgid "Email:"
 msgstr "Email"
 
-#: .\templates\account\profile.html:153
-#: .\templates\socialaccount\signup.html:133
+#: templates/account/profile.html:153 templates/socialaccount/signup.html:133
 #, fuzzy
 #| msgid "Name"
 msgid "Name:"
 msgstr "Imię"
 
-#: .\templates\account\profile.html:154
-#: .\templates\socialaccount\signup.html:134
+#: templates/account/profile.html:154 templates/socialaccount/signup.html:134
 msgid "Account Status:"
 msgstr ""
 
-#: .\templates\account\profile.html:156
-#: .\templates\socialaccount\signup.html:136
+#: templates/account/profile.html:156 templates/socialaccount/signup.html:136
 #, fuzzy
 #| msgid "Actions"
 msgid "Active"
 msgstr "Akcje"
 
-#: .\templates\account\profile.html:158
-#: .\templates\socialaccount\signup.html:138
+#: templates/account/profile.html:158 templates/socialaccount/signup.html:138
 msgid "Inactive"
 msgstr ""
 
-#: .\templates\account\profile.html:161
+#: templates/account/profile.html:161
 msgid "Member Since:"
 msgstr ""
 
-#: .\templates\account\profile.html:166
-#: .\templates\socialaccount\signup.html:145
+#: templates/account/profile.html:166 templates/socialaccount/signup.html:145
 msgid "What you can do now:"
 msgstr ""
 
-#: .\templates\account\profile.html:167
-#: .\templates\socialaccount\signup.html:146
+#: templates/account/profile.html:167 templates/socialaccount/signup.html:146
 msgid "Access the main dashboard"
 msgstr ""
 
-#: .\templates\account\profile.html:168
-#: .\templates\socialaccount\signup.html:147
+#: templates/account/profile.html:168 templates/socialaccount/signup.html:147
 #, fuzzy
 #| msgid "New reservation"
 msgid "Make reservations"
 msgstr "Nowa rezerwacja"
 
-#: .\templates\account\profile.html:169
-#: .\templates\socialaccount\signup.html:148
+#: templates/account/profile.html:169 templates/socialaccount/signup.html:148
 #, fuzzy
 #| msgid "Manage your seat reservations with ease."
 msgid "Manage your account settings"
 msgstr "Zarządzaj swoimi rezerwacjami miejsc z łatwością."
 
-#: .\templates\account\profile.html:170
+#: templates/account/profile.html:170
 #, fuzzy
 #| msgid "New reservation"
 msgid "View your reservation history"
 msgstr "Nowa rezerwacja"
 
-#: .\templates\account\profile.html:174
+#: templates/account/profile.html:174
 #, fuzzy
 #| msgid "Actions"
 msgid "Quick Actions:"
 msgstr "Akcje"
 
-#: .\templates\account\profile.html:175
+#: templates/account/profile.html:175
 msgid "Go to dashboard to start using the application"
 msgstr ""
 
-#: .\templates\account\profile.html:176
+#: templates/account/profile.html:176
 msgid "Configure your security settings (2FA, etc.)"
 msgstr ""
 
-#: .\templates\account\profile.html:177
+#: templates/account/profile.html:177
 msgid "Update your profile information"
 msgstr ""
 
-#: .\templates\account\profile.html:180
-#: .\templates\socialaccount\signup.html:152
+#: templates/account/profile.html:180 templates/socialaccount/signup.html:152
 #, fuzzy
 #| msgid "Dashboard"
 msgid "Go to Dashboard"
 msgstr "Panel"
 
-#: .\templates\account\profile.html:181 .\templates\menu\security.html:9
-#: .\templates\menu\security.html:19 .\templates\socialaccount\signup.html:153
+#: templates/account/profile.html:181 templates/menu/security.html:9
+#: templates/menu/security.html:19 templates/socialaccount/signup.html:153
 msgid "Security Settings"
 msgstr ""
 
-#: .\templates\account\profile.html:214
-#: .\templates\socialaccount\signup.html:186
+#: templates/account/profile.html:214 templates/socialaccount/signup.html:186
 msgid "Redirecting to dashboard in 3 seconds..."
 msgstr ""
 
-#: .\templates\account\verification_sent.html:10
+#: templates/account/verification_sent.html:10
 msgid "Verification Sent"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:159
+#: templates/account/verification_sent.html:159
 msgid "Verification Email Sent!"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:160
+#: templates/account/verification_sent.html:160
 msgid "We have successfully sent you a verification email."
 msgstr ""
 
-#: .\templates\account\verification_sent.html:163
+#: templates/account/verification_sent.html:163
 msgid "Sent to:"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:172
+#: templates/account/verification_sent.html:172
 msgid "What happens next?"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:173
+#: templates/account/verification_sent.html:173
 msgid "Check your email inbox"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:174
+#: templates/account/verification_sent.html:174
 msgid "Click the verification link"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:175
+#: templates/account/verification_sent.html:175
 msgid "Complete your account setup"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:176
+#: templates/account/verification_sent.html:176
 #, fuzzy
 #| msgid "Sign out of your account."
 msgid "Start using your account"
 msgstr "Wyloguj się ze swojego konta."
 
-#: .\templates\account\verification_sent.html:180
+#: templates/account/verification_sent.html:180
 msgid "Need help?"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:182
+#: templates/account/verification_sent.html:182
 msgid "Email may take a few minutes to arrive"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:183
+#: templates/account/verification_sent.html:183
 msgid "Verification link expires in 24 hours"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:184
+#: templates/account/verification_sent.html:184
 msgid "Contact support if you have issues"
 msgstr ""
 
-#: .\templates\account\verification_sent.html:234
+#: templates/account/verification_sent.html:234
 msgid "Would you like to go back to the login page?"
 msgstr ""
 
-#: .\templates\common\language_switcher.html:7
+#: templates/common/language_switcher.html:7
 msgid "Change language"
 msgstr "Zmień język"
 
-#: .\templates\emails\magic_link_body.html:7
-#: .\templates\emails\magic_link_body.html:70
+# Dashboard translations
+# Dashboard translations for Polish (add to django.po)
+#: templates/dashboard/dashboard.html:9
+msgid "Just 4 IT Coworking Dashboard"
+msgstr "Just 4 IT Coworking Dashboard"
+
+#: templates/dashboard/dashboard.html:58 templates/dashboard/dashboard.html:382
+msgid "Floor Plan"
+msgstr "Plan Piętra"
+
+#: templates/dashboard/dashboard.html:66
+msgid "Advanced"
+msgstr "Zaawansowane"
+
+#: templates/dashboard/dashboard.html:78
+msgid "Mark all as read"
+msgstr "Oznacz wszystkie jako przeczytane"
+
+#: templates/dashboard/dashboard.html:83
+msgid "Loading notifications..."
+msgstr "Ładowanie powiadomień..."
+
+#: templates/dashboard/dashboard.html:87
+msgid "View all notifications"
+msgstr "Zobacz wszystkie powiadomienia"
+
+#: templates/dashboard/dashboard.html:91 templates/login/index.html:51
+#: templates/menu/dashboard.html:40 templates/registration/index.html:38
+#: templates/welcome/index.html:46
+msgid "Toggle dark mode"
+msgstr "Przełącz tryb ciemny"
+
+#: templates/dashboard/dashboard.html:98 templates/dashboard/dashboard.html:105
+#: templates/dashboard/dashboard.html:139 templates/menu/dashboard.html:48
+msgid "User"
+msgstr "Użytkownik"
+
+#: templates/dashboard/dashboard.html:112
+#: templates/dashboard/dashboard.html:494
+msgid "My Profile"
+msgstr "Mój Profil"
+
+#: templates/dashboard/dashboard.html:116
+#: templates/dashboard/dashboard.html:181
+#: templates/dashboard/dashboard.html:507
+msgid "Statistics"
+msgstr "Statystyki"
+
+#: templates/dashboard/dashboard.html:120
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: templates/dashboard/dashboard.html:125 templates/menu/dashboard.html:41
+#: templates/menu/dashboard.html:113
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: templates/dashboard/dashboard.html:139
+#, python-format
+msgid "Hi %(name)s!"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:140
+msgid "Welcome to Just 4 IT Coworking"
+msgstr "Witaj w Just 4 IT Coworking"
+
+#: templates/dashboard/dashboard.html:142
+msgid "Manage your desk reservations with a modern interface"
+msgstr "Zarządzaj swoimi rezerwacjami stanowisk z nowoczesnym interfejsem"
+
+#: templates/dashboard/dashboard.html:146
+#: templates/dashboard/dashboard.html:285
+#: templates/dashboard/dashboard.html:620
+msgid "Today"
+msgstr "Dzisiaj"
+
+#: templates/dashboard/dashboard.html:150
+#: templates/dashboard/dashboard.html:630
+msgid "This Week"
+msgstr "Ten tydzień"
+
+#: templates/dashboard/dashboard.html:154
+#: templates/dashboard/dashboard.html:640
+msgid "This Month"
+msgstr "Ten miesiąc"
+
+#: templates/dashboard/dashboard.html:161
+#: templates/dashboard/dashboard.html:400
+#: templates/dashboard/dashboard.html:679
+msgid "Quick Reservation"
+msgstr "Szybka Rezerwacja"
+
+#: templates/dashboard/dashboard.html:165
+msgid "View Calendar"
+msgstr "Zobacz Kalendarz"
+
+#: templates/dashboard/dashboard.html:173
+msgid "Desks"
+msgstr "Stanowiska"
+
+#: templates/dashboard/dashboard.html:177
+msgid "Team"
+msgstr "Zespół"
+
+#: templates/dashboard/dashboard.html:204
+#: templates/dashboard/dashboard.html:610
+msgid "All Reservations"
+msgstr "Wszystkie Rezerwacje"
+
+#: templates/dashboard/dashboard.html:205
+msgid "This month"
+msgstr "W tym miesiącu"
+
+#: templates/dashboard/dashboard.html:224
+msgid "Upcoming"
+msgstr "Nadchodzące"
+
+#: templates/dashboard/dashboard.html:225
+msgid "Next 30 days"
+msgstr "Następne 30 dni"
+
+#: templates/dashboard/dashboard.html:244
+msgid "Favorite Desks"
+msgstr "Ulubione Stanowiska"
+
+#: templates/dashboard/dashboard.html:245
+msgid "Most used"
+msgstr "Najczęściej używane"
+
+#: templates/dashboard/dashboard.html:264
+msgid "Efficiency"
+msgstr "Wydajność"
+
+#: templates/dashboard/dashboard.html:265
+msgid "This week"
+msgstr "W tym tygodniu"
+
+#: templates/dashboard/dashboard.html:280 templates/menu/dashboard.html:58
+msgid "Schedule"
+msgstr "Harmonogram"
+
+#: templates/dashboard/dashboard.html:281
+msgid "Your upcoming reservations"
+msgstr "Twoje nadchodzące rezerwacje"
+
+#: templates/dashboard/dashboard.html:288
+msgid "Previous"
+msgstr "Poprzedni"
+
+#: templates/dashboard/dashboard.html:291
+msgid "Next"
+msgstr "Następny"
+
+#: templates/dashboard/dashboard.html:309
+msgid "My Summary"
+msgstr "Moje Podsumowanie"
+
+#: templates/dashboard/dashboard.html:310
+msgid "Activity overview"
+msgstr "Przegląd aktywności"
+
+#: templates/dashboard/dashboard.html:320
+msgid "Next Reservation"
+msgstr "Następna Rezerwacja"
+
+#: templates/dashboard/dashboard.html:322
+msgid "No upcoming reservations"
+msgstr "Brak nadchodzących rezerwacji"
+
+#: templates/dashboard/dashboard.html:331
+msgid "Last Reservation"
+msgstr "Ostatnia Rezerwacja"
+
+#: templates/dashboard/dashboard.html:333
+msgid "No past reservations"
+msgstr "Brak przeszłych rezerwacji"
+
+#: templates/dashboard/dashboard.html:342 templates/menu/dashboard.html:70
+msgid "Upcoming (30d)"
+msgstr "Nadchodzące (30 dni)"
+
+#: templates/dashboard/dashboard.html:346
+msgid "Scheduled reservations"
+msgstr "Zaplanowane rezerwacje"
+
+#: templates/dashboard/dashboard.html:357
+msgid "View All"
+msgstr "Zobacz Wszystkie"
+
+#: templates/dashboard/dashboard.html:368
+msgid "Application Features"
+msgstr "Funkcje Aplikacji"
+
+#: templates/dashboard/dashboard.html:369
+msgid "Select an option that interests you"
+msgstr "Wybierz opcję, która Cię interesuje"
+
+#: templates/dashboard/dashboard.html:383
+msgid "Interactive floor plan with desk markers"
+msgstr "Interaktywny plan piętra ze znacznikami stanowisk"
+
+#: templates/dashboard/dashboard.html:401
+msgid "Reserve a desk for a selected date"
+msgstr "Zarezerwuj stanowisko na wybraną datę"
+
+#: templates/dashboard/dashboard.html:418
+msgid "Manage Reservations"
+msgstr "Zarządzaj Rezerwacjami"
+
+#: templates/dashboard/dashboard.html:419
+msgid "View and cancel existing reservations"
+msgstr "Przeglądaj i anuluj istniejące rezerwacje"
+
+#: templates/dashboard/dashboard.html:437
+msgid "Group reservations, AI recommendations and more"
+msgstr "Rezerwacje grupowe, rekomendacje AI i więcej"
+
+#: templates/dashboard/dashboard.html:455
+msgid "Reserve multiple desks for your team"
+msgstr "Zarezerwuj wiele stanowisk dla swojego zespołu"
+
+#: templates/dashboard/dashboard.html:473
+msgid "Set up regular desk reservations"
+msgstr "Ustaw regularne rezerwacje stanowisk"
+
+#: templates/dashboard/dashboard.html:495
+msgid "Manage your data and settings"
+msgstr "Zarządzaj swoimi danymi i ustawieniami"
+
+#: templates/dashboard/dashboard.html:505
+msgid "Profile"
+msgstr "Profil"
+
+#: templates/dashboard/dashboard.html:506 templates/login/index.html:91
+#: templates/registration/index.html:118
+#: venv/Lib/site-packages/allauth/account/forms.py:91
+#: venv/Lib/site-packages/allauth/account/forms.py:409
+#: venv/Lib/site-packages/allauth/account/forms.py:560
+#: venv/Lib/site-packages/allauth/account/forms.py:675
+msgid "Password"
+msgstr "Hasło"
+
+#: templates/dashboard/dashboard.html:517
+msgid "Choose Avatar"
+msgstr "Wybierz Awatar"
+
+#: templates/dashboard/dashboard.html:533
+msgid "Full Name"
+msgstr "Imię i Nazwisko"
+
+#: templates/dashboard/dashboard.html:534
+msgid "Your full name"
+msgstr "Twoje imię i nazwisko"
+
+#: templates/dashboard/dashboard.html:540
+msgid "Email cannot be changed"
+msgstr "Email nie może być zmieniony"
+
+#: templates/dashboard/dashboard.html:544
+msgid "Account Creation Date"
+msgstr "Data utworzenia konta"
+
+#: templates/dashboard/dashboard.html:549
+msgid "Last Login"
+msgstr "Ostatnie logowanie"
+
+#: templates/dashboard/dashboard.html:558
+msgid "Save Changes"
+msgstr "Zapisz Zmiany"
+
+#: templates/dashboard/dashboard.html:567
+#: venv/Lib/site-packages/allauth/account/forms.py:541
+msgid "Current Password"
+msgstr "Obecne Hasło"
+
+#: templates/dashboard/dashboard.html:568
+msgid "Enter current password"
+msgstr "Wprowadź obecne hasło"
+
+#: templates/dashboard/dashboard.html:572
+#: venv/Lib/site-packages/allauth/account/forms.py:543
+#: venv/Lib/site-packages/allauth/account/forms.py:628
+msgid "New Password"
+msgstr "Nowe Hasło"
+
+#: templates/dashboard/dashboard.html:573
+msgid "Enter new password"
+msgstr "Wprowadź nowe hasło"
+
+#: templates/dashboard/dashboard.html:574
+#: templates/dashboard/dashboard.html:586
+msgid "Minimum 8 characters"
+msgstr "Minimum 8 znaków"
+
+#: templates/dashboard/dashboard.html:578
+msgid "Confirm Password"
+msgstr "Potwierdź Hasło"
+
+#: templates/dashboard/dashboard.html:579
+msgid "Confirm new password"
+msgstr "Potwierdź nowe hasło"
+
+#: templates/dashboard/dashboard.html:584
+msgid "Password Requirements:"
+msgstr "Wymagania hasła:"
+
+#: templates/dashboard/dashboard.html:587
+msgid "Cannot be similar to other personal information"
+msgstr "Nie może być podobne do innych danych osobowych"
+
+#: templates/dashboard/dashboard.html:588
+msgid "Cannot be a commonly used password"
+msgstr "Nie może być powszechnie używanym hasłem"
+
+#: templates/dashboard/dashboard.html:596
+msgid "Change Password"
+msgstr "Zmień Hasło"
+
+#: templates/dashboard/dashboard.html:646
+msgid "Favorite Seats"
+msgstr "Ulubione Stanowiska"
+
+#: templates/dashboard/dashboard.html:653
+msgid "Account Information"
+msgstr "Informacje o koncie"
+
+#: templates/dashboard/dashboard.html:655
+msgid "Member since:"
+msgstr "Członek od:"
+
+#: templates/dashboard/dashboard.html:659
+msgid "Account status:"
+msgstr "Status konta:"
+
+#: templates/dashboard/dashboard.html:680
+msgid "Reserve a desk in seconds"
+msgstr "Zarezerwuj stanowisko w kilka sekund"
+
+#: templates/dashboard/dashboard.html:697
+msgid "Floor 4"
+msgstr "Piętro 4"
+
+#: templates/dashboard/dashboard.html:698
+msgid "Floor 5"
+msgstr "Piętro 5"
+
+#: templates/dashboard/dashboard.html:699
+msgid "Floor 6"
+msgstr "Piętro 6"
+
+#: templates/dashboard/dashboard.html:700
+msgid "Floor 7"
+msgstr "Piętro 7"
+
+#: templates/dashboard/dashboard.html:705
+msgid "Desk"
+msgstr "Stanowisko"
+
+#: templates/dashboard/dashboard.html:706
+msgid "e.g. D1, O1"
+msgstr "np. D1, O1"
+
+#: templates/dashboard/dashboard.html:710
+msgid "Time From"
+msgstr "Czas Od"
+
+#: templates/dashboard/dashboard.html:715
+msgid "Time To"
+msgstr "Czas Do"
+
+#: templates/dashboard/dashboard.html:720 templates/menu/dashboard.html:124
+msgid "Name"
+msgstr "Imię"
+
+#: templates/dashboard/dashboard.html:721 templates/menu/dashboard.html:124
+msgid "Your name"
+msgstr "Twoje imię"
+
+#: templates/dashboard/dashboard.html:734
+msgid "Create Reservation"
+msgstr "Utwórz Rezerwację"
+
+#: templates/emails/magic_link_body.html:7
+#: templates/emails/magic_link_body.html:70
 msgid "Your Login Link"
 msgstr "Twój link logowania"
 
-#: .\templates\emails\magic_link_body.html:69
-#: .\templates\emails\magic_link_body.html:99
-#: .\templates\emails\magic_link_body.txt:12
+#: templates/emails/magic_link_body.html:69
+#: templates/emails/magic_link_body.html:99
+#: templates/emails/magic_link_body.txt:12
 msgid "Coworking App"
 msgstr "Aplikacja Coworking"
 
-#: .\templates\emails\magic_link_body.html:73
-#: .\templates\emails\magic_link_body.txt:1
+#: templates/emails/magic_link_body.html:73
+#: templates/emails/magic_link_body.txt:1
 msgid "Hello"
 msgstr "Cześć"
 
-#: .\templates\emails\magic_link_body.html:75
+#: templates/emails/magic_link_body.html:75
 msgid "Click the button below to log in:"
 msgstr "Kliknij przycisk poniżej, aby się zalogować:"
 
-#: .\templates\emails\magic_link_body.html:79
+#: templates/emails/magic_link_body.html:79
 msgid "Log In Automatically"
 msgstr "Zaloguj się automatycznie"
 
-#: .\templates\emails\magic_link_body.html:84
+#: templates/emails/magic_link_body.html:84
 msgid "Important information:"
 msgstr "Ważne informacje:"
 
-#: .\templates\emails\magic_link_body.html:86
+#: templates/emails/magic_link_body.html:86
 #, python-format
 msgid "This link is valid for <strong>%(minutes)s minutes</strong>"
 msgstr "Ten link jest ważny przez <strong>%(minutes)s minut</strong>"
 
-#: .\templates\emails\magic_link_body.html:87
+#: templates/emails/magic_link_body.html:87
 msgid "You can use it only once"
 msgstr "Możesz go użyć tylko raz"
 
-#: .\templates\emails\magic_link_body.html:88
+#: templates/emails/magic_link_body.html:88
 msgid "If you did not try to log in, ignore this email"
 msgstr "Jeśli nie próbowałeś/aś się zalogować, zignoruj ten email"
 
-#: .\templates\emails\magic_link_body.html:92
+#: templates/emails/magic_link_body.html:92
+msgid ""
+"If the button does not work, copy and paste this link into your browser:"
+msgstr ""
 
-#: .\templates\emails\magic_link_body.html:98
+#: templates/emails/magic_link_body.html:98
 msgid "This email was sent automatically. Do not reply to it."
 msgstr "Ten email został wysłany automatycznie. Nie odpowiadaj na niego."
 
-#: .\templates\emails\magic_link_body.html:99
+#: templates/emails/magic_link_body.html:99 templates/welcome/index.html:200
 msgid "All rights reserved."
 msgstr "Wszystkie prawa zastrzeżone."
 
-#: .\templates\emails\magic_link_body.txt:3
+#: templates/emails/magic_link_body.txt:3
 msgid "Click the link below to log in:"
 msgstr "Kliknij w poniższy link, aby się zalogować:"
 
-#: .\templates\emails\magic_link_body.txt:7
+#: templates/emails/magic_link_body.txt:7
 #, python-format
 msgid "This link is valid for %(minutes)s minutes."
 msgstr "Ten link jest ważny przez %(minutes)s minut."
 
-#: .\templates\emails\magic_link_body.txt:9
+#: templates/emails/magic_link_body.txt:9
 msgid "If you did not try to log in, ignore this email."
 msgstr "Jeśli nie próbowałeś/aś się zalogować, zignoruj ten email."
 
-#: .\templates\emails\magic_link_subject.txt:1
+#: templates/emails/magic_link_subject.txt:1
 msgid "Your Login Link - Coworking App"
 msgstr "Twój link logowania - Aplikacja Coworking"
 
-#: .\templates\goodbye\logout_goodbye_white.html:10
+#: templates/goodbye/index.html:10
+#: templates/goodbye/logout_goodbye_white.html:10
 msgid "Logged out"
 msgstr "Wylogowano"
 
-#: .\templates\goodbye\logout_goodbye_white.html:18
-#: .\templates\goodbye\logout_goodbye_white.html:19
+#: templates/goodbye/index.html:18 templates/goodbye/index.html:19
+#: templates/goodbye/logout_goodbye_white.html:18
+#: templates/goodbye/logout_goodbye_white.html:19
 msgid "Goodbye!"
 msgstr "Do widzenia!"
 
-#: .\templates\goodbye\logout_goodbye_white.html:21
+#: templates/goodbye/index.html:21
+#: templates/goodbye/logout_goodbye_white.html:21
 msgid "See you soon"
 msgstr "Do zobaczenia wkrótce"
 
-#: .\templates\goodbye\logout_goodbye_white.html:27
+#: templates/goodbye/index.html:27
+#: templates/goodbye/logout_goodbye_white.html:27
 msgid "You have been logged out"
 msgstr "Zostałeś wylogowany"
 
-#: .\templates\goodbye\logout_goodbye_white.html:28
+#: templates/goodbye/index.html:28
+#: templates/goodbye/logout_goodbye_white.html:28
 msgid "Thanks for visiting. Come back anytime."
 msgstr "Dziękujemy za wizytę. Wracaj kiedy chcesz."
 
-#: .\templates\goodbye\logout_goodbye_white.html:30
+#: templates/goodbye/index.html:30
+#, fuzzy
+#| msgid "Book now"
+msgid "Go now"
+msgstr "Rezerwuj teraz"
+
+#: templates/goodbye/index.html:31
+#: templates/goodbye/logout_goodbye_white.html:30
 msgid "Log in again"
 msgstr "Zaloguj się ponownie"
 
-#: .\templates\goodbye\logout_goodbye_white.html:31
+#: templates/goodbye/logout_goodbye_white.html:31
 msgid "Close"
 msgstr "Zamknij"
 
-#: .\templates\login\index.html:10
-msgid "Application - Login"
-msgstr "Aplikacja - Logowanie"
+# Dashboard translations
+# Dashboard translations for Polish (add to django.po)
+#: templates/login/index.html:9
+#, fuzzy
+#| msgid "Just 4 IT Coworking Dashboard"
+msgid "Just 4 IT Coworking - Login"
+msgstr "Just 4 IT Coworking - Logowanie"
 
-#: .\templates\login\index.html:21
-msgid "Login"
-msgstr "Logowanie"
+# ===== Basic Translations =====
+#: templates/login/index.html:64
+msgid "Welcome Back!"
+msgstr "Witaj ponownie!"
 
-#: .\templates\login\index.html:22
-msgid "Welcome back! Please enter your details to sign in."
-msgstr "Witaj ponownie! Podaj swoje dane, aby się zalogować."
+#: templates/login/index.html:67
+msgid "Sign in to your account to continue"
+msgstr "Zaloguj się do swojego konta, aby kontynuować"
 
-#: .\templates\login\index.html:31 .\templates\registration\index.html:53
-msgid "Password"
-msgstr "Hasło"
+#: templates/login/index.html:98
+msgid "Enter your password"
+msgstr "Wprowadź swoje hasło"
 
-#: .\templates\login\index.html:34
+#: templates/login/index.html:102 templates/registration/index.html:129
 msgid "Show password"
 msgstr "Pokaż hasło"
 
-#: .\templates\login\index.html:41
+#: templates/login/index.html:110
 msgid "Remember me"
 msgstr "Zapamiętaj mnie"
 
-#: .\templates\login\index.html:43
+#: templates/login/index.html:112
 msgid "Forgot password?"
 msgstr "Zapomniałeś hasła?"
 
-#: .\templates\login\index.html:47 .\templates\welcome\index.html:35
-msgid "Log In"
+#: templates/login/index.html:117 templates/welcome/index.html:67
+#: templates/welcome/index.html:171 templates/welcome/index.html:194
+msgid "Sign In"
 msgstr "Zaloguj się"
 
-#: .\templates\login\index.html:52 .\templates\login\magic_link.html:145
-#: .\templates\registration\index.html:64
-#: .\venv\Lib\site-packages\django\utils\text.py:287
+#: templates/login/index.html:121 templates/login/magic_link.html:145
+#: templates/registration/index.html:141
 msgid "or"
-msgstr ""
+msgstr "lub"
 
-#: .\templates\login\index.html:63 .\templates\login\magic_link.html:156
-#: .\templates\registration\index.html:75
-#: .\templates\socialaccount\login.html:109
+#: templates/login/index.html:131 templates/login/magic_link.html:156
+#: templates/registration/index.html:152 templates/socialaccount/login.html:109
 msgid "Continue with Google"
-msgstr ""
+msgstr "Kontynuuj z Google"
 
-#: .\templates\login\index.html:68
+#: templates/login/index.html:136
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Uwierzytelnianie dwuskładnikowe"
 
-#: .\templates\login\index.html:69
+#: templates/login/index.html:137
 msgid "Enter the verification code sent to your email"
-msgstr ""
+msgstr "Wprowadź kod weryfikacyjny wysłany na Twój email"
 
-#: .\templates\login\index.html:71
-msgid "Verification Code"
-msgstr ""
-
-#: .\templates\login\index.html:74
+#: templates/login/index.html:152
 msgid "Verify"
-msgstr ""
+msgstr "Zweryfikuj"
 
-#: .\templates\login\index.html:75
+#: templates/login/index.html:156
 msgid "Resend Code"
-msgstr ""
+msgstr "Wyślij kod ponownie"
 
-#: .\templates\login\magic_link.html:10
-#, fuzzy
-#| msgid "Application - Login"
-msgid "Application - Magic Link Login"
-msgstr "Aplikacja - Logowanie"
+#: templates/login/index.html:164
+msgid "Don't have an account?"
+msgstr "Nie masz konta?"
 
-#: .\templates\login\magic_link.html:94
+#: templates/login/index.html:165
+msgid "Sign up"
+msgstr "Zarejestruj się"
+
+#: templates/login/index.html:170 templates/registration/index.html:163
+msgid "Back to welcome"
+msgstr "Powrót do strony powitalnej"
+
+#: templates/login/magic_link.html:10
+msgid "Just 4 IT Coworking - Magic Link Login"
+msgstr "Just 4 IT Coworking - Logowanie Magic Link"
+
+#: templates/login/magic_link.html:94
 msgid "Magic Link Login"
 msgstr "Logowanie Magic Link"
 
-#: .\templates\login\magic_link.html:95
+#: templates/login/magic_link.html:95
 msgid "Enter your email address and we will send you a secure login link!"
 msgstr "Wprowadź swój adres email, a wyślemy Ci bezpieczny link logowania!"
 
-#: .\templates\login\magic_link.html:99
+#: templates/login/magic_link.html:99
 msgid "Email Address"
 msgstr "Adres Email"
 
-#: .\templates\login\magic_link.html:100 .\templates\login\magic_link.html:106
+#: templates/login/magic_link.html:100 templates/login/magic_link.html:106
 msgid "Enter your email address"
 msgstr "Wprowadź swój adres email"
 
-#: .\templates\login\magic_link.html:104
+#: templates/login/magic_link.html:104
 msgid "How it works:"
 msgstr "Jak to działa:"
 
-#: .\templates\login\magic_link.html:107
+#: templates/login/magic_link.html:107
 msgid "Check your email for a secure login link"
 msgstr "Sprawdź swój email w poszukiwaniu bezpiecznego linku logowania"
 
-#: .\templates\login\magic_link.html:108
+#: templates/login/magic_link.html:108
 msgid "Click the link to log in automatically"
 msgstr "Kliknij link, aby zalogować się automatycznie"
 
-#: .\templates\login\magic_link.html:109
+#: templates/login/magic_link.html:109
 msgid "No password required!"
 msgstr "Nie wymaga hasła!"
 
-#: .\templates\login\magic_link.html:115
+#: templates/login/magic_link.html:115
 msgid "Send Login Link"
 msgstr "Wyślij Link Logowania"
 
-#: .\templates\login\magic_link.html:125
+#: templates/login/magic_link.html:125
 msgid "Sending login link..."
 msgstr "Wysyłanie linku logowania..."
 
-#: .\templates\login\magic_link.html:129
+#: templates/login/magic_link.html:129
 msgid "Check Your Email!"
 msgstr "Sprawdź Swój Email!"
 
-#: .\templates\login\magic_link.html:130
+#: templates/login/magic_link.html:130
 msgid "We have sent a secure login link to your email address."
 msgstr "Wysłaliśmy bezpieczny link logowania na Twój adres email."
 
-#: .\templates\login\magic_link.html:131
+#: templates/login/magic_link.html:131
 msgid "Click the link in your email to log in automatically."
 msgstr "Kliknij link w swoim emailu, aby zalogować się automatycznie."
 
-#: .\templates\login\magic_link.html:132
+#: templates/login/magic_link.html:132
 msgid "The link will expire in 15 minutes."
 msgstr "Link wygaśnie za 15 minut."
 
-#: .\templates\login\magic_link.html:134
+#: templates/login/magic_link.html:134
 msgid "Send Another Link"
 msgstr "Wyślij Inny Link"
 
-#: .\templates\menu\cancel.html:10
+#: templates/menu/cancel.html:10
 msgid "Cancel Reservation"
 msgstr "Anuluj rezerwację"
 
-#: .\templates\menu\cancel.html:28 .\templates\menu\dashboard.html:29
+#: templates/menu/cancel.html:28 templates/menu/dashboard.html:29
 msgid "Workspace Bookings"
 msgstr "Rezerwacje miejsc pracy"
 
-#: .\templates\menu\cancel.html:43
+#: templates/menu/cancel.html:43
 msgid "Reservation ID (optional)"
 msgstr "ID rezerwacji (opcjonalne)"
 
-#: .\templates\menu\cancel.html:44
+#: templates/menu/cancel.html:44
 msgid "Seat (e.g. A1)"
 msgstr "Miejsce (np. A1)"
 
-#: .\templates\menu\cancel.html:45
+#: templates/menu/cancel.html:45
 msgid "YYYY-MM-DD"
 msgstr "RRRR-MM-DD"
 
-#: .\templates\menu\cancel.html:46
+#: templates/menu/cancel.html:46
 msgid "Find"
 msgstr "Znajdź"
 
-#: .\templates\menu\cancel.html:48
-#: .\templates\menu\cancel.html:53
+#: templates/menu/cancel.html:48
+msgid ""
+"Enter the <b>ID</b> or <b>seat + date</b>. If you enter only the <b>date</"
+"b>, we"
+msgstr ""
+
+#: templates/menu/cancel.html:53
 msgid "Results"
 msgstr "Wyniki"
 
-#: .\templates\menu\dashboard.html:10
+#: templates/menu/dashboard.html:10
 msgid "User Dashboard"
 msgstr "Panel użytkownika"
 
-#: .\templates\menu\dashboard.html:35 .\templates\menu\dashboard.html:93
+#: templates/menu/dashboard.html:35 templates/menu/dashboard.html:93
 #, fuzzy
 #| msgid "Workspace Bookings"
 msgid "Group Bookings"
 msgstr "Rezerwacje miejsc pracy"
 
-#: .\templates\menu\dashboard.html:40
-msgid "Toggle dark mode"
-msgstr "Przełącz tryb ciemny"
-
-#: .\templates\menu\dashboard.html:41 .\templates\menu\dashboard.html:113
-msgid "Logout"
-msgstr "Wyloguj"
-
-#: .\templates\menu\dashboard.html:48
+#: templates/menu/dashboard.html:48
 msgid "Good day"
 msgstr "Dzień dobry"
 
-#: .\templates\menu\dashboard.html:48
-msgid "User"
-msgstr "Użytkownik"
-
-#: .\templates\menu\dashboard.html:49
+#: templates/menu/dashboard.html:49
 msgid "Manage your seat reservations with ease."
 msgstr "Zarządzaj swoimi rezerwacjami miejsc z łatwością."
 
-#: .\templates\menu\dashboard.html:52 .\templates\menu\dashboard.html:121
+#: templates/menu/dashboard.html:52 templates/menu/dashboard.html:121
 msgid "Quick‑book"
 msgstr "Szybka rezerwacja"
 
-#: .\templates\menu\dashboard.html:58
-msgid "Schedule"
-msgstr "Harmonogram"
-
-#: .\templates\menu\dashboard.html:63
+#: templates/menu/dashboard.html:63
 msgid "Reservations (last 14 days)"
 msgstr "Rezerwacje (ostatnie 14 dni)"
 
-#: .\templates\menu\dashboard.html:67
+#: templates/menu/dashboard.html:67
 msgid "My summary"
 msgstr "Moje podsumowanie"
 
-#: .\templates\menu\dashboard.html:68
+#: templates/menu/dashboard.html:68
 msgid "Next reservation"
 msgstr "Następna rezerwacja"
 
-#: .\templates\menu\dashboard.html:69
+#: templates/menu/dashboard.html:69
 msgid "Last reservation"
 msgstr "Ostatnia rezerwacja"
 
-#: .\templates\menu\dashboard.html:70
-msgid "Upcoming (30d)"
-msgstr "Nadchodzące (30 dni)"
-
-#: .\templates\menu\dashboard.html:71
+#: templates/menu/dashboard.html:71
 msgid "Actions"
 msgstr "Akcje"
 
-#: .\templates\menu\dashboard.html:73
+#: templates/menu/dashboard.html:73
 msgid "Add next to calendar (.ics)"
 msgstr "Dodaj do kalendarza (.ics)"
 
-#: .\templates\menu\dashboard.html:81
+#: templates/menu/dashboard.html:81
 msgid "Reservations — upcoming 30 days"
 msgstr "Rezerwacje — nadchodzące 30 dni"
 
-#: .\templates\menu\dashboard.html:82
+#: templates/menu/dashboard.html:82
 msgid "Loading…"
 msgstr "Ładowanie…"
 
-#: .\templates\menu\dashboard.html:89
+#: templates/menu/dashboard.html:89
 msgid "Set up weekly or daily recurring bookings."
 msgstr ""
 
-#: .\templates\menu\dashboard.html:94
+#: templates/menu/dashboard.html:94
 #, fuzzy
 #| msgid "Book multiple seats next to each other"
 msgid "Book multiple adjacent seats for your team."
 msgstr "Rezerwuj kilka stanowisk obok siebie"
 
-#: .\templates\menu\dashboard.html:99
+#: templates/menu/dashboard.html:99
 msgid "AI recommendations, waitlist, and more."
 msgstr ""
 
-#: .\templates\menu\dashboard.html:104
+#: templates/menu/dashboard.html:104
 msgid "Visual floor plans with seat availability."
 msgstr ""
 
-#: .\templates\menu\dashboard.html:109
+#: templates/menu/dashboard.html:109
 msgid "View and manage your bookings."
 msgstr ""
 
-#: .\templates\menu\dashboard.html:114
+#: templates/menu/dashboard.html:114
 msgid "Sign out of your account."
 msgstr "Wyloguj się ze swojego konta."
 
-#: .\templates\menu\dashboard.html:123
+#: templates/menu/dashboard.html:123
 msgid "Seat"
 msgstr "Miejsce"
 
-#: .\templates\menu\dashboard.html:123
+#: templates/menu/dashboard.html:123
 msgid "e.g. A1"
 msgstr "np. A1"
 
-#: .\templates\menu\dashboard.html:124
-msgid "Name"
-msgstr "Imię"
-
-#: .\templates\menu\dashboard.html:124
-msgid "Your name"
-msgstr "Twoje imię"
-
-#: .\templates\menu\dashboard.html:125
+#: templates/menu/dashboard.html:125
 msgid "you@mail.com"
 msgstr "ty@email.com"
 
-#: .\templates\menu\dashboard.html:128
+#: templates/menu/dashboard.html:128
 msgid "Create"
 msgstr "Utwórz"
 
-#: .\templates\menu\index.html:10
+#: templates/menu/index.html:10
 msgid "Reservation Place"
 msgstr "Miejsce rezerwacji"
 
-#: .\templates\menu\index.html:25
+#: templates/menu/index.html:29
 msgid "Show All Seats"
 msgstr "Pokaż wszystkie miejsca"
 
-#: .\templates\menu\index.html:26
+#: templates/menu/index.html:30
 msgid "Select a seat to view details or make a reservation."
 msgstr "Wybierz miejsce, aby zobaczyć szczegóły lub dokonać rezerwacji."
 
-#: .\templates\menu\index.html:29 .\templates\menu\reserve.html:41
+#: templates/menu/index.html:33 templates/menu/reserve.html:41
 msgid "Back to previous view"
 msgstr "Powrót do poprzedniego widoku"
 
-#: .\templates\menu\index.html:34 .\templates\menu\reserve.html:29
-#: .\templates\menu\reserve.html:59
+#: templates/menu/index.html:38 templates/menu/reserve.html:29
+#: templates/menu/reserve.html:59
 msgid "Absence"
 msgstr "Nieobecność"
 
-#: .\templates\menu\index.html:37 .\templates\menu\reserve.html:30
+#: templates/menu/index.html:41 templates/menu/reserve.html:30
 msgid "Reserved"
 msgstr "Zarezerwowane"
 
-#: .\templates\menu\index.html:40 .\templates\menu\reserve.html:31
+#: templates/menu/index.html:44 templates/menu/reserve.html:31
 msgid "Docking station"
 msgstr "Stacja dokująca"
 
-#: .\templates\menu\index.html:43 .\templates\menu\reserve.html:32
+#: templates/menu/index.html:47 templates/menu/reserve.html:32
 msgid "Two screens"
 msgstr "Dwa ekrany"
 
-#: .\templates\menu\index.html:46 .\templates\menu\reserve.html:33
+#: templates/menu/index.html:50 templates/menu/reserve.html:33
 msgid "Electric desk"
 msgstr "Elektryczne biurko"
 
-#: .\templates\menu\index.html:49 .\templates\menu\reserve.html:34
+#: templates/menu/index.html:53 templates/menu/reserve.html:34
 msgid "Docking + Screens"
 msgstr "Dok + Ekrany"
 
-#: .\templates\menu\index.html:52 .\templates\menu\reserve.html:35
+#: templates/menu/index.html:56 templates/menu/reserve.html:35
 msgid "Docking + Electric"
 msgstr "Dok + Elektryczne"
 
-#: .\templates\menu\index.html:55 .\templates\menu\reserve.html:36
+#: templates/menu/index.html:59 templates/menu/reserve.html:36
 msgid "Screens + Electric"
 msgstr "Ekrany + Elektryczne"
 
-#: .\templates\menu\index.html:58 .\templates\menu\reserve.html:37
+#: templates/menu/index.html:62 templates/menu/reserve.html:37
 msgid "Docking + Screens + Electric"
 msgstr "Dok + Ekrany + Elektryczne"
 
-#: .\templates\menu\index.html:63 .\templates\menu\reserve.html:64
+#: templates/menu/index.html:67 templates/menu/reserve.html:64
 msgid "Floor 4 (20 seats)"
 msgstr "Piętro 4 (24 miejsca)"
 
-#: .\templates\menu\index.html:68 .\templates\menu\reserve.html:69
+#: templates/menu/index.html:72 templates/menu/reserve.html:69
 msgid "Floor 5 (30 seats)"
 msgstr "Piętro 5 (34 miejsca)"
 
-#: .\templates\menu\index.html:73 .\templates\menu\reserve.html:74
+#: templates/menu/index.html:77 templates/menu/reserve.html:74
 msgid "Floor 6 (25 seats)"
 msgstr "Piętro 6 (29 miejsc)"
 
-#: .\templates\menu\index.html:78 .\templates\menu\reserve.html:79
+#: templates/menu/index.html:82 templates/menu/reserve.html:79
 msgid "Floor 7 (35 seats)"
 msgstr "Piętro 7 (39 miejsc)"
 
-#: .\templates\menu\index.html:101 .\templates\menu\reserve.html:102
+#: templates/menu/index.html:105 templates/menu/reserve.html:102
 msgid "New reservation"
 msgstr "Nowa rezerwacja"
 
-#: .\templates\menu\index.html:104 .\templates\menu\reserve.html:105
+#: templates/menu/index.html:108 templates/menu/reserve.html:105
 msgid "Place"
 msgstr "Miejsce"
 
-#: .\templates\menu\index.html:108 .\templates\menu\reserve.html:109
+#: templates/menu/index.html:112 templates/menu/reserve.html:109
 msgid "Name and Surname"
 msgstr "Imię i nazwisko"
 
-#: .\templates\menu\index.html:120 .\templates\menu\reserve.html:121
+#: templates/menu/index.html:124 templates/menu/reserve.html:121
 msgid "Comments"
 msgstr "Komentarze"
 
-#: .\templates\menu\index.html:121 .\templates\menu\reserve.html:122
+#: templates/menu/index.html:125 templates/menu/reserve.html:122
 msgid "e.g. I need adapter USB-C..."
 msgstr "np. Potrzebuję adaptera USB-C..."
 
-#: .\templates\menu\index.html:124
+#: templates/menu/index.html:128
 msgid "Book now"
 msgstr "Rezerwuj teraz"
 
-#: .\templates\menu\reserve.html:10
+#: templates/menu/reserve.html:10
 msgid "Seat Reservations – Reserve / Cancel"
 msgstr "Rezerwacje miejsc – Rezerwuj / Anuluj"
 
-#: .\templates\menu\reserve.html:25
+#: templates/menu/reserve.html:25
 msgid "Reserve seats"
 msgstr "Zarezerwuj miejsca"
 
-#: .\templates\menu\reserve.html:26
+#: templates/menu/reserve.html:26
 msgid "Select a seat and make a reservation."
 msgstr "Wybierz miejsce i dokonaj rezerwacji."
 
-#: .\templates\menu\reserve.html:46
+#: templates/menu/reserve.html:46
 msgid "Search for a place (e.g. 5-12)..."
 msgstr "Szukaj miejsca (np. 5-12)..."
 
-#: .\templates\menu\reserve.html:48 .\templates\menu\reserve.html:91
+#: templates/menu/reserve.html:48 templates/menu/reserve.html:91
 msgid "All"
 msgstr "Wszystkie"
 
-#: .\templates\menu\reserve.html:49
+#: templates/menu/reserve.html:49
 msgid "Free"
 msgstr "Wolne"
 
-#: .\templates\menu\reserve.html:50
+#: templates/menu/reserve.html:50
 msgid "Occupied"
 msgstr "Zajęte"
 
-#: .\templates\menu\reserve.html:53
+#: templates/menu/reserve.html:53
 msgid "All amenities"
 msgstr "Wszystkie udogodnienia"
 
-#: .\templates\menu\reserve.html:54
+#: templates/menu/reserve.html:54
 msgid "D – Docking station"
 msgstr "D – Stacja dokująca"
 
-#: .\templates\menu\reserve.html:55
+#: templates/menu/reserve.html:55
 msgid "S – Two screens"
 msgstr "S – Dwa ekrany"
 
-#: .\templates\menu\reserve.html:56
+#: templates/menu/reserve.html:56
 msgid "E – Electrical adjustment"
 msgstr "E – Regulacja elektryczna"
 
-#: .\templates\menu\reserve.html:57
+#: templates/menu/reserve.html:57
 msgid "DS – Dock + 2 screens"
 msgstr "DS – Dok + 2 ekrany"
 
-#: .\templates\menu\reserve.html:58
+#: templates/menu/reserve.html:58
 msgid "DSE – Full"
 msgstr "DSE – Pełne"
 
-#: .\templates\menu\reserve.html:88
+#: templates/menu/reserve.html:88
 msgid "ID reservation..."
 msgstr "ID rezerwacji..."
 
-#: .\templates\menu\reserve.html:89
+#: templates/menu/reserve.html:89
 msgid "Date reservation..."
 msgstr "Data rezerwacji..."
 
-#: .\templates\menu\reserve.html:90
+#: templates/menu/reserve.html:90
 msgid "Search"
 msgstr "Szukaj"
 
-#: .\templates\menu\reserve.html:125
+#: templates/menu/reserve.html:125
 msgid "Reservation"
 msgstr "Rezerwacja"
 
-#: .\templates\menu\security.html:20
+#: templates/menu/security.html:20
 msgid "Manage your account security and two-factor authentication"
 msgstr ""
 
-#: .\templates\menu\security.html:23
+#: templates/menu/security.html:23
 msgid "Two-Factor Authentication (2FA)"
 msgstr ""
 
-#: .\templates\menu\security.html:24
+#: templates/menu/security.html:24
 msgid "Add an extra layer of security to your account"
 msgstr ""
 
-#: .\templates\menu\security.html:28
+#: templates/menu/security.html:28
 msgid "Status:"
 msgstr ""
 
-#: .\templates\menu\security.html:29
+#: templates/menu/security.html:29
 msgid "Checking..."
 msgstr ""
 
-#: .\templates\menu\security.html:35
+#: templates/menu/security.html:35
 msgid "Enable 2FA"
 msgstr ""
 
-#: .\templates\menu\security.html:38 .\templates\menu\security.html:72
+#: templates/menu/security.html:38 templates/menu/security.html:72
 msgid "Disable 2FA"
 msgstr ""
 
-#: .\templates\menu\security.html:43
+#: templates/menu/security.html:43
 msgid "Setup Two-Factor Authentication"
 msgstr ""
 
-#: .\templates\menu\security.html:44
+#: templates/menu/security.html:44
 msgid "A verification code has been sent to your email address."
 msgstr ""
 
-#: .\templates\menu\security.html:47
+#: templates/menu/security.html:47
 msgid "Enter verification code:"
 msgstr ""
 
-#: .\templates\menu\security.html:53
+#: templates/menu/security.html:53
 msgid "Verify & Enable"
 msgstr ""
 
-#: .\templates\menu\security.html:62
+#: templates/menu/security.html:62
 msgid "Disable Two-Factor Authentication"
 msgstr ""
 
-#: .\templates\menu\security.html:63
+#: templates/menu/security.html:63
 msgid "Enter your password to confirm disabling 2FA"
 msgstr ""
 
-#: .\templates\menu\security.html:66
+#: templates/menu/security.html:66
 #, fuzzy
 #| msgid "Forgot password?"
 msgid "Current password:"
 msgstr "Zapomniałeś hasła?"
 
-#: .\templates\menu\security.html:82
+#: templates/menu/security.html:82
 #, fuzzy
 #| msgid "Dashboard"
 msgid "Back to Dashboard"
 msgstr "Panel"
 
-#: .\templates\menu\security.html:103
+#: templates/menu/security.html:103
 msgid "Enabled"
 msgstr ""
 
-# ===== Registration Translations =====
-#: .\templates\registration\index.html:10
-msgid "Application - Registration"
-msgstr "Aplikacja - Rejestracja"
+# Dashboard translations
+# Dashboard translations for Polish (add to django.po)
+#: templates/registration/index.html:9
+#, fuzzy
+#| msgid "Just 4 IT Coworking Dashboard"
+msgid "Just 4 IT Coworking - Registration"
+msgstr "Just 4 IT Coworking Dashboard"
 
-#: .\templates\registration\index.html:36
-msgid "Registration"
-msgstr "Rejestracja"
+#: templates/registration/index.html:57 templates/registration/index.html:137
+#: templates/welcome/index.html:167
+msgid "Create Account"
+msgstr "Utwórz Konto"
 
-#: .\templates\registration\index.html:37
-msgid "Please fill out the form to create an account."
-msgstr "Proszę wypełnić formularz, aby utworzyć konto."
+#: templates/registration/index.html:60
+msgid "Join us and start managing your workspace today"
+msgstr "Dołącz do nas i zacznij zarządzać swoją przestrzenią biurową już dziś"
 
-#: .\templates\registration\index.html:41
+#: templates/registration/index.html:69
 msgid "First Name"
 msgstr "Imię"
 
-#: .\templates\registration\index.html:45
+#: templates/registration/index.html:83
+msgid "Enter your first name"
+msgstr "Wprowadź swoje imię"
+
+#: templates/registration/index.html:85
 msgid "Last Name"
 msgstr "Nazwisko"
 
-#: .\templates\registration\index.html:59
-msgid "Register"
-msgstr "Zarejestruj się"
+#: templates/registration/index.html:99
+msgid "Enter your last name"
+msgstr "Wprowadź swoje nazwisko"
 
-#: .\templates\socialaccount\login.html:9
+#: templates/registration/index.html:132
+msgid "Create a strong password"
+msgstr "Utwórz silne hasło"
+
+#: templates/registration/index.html:166
+msgid "Already have an account?"
+msgstr "Masz już konto?"
+
+#: templates/registration/index.html:167
+msgid "Sign in"
+msgstr "Zaloguj się"
+
+#: templates/socialaccount/login.html:9
 msgid "Google Authentication"
 msgstr "Uwierzytelnianie Google"
 
-#: .\templates\socialaccount\login.html:97
+#: templates/socialaccount/login.html:97
 msgid "Sign in with Google"
 msgstr "Zaloguj się przez Google"
 
-#: .\templates\socialaccount\login.html:98
+#: templates/socialaccount/login.html:98
 msgid "Click the button below to authenticate with your Google account."
 msgstr ""
 "Kliknij przycisk poniżej, aby uwierzytelnić się za pomocą konta Google."
 
-#: .\templates\socialaccount\login.html:114
+#: templates/socialaccount/login.html:114
 msgid "What happens next:"
 msgstr "Co się stanie dalej:"
 
-#: .\templates\socialaccount\login.html:115
+#: templates/socialaccount/login.html:115
 msgid "You will be redirected to Google"
 msgstr "Zostaniesz przekierowany do Google"
 
-#: .\templates\socialaccount\login.html:116
+#: templates/socialaccount/login.html:116
 msgid "Sign in with your Google account"
 msgstr "Zaloguj się za pomocą swojego konta Google"
 
-#: .\templates\socialaccount\login.html:117
+#: templates/socialaccount/login.html:117
 msgid "Grant permission to access your basic profile"
 msgstr "Przyznaj uprawnienie do dostępu do swojego podstawowego profilu"
 
-#: .\templates\socialaccount\login.html:118
+#: templates/socialaccount/login.html:118
 msgid "Return to the application logged in"
 msgstr "Wróć do aplikacji zalogowany"
 
-#: .\templates\socialaccount\login_cancelled.html:10
-#: .\templates\socialaccount\login_cancelled.html:105
+#: templates/socialaccount/login_cancelled.html:10
+#: templates/socialaccount/login_cancelled.html:105
 msgid "Login Cancelled"
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:106
+#: templates/socialaccount/login_cancelled.html:106
 msgid "You cancelled the Google login process."
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:109
+#: templates/socialaccount/login_cancelled.html:109
 msgid "What happened:"
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:110
+#: templates/socialaccount/login_cancelled.html:110
 msgid "You chose not to complete the Google login"
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:111
+#: templates/socialaccount/login_cancelled.html:111
 msgid "Your account was not created or accessed"
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:112
+#: templates/socialaccount/login_cancelled.html:112
 msgid "You can try again anytime"
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:113
+#: templates/socialaccount/login_cancelled.html:113
 msgid "Or use standard email/password login"
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:117
-#: .\templates\socialaccount\login_error.html:154
+#: templates/socialaccount/login_cancelled.html:117
+#: templates/socialaccount/login_error.html:154
 msgid "Register with Email"
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:10
-#: .\templates\socialaccount\login_error.html:126
+#: templates/socialaccount/login_error.html:10
+#: templates/socialaccount/login_error.html:126
 #, fuzzy
 #| msgid "Login"
 msgid "Login Error"
 msgstr "Logowanie"
 
-#: .\templates\socialaccount\login_error.html:127
+#: templates/socialaccount/login_error.html:127
 msgid "There was an error during the Google login process."
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:131
+#: templates/socialaccount/login_error.html:131
 msgid "Error Details:"
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:139
+#: templates/socialaccount/login_error.html:139
 msgid "Possible causes:"
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:140
+#: templates/socialaccount/login_error.html:140
 msgid "Google OAuth configuration issue"
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:141
+#: templates/socialaccount/login_error.html:141
 msgid "Network connection problem"
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:142
+#: templates/socialaccount/login_error.html:142
 msgid "Google account access denied"
 msgstr ""
 
 # ===== Registration Translations =====
-#: .\templates\socialaccount\login_error.html:143
+#: templates/socialaccount/login_error.html:143
 #, fuzzy
 #| msgid "Application - Registration"
 msgid "Application configuration error"
 msgstr "Aplikacja - Rejestracja"
 
-#: .\templates\socialaccount\login_error.html:148
+#: templates/socialaccount/login_error.html:148
 #, fuzzy
 #| msgid "Log in again"
 msgid "Try logging in again"
 msgstr "Zaloguj się ponownie"
 
-#: .\templates\socialaccount\login_error.html:149
+#: templates/socialaccount/login_error.html:149
 msgid "Use standard email/password login"
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:150
+#: templates/socialaccount/login_error.html:150
 msgid "Contact support if the problem persists"
 msgstr ""
 
-#: .\templates\socialaccount\login_error.html:172
+#: templates/socialaccount/login_error.html:172
 msgid "Would you like to try logging in again?"
 msgstr ""
 
-#: .\templates\socialaccount\signup.html:11
+#: templates/socialaccount/signup.html:11
 #, fuzzy
 #| msgid "Registration"
 msgid "Complete Registration"
 msgstr "Rejestracja"
 
-#: .\templates\socialaccount\signup.html:126
+#: templates/socialaccount/signup.html:126
 #, fuzzy
 #| msgid "Welcome to the Application"
 msgid "Welcome to Our Application!"
 msgstr "Witamy w aplikacji"
 
-#: .\templates\socialaccount\signup.html:127
+#: templates/socialaccount/signup.html:127
 msgid "Your account has been created successfully using Google."
 msgstr ""
 
-#: .\templates\socialaccount\signup.html:149
+#: templates/socialaccount/signup.html:149
 msgid "Set up additional security (2FA)"
 msgstr ""
 
-#: .\templates\welcome\index.html:10
-msgid "Application - Welcome"
-msgstr "Aplikacja - Witamy"
+# Dashboard translations
+# Dashboard translations for Polish (add to django.po)
+#: templates/welcome/index.html:9
+#, fuzzy
+#| msgid "Just 4 IT Coworking Dashboard"
+msgid "Just 4 IT Coworking - Welcome"
+msgstr "Just 4 IT Coworking - Witamy"
 
 # ===== Basic Translations =====
-#: .\templates\welcome\index.html:18 .\templates\welcome\index.html:19
-msgid "Welcome"
-msgstr "Witamy"
+#: templates/welcome/index.html:57
+msgid "Welcome to"
+msgstr "Witamy w"
 
-#: .\templates\welcome\index.html:21
-msgid "Enjoy your experience"
-msgstr "Miłego korzystania"
+# Dashboard translations
+# Dashboard translations for Polish (add to django.po)
+#: templates/welcome/index.html:58
+msgid "Just 4 IT Coworking"
+msgstr "Just 4 IT Coworking"
 
-#: .\templates\welcome\index.html:23
-msgid "Skip intro"
-msgstr "Pomiń wprowadzenie"
+#: templates/welcome/index.html:61
+msgid ""
+"Your modern workspace management platform. Book desks, manage reservations, "
+"and collaborate seamlessly."
+msgstr "Twoja nowoczesna platforma zarządzania przestrzenią biurową. Rezerwuj stanowiska, zarządzaj rezerwacjami i współpracuj bez wysiłku."
 
-#: .\templates\welcome\index.html:23
-msgid "Skip"
-msgstr "Pomiń"
+#: templates/welcome/index.html:71
+msgid "Get Started"
+msgstr "Rozpocznij"
 
-#: .\templates\welcome\index.html:31
-msgid "Welcome to the Application"
-msgstr "Witamy w aplikacji"
+#: templates/welcome/index.html:77
+msgid "Scroll to explore"
+msgstr "Przewiń, aby odkryć więcej"
 
-#: .\templates\welcome\index.html:32
-msgid "Please select an option to continue."
-msgstr "Proszę wybrać opcję, aby kontynuować."
+#: templates/welcome/index.html:86
+msgid "Why Choose Us?"
+msgstr "Dlaczego warto nas wybrać?"
 
-#: .\templates\welcome\index.html:34
+#: templates/welcome/index.html:89
+msgid "Everything you need to manage your workspace efficiently"
+msgstr "Wszystko, czego potrzebujesz do efektywnego zarządzania swoją przestrzenią biurową"
+
+#: templates/welcome/index.html:97
+msgid "Easy Booking"
+msgstr "Łatwa Rezerwacja"
+
+#: templates/welcome/index.html:99
+msgid "Reserve your desk in seconds with our intuitive booking system"
+msgstr "Zarezerwuj swoje stanowisko w sekundy dzięki naszemu intuicyjnemu systemowi rezerwacji"
+
+#: templates/welcome/index.html:109
+msgid "Interactive floor plans to find the perfect spot for your work"
+msgstr "Interaktywne plany pięter, aby znaleźć idealne miejsce do pracy"
+
+#: templates/welcome/index.html:117
+msgid "Smart Notifications"
+msgstr "Inteligentne Powiadomienia"
+
+#: templates/welcome/index.html:119
+msgid "Stay updated with real-time notifications about your reservations"
+msgstr "Bądź na bieżąco z powiadomieniami w czasie rzeczywistym o swoich rezerwacjach"
+
+#: templates/welcome/index.html:127
+msgid "Analytics"
+msgstr "Analityka"
+
+#: templates/welcome/index.html:129
+msgid "Track your workspace usage and optimize your schedule"
+msgstr "Śledź wykorzystanie przestrzeni biurowej i optymalizuj swój harmonogram"
+
+#: templates/welcome/index.html:137
+msgid "Team Collaboration"
+msgstr "Współpraca w Zespole"
+
+#: templates/welcome/index.html:139
+msgid "Book desks for your team and coordinate workspace usage"
+msgstr "Rezerwuj stanowiska dla swojego zespołu i koordynuj wykorzystanie przestrzeni biurowej"
+
+#: templates/welcome/index.html:147
+msgid "Mobile Friendly"
+msgstr "Przyjazne dla Mobilnych"
+
+#: templates/welcome/index.html:149
+msgid "Access your workspace from any device, anywhere, anytime"
+msgstr "Uzyskaj dostęp do swojej przestrzeni biurowej z dowolnego urządzenia, w dowolnym miejscu i o dowolnym czasie"
+
+#: templates/welcome/index.html:160
+msgid "Ready to Get Started?"
+msgstr "Gotowy, aby zacząć?"
+
+#: templates/welcome/index.html:162
+msgid "Join us today and experience the future of workspace management"
+msgstr "Dołącz do nas już dziś i doświadcz przyszłości zarządzania przestrzenią biurową"
+
+#: templates/welcome/index.html:195
 msgid "Sign Up"
 msgstr "Zarejestruj się"
 
-#: .\templates\welcome\index.html:36
-msgid "Exit"
-msgstr "Wyjście"
-
-#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
-msgid "Messages"
+#: venv/Lib/site-packages/allauth/account/adapter.py:58
+msgid "This account is currently inactive."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
-msgid "Site Maps"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
-msgid "Static Files"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
-msgid "Syndication"
-msgstr ""
-
-#. Translators: String used to replace omitted page numbers in elided page
-#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
-#: .\venv\Lib\site-packages\django\core\paginator.py:30
-msgid "…"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\paginator.py:32
-msgid "That page number is not an integer"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\paginator.py:33
-msgid "That page number is less than 1"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\paginator.py:34
-msgid "That page contains no results"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:22
-msgid "Enter a valid value."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:70
-msgid "Enter a valid domain name."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:153
-#: .\venv\Lib\site-packages\django\forms\fields.py:775
-msgid "Enter a valid URL."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:200
-msgid "Enter a valid integer."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:211
-msgid "Enter a valid email address."
-msgstr ""
-
-#. Translators: "letters" means latin letters: a-z and A-Z.
-#: .\venv\Lib\site-packages\django\core\validators.py:289
-
-#: .\venv\Lib\site-packages\django\core\validators.py:297
-
-#: .\venv\Lib\site-packages\django\core\validators.py:309
-#: .\venv\Lib\site-packages\django\core\validators.py:318
-#: .\venv\Lib\site-packages\django\core\validators.py:332
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2220
-#, python-format
-msgid "Enter a valid %(protocol)s address."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:311
-msgid "IPv4"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:320
-#: .\venv\Lib\site-packages\django\utils\ipv6.py:43
-msgid "IPv6"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:334
-msgid "IPv4 or IPv6"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:375
-msgid "Enter only digits separated by commas."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:381
-#, python-format
-msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:416
-#, python-format
-msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:425
-#, python-format
-msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:434
-#, python-format
-msgid "Ensure this value is a multiple of step size %(limit_value)s."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:441
-#, python-format
-
-#: .\venv\Lib\site-packages\django\core\validators.py:473
-#, python-format
-
-#: .\venv\Lib\site-packages\django\core\validators.py:491
-#, python-format
-
-#: .\venv\Lib\site-packages\django\core\validators.py:514
-#: .\venv\Lib\site-packages\django\forms\fields.py:366
-#: .\venv\Lib\site-packages\django\forms\fields.py:405
-msgid "Enter a number."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:516
-#, python-format
-msgid "Ensure that there are no more than %(max)s digit in total."
-msgid_plural "Ensure that there are no more than %(max)s digits in total."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:521
-#, python-format
-msgid "Ensure that there are no more than %(max)s decimal place."
-msgid_plural "Ensure that there are no more than %(max)s decimal places."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: .\venv\Lib\site-packages\django\core\validators.py:526
-#, python-format
-
-#: .\venv\Lib\site-packages\django\core\validators.py:597
-#, python-format
-
-#: .\venv\Lib\site-packages\django\core\validators.py:659
-msgid "Null characters are not allowed."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\base.py:1600
-#: .\venv\Lib\site-packages\django\forms\models.py:908
-msgid "and"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\base.py:1602
-#, python-format
-msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\constraints.py:22
-#, python-format
-msgid "Constraint “%(name)s” is violated."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
-#, python-format
-msgid "Value %(value)r is not a valid choice."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
-msgid "This field cannot be null."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
-msgid "This field cannot be blank."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
-#, python-format
-msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
-
-#. Translators: The 'lookup_type' is one of 'date', 'year' or
-#. 'month'. Eg: "Title must be unique for pub_date year"
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
-#, python-format
-msgid "Field of type: %(field_type)s"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1162
-#, python-format
-msgid "“%(value)s” value must be either True or False."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1163
-#, python-format
-msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1165
-msgid "Boolean (Either True or False)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1215
-#, python-format
-msgid "String (up to %(max_length)s)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1217
-msgid "String (unlimited)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1326
-msgid "Comma-separated integers"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1427
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1431
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1566
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1435
-msgid "Date (without time)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1562
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1570
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1575
-msgid "Date (with time)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1702
-#, python-format
-msgid "“%(value)s” value must be a decimal number."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1704
-msgid "Decimal number"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1864
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1868
+#: venv/Lib/site-packages/allauth/account/adapter.py:60
 #, fuzzy
-#| msgid "Reservation"
-msgid "Duration"
-msgstr "Rezerwacja"
+#| msgid "Enter your email address"
+msgid "You cannot remove your primary email address."
+msgstr "Wprowadź swój adres email"
 
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1920
+#: venv/Lib/site-packages/allauth/account/adapter.py:63
+msgid "This email address is already associated with this account."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:66
+msgid "The email address and/or password you specified are not correct."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:68
+#, fuzzy
+#| msgid "Reservation already exists for this seat and date"
+msgid "A user is already registered with this email address."
+msgstr "Rezerwacja dla tego stanowiska i daty już istnieje"
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:69
+#, fuzzy
+#| msgid "Enter current password"
+msgid "Please type your current password."
+msgstr "Wprowadź obecne hasło"
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:70
+msgid "Incorrect code."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:71
+#, fuzzy
+#| msgid "Enter current password"
+msgid "Incorrect password."
+msgstr "Wprowadź obecne hasło"
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:72
+#, fuzzy
+#| msgid "Invalid or expired link"
+msgid "Invalid or expired key."
+msgstr "Nieprawidłowy lub wygasły link"
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:73
+msgid "The password reset token was invalid."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:74
+#, python-format
+msgid "You cannot add more than %d email addresses."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:76
+msgid "Too many failed login attempts. Try again later."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:78
+msgid "The email address is not assigned to any user account"
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:79
+msgid "Your primary email address must be verified."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:81
+msgid "Username can not be used. Please use other username."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:84
+msgid "The username and/or password you specified are not correct."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:736
+#, fuzzy
+#| msgid "Show password"
+msgid "Use your password"
+msgstr "Pokaż hasło"
+
+#: venv/Lib/site-packages/allauth/account/adapter.py:747
+msgid "Use your authenticator app"
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/admin.py:23
+msgid "Mark selected email addresses as verified"
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/apps.py:11
+#, fuzzy
+#| msgid "Account status:"
+msgid "Accounts"
+msgstr "Status konta:"
+
+#: venv/Lib/site-packages/allauth/account/forms.py:56
+#: venv/Lib/site-packages/allauth/account/forms.py:479
+msgid "You must type the same password each time."
+msgstr ""
+
+#: venv/Lib/site-packages/allauth/account/forms.py:92
+#, fuzzy
+#| msgid "Remember me"
+msgid "Remember Me"
+msgstr "Zapamiętaj mnie"
+
+#: venv/Lib/site-packages/allauth/account/forms.py:102
+#: venv/Lib/site-packages/allauth/account/forms.py:269
+#: venv/Lib/site-packages/allauth/account/forms.py:495
+#: venv/Lib/site-packages/allauth/account/forms.py:578
+#: venv/Lib/site-packages/allauth/account/forms.py:692
 msgid "Email address"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1945
-msgid "File path"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2023
-#, python-format
-msgid "“%(value)s” value must be a float."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2025
-msgid "Floating point number"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2065
-#, python-format
-msgid "“%(value)s” value must be an integer."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2067
-msgid "Integer"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2163
-msgid "Big (8 byte) integer"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2180
-msgid "Small integer"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2188
-msgid "IPv4 address"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2219
-msgid "IP address"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2310
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2311
-#, python-format
-msgid "“%(value)s” value must be either None, True or False."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2313
-msgid "Boolean (Either True, False or None)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2364
-msgid "Positive big integer"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2379
-msgid "Positive integer"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2394
-msgid "Positive small integer"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2410
-#, python-format
-msgid "Slug (up to %(max_length)s)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2446
-msgid "Text"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2526
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2530
-#, python-format
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2534
-msgid "Time"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2642
-msgid "URL"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2666
-msgid "Raw binary data"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2731
-#, python-format
-msgid "“%(value)s” is not a valid UUID."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2733
-msgid "Universally unique identifier"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
-msgid "File"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
-msgid "Image"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
-msgid "A JSON object"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
-msgid "Value must be valid JSON."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\related.py:979
-#, python-format
-msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\related.py:982
-msgid "Foreign Key (type determined by related field)"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1276
-msgid "One-to-one relationship"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1333
-#, python-format
-msgid "%(from)s-%(to)s relationship"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1335
-#, python-format
-msgid "%(from)s-%(to)s relationships"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1383
-msgid "Many-to-many relationship"
-msgstr ""
-
-#. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
-#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
-msgid ":?.!"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:95
-msgid "This field is required."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:315
-msgid "Enter a whole number."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:486
-#: .\venv\Lib\site-packages\django\forms\fields.py:1267
-msgid "Enter a valid date."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:509
-#: .\venv\Lib\site-packages\django\forms\fields.py:1268
-msgid "Enter a valid time."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:536
-msgid "Enter a valid date/time."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:570
-msgid "Enter a valid duration."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:571
-#, python-brace-format
-msgid "The number of days must be between {min_days} and {max_days}."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:640
-msgid "No file was submitted. Check the encoding type on the form."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:641
-msgid "No file was submitted."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:642
-msgid "The submitted file is empty."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:644
-#, python-format
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
-msgid_plural ""
-"Ensure this filename has at most %(max)d characters (it has %(length)d)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:649
-msgid "Please either submit a file or check the clear checkbox, not both."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:717
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:889
-#: .\venv\Lib\site-packages\django\forms\fields.py:975
-#: .\venv\Lib\site-packages\django\forms\models.py:1592
-#, python-format
-msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:977
-#: .\venv\Lib\site-packages\django\forms\fields.py:1096
-#: .\venv\Lib\site-packages\django\forms\models.py:1590
-msgid "Enter a list of values."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:1097
-msgid "Enter a complete value."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:1339
-msgid "Enter a valid UUID."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\fields.py:1369
-msgid "Enter a valid JSON."
-msgstr ""
-
-#. Translators: This is the default suffix added to form field labels
-#: .\venv\Lib\site-packages\django\forms\forms.py:97
-msgid ":"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\forms.py:239
-#, python-format
-msgid "(Hidden field %(name)s) %(error)s"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\formsets.py:61
-#, python-format
-
-#: .\venv\Lib\site-packages\django\forms\formsets.py:65
-#, python-format
-msgid "Please submit at most %(num)d form."
-msgid_plural "Please submit at most %(num)d forms."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: .\venv\Lib\site-packages\django\forms\formsets.py:70
-#, python-format
-msgid "Please submit at least %(num)d form."
-msgid_plural "Please submit at least %(num)d forms."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: .\venv\Lib\site-packages\django\forms\formsets.py:484
-#: .\venv\Lib\site-packages\django\forms\formsets.py:491
-msgid "Order"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\formsets.py:499
-msgid "Delete"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\models.py:901
-#, python-format
-msgid "Please correct the duplicate data for %(field)s."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\models.py:906
-#, python-format
-msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\models.py:913
-#, python-format
-
-#: .\venv\Lib\site-packages\django\forms\models.py:922
-msgid "Please correct the duplicate values below."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\models.py:1359
-msgid "The inline value did not match the parent instance."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\models.py:1450
-msgid "Select a valid choice. That choice is not one of the available choices."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\models.py:1594
-#, python-format
-msgid "“%(pk)s” is not a valid value."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\utils.py:229
-#, python-format
-
-#: .\venv\Lib\site-packages\django\forms\widgets.py:527
-msgid "Clear"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\widgets.py:528
-msgid "Currently"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\widgets.py:529
-msgid "Change"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\widgets.py:866
-msgid "Unknown"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\widgets.py:867
-msgid "Yes"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\forms\widgets.py:868
-msgid "No"
-msgstr ""
-
-#. Translators: Please do not add spaces around commas.
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
-msgid "yes,no,maybe"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
-#, python-format
-msgid "%(size)d byte"
-msgid_plural "%(size)d bytes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
-#, python-format
-msgid "%s KB"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
-#, python-format
-msgid "%s MB"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
-#, python-format
-msgid "%s GB"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
-#, python-format
-msgid "%s TB"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
-#, python-format
-msgid "%s PB"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
-msgid "p.m."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
-msgid "a.m."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
-msgid "PM"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
-msgid "AM"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
-msgid "midnight"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
-msgid "noon"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:7
-msgid "Monday"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:8
-msgid "Tuesday"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:9
-msgid "Wednesday"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:10
-msgid "Thursday"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:11
-msgid "Friday"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:12
-msgid "Saturday"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:13
-msgid "Sunday"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:16
-msgid "Mon"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:17
-msgid "Tue"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:18
-msgid "Wed"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:19
-msgid "Thu"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:20
-msgid "Fri"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:21
+#: venv/Lib/site-packages/allauth/account/forms.py:109
+#: venv/Lib/site-packages/allauth/account/forms.py:112
+#: venv/Lib/site-packages/allauth/account/forms.py:259
+#: venv/Lib/site-packages/allauth/account/forms.py:262
 #, fuzzy
-#| msgid "Seat"
-msgid "Sat"
-msgstr "Miejsce"
+#| msgid "User"
+msgid "Username"
+msgstr "Użytkownik"
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:22
-msgid "Sun"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:25
-msgid "January"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:26
-msgid "February"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:27
+#: venv/Lib/site-packages/allauth/account/forms.py:122
 #, fuzzy
-#| msgid "Search"
-msgid "March"
-msgstr "Szukaj"
+#| msgid "Enter your email"
+msgid "Username or email"
+msgstr "Wprowadź swój email"
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:28
-msgid "April"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:29
-msgid "May"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:30
-msgid "June"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:31
-msgid "July"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:32
-msgid "August"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:33
+#: venv/Lib/site-packages/allauth/account/forms.py:125
 #, fuzzy
-#| msgid "Remember me"
-msgid "September"
-msgstr "Zapamiętaj mnie"
+#| msgid "Login"
+msgctxt "field label"
+msgid "Login"
+msgstr "Logowanie"
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:34
-msgid "October"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:35
-msgid "November"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:36
+#: venv/Lib/site-packages/allauth/account/forms.py:136
 #, fuzzy
-#| msgid "Remember me"
-msgid "December"
-msgstr "Zapamiętaj mnie"
+#| msgid "Forgot password?"
+msgid "Forgot your password?"
+msgstr "Zapomniałeś hasła?"
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:39
-msgid "jan"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:40
-msgid "feb"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:41
-msgid "mar"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:42
-msgid "apr"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:43
-msgid "may"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:44
-msgid "jun"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:45
-msgid "jul"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:46
-msgid "aug"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:47
-msgid "sep"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:48
-msgid "oct"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:49
-msgid "nov"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:50
-msgid "dec"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:53
-msgctxt "abbrev. month"
-msgid "Jan."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:54
-msgctxt "abbrev. month"
-msgid "Feb."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:55
+#: venv/Lib/site-packages/allauth/account/forms.py:298
 #, fuzzy
-#| msgid "Search"
-msgctxt "abbrev. month"
-msgid "Aug."
+#| msgid "Email"
+msgid "Email (again)"
+msgstr "Email"
+
+#: venv/Lib/site-packages/allauth/account/forms.py:302
+#, fuzzy
+#| msgid "Email Notifications"
+msgid "Email address confirmation"
+msgstr "Powiadomienia email"
+
+#: venv/Lib/site-packages/allauth/account/forms.py:310
+#, fuzzy
+#| msgid "optional"
+msgid "Email (optional)"
+msgstr "opcjonalnie"
+
+#: venv/Lib/site-packages/allauth/account/forms.py:369
+msgid "You must type the same email each time."
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:61
-msgctxt "abbrev. month"
-msgid "Sept."
+#: venv/Lib/site-packages/allauth/account/forms.py:415
+#: venv/Lib/site-packages/allauth/account/forms.py:561
+#, fuzzy
+#| msgid "Password"
+msgid "Password (again)"
+msgstr "Hasło"
+
+#: venv/Lib/site-packages/allauth/account/forms.py:544
+#: venv/Lib/site-packages/allauth/account/forms.py:629
+#, fuzzy
+#| msgid "New Password"
+msgid "New Password (again)"
+msgstr "Nowe Hasło"
+
+#: venv/Lib/site-packages/allauth/account/forms.py:715
+#: venv/Lib/site-packages/allauth/account/forms.py:717
+msgid "Code"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:62
-msgctxt "abbrev. month"
-msgid "Oct."
+#: venv/Lib/site-packages/allauth/account/models.py:20
+msgid "user"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:63
-msgctxt "abbrev. month"
-msgid "Nov."
+#: venv/Lib/site-packages/allauth/account/models.py:26
+#: venv/Lib/site-packages/allauth/account/models.py:34
+#: venv/Lib/site-packages/allauth/account/models.py:146
+#, fuzzy
+#| msgid "Email Address"
+msgid "email address"
+msgstr "Adres Email"
+
+#: venv/Lib/site-packages/allauth/account/models.py:28
+msgid "verified"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:64
-msgctxt "abbrev. month"
-msgid "Dec."
+#: venv/Lib/site-packages/allauth/account/models.py:29
+msgid "primary"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\utils\dates.py:67
-msgctxt "alt. month"
-msgid "This is not a valid IPv6 address."
+#: venv/Lib/site-packages/allauth/account/models.py:35
+#, fuzzy
+#| msgid "Email Address"
+msgid "email addresses"
+msgstr "Adres Email"
+
+#: venv/Lib/site-packages/allauth/account/models.py:149
+#, fuzzy
+#| msgid "Create"
+msgid "created"
+msgstr "Utwórz"
+
+#: venv/Lib/site-packages/allauth/account/models.py:150
+msgid "sent"
 msgstr ""
 
-#: .\venv\Lib\site-packages\django\utils\text.py:76
-#, python-format
-msgctxt "String to return when truncating text"
-msgid "%(truncated_text)s…"
+#: venv/Lib/site-packages/allauth/account/models.py:151
+msgid "key"
 msgstr ""
 
-#. Translators: This string is used as a separator between list elements
-#: .\venv\Lib\site-packages\django\utils\text.py:306
-#: .\venv\Lib\site-packages\django\utils\timesince.py:135
-msgid ", "
-msgstr ""
+#: venv/Lib/site-packages/allauth/account/models.py:156
+#, fuzzy
+#| msgid "Email Notifications"
+msgid "email confirmation"
+msgstr "Powiadomienia email"
 
-#: .\venv\Lib\site-packages\django\utils\timesince.py:8
-#, python-format
-msgid "%(num)d year"
-msgid_plural "%(num)d years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+#: venv/Lib/site-packages/allauth/account/models.py:157
+#, fuzzy
+#| msgid "Email Notifications"
+msgid "email confirmations"
+msgstr "Powiadomienia email"
 
-#: .\venv\Lib\site-packages\django\utils\timesince.py:9
-#, python-format
-msgid "%(num)d month"
-msgid_plural "%(num)d months"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+#~ msgid "Application - Login"
+#~ msgstr "Aplikacja - Logowanie"
 
-#: .\venv\Lib\site-packages\django\utils\timesince.py:10
-#, python-format
-msgid "%(num)d week"
-msgid_plural "%(num)d weeks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+#~ msgid "Welcome back! Please enter your details to sign in."
+#~ msgstr "Witaj ponownie! Podaj swoje dane, aby się zalogować."
 
-#: .\venv\Lib\site-packages\django\utils\timesince.py:11
-#, python-format
-msgid "%(num)d day"
-msgid_plural "%(num)d days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+#~ msgid "Log In"
+#~ msgstr "Zaloguj się"
 
-#: .\venv\Lib\site-packages\django\utils\timesince.py:12
-#, python-format
-msgid "%(num)d hour"
-msgid_plural "%(num)d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+# ===== Registration Translations =====
+#~ msgid "Application - Registration"
+#~ msgstr "Aplikacja - Rejestracja"
 
-#: .\venv\Lib\site-packages\django\utils\timesince.py:13
-#, python-format
-msgid "%(num)d minute"
-msgid_plural "%(num)d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+#~ msgid "Registration"
+#~ msgstr "Rejestracja"
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:29
-msgid "Forbidden"
-msgstr ""
+#~ msgid "Please fill out the form to create an account."
+#~ msgstr "Proszę wypełnić formularz, aby utworzyć konto."
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:30
-msgid "CSRF verification failed. Request aborted."
-msgstr ""
+#~ msgid "Register"
+#~ msgstr "Zarejestruj się"
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:34
+#~ msgid "Application - Welcome"
+#~ msgstr "Aplikacja - Witamy"
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:40
+#~ msgid "Enjoy your experience"
+#~ msgstr "Miłego korzystania"
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:45
+#~ msgid "Skip intro"
+#~ msgstr "Pomiń wprowadzenie"
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:54
+#~ msgid "Skip"
+#~ msgstr "Pomiń"
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:60
+#~ msgid "Welcome to the Application"
+#~ msgstr "Witamy w aplikacji"
 
-#: .\venv\Lib\site-packages\django\views\csrf.py:66
-msgid "More information is available with DEBUG=True."
-msgstr ""
+#~ msgid "Please select an option to continue."
+#~ msgstr "Proszę wybrać opcję, aby kontynuować."
 
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
-msgid "No year specified"
-msgstr ""
+#~ msgid "Exit"
+#~ msgstr "Wyjście"
 
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
-msgid "Date out of range"
-msgstr ""
+#, fuzzy
+#~| msgid "Reservation"
+#~ msgid "Duration"
+#~ msgstr "Rezerwacja"
 
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
-msgid "No month specified"
-msgstr ""
+#, fuzzy
+#~| msgid "Seat"
+#~ msgid "Sat"
+#~ msgstr "Miejsce"
 
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
-msgid "No day specified"
-msgstr ""
+#, fuzzy
+#~| msgid "Search"
+#~ msgid "March"
+#~ msgstr "Szukaj"
 
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
-msgid "No week specified"
-msgstr ""
+#, fuzzy
+#~| msgid "Remember me"
+#~ msgid "September"
+#~ msgstr "Zapamiętaj mnie"
 
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:353
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:384
-#, python-format
-msgid "No %(verbose_name_plural)s available"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:680
-#, python-format
-
-#: .\venv\Lib\site-packages\django\views\generic\dates.py:720
-#, python-format
-msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
-#, python-format
-msgid "No %(verbose_name)s found matching the query"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\generic\list.py:70
-msgid "Page is not “last”, nor can it be converted to an int."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\generic\list.py:77
-#, python-format
-msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\generic\list.py:173
-#, python-format
-msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\static.py:49
-msgid "Directory indexes are not allowed here."
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\static.py:51
-#, python-format
-msgid "“%(path)s” does not exist"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\static.py:68
-#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
-#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
-#, python-format
-msgid "Index of %(directory)s"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
-msgid "The install worked successfully! Congratulations!"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
-#, python-format
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
-#, python-format
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
-msgid "Django Documentation"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
-msgid "Topics, references, &amp; how-to’s"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
-msgid "Tutorial: A Polling App"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
-msgid "Get started with Django"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
-msgid "Django Community"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
-msgid "Connect, get help, or contribute"
-msgstr ""
+#, fuzzy
+#~| msgid "Remember me"
+#~ msgid "December"
+#~ msgstr "Zapamiętaj mnie"
 
 #~ msgid "Team Rooms"
 #~ msgstr "Sale zespołowe"
@@ -3533,11 +3367,6 @@ msgstr ""
 #~| msgid "View Team Rooms"
 #~ msgid "More Team Rooms"
 #~ msgstr "Zobacz sale zespołowe"
-
-#, fuzzy
-#~| msgid "No Reservations"
-#~ msgid "Team Room Reservation"
-#~ msgstr "Brak rezerwacji"
 
 #, fuzzy
 #~| msgid "Team Rooms"
@@ -3598,277 +3427,15 @@ msgstr ""
 #~ msgid "Date (YYYY-MM-DD)..."
 #~ msgstr "Data (RRRR-MM-DD)..."
 
-# Dashboard translations
 # Dashboard translations for Polish (add to django.po)
-msgid "Just 4 IT Coworking Dashboard"
-msgstr "Just 4 IT Coworking Dashboard"
-
-msgid "Floor Plan"
-msgstr "Plan Piętra"
-
-msgid "Advanced"
-msgstr "Zaawansowane"
-
-msgid "Mark all as read"
-msgstr "Oznacz wszystkie jako przeczytane"
-
-msgid "Loading notifications..."
-msgstr "Ładowanie powiadomień..."
-
-msgid "View all notifications"
-msgstr "Zobacz wszystkie powiadomienia"
-
-msgid "My Profile"
-msgstr "Mój Profil"
-
-msgid "Statistics"
-msgstr "Statystyki"
-
-msgid "Settings"
-msgstr "Ustawienia"
-
-msgid "Welcome to Just 4 IT Coworking"
-msgstr "Witaj w Just 4 IT Coworking"
-
-msgid "Manage your desk reservations with a modern interface"
-msgstr "Zarządzaj swoimi rezerwacjami stanowisk z nowoczesnym interfejsem"
-
-msgid "Today"
-msgstr "Dzisiaj"
-
-msgid "This Week"
-msgstr "Ten tydzień"
-
-msgid "This Month"
-msgstr "Ten miesiąc"
-
-msgid "Quick Reservation"
-msgstr "Szybka Rezerwacja"
-
-msgid "View Calendar"
-msgstr "Zobacz Kalendarz"
-
-msgid "Desks"
-msgstr "Stanowiska"
-
-msgid "Team"
-msgstr "Zespół"
-
-msgid "All Reservations"
-msgstr "Wszystkie Rezerwacje"
-
-msgid "This month"
-msgstr "W tym miesiącu"
-
-msgid "Upcoming"
-msgstr "Nadchodzące"
-
-msgid "Next 30 days"
-msgstr "Następne 30 dni"
-
-msgid "Favorite Desks"
-msgstr "Ulubione Stanowiska"
-
-msgid "Most used"
-msgstr "Najczęściej używane"
-
-msgid "Efficiency"
-msgstr "Wydajność"
-
-msgid "This week"
-msgstr "W tym tygodniu"
-
-msgid "Your upcoming reservations"
-msgstr "Twoje nadchodzące rezerwacje"
-
-msgid "Previous"
-msgstr "Poprzedni"
-
-msgid "Next"
-msgstr "Następny"
-
-msgid "My Summary"
-msgstr "Moje Podsumowanie"
-
-msgid "Activity overview"
-msgstr "Przegląd aktywności"
-
-msgid "Next Reservation"
-msgstr "Następna Rezerwacja"
-
-msgid "No upcoming reservations"
-msgstr "Brak nadchodzących rezerwacji"
-
-msgid "Last Reservation"
-msgstr "Ostatnia Rezerwacja"
-
-msgid "No past reservations"
-msgstr "Brak przeszłych rezerwacji"
-
-msgid "Scheduled reservations"
-msgstr "Zaplanowane rezerwacje"
-
-msgid "View All"
-msgstr "Zobacz Wszystkie"
-
-msgid "Application Features"
-msgstr "Funkcje Aplikacji"
-
-msgid "Select an option that interests you"
-msgstr "Wybierz opcję, która Cię interesuje"
-
-msgid "Interactive floor plan with desk markers"
-msgstr "Interaktywny plan piętra ze znacznikami stanowisk"
-
-msgid "Reserve a desk for a selected date"
-msgstr "Zarezerwuj stanowisko na wybraną datę"
-
-msgid "Manage Reservations"
-msgstr "Zarządzaj Rezerwacjami"
-
-msgid "View and cancel existing reservations"
-msgstr "Przeglądaj i anuluj istniejące rezerwacje"
-
-msgid "Group reservations, AI recommendations and more"
-msgstr "Rezerwacje grupowe, rekomendacje AI i więcej"
-
-msgid "Reserve multiple desks for your team"
-msgstr "Zarezerwuj wiele stanowisk dla swojego zespołu"
-
-msgid "Set up regular desk reservations"
-msgstr "Ustaw regularne rezerwacje stanowisk"
-
-msgid "Profile"
-msgstr "Profil"
-
-msgid "Choose Avatar"
-msgstr "Wybierz Awatar"
-
-msgid "Full Name"
-msgstr "Imię i Nazwisko"
-
-msgid "Your full name"
-msgstr "Twoje imię i nazwisko"
-
-msgid "Email cannot be changed"
-msgstr "Email nie może być zmieniony"
-
-msgid "Account Creation Date"
-msgstr "Data utworzenia konta"
-
-msgid "Last Login"
-msgstr "Ostatnie logowanie"
-
-msgid "Save Changes"
-msgstr "Zapisz Zmiany"
-
-msgid "Current Password"
-msgstr "Obecne Hasło"
-
-msgid "Enter current password"
-msgstr "Wprowadź obecne hasło"
-
-msgid "New Password"
-msgstr "Nowe Hasło"
-
-msgid "Enter new password"
-msgstr "Wprowadź nowe hasło"
-
-msgid "Minimum 8 characters"
-msgstr "Minimum 8 znaków"
-
-msgid "Confirm Password"
-msgstr "Potwierdź Hasło"
-
-msgid "Confirm new password"
-msgstr "Potwierdź nowe hasło"
-
-msgid "Password Requirements:"
-msgstr "Wymagania hasła:"
-
-msgid "Cannot be similar to other personal information"
-msgstr "Nie może być podobne do innych danych osobowych"
-
-msgid "Cannot be a commonly used password"
-msgstr "Nie może być powszechnie używanym hasłem"
-
-msgid "Change Password"
-msgstr "Zmień Hasło"
-
-msgid "Favorite Seats"
-msgstr "Ulubione Stanowiska"
-
-msgid "Account Information"
-msgstr "Informacje o koncie"
-
-msgid "Member since:"
-msgstr "Członek od:"
-
-msgid "Account status:"
-msgstr "Status konta:"
-
-msgid "Reserve a desk in seconds"
-msgstr "Zarezerwuj stanowisko w kilka sekund"
-
-msgid "Floor 4"
-msgstr "Piętro 4"
-
-msgid "Floor 5"
-msgstr "Piętro 5"
-
-msgid "Floor 6"
-msgstr "Piętro 6"
-
-msgid "Floor 7"
-msgstr "Piętro 7"
-
-msgid "Desk"
-msgstr "Stanowisko"
-
-msgid "e.g. D1, O1"
-msgstr "np. D1, O1"
-
-msgid "Time From"
-msgstr "Czas Od"
-
-msgid "Time To"
-msgstr "Czas Do"
-
-msgid "Create Reservation"
-msgstr "Utwórz Rezerwację"
-
-msgid "Manage your data and settings"
-msgstr "Zarządzaj swoimi danymi i ustawieniami"
-
-# Dashboard translations for Polish (add to django.po)
-msgid "Upcoming reservation"
-msgstr "Nadchodząca rezerwacja"
-
-msgid "Latest reservation"
-msgstr "Najnowsza rezerwacja"
-
-msgid "Error loading summary"
-msgstr "Błąd podczas ładowania podsumowania"
-
-# Dashboard translations for Polish (add to django.po)
-msgid "Missing required field: %(field)s"
-msgstr "Brakuje wymaganego pola: %(field)s"
-
-msgid "Reservation already exists for this seat and date"
-msgstr "Rezerwacja dla tego stanowiska i daty już istnieje"
-
-msgid "Invalid JSON data"
-msgstr "Nieprawidłowe dane JSON"
-
-msgid "Seat %(seat_id)s"
-msgstr "Stanowisko %(seat_id)s"
-
-msgid "Floor: %(floor)s"
-msgstr "Piętro: %(floor)s"
-
-msgid "From: %(time)s"
-msgstr "Od: %(time)s"
-
-msgid "To: %(time)s"
-msgstr "Do: %(time)s"
-
+#~ msgid "Upcoming reservation"
+#~ msgstr "Nadchodząca rezerwacja"
+
+#~ msgid "Latest reservation"
+#~ msgstr "Najnowsza rezerwacja"
+
+#~ msgid "Error loading summary"
+#~ msgstr "Błąd podczas ładowania podsumowania"
+#: templates/login/magic_link.html
+msgid "Back to login"
+msgstr "Powrót do logowania"

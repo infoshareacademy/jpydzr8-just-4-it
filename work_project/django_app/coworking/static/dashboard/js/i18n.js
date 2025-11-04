@@ -76,6 +76,18 @@ class I18n {
         'Try again': 'Spróbuj ponownie',
         'All notifications marked as read': 'Wszystkie powiadomienia zostały oznaczone jako przeczytane',
         'Are you sure you want to cancel this reservation?': 'Czy na pewno chcesz anulować tę rezerwację?',
+        
+        // Auth pages
+        'Please fill in all fields': 'Proszę wypełnić wszystkie pola',
+        'Please enter your email': 'Proszę podać adres email',
+        'Please enter verification code': 'Proszę podać kod weryfikacyjny',
+        'Password is too weak': 'Hasło jest zbyt słabe',
+        'Registration successful! Redirecting...': 'Rejestracja pomyślna! Przekierowywanie...',
+        'Verification code sent to your email': 'Kod weryfikacyjny został wysłany na Twój email',
+        'Magic link sent to your email!': 'Link logowania został wysłany na Twój email!',
+        'Weak': 'Słabe',
+        'Medium': 'Średnie',
+        'Strong': 'Silne',
       },
       'en': {
         // Profile
@@ -140,6 +152,18 @@ class I18n {
         'Try again': 'Try again',
         'All notifications marked as read': 'All notifications marked as read',
         'Are you sure you want to cancel this reservation?': 'Are you sure you want to cancel this reservation?',
+        
+        // Auth pages
+        'Please fill in all fields': 'Please fill in all fields',
+        'Please enter your email': 'Please enter your email',
+        'Please enter verification code': 'Please enter verification code',
+        'Password is too weak': 'Password is too weak',
+        'Registration successful! Redirecting...': 'Registration successful! Redirecting...',
+        'Verification code sent to your email': 'Verification code sent to your email',
+        'Magic link sent to your email!': 'Magic link sent to your email!',
+        'Weak': 'Weak',
+        'Medium': 'Medium',
+        'Strong': 'Strong',
       }
     };
   }

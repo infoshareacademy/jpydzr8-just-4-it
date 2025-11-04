@@ -1,190 +1,193 @@
 <!DOCTYPE html>
-
 {% load static %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Application - Registration" %}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'frontend/login/style.css' %}">
-    <link rel="stylesheet" href="{% static 'frontend/login/style_login_inputs_upgrade.css' %}">
-<link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength.css' %}">
-    <link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength_fix.css' %}">
-    <style>
-        .reg-errors {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #f5c6cb;
-            border-radius: 4px;
-        }
-        .reg-error-item {
-            margin: 5px 0;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🚀 {% trans "Just 4 IT Coworking - Registration" %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'dashboard/css/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/auth.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/welcome.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{% static 'dashboard/js/i18n.js' %}"></script>
+  <script>
+    // Initialize i18n
+    window.i18n.setLanguage('{{ LANGUAGE_CODE }}');
+  </script>
 </head>
-<body>
-    <div class="container">
-        <div class="card">
-            <div style="position: absolute; top: 20px; right: 20px;">
-                {% include 'common/language_switcher.html' %}
-            </div>
-            <h1>{% trans "Registration" %}</h1>
-            <p>{% trans "Please fill out the form to create an account." %}</p>
-            <div id="regErrors" class="reg-errors" style="display: none;"></div>
-            <form class="registration-form" id="registerForm">
-                <div class="form-group">
-                    <label for="firstName">{% trans "First Name" %}</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">{% trans "Last Name" %}</label>
-                    <input type="text" id="lastName" name="lastName" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">{% trans "Email" %}</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group password-group">
-                    <label for="password">{% trans "Password" %}</label>
-                    <input type="password" id="password" name="password" required>
-                    <button type="button" class="toggle-password" data-password-toggle="#password">👁</button>
-                    <div class="password-strength" id="password-strength"></div>
-                </div>
-                <div class="button-group">
-                    <button type="submit" class="btn btn-primary">{% trans "Register" %}</button>
-                    <button type="button" class="btn btn-tertiary" id="btnCancel" data-action="cancel">{% trans "Cancel" %}</button>
-                </div>
-
-                <div class="divider">
-                    <span>{% trans 'or' %}</span>
-                </div>
-
-                <div class="social-login">
-                    <a href="/accounts/google/login/" class="btn btn-google">
-                        <svg width="20" height="20" viewBox="0 0 24 24">
-                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                        </svg>
-                        {% trans 'Continue with Google' %}
-                    </a>
-                </div>
-            </form>
-        </div>
+<body class="registration-page">
+  <!-- Animated Background -->
+  <div class="welcome-animated-bg">
+    <div class="welcome-bg-shapes">
+      <div class="welcome-shape welcome-shape-1"></div>
+      <div class="welcome-shape welcome-shape-2"></div>
+      <div class="welcome-shape welcome-shape-3"></div>
+      <div class="welcome-shape welcome-shape-4"></div>
     </div>
-<script>
-(function(){
-  var pwd = document.getElementById('password');
-  var btn = document.querySelector('.toggle-password,[data-password-toggle]');
-  if(pwd && btn){
-    btn.addEventListener('click', function(){ pwd.type = (pwd.type === 'password' ? 'text' : 'password'); });
-  }
-})();
+  </div>
 
-(function(){
-  var cancel = document.querySelector('#btnCancel,[data-action="cancel"],.btn-tertiary');
-  if(cancel){
-    cancel.addEventListener('click', function(e){
-      e.preventDefault();
-      var href = cancel.getAttribute('data-href');
-      if(href){ location.href = href; }
-      else if(document.referrer){ history.back(); }
-      else { location.href = '/welcome/index.html'; }
-    });
-  }
-})();
+  <!-- Header -->
+  <header class="welcome-header">
+    <div class="welcome-header-content">
+      <a href="/welcome" class="welcome-brand" style="text-decoration: none; color: inherit;">
+        <div class="welcome-brand-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="welcome-brand-text">
+          <span class="welcome-brand-main">Just 4 IT</span>
+          <span class="welcome-brand-sub">Coworking</span>
+        </div>
+      </a>
+      
+      <div class="welcome-header-actions">
+        <div class="welcome-lang-switcher">
+          {% include 'common/language_switcher.html' %}
+        </div>
+        <button id="themeToggle" class="welcome-theme-toggle" aria-label="{% trans 'Toggle dark mode' %}">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
 
-(function(){
-  var input = document.getElementById('password');
-  if(!input) return;
-  var box = document.getElementById('password-strength');
-  if(!box) return;
+  <!-- Main Content -->
+  <main class="registration-main">
+    <div class="registration-container">
+      <div class="registration-card" data-aos="fade-up" data-aos-duration="800">
+        <div class="registration-header">
+          <h1 class="registration-title">
+            {% trans "Create Account" %}
+          </h1>
+          <p class="registration-subtitle">
+            {% trans "Join us and start managing your workspace today" %}
+          </p>
+        </div>
 
-  function score(pw){
-    if(!pw) return 0;
-    var s=0;
-    if(pw.length>=8) s++;
-    if(pw.length>=12) s++;
-    if(/[a-z]/.test(pw)) s++;
-    if(/[A-Z]/.test(pw)) s++;
-    if(/[0-9]/.test(pw)) s++;
-    if(/[^A-Za-z0-9]/.test(pw)) s++;
-    if(/password|qwerty|123456|abc123|admin|letmein|iloveyou/i.test(pw)) s=Math.max(0,s-3);
-    return Math.min(s,6);
-  }
-  function label(sc){ return sc<=2 ? 'Weak' : (sc<=4 ? 'Medium' : 'Strong'); }
+      <form class="registration-form" id="registerForm">
+        <div class="registration-form-row">
+          <div class="registration-form-group">
+            <label for="firstName" class="registration-label">
+              <i class="fas fa-user"></i>
+              {% trans "First Name" %}
+            </label>
+            <input 
+              type="text" 
+              id="firstName" 
+              name="firstName" 
+              class="registration-input" 
+              placeholder="{% trans 'Enter your first name' %}"
+              required
+              autocomplete="given-name"
+            >
+          </div>
 
-  input.addEventListener('input', function(){
-    var sc = score(input.value);
-    box.textContent = 'Strength: ' + label(sc);
-  });
-})();
-</script>
+          <div class="registration-form-group">
+            <label for="lastName" class="registration-label">
+              <i class="fas fa-user"></i>
+              {% trans "Last Name" %}
+            </label>
+            <input 
+              type="text" 
+              id="lastName" 
+              name="lastName" 
+              class="registration-input" 
+              placeholder="{% trans 'Enter your last name' %}"
+              required
+              autocomplete="family-name"
+            >
+          </div>
+        </div>
 
-    {% if LANGUAGE_CODE == 'pl' %}
-    <script src="{% static 'frontend/registration/registration_form.js' %}"></script>
-    {% else %}
-    <script src="{% static 'frontend/registration/form.js' %}"></script>
-    {% endif %}
-    <link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength.css' %}">
-<script src="{% static 'frontend/common/auth_ui_patch.js' %}"></script>
-<link rel="stylesheet" href="{% static 'frontend/common/auth_password_strength_fix.css' %}">
-<script src="{% static 'frontend/common/auth_ui_patch_position_fix.js' %}"></script>
+        <div class="registration-form-group">
+          <label for="email" class="registration-label">
+            <i class="fas fa-envelope"></i>
+            {% trans "Email" %}
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="registration-input" 
+            placeholder="{% trans 'Enter your email' %}"
+            required
+            autocomplete="email"
+          >
+        </div>
 
-<style>
-/* Google Login Button Styles */
-.btn-google {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: #fff;
-  color: #333;
-  border: 1px solid #dadce0;
-  border-radius: 4px;
-  padding: 12px 16px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s;
-  margin-top: 10px;
-}
+        <div class="registration-form-group registration-password-group">
+          <label for="password" class="registration-label">
+            <i class="fas fa-lock"></i>
+            {% trans "Password" %}
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="registration-input" 
+            placeholder="{% trans 'Create a strong password' %}"
+            required
+            autocomplete="new-password"
+          >
+          <button type="button" class="registration-password-toggle" data-password-toggle="#password" aria-label="{% trans 'Show password' %}">
+            <i class="fas fa-eye"></i>
+          </button>
+          <div class="registration-password-strength" id="password-strength"></div>
+        </div>
 
-.btn-google:hover {
-  background: #f8f9fa;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  color: #333;
-  text-decoration: none;
-}
+        <button type="submit" class="registration-btn registration-btn-primary">
+          <i class="fas fa-user-plus"></i>
+          <span>{% trans "Create Account" %}</span>
+        </button>
 
-.divider {
-  text-align: center;
-  margin: 20px 0;
-  position: relative;
-}
+        <div class="registration-divider">
+          <span>{% trans "or" %}</span>
+        </div>
 
-.divider span {
-  background: #fff;
-  padding: 0 16px;
-  color: #666;
-  font-size: 14px;
-}
+        <div class="registration-social-login">
+          <a href="/accounts/google/login/" class="registration-btn registration-btn-google">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            {% trans "Continue with Google" %}
+          </a>
+        </div>
+      </form>
 
-.divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #e0e0e0;
-  z-index: -1;
-}
-</style>
+      <div class="registration-footer">
+        <p>
+          {% trans "Already have an account?" %} 
+          <a href="/login">{% trans "Sign in" %}</a>
+        </p>
+        <p style="margin-top: 0.5rem;">
+          <a href="/welcome">
+            <i class="fas fa-arrow-left"></i>
+            {% trans "Back to welcome" %}
+          </a>
+        </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'dashboard/js/theme.js' %}"></script>
+  <script src="{% static 'dashboard/js/auth.js' %}"></script>
+  <script>
+    // Initialize AOS
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+      });
+    }
+  </script>
 </body>
 </html>

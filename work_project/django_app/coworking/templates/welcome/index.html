@@ -1,163 +1,332 @@
 <!DOCTYPE html>
-
 {% load static %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% trans "Application - Welcome" %}</title>
-  <link rel="stylesheet" href="{% static 'frontend/login/style_white2.css' %}" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <title>🚀 {% trans "Just 4 IT Coworking - Welcome" %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'dashboard/css/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/auth.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/welcome.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
-<body>
+<body class="welcome-page">
+  <!-- Mega Wow Splash Animation -->
+  <div class="welcome-splash" id="welcomeSplash">
+    <div class="splash-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <div class="splash-gradient"></div>
+    <div class="splash-gradient-2"></div>
+    
+    <div class="splash-content">
+      <div class="splash-logo">
+        <div class="splash-logo-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="splash-logo-text">
+          <span class="splash-text-main">Just 4 IT</span>
+          <span class="splash-text-sub">Coworking</span>
+        </div>
+      </div>
+      
+      <div class="splash-loading">
+        <div class="splash-loading-bar">
+          <div class="splash-loading-progress"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="splash-rings">
+      <div class="splash-ring ring-1"></div>
+      <div class="splash-ring ring-2"></div>
+      <div class="splash-ring ring-3"></div>
+    </div>
+  </div>
 
-  <div class="intro" aria-hidden="true">
-    <div class="intro-inner">
-      <h1 class="welcome-title" aria-label="{% trans 'Welcome' %}">
-        <span id="welcomeText" class="welcome-word" data-text="{% trans 'Welcome' %}">{% trans 'Welcome' %}</span>
+  <!-- Animated Background -->
+  <div class="welcome-animated-bg">
+    <div class="welcome-bg-shapes">
+      <div class="welcome-shape welcome-shape-1"></div>
+      <div class="welcome-shape welcome-shape-2"></div>
+      <div class="welcome-shape welcome-shape-3"></div>
+      <div class="welcome-shape welcome-shape-4"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="welcome-header">
+    <div class="welcome-header-content">
+      <div class="welcome-brand">
+        <div class="welcome-brand-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="welcome-brand-text">
+          <span class="welcome-brand-main">Just 4 IT</span>
+          <span class="welcome-brand-sub">Coworking</span>
+        </div>
+      </div>
+      
+      <div class="welcome-header-actions">
+        <div class="welcome-lang-switcher">
+          {% include 'common/language_switcher.html' %}
+        </div>
+        <button id="themeToggle" class="welcome-theme-toggle" aria-label="{% trans 'Toggle dark mode' %}">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="welcome-hero-section">
+    <div class="welcome-hero-content">
+      <h1 class="welcome-hero-title" data-aos="fade-up" data-aos-duration="1000">
+        {% trans "Welcome to" %}
+        <span class="welcome-hero-highlight">{% trans "Just 4 IT Coworking" %}</span>
       </h1>
-      <p class="welcome-sub">{% trans 'Enjoy your experience' %} 👋</p>
-    </div>
-    <button class="skip-intro" type="button" aria-label="{% trans 'Skip intro' %}">{% trans 'Skip' %}</button>
-  </div>
-
-  <div class="container app hidden">
-    <div class="card">
-      <div style="position: absolute; top: 20px; right: 20px;">
-        {% include 'common/language_switcher.html' %}
+      <p class="welcome-hero-subtitle" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+        {% trans "Your modern workspace management platform. Book desks, manage reservations, and collaborate seamlessly." %}
+      </p>
+      
+      <div class="welcome-hero-actions" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+        <a href="/login" class="welcome-btn welcome-btn-primary">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>{% trans "Sign In" %}</span>
+        </a>
+        <a href="/register" class="welcome-btn welcome-btn-secondary">
+          <i class="fas fa-user-plus"></i>
+          <span>{% trans "Get Started" %}</span>
+        </a>
       </div>
-      <h1>{% trans 'Welcome to the Application' %}</h1>
-      <p>{% trans 'Please select an option to continue.' %}</p>
-      <div class="button-group">
-        <button class="btn btn-primary">{% trans 'Sign Up' %}</button>
-        <button class="btn btn-primary">{% trans 'Log In' %}</button>
-        <button class="btn btn-secondary">{% trans 'Exit' %}</button>
+
+      <div class="welcome-scroll-indicator" data-aos="fade-up" data-aos-delay="600">
+        <i class="fas fa-chevron-down"></i>
+        <span>{% trans "Scroll to explore" %}</span>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script src="{% static 'frontend/login/script_explode.js' %}"></script>
+  <!-- Features Section -->
+  <section class="welcome-features-section">
+    <div class="welcome-container">
+      <h2 class="welcome-section-title" data-aos="fade-up">
+        {% trans "Why Choose Us?" %}
+      </h2>
+      <p class="welcome-section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        {% trans "Everything you need to manage your workspace efficiently" %}
+      </p>
+
+      <div class="welcome-features-grid">
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Easy Booking" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Reserve your desk in seconds with our intuitive booking system" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Floor Plans" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Interactive floor plans to find the perfect spot for your work" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Smart Notifications" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Stay updated with real-time notifications about your reservations" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Analytics" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Track your workspace usage and optimize your schedule" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="600">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Team Collaboration" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Book desks for your team and coordinate workspace usage" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="700">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Mobile Friendly" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Access your workspace from any device, anywhere, anytime" %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="welcome-cta-section">
+    <div class="welcome-container">
+      <div class="welcome-cta-content" data-aos="zoom-in">
+        <h2 class="welcome-cta-title">{% trans "Ready to Get Started?" %}</h2>
+        <p class="welcome-cta-subtitle">
+          {% trans "Join us today and experience the future of workspace management" %}
+        </p>
+        <div class="welcome-cta-actions">
+          <a href="/register" class="welcome-btn welcome-btn-primary welcome-btn-large">
+            <i class="fas fa-rocket"></i>
+            <span>{% trans "Create Account" %}</span>
+          </a>
+          <a href="/login" class="welcome-btn welcome-btn-secondary welcome-btn-large">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>{% trans "Sign In" %}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="welcome-footer">
+    <div class="welcome-container">
+      <div class="welcome-footer-content">
+        <div class="welcome-footer-brand">
+          <div class="welcome-brand">
+            <div class="welcome-brand-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="welcome-brand-text">
+              <span class="welcome-brand-main">Just 4 IT</span>
+              <span class="welcome-brand-sub">Coworking</span>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-footer-links">
+          <a href="/login">{% trans "Sign In" %}</a>
+          <a href="/register">{% trans "Sign Up" %}</a>
+          <a href="/dashboard">{% trans "Dashboard" %}</a>
+        </div>
+      </div>
+      <div class="welcome-footer-copyright">
+        <p>&copy; {% now "Y" %} Just 4 IT Coworking. {% trans "All rights reserved." %}</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'dashboard/js/theme.js' %}"></script>
+  <script src="{% static 'dashboard/js/auth.js' %}"></script>
   <script>
-(function(){
-  const MAP = {
-    login: '/login/index.html',
-    register: '/register'
-  };
+    // Mega Wow Splash Animation
+    (function() {
+      const splash = document.getElementById('welcomeSplash');
+      const progressBar = document.querySelector('.splash-loading-progress');
+      
+      if (splash && progressBar) {
+        let progress = 0;
+        const duration = 6000; // 6 seconds
+        const interval = 16; // ~60fps
+        const increment = 100 / (duration / interval);
+        
+        const updateProgress = () => {
+          progress += increment;
+          if (progress >= 100) {
+            progress = 100;
+            progressBar.style.width = '100%';
+            
+            // Fade out animation
+            setTimeout(() => {
+              splash.style.opacity = '0';
+              splash.style.transform = 'scale(1.1)';
+              setTimeout(() => {
+                splash.style.display = 'none';
+              }, 500);
+            }, 300);
+          } else {
+            progressBar.style.width = progress + '%';
+            requestAnimationFrame(updateProgress);
+          }
+        };
+        
+        // Start animation after a brief delay
+        setTimeout(() => {
+          updateProgress();
+        }, 100);
+        
+        // Hide splash if page loads faster
+        window.addEventListener('load', () => {
+          if (progress < 100) {
+            progress = 100;
+            progressBar.style.width = '100%';
+            setTimeout(() => {
+              splash.style.opacity = '0';
+              splash.style.transform = 'scale(1.1)';
+              setTimeout(() => {
+                splash.style.display = 'none';
+              }, 500);
+            }, 300);
+          }
+        });
+      }
+    })();
 
-  document.querySelectorAll('[data-route]').forEach(el => {
-    const key = el.getAttribute('data-route');
-    const target = MAP[key] || el.getAttribute('href');
-    if (!target) return;
-    el.addEventListener('click', function(ev){
-      ev.preventDefault();
-      window.location.href = target;
+    // Smooth scroll for scroll indicator
+    document.querySelector('.welcome-scroll-indicator')?.addEventListener('click', () => {
+      document.querySelector('.welcome-features-section')?.scrollIntoView({ behavior: 'smooth' });
     });
-  });
-})();
-</script>
 
-<script>
-
-(function(){
-  const map = { login:'/login/index.html', register:'/register' };
-
-  document.querySelectorAll('a,button,[role="button"],[data-route]').forEach(el=>{
-    el.style.pointerEvents = 'auto';
-    el.style.cursor = 'pointer';
-  });
-
-  document.querySelectorAll('.overlay, .backdrop, #intro, [data-overlay], [aria-hidden="true"]').forEach(el=>{
-    el.style.pointerEvents = 'none';
-  });
-
-  function pickTarget(el){
-    const key = (el.getAttribute && el.getAttribute('data-route')) || '';
-    const txt = (el.textContent || '').toLowerCase().trim();
-    if (key === 'login' || /(^|\s)(sign in|log in|zaloguj)\b/.test(txt)) return map.login;
-    if (key === 'register' || /(^|\s)(sign up|register|create|zarejestruj|zarejestruj się|rejestracja)\b/.test(txt)) return map.register;
-    return null;
-  }
-
-  document.addEventListener('click', function(ev){
-    const el = ev.target.closest('a,button,[role="button"],[data-route]');
-    if(!el) return;
-    const to = pickTarget(el);
-    if(!to) return;
-    ev.preventDefault();
-    ev.stopImmediatePropagation(); // zatrzymaj wszystkie inne handlery
-    window.location.assign(to);
-  }, true); // capture = BEFORE other listeners
-})();
-</script>
-
-<div id="exitOverlay" class="overlay-hidden">
-  <button id="exitClose" class="btn btn-primary">Close ✖</button>
-  <iframe src="thank_you_spaced_clean.html"></iframe>
-</div>
-
-<style>
-
-#exitOverlay {
-  position: fixed;
-  inset: 0;
-  background: #fff;
-  z-index: 9999;
-  display: none;
-}
-#exitOverlay.show { display: block; }
-#exitOverlay iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-#exitClose {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px 18px;
-  font-size: 15px;
-  font-weight: 500;
-  border-radius: 25px;
-  cursor: pointer;
-  z-index: 10000;
-  background: linear-gradient(135deg, #ff6b6b, #ffc94a, #1a73e8, #2ecc71);
-  background-size: 300% 100%;
-  color: #fff;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
-  transition: background-position .5s ease, transform .15s ease;
-}
-#exitClose:hover {
-  background-position: 100% 0;
-  transform: scale(1.05);
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const exitBtn = Array.from(document.querySelectorAll("button"))
-  .find(btn => btn.textContent.trim().toLowerCase() === "exit");
-
-  const overlay = document.getElementById("exitOverlay");
-  const closeBtn = document.getElementById("exitClose");
-
-  if (exitBtn) {
-    exitBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      overlay.classList.add("show");
-    });
-  }
-
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      overlay.classList.remove("show");
-    });
-  }
-});
-</script>
-
+    // Initialize AOS after splash
+    setTimeout(() => {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 1000,
+          easing: 'ease-in-out',
+          once: true,
+          offset: 100
+        });
+      }
+    }, 6500);
+  </script>
 </body>
 </html>
