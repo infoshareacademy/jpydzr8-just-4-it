@@ -1,4 +1,4 @@
-"""
+""""
 Custom authentication backends
 """
 from django.contrib.auth.backends import ModelBackend
@@ -8,32 +8,26 @@ User = get_user_model()
 
 class EmailBackend(ModelBackend):
     """
-    Custom authentication backend that allows login with email
+    Allow logging in with email + password.
     """
-    
+
     def authenticate(self, request, username=None, password=None, **kwargs):
-        # Try to get email from kwargs or username parameter
-        email = kwargs.get('email', username)
-        
-        if email is None or password is None:
+        # email może przyjść jako username (standard) lub w kwargs
+        email = kwargs.get('email') or username
+        if not email or not password:
             return None
-        
+
+        # normalizacja i case-insensitive lookup
+        email = email.strip()
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(email__iexact=email)
         except User.DoesNotExist:
             return None
-        
+
         if user.check_password(password) and self.user_can_authenticate(user):
             return user
-        
         return None
-    
+
     def user_can_authenticate(self, user):
-        """
-        Reject users with is_active=False. Custom user models that don't have
-        is_active field are allowed.
-        """
-        return getattr(user, 'is_active', True)
-
-
-
+        # odrzuć nieaktywne konta, jeżeli pole istnieje
+        return getattr(user, "is_active", True)

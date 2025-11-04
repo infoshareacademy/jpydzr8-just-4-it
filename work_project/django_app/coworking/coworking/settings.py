@@ -1,41 +1,70 @@
 from pathlib import Path
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'change_me_in_env')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = [h for h in os.getenv('ALLOWED_HOSTS', '*').split(',') if h]
 INSTALLED_APPS = [
-    'django.contrib.admin', 
-    'django.contrib.auth', 
-    'django.contrib.contenttypes', 
-    'django.contrib.sessions', 
-    'django.contrib.messages', 
-    'django.contrib.staticfiles', 
-    'django.contrib.sites',
-    'rest_framework', 
-    'corsheaders', 
-    'api',
-    'reservations',
+    # --- Django core (kolejność ma znaczenie) ---
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',   # ⬅️ TEGO brakowało / jest kluczowe
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',          # ⬅️ wymagane przez allauth
+
+    # --- 3rd-party (jeśli używasz) ---
+    'rest_framework',
+    'corsheaders',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    # --- Twoje aplikacje ---
+    'api',             # masz tam custom User
+    'reservations',    # jeśli istnieje
 ]
+SITE_ID = 1
+
+
+
+SITE_ID = 1
+
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware', 
+    'corsheaders.middleware.CorsMiddleware',   # tylko raz i na górze
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware', 
-    'corsheaders.middleware.CorsMiddleware', 
-    'django.middleware.common.CommonMiddleware', 
-    'django.middleware.csrf.CsrfViewMiddleware', 
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware', 
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 ROOT_URLCONF = 'coworking.urls'
-TEMPLATES = [{'BACKEND': 'django.template.backends.django.DjangoTemplates', 'DIRS': [BASE_DIR / 'templates'], 'APP_DIRS': True, 'OPTIONS': {'context_processors': ['django.template.context_processors.debug', 'django.template.context_processors.request', 'django.contrib.auth.context_processors.auth', 'django.contrib.messages.context_processors.messages', 'django.template.context_processors.i18n']}}]
+TEMPLATES = [{
+    "BACKEND": "django.template.backends.django.DjangoTemplates",
+    "DIRS": [BASE_DIR / "templates"],
+    "APP_DIRS": True,
+    "OPTIONS": {
+        "context_processors": [
+            "django.template.context_processors.debug",
+            "django.template.context_processors.request",  # ⬅️ ważne
+            "django.contrib.auth.context_processors.auth",
+            "django.contrib.messages.context_processors.messages",
+        ],
+    },
+}]
+
 WSGI_APPLICATION = 'coworking.wsgi.application'
 DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': BASE_DIR / 'db.sqlite3'}}
 AUTH_PASSWORD_VALIDATORS = [{'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'}, {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'}, {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'}, {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'}]
@@ -79,10 +108,11 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
@@ -122,3 +152,10 @@ MAGIC_LINK_LENGTH = 32  # characters
 # Redirects
 LOGIN_REDIRECT_URL = '/dashboard'
 ACCOUNT_LOGIN_REDIRECT_URL = '/dashboard'
+
+# CORS Configuration (merged from remote)
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+]
+CORS_ALLOW_ALL_ORIGINS = False
