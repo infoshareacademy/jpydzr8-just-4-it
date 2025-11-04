@@ -73,6 +73,57 @@ class PasswordResetService:
         return reset_token
     
     @staticmethod
+    def get_smtp_config_for_email(email):
+        """Get SMTP configuration based on email domain"""
+        if not email or '@' not in email:
+            return None
+        
+        domain = email.lower().split('@')[1]
+        
+        # Map common email domains to their SMTP servers
+        smtp_configs = {
+            'gmail.com': {
+                'host': 'smtp.gmail.com',
+                'port': 587,
+                'use_tls': True,
+            },
+            'outlook.com': {
+                'host': 'smtp-mail.outlook.com',
+                'port': 587,
+                'use_tls': True,
+            },
+            'hotmail.com': {
+                'host': 'smtp-mail.outlook.com',
+                'port': 587,
+                'use_tls': True,
+            },
+            'live.com': {
+                'host': 'smtp-mail.outlook.com',
+                'port': 587,
+                'use_tls': True,
+            },
+            'yahoo.com': {
+                'host': 'smtp.mail.yahoo.com',
+                'port': 587,
+                'use_tls': True,
+            },
+            'yandex.com': {
+                'host': 'smtp.yandex.com',
+                'port': 465,
+                'use_tls': False,
+                'use_ssl': True,
+            },
+            'mail.ru': {
+                'host': 'smtp.mail.ru',
+                'port': 465,
+                'use_tls': False,
+                'use_ssl': True,
+            },
+        }
+        
+        return smtp_configs.get(domain)
+    
+    @staticmethod
     def send_reset_email(user, reset_token, request=None):
         """Send password reset email to user"""
         # Build the reset URL
@@ -112,16 +163,61 @@ class PasswordResetService:
             'minutes': validity_minutes
         }
         
-        # Send email
-        send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-            fail_silently=False,
-        )
+        # Try to use domain-specific SMTP if available, otherwise use default
+        smtp_config = PasswordResetService.get_smtp_config_for_email(user.email)
         
-        return True
+        if smtp_config:
+            # Use custom SMTP connection for this email domain
+            from django.core.mail import get_connection
+            
+            # Get credentials from settings
+            email_host_user = settings.EMAIL_HOST_USER
+            email_host_password = settings.EMAIL_HOST_PASSWORD
+            
+            if email_host_user and email_host_password:
+                try:
+                    # Use custom backend that handles SSL properly
+                    connection = get_connection(
+                        backend='api.email_backend.DevSMTPEmailBackend',
+                        host=smtp_config['host'],
+                        port=smtp_config['port'],
+                        username=email_host_user,
+                        password=email_host_password,
+                        use_tls=smtp_config.get('use_tls', True),
+                        use_ssl=smtp_config.get('use_ssl', False),
+                    )
+                    
+                    send_mail(
+                        subject=subject,
+                        message=message,
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[user.email],
+                        connection=connection,
+                        fail_silently=False,
+                    )
+                    return True
+                except Exception as e:
+                    # If domain-specific SMTP fails, fall back to default
+                    import traceback
+                    print(f"⚠️ Warning: Failed to use domain-specific SMTP for {user.email}: {e}")
+                    print(f"Traceback: {traceback.format_exc()}")
+        
+        # Fallback to default email backend
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],  # Każdy użytkownik otrzymuje email na swój adres
+                fail_silently=False,
+            )
+            return True
+        except Exception as e:
+            import traceback
+            error_msg = f"Failed to send email: {str(e)}"
+            print(f"❌ {error_msg}")
+            print(f"Traceback: {traceback.format_exc()}")
+            raise Exception(error_msg)
     
     @staticmethod
     def validate_token(token):

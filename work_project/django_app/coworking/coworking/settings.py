@@ -136,14 +136,47 @@ SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-# Email Configuration for 2FA
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+# Email Configuration for 2FA and Password Reset
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@yourdomain.com')
+
+# SSL Configuration for email (for development - disable SSL verification)
+# WARNING: Only use this in development, not in production!
+import ssl
+EMAIL_SSL_CERTFILE = None
+EMAIL_SSL_KEYFILE = None
+# For development: disable SSL verification (not recommended for production)
+EMAIL_USE_SSL = False  # Use TLS instead
+
+# Check if credentials are real (not example values)
+is_example_email = (
+    'your_email' in EMAIL_HOST_USER.lower() or 
+    'example' in EMAIL_HOST_USER.lower() or
+    '@' not in EMAIL_HOST_USER
+)
+is_example_password = (
+    'your_app_password' in EMAIL_HOST_PASSWORD.lower() or
+    'example' in EMAIL_HOST_PASSWORD.lower() or
+    len(EMAIL_HOST_PASSWORD) < 8
+)
+
+# Use SMTP backend if credentials are provided and real, otherwise use console backend for development
+if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD and not is_example_email and not is_example_password:
+    # Use custom backend that disables SSL verification for development
+    EMAIL_BACKEND = 'api.email_backend.DevSMTPEmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    if not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD:
+        print("⚠️  WARNING: Email credentials not configured. Emails will be printed to console.")
+        print("   To enable email sending, set EMAIL_HOST_USER and EMAIL_HOST_PASSWORD in your .env file")
+    elif is_example_email or is_example_password:
+        print("⚠️  WARNING: Email credentials contain example values. Emails will be printed to console.")
+        print("   Please update EMAIL_HOST_USER and EMAIL_HOST_PASSWORD in your .env file with real values")
+        print("   For Gmail, create an App Password at: https://myaccount.google.com/apppasswords")
 
 # Magic Link Configuration
 MAGIC_LINK_VALIDITY = 900  # 15 minutes

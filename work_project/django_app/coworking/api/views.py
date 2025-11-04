@@ -468,9 +468,14 @@ class RequestPasswordResetView(APIView):
                 'email_sent': True
             })
         except Exception as e:
+            import traceback
+            error_details = str(e)
+            traceback_str = traceback.format_exc()
+            print(f"❌ Email sending error: {error_details}")
+            print(f"Traceback: {traceback_str}")
             return Response({
                 'detail': _('Failed to send email'),
-                'error': str(e)
+                'error': error_details
             }, status=500)
 
 
