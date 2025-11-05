@@ -1,0 +1,65 @@
+{% extends "reservations/base.html" %}
+{% block content %}
+{% csrf_token %}
+<div class="max-w-lg mx-auto bg-white rounded-2xl p-6 card mt-24 text-center">
+  <div class="text-3xl">✅</div>
+  <h2 class="text-xl font-semibold mt-2">Rezerwacja potwierdzona</h2>
+  <p class="text-slate-600 mt-1">{{ reservation.desk.label }} — {{ reservation.date }} {{ reservation.time_from }}–{{ reservation.time_to }}</p>
+  <div class="flex items-center justify-center gap-3 mt-4">
+    <a href="{% url 'reservation_ics' reservation.id %}" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white">Pobierz .ICS</a>
+    <a target="_blank" rel="noopener"
+       href="https://calendar.google.com/calendar/render?action=TEMPLATE&text={{ 'Rezerwacja: '|add:reservation.desk.label|urlencode }}&dates={{ reservation.date|date:'Ymd' }}T{{ reservation.time_from|time:'His' }}/{{ reservation.date|date:'Ymd' }}T{{ reservation.time_to|time:'His' }}&location={{ 'Piętro '|add:reservation.desk.floor.number|stringformat:'s'|urlencode }}&details={{ 'Stanowisko: '|add:reservation.desk.label|urlencode }}"
+       class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white">Dodaj do Google Calendar</a>
+  </div>
+  <div class="flex items-center justify-center gap-3 mt-3">
+    <a href="{% url 'my_reservations' %}?email={{ reservation.email }}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+      </svg>
+      Moje rezerwacje
+    </a>
+    <button onclick="cancelReservation({{ reservation.id }})" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+      Anuluj rezerwację
+    </button>
+  </div>
+  <a href="{% url 'floor' reservation.desk.floor.number %}" class="mt-6 inline-block px-4 py-2 rounded-lg bg-slate-100">Wróć do planu</a>
+</div>
+
+<script>
+async function cancelReservation(reservationId) {
+  if (!confirm('Czy na pewno chcesz anulować tę rezerwację?')) {
+    return;
+  }
+  
+  try {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+    if (!csrfToken) {
+      alert('❌ Błąd: Brak tokenu CSRF');
+      return;
+    }
+    
+    const response = await fetch(`/reservation/${reservationId}/cancel/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert('✅ ' + data.message);
+      window.location.href = '{% url "my_reservations" %}?email={{ reservation.email }}';
+    } else {
+      alert('❌ Wystąpił błąd: ' + (data.message || 'Nie udało się anulować rezerwacji'));
+    }
+  } catch (error) {
+    alert('❌ Wystąpił błąd: ' + error.message);
+  }
+}
+</script>
+{% endblock %}

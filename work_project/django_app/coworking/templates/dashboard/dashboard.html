@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🚀 {% trans "Just 4 IT Coworking Dashboard" %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'dashboard/css/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/modern-dashboard.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+</head>
+<body class="page-dashboard">
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </div>
+
+  <header class="topbar modern-topbar">
+    <div class="brand modern-brand">
+      <div class="brand-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <div class="brand-text">
+        <span class="brand-main">Just 4 IT</span>
+        <span class="brand-sub">Coworking</span>
+      </div>
+    </div>
+    
+    <nav class="modern-nav">
+      <a class="nav-item active" href="/dashboard/">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>{% trans "Dashboard" %}</span>
+      </a>
+      <a class="nav-item" href="{% url 'floor' 4 %}">
+        <i class="fas fa-building"></i>
+        <span>{% trans "Floor Plan" %}</span>
+      </a>
+      <a class="nav-item" href="{% url 'my_reservations' %}">
+        <i class="fas fa-calendar-check"></i>
+        <span>{% trans "My Reservations" %}</span>
+      </a>
+      <a class="nav-item" href="{% url 'advanced_features' %}">
+        <i class="fas fa-magic"></i>
+        <span>{% trans "Advanced" %}</span>
+      </a>
+    </nav>
+    
+    <div class="topbar-actions">
+      {% include 'common/language_switcher.html' %}
+      <div class="notification-bell" id="notificationBell">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge" id="notificationBadge">0</span>
+        <div class="notification-dropdown" id="notificationDropdown">
+          <div class="notification-header">
+            <h4>{% trans "Notifications" %}</h4>
+            <button class="mark-all-read" id="markAllRead">{% trans "Mark all as read" %}</button>
+          </div>
+          <div class="notification-list" id="notificationList">
+            <div class="notification-loading">
+              <i class="fas fa-spinner fa-spin"></i>
+              <span>{% trans "Loading notifications..." %}</span>
+            </div>
+          </div>
+          <div class="notification-footer">
+            <a href="#" class="view-all-notifications">{% trans "View all notifications" %}</a>
+          </div>
+        </div>
+      </div>
+      <button id="themeToggle" class="btn-icon modern" aria-label="{% trans 'Toggle dark mode' %}">
+        <i class="fas fa-moon"></i>
+      </button>
+      <div class="user-menu" id="userMenu">
+        <div class="user-avatar" id="userAvatarSmall" data-avatar="{{ user_avatar|default:'👤' }}">
+          {{ user_avatar|default:"👤" }}
+        </div>
+        <span class="user-name" id="userNameSmall">{{ user_name|default:_("User") }}</span>
+        <div class="user-dropdown" id="userDropdown">
+          <div class="user-info" id="userInfoHeader">
+            <div class="user-avatar-large" id="userAvatarDisplay" data-avatar="{{ user_avatar|default:'👤' }}">
+              {{ user_avatar|default:"👤" }}
+            </div>
+            <div class="user-details">
+              <h4 id="userNameDisplay">{{ user_name|default:_("User") }}</h4>
+              <p id="userEmailDisplay">{{ user_email|default:"user@example.com" }}</p>
+            </div>
+          </div>
+          <div class="user-menu-items">
+            <a href="#" class="user-menu-item" id="openProfileBtn">
+              <i class="fas fa-user-cog"></i>
+              <span>{% trans "My Profile" %}</span>
+            </a>
+            <a href="#" class="user-menu-item" id="openStatisticsBtn">
+              <i class="fas fa-chart-bar"></i>
+              <span>{% trans "Statistics" %}</span>
+            </a>
+            <a href="#" class="user-menu-item" id="openSettingsBtn">
+              <i class="fas fa-cog"></i>
+              <span>{% trans "Settings" %}</span>
+            </a>
+            <div class="user-menu-divider"></div>
+            <a href="/api/auth/logout" class="user-menu-item logout" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>{% trans "Logout" %}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container modern-container">
+    <!-- Hero Section -->
+    <section class="hero-section" data-aos="fade-up" data-aos-duration="800">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            <span class="hero-greeting">{% blocktrans with name=user_name|default:_("User") %}Hi {{ name }}!{% endblocktrans %} 👋</span>
+            <span class="hero-main">{% trans "Welcome to Just 4 IT Coworking" %}</span>
+          </h1>
+          <p class="hero-subtitle">{% trans "Manage your desk reservations with a modern interface" %}</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="stat-number" id="todayReservations">0</span>
+              <span class="stat-label">{% trans "Today" %}</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" id="weekReservations">0</span>
+              <span class="stat-label">{% trans "This Week" %}</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" id="monthReservations">0</span>
+              <span class="stat-label">{% trans "This Month" %}</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-hero primary" id="quickBookBtn">
+            <i class="fas fa-bolt"></i>
+            <span>{% trans "Quick Reservation" %}</span>
+          </button>
+          <button class="btn-hero secondary" id="viewCalendarBtn">
+            <i class="fas fa-calendar-alt"></i>
+            <span>{% trans "View Calendar" %}</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-cards">
+          <div class="floating-card card-1">
+            <i class="fas fa-desk"></i>
+            <span>{% trans "Desks" %}</span>
+          </div>
+          <div class="floating-card card-2">
+            <i class="fas fa-users"></i>
+            <span>{% trans "Team" %}</span>
+          </div>
+          <div class="floating-card card-3">
+            <i class="fas fa-chart-line"></i>
+            <span>{% trans "Statistics" %}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modern Stats Grid -->
+    <section class="modern-stats-grid" data-aos="fade-up" data-aos-delay="200">
+      <div class="stat-card modern-stat primary-gradient" data-aos="zoom-in" data-aos-delay="100">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+12%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="totalReservations">0</div>
+          <div class="stat-label">{% trans "All Reservations" %}</div>
+          <div class="stat-description">{% trans "This month" %}</div>
+        </div>
+      </div>
+      
+      <div class="stat-card modern-stat success-gradient" data-aos="zoom-in" data-aos-delay="200">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-trend neutral">
+              <i class="fas fa-minus"></i>
+              <span>0%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="upcomingReservations">0</div>
+          <div class="stat-label">{% trans "Upcoming" %}</div>
+          <div class="stat-description">{% trans "Next 30 days" %}</div>
+        </div>
+      </div>
+      
+      <div class="stat-card modern-stat warning-gradient" data-aos="zoom-in" data-aos-delay="300">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+8%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="favoriteDesks">0</div>
+          <div class="stat-label">{% trans "Favorite Desks" %}</div>
+          <div class="stat-description">{% trans "Most used" %}</div>
+        </div>
+      </div>
+      
+      <div class="stat-card modern-stat info-gradient" data-aos="zoom-in" data-aos-delay="400">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+5%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="efficiency">95%</div>
+          <div class="stat-label">{% trans "Efficiency" %}</div>
+          <div class="stat-description">{% trans "This week" %}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="main-content-grid modern-grid" data-aos="fade-up" data-aos-delay="400">
+      <!-- Calendar Card -->
+      <div class="modern-card calendar-card" data-aos="slide-right" data-aos-delay="500">
+        <div class="card-header modern-header">
+          <div class="header-content">
+            <div class="header-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="header-text">
+              <h3>{% trans "Schedule" %}</h3>
+              <p>{% trans "Your upcoming reservations" %}</p>
+            </div>
+          </div>
+          <div class="card-actions modern-actions">
+            <button class="btn-icon modern" id="calendarToday" title="{% trans 'Today' %}">
+              <i class="fas fa-home"></i>
+            </button>
+            <button class="btn-icon modern" id="calendarPrev" title="{% trans 'Previous' %}">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="btn-icon modern" id="calendarNext" title="{% trans 'Next' %}">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="calendar-container">
+          <div id="calendar"></div>
+        </div>
+      </div>
+      
+      <!-- Summary Card -->
+      <div class="modern-card summary-card" data-aos="slide-left" data-aos-delay="600">
+        <div class="card-header modern-header">
+          <div class="header-content">
+            <div class="header-icon">
+              <i class="fas fa-user-clock"></i>
+            </div>
+            <div class="header-text">
+              <h3>{% trans "My Summary" %}</h3>
+              <p>{% trans "Activity overview" %}</p>
+            </div>
+          </div>
+        </div>
+        <div class="summary-content modern-summary">
+          <div class="summary-item modern-item">
+            <div class="item-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-label">{% trans "Next Reservation" %}</div>
+              <div class="item-value" id="sumNext">—</div>
+              <div class="item-meta" id="sumNextMeta">{% trans "No upcoming reservations" %}</div>
+            </div>
+          </div>
+          
+          <div class="summary-item modern-item">
+            <div class="item-icon">
+              <i class="fas fa-history"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-label">{% trans "Last Reservation" %}</div>
+              <div class="item-value" id="sumLast">—</div>
+              <div class="item-meta" id="sumLastMeta">{% trans "No past reservations" %}</div>
+            </div>
+          </div>
+          
+          <div class="summary-item modern-item">
+            <div class="item-icon">
+              <i class="fas fa-calendar-week"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-label">{% trans "Upcoming (30d)" %}</div>
+              <div class="item-value">
+                <span class="modern-badge" id="sumCount">0</span>
+              </div>
+              <div class="item-meta">{% trans "Scheduled reservations" %}</div>
+            </div>
+          </div>
+          
+          <div class="summary-actions modern-actions">
+            <a href="#" id="sumIcs" class="btn-modern primary" style="display: none;">
+              <i class="fas fa-download"></i>
+              <span>{% trans "Download .ics" %}</span>
+            </a>
+            <a href="{% url 'my_reservations' %}" class="btn-modern secondary">
+              <i class="fas fa-list"></i>
+              <span>{% trans "View All" %}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Modern Menu Grid -->
+    <section class="modern-menu-grid" data-aos="fade-up" data-aos-delay="700">
+      <div class="menu-section-header">
+        <h2>{% trans "Application Features" %}</h2>
+        <p>{% trans "Select an option that interests you" %}</p>
+      </div>
+      
+      <div class="menu-tiles-container">
+        <a href="{% url 'floor' 4 %}" class="modern-menu-tile tile-blue" data-aos="zoom-in" data-aos-delay="100">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-building"></i>
+            </div>
+            <div class="tile-text">
+              <h3>{% trans "Floor Plan" %}</h3>
+              <p>{% trans "Interactive floor plan with desk markers" %}</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" id="quickReserveBtn" class="modern-menu-tile tile-yellow" data-aos="zoom-in" data-aos-delay="200">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-calendar-plus"></i>
+            </div>
+            <div class="tile-text">
+              <h3>{% trans "Quick Reservation" %}</h3>
+              <p>{% trans "Reserve a desk for a selected date" %}</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'my_reservations' %}" class="modern-menu-tile tile-red" data-aos="zoom-in" data-aos-delay="300">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="tile-text">
+              <h3>{% trans "Manage Reservations" %}</h3>
+              <p>{% trans "View and cancel existing reservations" %}</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'advanced_features' %}" class="modern-menu-tile tile-purple" data-aos="zoom-in" data-aos-delay="400">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-magic"></i>
+            </div>
+            <div class="tile-text">
+              <h3>{% trans "Advanced Features" %}</h3>
+              <p>{% trans "Group reservations, AI recommendations and more" %}</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'group_reservations' 4 %}" class="modern-menu-tile tile-green" data-aos="zoom-in" data-aos-delay="500">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="tile-text">
+              <h3>{% trans "Group Reservations" %}</h3>
+              <p>{% trans "Reserve multiple desks for your team" %}</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'recurring_reservations' %}" class="modern-menu-tile tile-orange" data-aos="zoom-in" data-aos-delay="600">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-repeat"></i>
+            </div>
+            <div class="tile-text">
+              <h3>{% trans "Recurring Reservations" %}</h3>
+              <p>{% trans "Set up regular desk reservations" %}</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- User Profile Modal -->
+  <div class="modern-modal" id="profileModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container" style="max-width: 700px;">
+      <div class="modern-modal-card">
+        <div class="modal-header">
+          <div class="modal-icon">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div class="modal-title">
+            <h3>{% trans "My Profile" %}</h3>
+            <p>{% trans "Manage your data and settings" %}</p>
+          </div>
+          <button class="modal-close" id="profileModalClose">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="modal-content">
+          <!-- Profile Tabs -->
+          <div class="profile-tabs">
+            <button class="profile-tab active" data-tab="profile">{% trans "Profile" %}</button>
+            <button class="profile-tab" data-tab="password">{% trans "Password" %}</button>
+            <button class="profile-tab" data-tab="security">{% trans "Security" %}</button>
+            <button class="profile-tab" data-tab="notifications">{% trans "Notifications" %}</button>
+            <button class="profile-tab" data-tab="statistics">{% trans "Statistics" %}</button>
+          </div>
+          
+          <!-- Profile Tab -->
+          <div class="profile-tab-content active" id="tab-profile">
+            <div class="profile-avatar-section">
+              <div class="avatar-preview" id="avatarPreview">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="avatar-options">
+                <h4>{% trans "Choose Avatar" %}</h4>
+                <div class="avatar-grid">
+                  <button class="avatar-option" data-avatar="👤"><span>👤</span></button>
+                  <button class="avatar-option" data-avatar="👨"><span>👨</span></button>
+                  <button class="avatar-option" data-avatar="👩"><span>👩</span></button>
+                  <button class="avatar-option" data-avatar="🧑"><span>🧑</span></button>
+                  <button class="avatar-option" data-avatar="👨‍💼"><span>👨‍💼</span></button>
+                  <button class="avatar-option" data-avatar="👩‍💼"><span>👩‍💼</span></button>
+                  <button class="avatar-option" data-avatar="🤓"><span>🤓</span></button>
+                  <button class="avatar-option" data-avatar="😎"><span>😎</span></button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+              <div class="form-group">
+                <label for="profileFullName">{% trans "Full Name" %}</label>
+                <input id="profileFullName" class="modern-input" type="text" placeholder="{% trans 'Your full name' %}">
+              </div>
+              
+              <div class="form-group">
+                <label for="profileEmail">{% trans "Email" %}</label>
+                <input id="profileEmail" class="modern-input" type="email" disabled style="background: var(--bg-tertiary);">
+                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block;">{% trans "Email cannot be changed" %}</small>
+              </div>
+              
+              <div class="form-group">
+                <label>{% trans "Account Creation Date" %}</label>
+                <input id="profileCreatedAt" class="modern-input" type="text" disabled style="background: var(--bg-tertiary);">
+              </div>
+              
+              <div class="form-group">
+                <label>{% trans "Last Login" %}</label>
+                <input id="profileLastLogin" class="modern-input" type="text" disabled style="background: var(--bg-tertiary);">
+              </div>
+            </div>
+            
+            <div class="modal-actions" style="margin-top: 24px;">
+              <button class="btn-modern secondary" id="profileCancelBtn">{% trans "Cancel" %}</button>
+              <button class="btn-modern primary" id="profileSaveBtn">
+                <i class="fas fa-save"></i>
+                <span>{% trans "Save Changes" %}</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Password Tab -->
+          <div class="profile-tab-content" id="tab-password">
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+              <div class="form-group">
+                <label for="currentPassword">{% trans "Current Password" %}</label>
+                <input id="currentPassword" class="modern-input" type="password" placeholder="{% trans 'Enter current password' %}">
+              </div>
+              
+              <div class="form-group">
+                <label for="newPassword">{% trans "New Password" %}</label>
+                <input id="newPassword" class="modern-input" type="password" placeholder="{% trans 'Enter new password' %}">
+                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block;">{% trans "Minimum 8 characters" %}</small>
+              </div>
+              
+              <div class="form-group">
+                <label for="confirmPassword">{% trans "Confirm Password" %}</label>
+                <input id="confirmPassword" class="modern-input" type="password" placeholder="{% trans 'Confirm new password' %}">
+              </div>
+            </div>
+            
+            <div class="password-requirements">
+              <h4>{% trans "Password Requirements:" %}</h4>
+              <ul>
+                <li>{% trans "Minimum 8 characters" %}</li>
+                <li>{% trans "Cannot be similar to other personal information" %}</li>
+                <li>{% trans "Cannot be a commonly used password" %}</li>
+              </ul>
+            </div>
+            
+            <div class="modal-actions" style="margin-top: 24px;">
+              <button class="btn-modern secondary" id="passwordCancelBtn">{% trans "Cancel" %}</button>
+              <button class="btn-modern primary" id="passwordChangeBtn">
+                <i class="fas fa-key"></i>
+                <span>{% trans "Change Password" %}</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Security Tab -->
+          <div class="profile-tab-content" id="tab-security">
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="magicLinkToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-link" style="margin-right: 0.5rem;"></i>
+                      {% trans "Magic Link Authentication" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "When enabled, you will log in using a secure link sent to your email instead of a password" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="magicLinkToggle" name="use_magic_link">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="form-group" style="margin-top: 1rem;">
+                <div style="padding: 1rem; background: var(--info-bg, rgba(59, 130, 246, 0.1)); border: 1px solid var(--info, #3b82f6); border-radius: 12px;">
+                  <h4 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 0.875rem; font-weight: 600;">
+                    <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--info, #3b82f6);"></i>
+                    {% trans "How it works:" %}
+                  </h4>
+                  <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary); font-size: 0.875rem;">
+                    <li>{% trans "Enter your email address on the login page" %}</li>
+                    <li>{% trans "We will send you a secure login link via email" %}</li>
+                    <li>{% trans "Click the link to log in automatically - no password needed!" %}</li>
+                    <li>{% trans "The link expires in 15 minutes for security" %}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="modal-actions" style="margin-top: 24px;">
+              <button class="btn-modern secondary" id="securityCancelBtn">{% trans "Cancel" %}</button>
+              <button class="btn-modern primary" id="securitySaveBtn">
+                <i class="fas fa-save"></i>
+                <span>{% trans "Save Settings" %}</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Notifications Tab -->
+          <div class="profile-tab-content" id="tab-notifications">
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+              <!-- Email Notifications Toggle -->
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="emailNotificationsToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                      {% trans "Email Notifications" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "Receive notifications via email" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="emailNotificationsToggle" name="email_notifications">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Reminder Before Booking -->
+              <div class="form-group">
+                <label for="reminderBeforeBooking">{% trans "Reminder Before Booking" %}</label>
+                <select id="reminderBeforeBooking" class="modern-input">
+                  <option value="0">{% trans "Disabled" %}</option>
+                  <option value="5">{% trans "5 minutes" %}</option>
+                  <option value="15">{% trans "15 minutes" %}</option>
+                  <option value="30" selected>{% trans "30 minutes" %}</option>
+                  <option value="60">{% trans "1 hour" %}</option>
+                  <option value="120">{% trans "2 hours" %}</option>
+                  <option value="1440">{% trans "1 day" %}</option>
+                </select>
+                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block;">
+                  {% trans "When to send reminder before your reservation" %}
+                </small>
+              </div>
+              
+              <!-- Daily Summary Toggle -->
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="dailySummaryToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-calendar-day" style="margin-right: 0.5rem;"></i>
+                      {% trans "Daily Summary" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "Email with tomorrow's reservations" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="dailySummaryToggle" name="daily_summary">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Weekly Report Toggle -->
+              <div class="form-group">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color);">
+                  <div style="flex: 1;">
+                    <label for="weeklyReportToggle" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">
+                      <i class="fas fa-chart-line" style="margin-right: 0.5rem;"></i>
+                      {% trans "Weekly Report" %}
+                    </label>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      {% trans "Weekly summary of your reservations" %}
+                    </p>
+                  </div>
+                  <label class="toggle-switch" style="margin-left: 1.5rem;">
+                    <input type="checkbox" id="weeklyReportToggle" name="weekly_report">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="modal-actions" style="margin-top: 24px;">
+              <button class="btn-modern secondary" id="notificationsCancelBtn">{% trans "Cancel" %}</button>
+              <button class="btn-modern primary" id="notificationsSaveBtn">
+                <i class="fas fa-save"></i>
+                <span>{% trans "Save Settings" %}</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Statistics Tab -->
+          <div class="profile-tab-content" id="tab-statistics">
+            <div class="statistics-grid">
+              <div class="stat-card-small">
+                <div class="stat-icon-small">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+              <div class="stat-content-small">
+                <div class="stat-value-small" id="statTotalReservations">0</div>
+                <div class="stat-label-small">{% trans "All Reservations" %}</div>
+              </div>
+            </div>
+            
+            <div class="stat-card-small">
+              <div class="stat-icon-small">
+                <i class="fas fa-calendar-day"></i>
+              </div>
+              <div class="stat-content-small">
+                <div class="stat-value-small" id="statTodayReservations">0</div>
+                <div class="stat-label-small">{% trans "Today" %}</div>
+              </div>
+            </div>
+            
+            <div class="stat-card-small">
+              <div class="stat-icon-small">
+                <i class="fas fa-calendar-week"></i>
+              </div>
+              <div class="stat-content-small">
+                <div class="stat-value-small" id="statWeekReservations">0</div>
+                <div class="stat-label-small">{% trans "This Week" %}</div>
+              </div>
+            </div>
+            
+            <div class="stat-card-small">
+              <div class="stat-icon-small">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="stat-content-small">
+                <div class="stat-value-small" id="statMonthReservations">0</div>
+                <div class="stat-label-small">{% trans "This Month" %}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="favorite-seats-section">
+            <h4>{% trans "Favorite Seats" %}</h4>
+            <div id="favoriteSeatsList" class="favorite-seats-list">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+          
+          <div class="account-info-section">
+            <h4>{% trans "Account Information" %}</h4>
+            <div class="info-item">
+              <span class="info-label">{% trans "Member since:" %}</span>
+              <span class="info-value" id="statAccountAge">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">{% trans "Account status:" %}</span>
+              <span class="info-value" id="statAccountStatus">-</span>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modern Quick Book Modal -->
+  <div class="modern-modal" id="qbModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <div class="modern-modal-card">
+        <div class="modal-header">
+          <div class="modal-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="modal-title">
+            <h3>{% trans "Quick Reservation" %}</h3>
+            <p>{% trans "Reserve a desk in seconds" %}</p>
+          </div>
+          <button class="modal-close" id="qbCancel">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="modal-content">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="qbDate">{% trans "Date" %}</label>
+              <input id="qbDate" class="modern-input" type="date">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbFloor">{% trans "Floor" %}</label>
+              <select id="qbFloor" class="modern-input">
+                <option value="4">{% trans "Floor 4" %}</option>
+                <option value="5">{% trans "Floor 5" %}</option>
+                <option value="6">{% trans "Floor 6" %}</option>
+                <option value="7">{% trans "Floor 7" %}</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="qbDesk">{% trans "Desk" %}</label>
+              <input id="qbDesk" class="modern-input" placeholder="{% trans 'e.g. D1, O1' %}">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbTimeFrom">{% trans "Time From" %}</label>
+              <input id="qbTimeFrom" class="modern-input" type="time" value="09:00">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbTimeTo">{% trans "Time To" %}</label>
+              <input id="qbTimeTo" class="modern-input" type="time" value="17:00">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbName">{% trans "Name" %}</label>
+              <input id="qbName" class="modern-input" placeholder="{% trans 'Your name' %}">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbEmail">{% trans "Email" %}</label>
+              <input id="qbEmail" class="modern-input" type="email" placeholder="{% trans 'your@email.com' %}">
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button class="btn-modern secondary" id="qbCancelBtn">{% trans "Cancel" %}</button>
+            <button class="btn-modern primary" id="qbCreate">
+              <i class="fas fa-plus"></i>
+              <span>{% trans "Create Reservation" %}</span>
+            </button>
+          </div>
+          
+          <div id="qbInfo" class="modal-info"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'dashboard/js/i18n.js' %}"></script>
+  <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+  <script src="{% static 'dashboard/js/theme.js' %}"></script>
+  <script src="{% static 'dashboard/js/quickbook.js' %}"></script>
+  <script src="{% static 'dashboard/js/calendar.js' %}"></script>
+  <script src="{% static 'dashboard/js/notifications.js' %}"></script>
+  <script src="{% static 'dashboard/js/profile.js' %}"></script>
+  
+  <script>
+    // Initialize i18n with current language
+    if (window.i18n) {
+      window.i18n.setLanguage('{{ LANGUAGE_CODE }}');
+    }
+    
+    // Update calendar language when language changes
+    document.addEventListener('DOMContentLoaded', function() {
+      // Watch for language changes via form submissions
+      const languageForms = document.querySelectorAll('form[action*="set_language"]');
+      languageForms.forEach(form => {
+        form.addEventListener('submit', function() {
+          // After language change, reload calendar
+          setTimeout(() => {
+            if (window.calendarManager && window.calendarManager.calendar) {
+              const newLang = document.documentElement.lang || 'pl';
+              window.calendarManager.updateLanguage(newLang);
+            }
+          }, 100);
+        });
+      });
+    });
+  </script>
+
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 100
+    });
+
+    // Add modern interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Floating cards animation
+      const floatingCards = document.querySelectorAll('.floating-card');
+      floatingCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.2}s`;
+      });
+
+      // Modern menu tile interactions
+      const menuTiles = document.querySelectorAll('.modern-menu-tile');
+      menuTiles.forEach(tile => {
+        tile.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        tile.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+
+      // Stat cards counter animation
+      const statValues = document.querySelectorAll('.stat-value');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target;
+            const finalValue = target.textContent;
+            const isPercentage = finalValue.includes('%');
+            const numericValue = parseInt(finalValue.replace(/\D/g, ''));
+            
+            if (numericValue > 0) {
+              animateCounter(target, 0, numericValue, isPercentage);
+            }
+          }
+        });
+      });
+
+      statValues.forEach(stat => observer.observe(stat));
+
+      function animateCounter(element, start, end, isPercentage) {
+        const duration = 2000;
+        const startTime = performance.now();
+        
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const current = Math.floor(start + (end - start) * progress);
+          
+          element.textContent = current + (isPercentage ? '%' : '');
+          
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          }
+        }
+        
+        requestAnimationFrame(updateCounter);
+      }
+    });
+  </script>
+
+</body>
+</html>
