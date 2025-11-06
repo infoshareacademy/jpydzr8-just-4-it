@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🚀 {% trans "Just 4 IT Coworking - Goodbye" %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'dashboard/css/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/auth.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/welcome.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{% static 'dashboard/js/i18n.js' %}"></script>
+  <script>
+    // Initialize i18n
+    window.i18n.setLanguage('{{ LANGUAGE_CODE }}');
+  </script>
+  <style>
+    .goodbye-page {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .goodbye-container {
+      position: relative;
+      z-index: 1;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .goodbye-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .goodbye-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      color: white;
+      animation: pulse 2s ease-in-out infinite;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .goodbye-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 0 0 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .goodbye-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      margin: 0 0 2.5rem;
+      line-height: 1.6;
+    }
+
+    .goodbye-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .goodbye-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .goodbye-btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .goodbye-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .goodbye-btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .goodbye-btn-secondary:hover {
+      background: var(--bg-tertiary);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .goodbye-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .goodbye-title {
+        font-size: 2rem;
+      }
+
+      .goodbye-icon {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body class="goodbye-page">
+  <!-- Animated Background -->
+  <div class="welcome-animated-bg">
+    <div class="welcome-bg-shapes">
+      <div class="welcome-shape welcome-shape-1"></div>
+      <div class="welcome-shape welcome-shape-2"></div>
+      <div class="welcome-shape welcome-shape-3"></div>
+      <div class="welcome-shape welcome-shape-4"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="welcome-header">
+    <div class="welcome-header-content">
+      <a href="/welcome" class="welcome-brand" style="text-decoration: none; color: inherit;">
+        <div class="welcome-brand-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="welcome-brand-text">
+          <span class="welcome-brand-main">Just 4 IT</span>
+          <span class="welcome-brand-sub">Coworking</span>
+        </div>
+      </a>
+      
+      <div class="welcome-header-actions">
+        <div class="welcome-lang-switcher">
+          {% include 'common/language_switcher.html' %}
+        </div>
+        <button id="themeToggle" class="welcome-theme-toggle" aria-label="{% trans 'Toggle dark mode' %}">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="goodbye-container">
+    <div class="goodbye-card" data-aos="fade-up" data-aos-duration="800">
+      <div class="goodbye-icon">
+        <i class="fas fa-hand-wave"></i>
+      </div>
+      
+      <h1 class="goodbye-title">
+        {% trans "See You Soon!" %}
+      </h1>
+      
+      <p class="goodbye-subtitle">
+        {% trans "You have been successfully logged out." %}<br>
+        {% trans "Thanks for visiting. Come back anytime!" %}
+      </p>
+
+      <div class="goodbye-actions">
+        <a href="/welcome" class="goodbye-btn goodbye-btn-primary">
+          <i class="fas fa-home"></i>
+          <span>{% trans "Back to Home" %}</span>
+        </a>
+        
+        <a href="/login" class="goodbye-btn goodbye-btn-secondary">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>{% trans "Log In Again" %}</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'dashboard/js/theme.js' %}"></script>
+  <script>
+    // Initialize AOS
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+      });
+    }
+
+    // Clear any stored tokens
+    try {
+      localStorage.removeItem('token');
+      sessionStorage.clear();
+    } catch(e) {
+      console.error('Error clearing storage:', e);
+    }
+
+    // Optional: Auto-redirect after delay (commented out)
+    // setTimeout(() => {
+    //   window.location.href = '/welcome';
+    // }, 5000);
+  </script>
+</body>
+</html>

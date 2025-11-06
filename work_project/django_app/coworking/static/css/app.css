@@ -1,0 +1,182 @@
+:
+root{ --ring:0 0 0 3px rgba(56,189,248,.35); }
+.button-ring:focus{ outline:none; box-shadow:var(--ring); }
+.soft-card{ box-shadow:0 10px 30px rgba(2,6,23,.06); }
+.desk-dot{ transform:translate(-50%,-50%); transition: transform .12s ease, box-shadow .12s ease; }
+.desk-dot:hover{ transform: translate(-50%,-50%) scale(1.12); box-shadow:0 2px 8px rgba(2,6,23,.15); }
+.legend-badge{ width:.8rem;height:.8rem;border-radius:9999px;display:inline-block; }
+/* arch look */
+:root{ --free:#68d391; --busy:#ffb366; --wood:#c7a27a; --ink:#0f172a; }
+/* Oznaczniki stanowisk - małe kropki */
+svg .desk-marker{ 
+  filter: url(#softShadow);
+  transition: all 0.2s ease;
+}
+svg .desk-dot{ 
+  transition: all 0.2s ease;
+}
+svg .desk-number{ 
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+svg .desk-hit{ 
+  fill: transparent; 
+  cursor: pointer; 
+}
+
+/* Hover effects dla oznaczników */
+svg .desk-marker:hover .desk-dot{ 
+  r: 10;
+  fill: rgba(99, 102, 241, 1); 
+  stroke: #4f46e5; 
+  stroke-width: 3; 
+}
+svg .desk-marker:hover .desk-number{ 
+  font-size: 11;
+  font-weight: 800; 
+}
+
+/* Kolory dostępności dla oznaczników */
+svg .desk-dot.free{ 
+  fill: rgba(34, 197, 94, 0.9); 
+  stroke: #22c55e; 
+  stroke-width: 2; 
+}
+svg .desk-dot.busy{ 
+  fill: rgba(239, 68, 68, 0.9); 
+  stroke: #ef4444; 
+  stroke-width: 2; 
+}
+
+/* Stare style stanowisk (usunięte) */
+svg .seat{ filter:url(#softShadow); stroke: rgba(15,23,42,.15); stroke-width:1; }
+svg .seat.free{ fill: var(--free); }
+svg .seat.busy{ fill: var(--busy); }
+svg .seat.neutral{ fill:#e2e8f0; }
+svg .seat.deepwork{ stroke:#6366f1; stroke-width:1.2; }
+svg .seat-hit{ fill: transparent; cursor: pointer; }
+.tooltip{ position:fixed; pointer-events:none; padding:8px 10px; border-radius:10px; background:rgba(15,23,42,.95); color:#fff; font-size:12px; box-shadow:0 10px 25px rgba(0,0,0,.25); transform:translate(-50%,calc(-100% - 12px)); white-space:nowrap; z-index:60; }
+.tooltip::after{ content:''; position:absolute; left:50%; transform:translateX(-50%); bottom:-6px; width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid rgba(15,23,42,.95); }
+
+/* Animacje dla blokady stanowiska */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Animacja pulsu dla ikony blokady */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Dodatkowe animacje dla blokady */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes progressShrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Style dla blokady stanowiska */
+.lock-status-enter {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+.lock-timer {
+  transition: all 0.3s ease;
+}
+
+.lock-progress {
+  transition: width 1s linear, background-color 0.3s ease;
+}
+
+/* Style dla formularzy */
+input[type="text"], input[type="email"], input[type="date"], input[type="time"], select, textarea {
+  @apply w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-slate-700;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, input[type="time"]:focus, select:focus, textarea:focus {
+  @apply outline-none shadow-lg;
+}
+
+/* Placeholder styling */
+input::placeholder, textarea::placeholder {
+  @apply text-slate-400;
+}
+
+/* Error states */
+input.error, select.error, textarea.error {
+  @apply border-red-300 focus:ring-red-500 focus:border-red-500;
+}
+
+/* Success states */
+input.success, select.success, textarea.success {
+  @apply border-green-300 focus:ring-green-500 focus:border-green-500;
+}

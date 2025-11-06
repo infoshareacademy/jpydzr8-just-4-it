@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans 'User Profile' %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/login/style_login_inputs_upgrade.css' %}">
+  <style>
+    .profile-container {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .profile-container .profile-icon {
+      font-size: 64px;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    
+    .profile-container h1 {
+      color: #333;
+      margin-bottom: 16px;
+      font-size: 28px;
+      font-weight: 500;
+    }
+    
+    .profile-container p {
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    .profile-container .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: all 0.2s;
+      margin: 8px;
+    }
+    
+    .profile-container .btn-primary {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+    
+    .profile-container .btn-primary:hover {
+      background-color: #0056b3;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .profile-container .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+    }
+    
+    .profile-container .btn-secondary:hover {
+      background-color: #545b62;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .profile-container .info-box {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .profile-container .info-box h3 {
+      color: #495057;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .profile-container .info-box p {
+      color: #6c757d;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .profile-container .user-info {
+      background-color: #e9ecef;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .profile-container .user-info h4 {
+      color: #495057;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    
+    .profile-container .user-info p {
+      color: #6c757d;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    
+    .profile-container .success-box {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      border-radius: 6px;
+      padding: 16px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .profile-container .success-box h4 {
+      color: #155724;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    
+    .profile-container .success-box p {
+      color: #155724;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div style="position: absolute; top: 20px; right: 20px;">
+        {% include 'common/language_switcher.html' %}
+      </div>
+      
+      <div class="profile-container">
+        <div class="profile-icon">👤</div>
+        <h1>{% trans 'Welcome to Your Profile!' %}</h1>
+        <p>{% trans 'You have successfully logged in to your account.' %}</p>
+        
+        {% if user.is_authenticated %}
+        <div class="user-info">
+          <h4>{% trans 'Your Account Information:' %}</h4>
+          <p><strong>{% trans 'Email:' %}</strong> {{ user.email }}</p>
+          <p><strong>{% trans 'Name:' %}</strong> {{ user.get_full_name|default:user.email|default:"Not set" }}</p>
+          <p><strong>{% trans 'Account Status:' %}</strong> 
+            {% if user.is_active %}
+              <span style="color: #28a745;">{% trans 'Active' %}</span>
+            {% else %}
+              <span style="color: #dc3545;">{% trans 'Inactive' %}</span>
+            {% endif %}
+          </p>
+          <p><strong>{% trans 'Member Since:' %}</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+        </div>
+        {% endif %}
+        
+        <div class="success-box">
+          <h4>{% trans 'What you can do now:' %}</h4>
+          <p>✓ {% trans 'Access the main dashboard' %}</p>
+          <p>✓ {% trans 'Make reservations' %}</p>
+          <p>✓ {% trans 'Manage your account settings' %}</p>
+          <p>✓ {% trans 'View your reservation history' %}</p>
+        </div>
+        
+        <div class="info-box">
+          <h3>{% trans 'Quick Actions:' %}</h3>
+          <p>• {% trans 'Go to dashboard to start using the application' %}</p>
+          <p>• {% trans 'Configure your security settings (2FA, etc.)' %}</p>
+          <p>• {% trans 'Update your profile information' %}</p>
+        </div>
+        
+        <a href="/dashboard" class="btn btn-primary">{% trans 'Go to Dashboard' %}</a>
+        <a href="/security" class="btn btn-secondary">{% trans 'Security Settings' %}</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add some interactive feedback
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 150);
+      });
+    });
+    
+    // Auto-redirect to dashboard after 3 seconds
+    setTimeout(() => {
+      const redirectMsg = document.createElement('div');
+      redirectMsg.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,123,255,0.1);
+        color: #007bff;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 14px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s;
+      `;
+      redirectMsg.textContent = '{% trans "Redirecting to dashboard in 3 seconds..." %}';
+      document.body.appendChild(redirectMsg);
+      
+      setTimeout(() => redirectMsg.style.opacity = '1', 100);
+      
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 3000);
+    }, 1000);
+    
+    // Add floating animation to the profile icon
+    const profileIcon = document.querySelector('.profile-icon');
+    profileIcon.style.animation = 'float 2s ease-in-out infinite';
+    
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

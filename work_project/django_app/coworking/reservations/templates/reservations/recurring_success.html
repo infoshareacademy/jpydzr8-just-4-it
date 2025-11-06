@@ -1,0 +1,49 @@
+{% extends "reservations/base.html" %}
+{% block title %}Cykliczna rezerwacja utworzona{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-2xl p-6 card mt-24 text-center">
+  <div class="text-3xl">✅</div>
+  <h2 class="text-xl font-semibold mt-2">Cykliczna rezerwacja utworzona</h2>
+  <p class="text-slate-600 mt-1">{{ recurring.desk.label }} — {{ recurring.get_frequency_display }}</p>
+  
+  <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-left">
+    <h3 class="font-semibold text-blue-800 mb-2">Szczegóły cyklu:</h3>
+    <div class="space-y-1 text-sm text-blue-700">
+      <div><strong>Stanowisko:</strong> {{ recurring.desk.label }} (Piętro {{ recurring.desk.floor.number }})</div>
+      <div><strong>Częstotliwość:</strong> {{ recurring.get_frequency_display }}</div>
+      <div><strong>Godziny:</strong> {{ recurring.time_from }} - {{ recurring.time_to }}</div>
+      <div><strong>Data rozpoczęcia:</strong> {{ recurring.start_date }}</div>
+      {% if recurring.end_date %}
+        <div><strong>Data zakończenia:</strong> {{ recurring.end_date }}</div>
+      {% else %}
+        <div><strong>Data zakończenia:</strong> Bez końca</div>
+      {% endif %}
+      <div><strong>Dni tygodnia:</strong> 
+        {% if recurring.days_of_week == '1111111' %}Wszystkie dni
+        {% elif recurring.days_of_week == '1111100' %}Poniedziałek - Piątek
+        {% else %}Wybrane dni
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center gap-3 mt-4">
+    <a href="{% url 'recurring_reservations' %}?email={{ recurring.email %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+      </svg>
+      Moje cykliczne rezerwacje
+    </a>
+    <a href="{% url 'my_reservations' %}?email={{ recurring.email }}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+      </svg>
+      Moje rezerwacje
+    </a>
+  </div>
+  
+  <a href="{% url 'floor' recurring.desk.floor.number %}" class="mt-6 inline-block px-4 py-2 rounded-lg bg-slate-100">Wróć do planu</a>
+</div>
+{% endblock %}
+

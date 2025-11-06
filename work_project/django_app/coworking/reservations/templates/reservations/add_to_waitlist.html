@@ -1,0 +1,96 @@
+{% extends "reservations/base.html" %}
+{% block title %}Dodaj do listy oczekujących{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+  <!-- Header -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center">
+          <span class="text-white font-bold text-2xl">{{ desk.label }}</span>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-slate-800">Lista oczekujących</h1>
+          <p class="text-slate-600 mt-1">Piętro {{ desk.floor.number }} • {{ desk.zone.name }}</p>
+        </div>
+      </div>
+      <a href="{% url 'floor' desk.floor.number %}" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Wróć do planu
+      </a>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800">Zapisz się na listę oczekujących</h2>
+    </div>
+
+    <div class="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-orange-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div class="text-sm text-orange-700">
+          <p class="font-medium">Jak działa lista oczekujących:</p>
+          <ul class="mt-1 space-y-1 text-orange-600">
+            <li>• Otrzymasz email gdy stanowisko się zwolni</li>
+            <li>• Pierwszy na liście ma pierwszeństwo</li>
+            <li>• Powiadomienie jest ważne przez 24 godziny</li>
+            <li>• Możesz anulować zapisanie się w dowolnym momencie</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <form method="post" class="space-y-6">
+      {% csrf_token %}
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label class="text-sm font-semibold text-slate-700">Imię i nazwisko</label>
+          {{ form.name }}
+        </div>
+        <div class="space-y-2">
+          <label class="text-sm font-semibold text-slate-700">Email</label>
+          {{ form.email }}
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-sm font-semibold text-slate-700">Preferowana data</label>
+        {{ form.preferred_date }}
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label class="text-sm font-semibold text-slate-700">Godzina rozpoczęcia</label>
+          {{ form.time_from }}
+        </div>
+        <div class="space-y-2">
+          <label class="text-sm font-semibold text-slate-700">Godzina zakończenia</label>
+          {{ form.time_to }}
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+        <a href="{% url 'floor' desk.floor.number %}" class="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors font-medium">
+          Anuluj
+        </a>
+        <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
+          Zapisz się na listę
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
