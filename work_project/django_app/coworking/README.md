@@ -1,4 +1,4 @@
-# Coworking – jak to odpalić krok po kroku
+# Coworking – jak to odpalam krok po kroku
 
 Poniżej rozpisuję dokładnie, co robię po świeżym klonie repo. Zrobione raz, działa każdemu – zero grzebania w kodzie.
 
@@ -18,12 +18,14 @@ Poniżej rozpisuję dokładnie, co robię po świeżym klonie repo. Zrobione raz
 6. `cp env_example.txt .env`
 
 ## 3. Ustawiam `.env`
-1. Otwieram `.env` (powstał przed chwilą z `env_example.txt`)
-2. `SECRET_KEY` – wklejam własny. Można go szybko wygenerować:
-   - w Pythonie: `python -c "import secrets; print(secrets.token_urlsafe(50))"`
-   - albo skopiować z istniejącego projektu, byle nie zostawić domyślnego
-3. `DEBUG=True` zostawiam na środowisku lokalnym, na produkcji zmienię na `False`
-4. Sekcja mailowa – wszystko biorę z panelu pocztowego:
+1. Kopiuję wzór: `cp env_example.txt .env` i od razu go otwieram.
+2. `SECRET_KEY` generuję lokalnie. W terminalu wpisuję:
+   ```
+   python -c "import secrets; print(secrets.token_urlsafe(50))"
+   ```
+   Wynik wklejam do `SECRET_KEY=`. (Jak ktoś utknie, mam swój klucz i mogę podrzucić).
+3. `DEBUG` zostawiam na `True`, dopóki działam lokalnie.
+4. Sekcję mailową uzupełniam danymi ze skrzynki:
    ```
    EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
    EMAIL_HOST=smtp.gmail.com
@@ -33,13 +35,13 @@ Poniżej rozpisuję dokładnie, co robię po świeżym klonie repo. Zrobione raz
    EMAIL_HOST_PASSWORD=moje_haslo_aplikacji
    DEFAULT_FROM_EMAIL=biuro@mojadomena.com
    ```
-   Skąd wziąć te dane?
-   - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS` → dokumentacja serwera pocztowego (dla Gmaila jak powyżej, dla innych dostawców wpisuję ich wartości)
-   - `EMAIL_HOST_USER` → pełny adres skrzynki, z której chcę wysyłać maile
-   - `EMAIL_HOST_PASSWORD` → hasło aplikacji lub hasło SMTP z panelu pocztowego
-   - `DEFAULT_FROM_EMAIL` → adres, który zobaczy odbiorca jako nadawcę
-5. Dodatkowe sekcje (`GOOGLE_OAUTH`, `JWT`, `CORS`) uzależniam od tego, czego używam – opisy są w odpowiednich plikach (`GOOGLE_OAUTH_SETUP.md` itd.)
-6. Zapisuję `.env` – przy starcie serwer automatycznie zaczyta te wartości
+   Skąd to biorę:
+   - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS` – dokumentacja poczty (dla Gmaila jak wyżej; dla innych providerów ich ustawienia).
+   - `EMAIL_HOST_USER` – adres skrzynki wysyłającej.
+   - `EMAIL_HOST_PASSWORD` – hasło aplikacji/SMTP wygenerowane w panelu (np. w Gmailu w sekcji „Hasła aplikacji”).
+   - `DEFAULT_FROM_EMAIL` – nadawca, którego zobaczy odbiorca.
+5. Pozostałe sekcje (`GOOGLE_OAUTH`, `JWT`, `CORS`) wypełniam zgodnie z własnymi potrzebami. Opisy mam w plikach obok (`GOOGLE_OAUTH_SETUP.md`, itp.).
+6. Zapisuję `.env`. Przy starcie Django samo zaczyta wszystkie wartości.
 
 > Jeśli zapomnę o `EMAIL_BACKEND`, Django użyje trybu konsolowego i mail pokaże się tylko w terminalu.
 
@@ -51,12 +53,42 @@ Poniżej rozpisuję dokładnie, co robię po świeżym klonie repo. Zrobione raz
 1. `python manage.py runserver`
 2. Wchodzę na `http://127.0.0.1:8000/login`
 3. Wpisuję mail użytkownika i wysyłam magic link
-4. Mail powinien przyjść normalnie na skrzynkę – jeśli nie, sprawdzam czy `EMAIL_BACKEND` był ustawiony oraz czy dane SMTP są poprawne
+4. Sprawdzam wynik:
+   - Jeśli skonfigurowałem SMTP → mail wpada na skrzynkę jak standardowa wiadomość.
+   - Jeśli ustawiłem `EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend` → mail pojawia się w terminalu; z tekstu mogę skopiować link i wkleić w przeglądarce.
+   - Jeśli chcę mieć podgląd w przeglądarce bez prawdziwego SMTP → odpalam MailHog:
+     ```
+     # Mac (brew)
+     brew install mailhog
+     mailhog
+
+     # Docker
+     docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
+     ```
+     Ustawiam w `.env`:
+     ```
+     EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+     EMAIL_HOST=127.0.0.1
+     EMAIL_PORT=1025
+     EMAIL_USE_TLS=False
+     ```
+     Maile są wtedy widoczne pod `http://localhost:8025`.
 
 ## 6. Logowanie Google (jeśli potrzebne)
-- Uzupełniam w `.env` `GOOGLE_OAUTH2_CLIENT_ID` i `GOOGLE_OAUTH2_SECRET`
-- W Google Cloud dodaję redirect `http://127.0.0.1:8000/accounts/google/login/callback/`
-- Szczegóły w `GOOGLE_OAUTH_SETUP.md`
+1. Loguję się do [Google Cloud Console](https://console.cloud.google.com/) i wybieram projekt (albo tworzę nowy).
+2. Wchodzę w `APIs & Services → Credentials`.
+3. Klikam `Create Credentials → OAuth client ID`.
+4. Typ aplikacji: `Web application`.
+5. W sekcji redirectów dodaję:
+   - `http://127.0.0.1:8000/accounts/google/login/callback/`
+   - `http://localhost:8000/accounts/google/login/callback/` (jeżeli korzystam z localhosta)
+6. Zapisuję – dostaję `Client ID` i `Client Secret`.
+7. W `.env` dopisuję:
+   ```
+   GOOGLE_OAUTH2_CLIENT_ID=tu_wklejam_client_id
+   GOOGLE_OAUTH2_SECRET=tu_wklejam_client_secret
+   ```
+8. Restartuję serwer (`Ctrl+C`, potem `python manage.py runserver`) i testuję logowanie przez Google.
 
 ## 7. Szybka diagnostyka
 - Brak maila → w terminalu pewnie pojawiła się cała treść (czyli nadal backend konsolowy)
