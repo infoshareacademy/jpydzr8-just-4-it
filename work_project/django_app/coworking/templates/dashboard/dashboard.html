@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pl" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🚀 Smart Office Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'dashboard/css/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/modern-dashboard.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+</head>
+<body class="page-dashboard">
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </div>
+
+  <header class="topbar modern-topbar">
+    <div class="brand modern-brand">
+      <div class="brand-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <div class="brand-text">
+        <span class="brand-main">Smart Office</span>
+        <span class="brand-sub">Dashboard</span>
+      </div>
+    </div>
+    
+    <nav class="modern-nav">
+      <a class="nav-item active" href="{% url 'dashboard:dashboard' %}">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Panel</span>
+      </a>
+      <a class="nav-item" href="{% url 'floor' 4 %}">
+        <i class="fas fa-building"></i>
+        <span>Plan Piętra</span>
+      </a>
+      <a class="nav-item" href="{% url 'my_reservations' %}">
+        <i class="fas fa-calendar-check"></i>
+        <span>Moje Rezerwacje</span>
+      </a>
+      <a class="nav-item" href="{% url 'advanced_features' %}">
+        <i class="fas fa-magic"></i>
+        <span>Zaawansowane</span>
+      </a>
+    </nav>
+    
+    <div class="topbar-actions">
+      <div class="notification-bell" id="notificationBell">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge" id="notificationBadge">0</span>
+        <div class="notification-dropdown" id="notificationDropdown">
+          <div class="notification-header">
+            <h4>Powiadomienia</h4>
+            <button class="mark-all-read" id="markAllRead">Oznacz wszystkie jako przeczytane</button>
+          </div>
+          <div class="notification-list" id="notificationList">
+            <div class="notification-loading">
+              <i class="fas fa-spinner fa-spin"></i>
+              <span>Ładowanie powiadomień...</span>
+            </div>
+          </div>
+          <div class="notification-footer">
+            <a href="#" class="view-all-notifications">Zobacz wszystkie powiadomienia</a>
+          </div>
+        </div>
+      </div>
+      <button id="themeToggle" class="btn-icon modern" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <div class="user-menu" id="userMenu">
+        <div class="user-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <span class="user-name">Użytkownik</span>
+        <div class="user-dropdown" id="userDropdown">
+          <div class="user-info">
+            <div class="user-avatar-large">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="user-details">
+              <h4>Użytkownik</h4>
+              <p>user@example.com</p>
+            </div>
+          </div>
+          <div class="user-menu-items">
+            <a href="#" class="user-menu-item">
+              <i class="fas fa-user-cog"></i>
+              <span>Ustawienia profilu</span>
+            </a>
+            <a href="#" class="user-menu-item">
+              <i class="fas fa-bell"></i>
+              <span>Powiadomienia</span>
+            </a>
+            <a href="#" class="user-menu-item">
+              <i class="fas fa-cog"></i>
+              <span>Ustawienia</span>
+            </a>
+            <div class="user-menu-divider"></div>
+            <a href="#" class="user-menu-item logout" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Wyloguj</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container modern-container">
+    <!-- Hero Section -->
+    <section class="hero-section" data-aos="fade-up" data-aos-duration="800">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            <span class="hero-greeting">Cześć! 👋</span>
+            <span class="hero-main">Witaj w Smart Office</span>
+          </h1>
+          <p class="hero-subtitle">Zarządzaj swoimi rezerwacjami stanowisk z nowoczesnym interfejsem</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="stat-number" id="todayReservations">0</span>
+              <span class="stat-label">Dzisiaj</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" id="weekReservations">0</span>
+              <span class="stat-label">Ten tydzień</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" id="monthReservations">0</span>
+              <span class="stat-label">Ten miesiąc</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-hero primary" id="quickBookBtn">
+            <i class="fas fa-bolt"></i>
+            <span>Szybka Rezerwacja</span>
+          </button>
+          <button class="btn-hero secondary" id="viewCalendarBtn">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Zobacz Kalendarz</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-cards">
+          <div class="floating-card card-1">
+            <i class="fas fa-desk"></i>
+            <span>Stanowiska</span>
+          </div>
+          <div class="floating-card card-2">
+            <i class="fas fa-users"></i>
+            <span>Zespół</span>
+          </div>
+          <div class="floating-card card-3">
+            <i class="fas fa-chart-line"></i>
+            <span>Statystyki</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modern Stats Grid -->
+    <section class="modern-stats-grid" data-aos="fade-up" data-aos-delay="200">
+      <div class="stat-card modern-stat primary-gradient" data-aos="zoom-in" data-aos-delay="100">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+12%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="totalReservations">0</div>
+          <div class="stat-label">Wszystkie Rezerwacje</div>
+          <div class="stat-description">W tym miesiącu</div>
+        </div>
+      </div>
+      
+      <div class="stat-card modern-stat success-gradient" data-aos="zoom-in" data-aos-delay="200">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-trend neutral">
+              <i class="fas fa-minus"></i>
+              <span>0%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="upcomingReservations">0</div>
+          <div class="stat-label">Nadchodzące</div>
+          <div class="stat-description">Następne 30 dni</div>
+        </div>
+      </div>
+      
+      <div class="stat-card modern-stat warning-gradient" data-aos="zoom-in" data-aos-delay="300">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+8%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="favoriteDesks">0</div>
+          <div class="stat-label">Ulubione Stanowiska</div>
+          <div class="stat-description">Najczęściej używane</div>
+        </div>
+      </div>
+      
+      <div class="stat-card modern-stat info-gradient" data-aos="zoom-in" data-aos-delay="400">
+        <div class="stat-background">
+          <div class="stat-pattern"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-header">
+            <div class="stat-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+5%</span>
+            </div>
+          </div>
+          <div class="stat-value" id="efficiency">95%</div>
+          <div class="stat-label">Wydajność</div>
+          <div class="stat-description">W tym tygodniu</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="main-content-grid modern-grid" data-aos="fade-up" data-aos-delay="400">
+      <!-- Calendar Card -->
+      <div class="modern-card calendar-card" data-aos="slide-right" data-aos-delay="500">
+        <div class="card-header modern-header">
+          <div class="header-content">
+            <div class="header-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="header-text">
+              <h3>Harmonogram</h3>
+              <p>Twoje nadchodzące rezerwacje</p>
+            </div>
+          </div>
+          <div class="card-actions modern-actions">
+            <button class="btn-icon modern" id="calendarToday" title="Dziś">
+              <i class="fas fa-home"></i>
+            </button>
+            <button class="btn-icon modern" id="calendarPrev" title="Poprzedni">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="btn-icon modern" id="calendarNext" title="Następny">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="calendar-container">
+          <div id="calendar"></div>
+        </div>
+      </div>
+      
+      <!-- Summary Card -->
+      <div class="modern-card summary-card" data-aos="slide-left" data-aos-delay="600">
+        <div class="card-header modern-header">
+          <div class="header-content">
+            <div class="header-icon">
+              <i class="fas fa-user-clock"></i>
+            </div>
+            <div class="header-text">
+              <h3>Moje Podsumowanie</h3>
+              <p>Przegląd aktywności</p>
+            </div>
+          </div>
+        </div>
+        <div class="summary-content modern-summary">
+          <div class="summary-item modern-item">
+            <div class="item-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-label">Następna Rezerwacja</div>
+              <div class="item-value" id="sumNext">—</div>
+              <div class="item-meta" id="sumNextMeta">Brak nadchodzących rezerwacji</div>
+            </div>
+          </div>
+          
+          <div class="summary-item modern-item">
+            <div class="item-icon">
+              <i class="fas fa-history"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-label">Ostatnia Rezerwacja</div>
+              <div class="item-value" id="sumLast">—</div>
+              <div class="item-meta" id="sumLastMeta">Brak przeszłych rezerwacji</div>
+            </div>
+          </div>
+          
+          <div class="summary-item modern-item">
+            <div class="item-icon">
+              <i class="fas fa-calendar-week"></i>
+            </div>
+            <div class="item-content">
+              <div class="item-label">Nadchodzące (30d)</div>
+              <div class="item-value">
+                <span class="modern-badge" id="sumCount">0</span>
+              </div>
+              <div class="item-meta">Zaplanowane rezerwacje</div>
+            </div>
+          </div>
+          
+          <div class="summary-actions modern-actions">
+            <a href="#" id="sumIcs" class="btn-modern primary" style="display: none;">
+              <i class="fas fa-download"></i>
+              <span>Pobierz .ics</span>
+            </a>
+            <a href="/my-reservations/" class="btn-modern secondary">
+              <i class="fas fa-list"></i>
+              <span>Zobacz Wszystkie</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Modern Menu Grid -->
+    <section class="modern-menu-grid" data-aos="fade-up" data-aos-delay="700">
+      <div class="menu-section-header">
+        <h2>Funkcje Aplikacji</h2>
+        <p>Wybierz opcję, która Cię interesuje</p>
+      </div>
+      
+      <div class="menu-tiles-container">
+        <a href="{% url 'floor' 4 %}" class="modern-menu-tile tile-blue" data-aos="zoom-in" data-aos-delay="100">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-building"></i>
+            </div>
+            <div class="tile-text">
+              <h3>Plan Piętra</h3>
+              <p>Interaktywny plan piętra ze znacznikami stanowisk</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" id="quickReserveBtn" class="modern-menu-tile tile-yellow" data-aos="zoom-in" data-aos-delay="200">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-calendar-plus"></i>
+            </div>
+            <div class="tile-text">
+              <h3>Szybka Rezerwacja</h3>
+              <p>Zarezerwuj stanowisko na wybraną datę</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'my_reservations' %}" class="modern-menu-tile tile-red" data-aos="zoom-in" data-aos-delay="300">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="tile-text">
+              <h3>Zarządzaj Rezerwacjami</h3>
+              <p>Przeglądaj i anuluj istniejące rezerwacje</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'advanced_features' %}" class="modern-menu-tile tile-purple" data-aos="zoom-in" data-aos-delay="400">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-magic"></i>
+            </div>
+            <div class="tile-text">
+              <h3>Funkcje Zaawansowane</h3>
+              <p>Rezerwacje grupowe, rekomendacje AI i więcej</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'group_reservations' 4 %}" class="modern-menu-tile tile-green" data-aos="zoom-in" data-aos-delay="500">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="tile-text">
+              <h3>Rezerwacje Grupowe</h3>
+              <p>Zarezerwuj wiele stanowisk dla swojego zespołu</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+        
+        <a href="{% url 'recurring_reservations' %}" class="modern-menu-tile tile-orange" data-aos="zoom-in" data-aos-delay="600">
+          <div class="tile-background">
+            <div class="tile-pattern"></div>
+          </div>
+          <div class="tile-content">
+            <div class="tile-icon">
+              <i class="fas fa-repeat"></i>
+            </div>
+            <div class="tile-text">
+              <h3>Rezerwacje Cykliczne</h3>
+              <p>Ustaw regularne rezerwacje stanowisk</p>
+            </div>
+            <div class="tile-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modern Quick Book Modal -->
+  <div class="modern-modal" id="qbModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <div class="modern-modal-card">
+        <div class="modal-header">
+          <div class="modal-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="modal-title">
+            <h3>Szybka Rezerwacja</h3>
+            <p>Zarezerwuj stanowisko w kilka sekund</p>
+          </div>
+          <button class="modal-close" id="qbCancel">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="modal-content">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="qbDate">Data</label>
+              <input id="qbDate" class="modern-input" type="date">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbFloor">Piętro</label>
+              <select id="qbFloor" class="modern-input">
+                <option value="4">Piętro 4</option>
+                <option value="5">Piętro 5</option>
+                <option value="6">Piętro 6</option>
+                <option value="7">Piętro 7</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="qbDesk">Stanowisko</label>
+              <input id="qbDesk" class="modern-input" placeholder="np. D1, O1">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbTimeFrom">Czas Od</label>
+              <input id="qbTimeFrom" class="modern-input" type="time" value="09:00">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbTimeTo">Czas Do</label>
+              <input id="qbTimeTo" class="modern-input" type="time" value="17:00">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbName">Imię</label>
+              <input id="qbName" class="modern-input" placeholder="Twoje imię">
+            </div>
+            
+            <div class="form-group">
+              <label for="qbEmail">Email</label>
+              <input id="qbEmail" class="modern-input" type="email" placeholder="twoj@email.com">
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button class="btn-modern secondary" id="qbCancelBtn">Anuluj</button>
+            <button class="btn-modern primary" id="qbCreate">
+              <i class="fas fa-plus"></i>
+              <span>Utwórz Rezerwację</span>
+            </button>
+          </div>
+          
+          <div id="qbInfo" class="modal-info"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+  <script src="{% static 'dashboard/js/theme.js' %}"></script>
+  <script src="{% static 'dashboard/js/quickbook.js' %}"></script>
+  <script src="{% static 'dashboard/js/calendar.js' %}"></script>
+  <script src="{% static 'dashboard/js/notifications.js' %}"></script>
+
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 100
+    });
+
+    // Add modern interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Floating cards animation
+      const floatingCards = document.querySelectorAll('.floating-card');
+      floatingCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.2}s`;
+      });
+
+      // Modern menu tile interactions
+      const menuTiles = document.querySelectorAll('.modern-menu-tile');
+      menuTiles.forEach(tile => {
+        tile.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        tile.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+
+      // Stat cards counter animation
+      const statValues = document.querySelectorAll('.stat-value');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target;
+            const finalValue = target.textContent;
+            const isPercentage = finalValue.includes('%');
+            const numericValue = parseInt(finalValue.replace(/\D/g, ''));
+            
+            if (numericValue > 0) {
+              animateCounter(target, 0, numericValue, isPercentage);
+            }
+          }
+        });
+      });
+
+      statValues.forEach(stat => observer.observe(stat));
+
+      function animateCounter(element, start, end, isPercentage) {
+        const duration = 2000;
+        const startTime = performance.now();
+        
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const current = Math.floor(start + (end - start) * progress);
+          
+          element.textContent = current + (isPercentage ? '%' : '');
+          
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          }
+        }
+        
+        requestAnimationFrame(updateCounter);
+      }
+    });
+  </script>
+
+</body>
+</html>

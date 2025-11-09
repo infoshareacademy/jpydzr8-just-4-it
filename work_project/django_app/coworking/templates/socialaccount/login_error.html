@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans 'Login Error' %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/login/style_login_inputs_upgrade.css' %}">
+  <style>
+    .login-error {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .login-error .error-icon {
+      font-size: 64px;
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+    
+    .login-error h1 {
+      color: #333;
+      margin-bottom: 16px;
+      font-size: 28px;
+      font-weight: 500;
+    }
+    
+    .login-error p {
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    .login-error .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      transition: all 0.2s;
+      margin: 8px;
+    }
+    
+    .login-error .btn-primary {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+    
+    .login-error .btn-primary:hover {
+      background-color: #0056b3;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .login-error .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+    }
+    
+    .login-error .btn-secondary:hover {
+      background-color: #545b62;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .login-error .error-box {
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .login-error .error-box h3 {
+      color: #721c24;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .login-error .error-box p {
+      color: #721c24;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .login-error .info-box {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .login-error .info-box h3 {
+      color: #495057;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .login-error .info-box p {
+      color: #6c757d;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div style="position: absolute; top: 20px; right: 20px;">
+        {% include 'common/language_switcher.html' %}
+      </div>
+      
+      <div class="login-error">
+        <div class="error-icon">❌</div>
+        <h1>{% trans 'Login Error' %}</h1>
+        <p>{% trans 'There was an error during the Google login process.' %}</p>
+        
+        {% if messages %}
+        <div class="error-box">
+          <h3>{% trans 'Error Details:' %}</h3>
+          {% for message in messages %}
+            <p>• {{ message }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="info-box">
+          <h3>{% trans 'Possible causes:' %}</h3>
+          <p>• {% trans 'Google OAuth configuration issue' %}</p>
+          <p>• {% trans 'Network connection problem' %}</p>
+          <p>• {% trans 'Google account access denied' %}</p>
+          <p>• {% trans 'Application configuration error' %}</p>
+        </div>
+        
+        <div class="info-box">
+          <h3>{% trans 'What you can do:' %}</h3>
+          <p>• {% trans 'Try logging in again' %}</p>
+          <p>• {% trans 'Use standard email/password login' %}</p>
+          <p>• {% trans 'Contact support if the problem persists' %}</p>
+        </div>
+        
+        <a href="/login" class="btn btn-primary">{% trans 'Try Again' %}</a>
+        <a href="/register" class="btn btn-secondary">{% trans 'Register with Email' %}</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add some interactive feedback
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 150);
+      });
+    });
+    
+    // Auto-redirect to login after 5 seconds
+    setTimeout(() => {
+      if (confirm('{% trans "Would you like to try logging in again?" %}')) {
+        window.location.href = '/login';
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
+
+
+
