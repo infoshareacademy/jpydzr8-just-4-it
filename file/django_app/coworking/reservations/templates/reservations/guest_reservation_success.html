@@ -1,0 +1,54 @@
+{% extends "reservations/base.html" %}
+{% block title %}Rezerwacja gościa potwierdzona{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-2xl p-6 card mt-24 text-center">
+  <div class="text-3xl">✅</div>
+  <h2 class="text-xl font-semibold mt-2">Rezerwacja gościa potwierdzona</h2>
+  <p class="text-slate-600 mt-1">{{ desk.label }} — {{ guest_reservation.date }} {{ guest_reservation.time_from }}–{{ guest_reservation.time_to }}</p>
+  
+  <div class="mt-4 p-4 bg-purple-50 border border-purple-200 rounded-lg text-left">
+    <h3 class="font-semibold text-purple-800 mb-2">Szczegóły rezerwacji gościa:</h3>
+    <div class="space-y-1 text-sm text-purple-700">
+      <div><strong>Stanowisko:</strong> {{ desk.label }} (Piętro {{ desk.floor.number }})</div>
+      <div><strong>Gość:</strong> {{ guest_reservation.guest_name }}</div>
+      <div><strong>Email gościa:</strong> {{ guest_reservation.guest_email }}</div>
+      <div><strong>Host:</strong> {{ guest_reservation.host_name }}</div>
+      <div><strong>Email hosta:</strong> {{ guest_reservation.host_email }}</div>
+      <div><strong>Data:</strong> {{ guest_reservation.date }}</div>
+      <div><strong>Godziny:</strong> {{ guest_reservation.time_from }} - {{ guest_reservation.time_to }}</div>
+      {% if guest_reservation.purpose %}
+        <div><strong>Cel wizyty:</strong> {{ guest_reservation.purpose }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+    <div class="flex items-start gap-3">
+      <svg class="w-5 h-5 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <div class="text-sm text-blue-700">
+        <p class="font-medium">Co dalej?</p>
+        <ul class="mt-1 space-y-1 text-blue-600">
+          <li>• Gość otrzyma email z potwierdzeniem</li>
+          <li>• Host odpowiada za gościa podczas wizyty</li>
+          <li>• Możesz anulować rezerwację w dowolnym momencie</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center gap-3 mt-4">
+    <a href="{% url 'my_reservations' %}?email={{ guest_reservation.host_email }}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+      </svg>
+      Moje rezerwacje
+    </a>
+  </div>
+  
+  <a href="{% url 'floor' desk.floor.number %}" class="mt-6 inline-block px-4 py-2 rounded-lg bg-slate-100">Wróć do planu</a>
+</div>
+{% endblock %}
+

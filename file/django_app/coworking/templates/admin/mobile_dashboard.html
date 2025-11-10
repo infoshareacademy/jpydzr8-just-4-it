@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Control Center</title>
+
+  <link href= "https://fonts.googleapis.com/cs s2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap&subset=latin-ext" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: linear-gradient(135deg, #e0f7f4 0%, #f8e9ff 100%);
+      --card: #ffffff;
+      --ink: #0E1C1A;
+      --muted: #6A7775;
+      --mint: #2FB7A3;
+      --mint-600: #1EA892;
+      --mint-50: #EAF8F5;
+      --outline: 1px solid #D9F3EF;
+      --shadow-soft: 0 8px 16px rgba(0,0,0,.06);
+      --radius-strong: 20px;
+      --radius-soft: 14px;
+      --h1: clamp(22px, 2.6vw, 36px);
+      --h2: clamp(14px, 1.6vw, 18px);
+    }
+    *,*::before,*::after{ box-sizing:border-box; }
+    html,body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      line-height:1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    .container{ max-width:1180px; margin:0 auto; padding:16px; }
+    .app-shell{
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(217,243,239,0.8);
+      border-radius: 24px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 16px;
+    }
+    .header{
+      background: linear-gradient(180deg, rgba(234,248,245,.85), rgba(234,248,245,.65));
+      border-radius: 22px;
+      border: 1px solid rgba(47,183,163,.10);
+      box-shadow: 0 10px 30px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
+      padding: 18px 18px 16px;
+      margin-bottom: 14px;
+    }
+    .header-grid{
+      display:grid;
+      grid-template-columns: 1.1fr auto;
+      align-items:center;
+      gap:16px;
+    }
+    .brand-pro{ display:flex; align-items:center; gap:14px; }
+    .brand-pro .logo{
+      width:44px; height:44px; border-radius:14px;
+      background: radial-gradient(120% 120% at 30% 10%, #47e6c8 0%, #2fb7a3 45%, #148a77 100%);
+      box-shadow: 0 8px 18px rgba(47,183,163,.28), inset 0 1px 0 rgba(255,255,255,.25);
+    }
+    .brand-pro h1{
+      font-family:'Sora',ui-sans-serif;
+      font-size:var(--h1); line-height:1.1; letter-spacing:.2px; margin:0;
+      background: linear-gradient(90deg, #0f302a, #0e6255);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .brand-meta{ font-size:13px; color:#5e6b69; margin-top:2px; }
+    .top-tabs{ display:flex; gap:10px; flex-wrap:wrap; }
+    .tab{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:999px;
+      background:rgba(255,255,255,.9);
+      border:1px solid rgba(15,98,85,.08);
+      color:#2c3a38; font-weight:700; font-size:13.5px;
+      box-shadow:0 2px 8px rgba(0,0,0,.06);
+      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+      cursor:pointer; user-select:none;
+    }
+    .tab i{ font-size:13px; opacity:.85 }
+    .tab:hover{ transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.08); }
+    .tab.active{ background:linear-gradient(90deg,#2fb7a3,#1ea892); color:#fff; border-color:transparent; }
+    .controls{ display:flex; align-items:center; gap:12px; justify-content:flex-end; flex-wrap:wrap; }
+    .control{
+      display:flex; align-items:center; gap:10px;
+      height:46px; padding:0 14px 0 12px; border-radius:999px;
+      background:#fff; border:1px solid rgba(15,98,85,.08);
+      box-shadow:0 6px 16px rgba(0,0,0,.06);
+    }
+    .control input{
+      border:none; outline:none; background:transparent; width:220px;
+      font:inherit; font-weight:600; color:#233230;
+    }
+    .control .kbd{
+      font-size:11px; font-weight:700; color:#6a7775;
+      background:#f1f4f3; border:1px solid #e6eeec; padding:2px 6px; border-radius:6px;
+    }
+    .header-row2{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; margin-top:10px;
+    }
+    .user-chip{
+      display:flex; align-items:center; gap:10px; padding:8px 10px;
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(15,98,85,.08);
+      border-radius:999px;
+    }
+    .user-chip .avatar{
+      width:26px; height:26px; border-radius:50%;
+      background: radial-gradient(circle at 40% 30%, #ffd78a, #eab54e 70%);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+    }
+    .user-chip .name{ font-weight:700; font-size:13.5px; }
+    .user-chip .dot{
+      width:8px; height:8px; border-radius:50%; background:#18c08f;
+      box-shadow:0 0 0 3px rgba(24,192,143,.15);
+    }
+    .monitor-grid{
+      display:grid;
+      grid-template-columns: repeat(12, minmax(0,1fr));
+      gap:16px;
+      margin: 6px 0 18px;
+    }
+    .col-3{ grid-column: span 3; }
+    .col-6{ grid-column: span 6; }
+    @media (max-width: 980px){ .col-3, .col-6{ grid-column: 1 / -1; } }
+    .card{ background:#fff; border:var(--outline); border-radius:20px; padding:16px; box-shadow:var(--shadow-soft); }
+    .card h3{ font-size:14px; font-weight:700; color:var(--muted); margin:0 0 8px; }
+    .card--tint-mint{ background:#eefaf7; }
+    .card--tint-sun { background:#fffbea; }
+    .card--tint-cream{ background:#fffdf7; }
+    .card--dark{ background:#111418; color:#ecf2f1; border:none; }
+    .spark{ width:100%; height:70px; margin-top:8px; background:linear-gradient(180deg, rgba(47,183,163,.16), transparent); border-radius:12px; }
+    .kpi{ font-size:28px; font-weight:700; letter-spacing:.5px; }
+    .subkpi{ color:var(--muted); margin-top:4px; }
+    .legend{ display:flex; gap:12px; align-items:center; margin-bottom:8px; font-size:12px; color:#bfc6c4; }
+    .key{ display:inline-flex; gap:6px; align-items:center; }
+    .swatch{ width:10px; height:10px; border-radius:2px; display:inline-block; }
+    .swatch--on{ background:#22d3a6; } .swatch--mid{ background:#f9c74f; } .swatch--low{ background:#4e5d6a; }
+    .dotgrid{ display:grid; grid-template-columns: repeat(10, 1fr); gap:8px; margin-top:6px; }
+    .dot{ width:10px; height:10px; border-radius:50%; background:#2b2f36; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+    .dot.on{ background:#22d3a6; } .dot.mid{ background:#f9c74f; } .dot.low{ background:#4e5d6a; }
+    .chart-card { position: relative; padding: 14px 16px 16px; }
+    .chart-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .chart-legend { display:flex; align-items:center; gap:12px; font-size:12px; color:#cfe4e0; }
+    .badge { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; }
+    .badge--cl { background:#22d3a6; }
+    .badge--fa { background:#0ea37a; }
+    .badge--bp { background:#f9c74f; }
+    .chart-wrap { height: 240px; margin-top: 6px; }
+    #weekChart { width:100%; height:100%; }
+    .timeline{ position: relative; height: 260px; padding: 8px 6px 12px; }
+    .timeline .grid{ position:absolute; inset:10px 12px 16px 12px; border-radius:14px; background:#fff; }
+    .timeline .grid::before{
+      content:""; position:absolute; inset:0; border-radius:14px;
+      background:
+        repeating-linear-gradient(to right, rgba(0,0,0,.06) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(to bottom, rgba(0,0,0,.06) 0 1px, transparent 1px 36px);
+      opacity:.6;
+    }
+    .bubble{ position:absolute; padding:14px 16px; border-radius:14px; background:#eafaf6; box-shadow:var(--shadow-soft); font-weight:700; }
+    .bubble--green{ background:#dff7ef; }
+    .bubble--mint{ background:#c7f1e8; }
+    .bubble--white{ background:#fff; }
+    .section{
+      background:var(--card); border:var(--outline); border-radius:var(--radius-strong);
+      box-shadow:var(--shadow-soft); padding:22px; margin-bottom:18px;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
+    .section-title{ font-weight:600; display:flex; align-items:center; gap:10px; margin:0 0 14px; }
+    .section-title::before{ content:""; width:4px; height:18px; background:var(--mint); border-radius:3px; display:inline-block; }
+    .quick-actions{ display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; }
+    .action-btn{
+      display:inline-block; text-align:center; border-radius:999px; padding:14px 12px;
+      font-weight:600; letter-spacing:.2px; border:1px solid rgba(0,0,0,.04);
+      box-shadow:0 1px 2px rgba(0,0,0,.04); text-decoration:none; cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+      background:#F2F5F4; color:var(--ink);
+    }
+    .action-btn.primary{ background:var(--mint); color:#fff; }
+    .action-btn:hover{ transform:translateY(-1px); box-shadow:0 4px 14px rgba(0,0,0,.08); }
+    .logout-wrapper{ display:flex; justify-content:center; margin-top:20px; }
+    .logout-btn{ background:#f4f6f5; color:var(--ink); padding:14px 40px; border-radius:999px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,.05); transition:all .2s ease; }
+    .logout-btn:hover{ background:#eaecec; transform:translateY(-1px); }
+    .recent-item{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #F0F4F3; }
+    .recent-item:last-child{ border-bottom:none; }
+    .recent-info{ min-width:0; }
+    .recent-title{ margin:0; font-weight:600; }
+    .recent-meta{ margin:4px 0 0; color:var(--muted); font-size:13px; }
+    .status-badge{ padding:6px 10px; font-size:11px; font-weight:700; border-radius:999px; text-transform:uppercase; }
+    .status-active{ background:#E6FAF2; color:#0D7A5F; }
+    .status-pending{ background:#FFF6D6; color:#8A6C00; }
+    .status-inactive{ background:#FFE7E7; color:#8A1F1F; }
+    .refresh-btn{
+      position:fixed; right:20px; bottom:20px; width:56px; height:56px; border:0; cursor:pointer;
+      background:var(--mint); color:#fff; border-radius:50%;
+      box-shadow:0 10px 20px rgba(47,183,163,.25); font-size:20px; line-height:56px;
+      transition:background .12s ease, transform .12s ease;
+    }
+    .refresh-btn:hover{ background:var(--mint-600); transform:scale(1.05); }
+    .dark-mode{ --bg: linear-gradient(135deg, #0f1418 0%, #171a23 100%); color:#e7eceb; }
+    .dark-mode .app-shell{ background: rgba(18,22,28,0.55); border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+    .dark-mode .card, .dark-mode .section{ background:#1b222a; border-color:#2a323a; box-shadow:0 8px 20px rgba(0,0,0,.35); color:#e7eceb; }
+    .dark-mode .card--dark{ background:#0c1015; color:#dce6e4; }
+    .dark-mode .legend{ color:#93a09d; }
+    .dark-mode .dot{ background:#222a33; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
+    .dark-mode .refresh-btn{ background:var(--mint-600); }
+    .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .form-row{ display:flex; gap:10px; }
+    .select, .input{ width:100%; border:1px solid rgba(15,98,85,.08); border-radius:12px; padding:8px 10px; font:inherit; }
+    .small{ font-size:12px; color:#6a7775; }
+    .btn{ border:1px solid rgba(0,0,0,.06); border-radius:999px; padding:8px 14px; font-weight:700; cursor:pointer; background:#F2F5F4; }
+    .btn.primary{ background:var(--mint); color:#fff; border-color:transparent; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="app-shell">
+
+      <div class="header">
+        <div class="header-grid">
+          <div class="brand-pro">
+            <div class="logo"></div>
+            <div>
+              <h1>Admin Control Center</h1>
+              <div class="brand-meta">Reports, automation & real-time oversight</div>
+            </div>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input placeholder="Search…" aria-label="Search">
+              <span class="kbd">/</span>
+            </div>
+            <div class="control" role="button" aria-label="Date range">
+              <i class="fa-regular fa-calendar"></i>
+              <span class="strong">Last 30 days</span>
+            </div>
+          </div>
+        </div>
+        <div class="header-row2">
+          <div class="top-tabs" role="tablist" aria-label="Sections">
+            <span class="tab active"><i class="fa-regular fa-eye"></i> Monitoring</span>
+            <span class="tab"><i class="fa-regular fa-chart-bar"></i> Reporting</span>
+            <span class="tab"><i class="fa-regular fa-circle-question"></i> Help & Resources</span>
+          </div>
+          <div class="user-chip">
+            <div class="avatar"></div>
+            <span class="name">Admin</span>
+            <span class="dot" title="Online"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="monitor-grid">
+        <div class="card card--tint-mint col-3">
+          <h3>Utilization Today</h3>
+          <div class="spark"></div>
+          <div class="kpi" id="kpi_utilization">—</div>
+          <div class="subkpi">Today's reservations</div>
+        </div>
+
+        <div class="card card--tint-sun col-3">
+          <h3>Active Users %</h3>
+          <div class="spark" style="background:
+               linear-gradient(180deg, rgba(255,232,106,.25), transparent),
+               repeating-linear-gradient(90deg,#fff 0 18px,#f4fbfa 18px 36px);"></div>
+          <div class="kpi" id="kpi_active_pct">—</div>
+          <div class="subkpi">Active vs total</div>
+        </div>
+
+        <div class="card card--tint-cream col-3">
+          <h3>This Week</h3>
+          <div class="spark" style="background:
+               linear-gradient(180deg, rgba(255,179,71,.20), transparent);"></div>
+          <div class="kpi" id="kpi_week_res">—</div>
+          <div class="subkpi">Reservations this week</div>
+        </div>
+
+        <div class="card col-3" id="er-card">
+          <h3>Email Reports</h3>
+          <div class="subkpi" id="er-status">• OFF</div>
+          <form id="er-form" style="margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <input id="er-enabled" type="checkbox"> <span>Enabled (send automatically)</span>
+            </label>
+            <div class="form-grid">
+              <div>
+                <div class="small">Cadence</div>
+                <select id="er-cadence" class="select">
+                  <option value="WEEKLY">Weekly</option>
+                  <option value="MONTHLY">Monthly</option>
+                </select>
+              </div>
+              <div id="er-weekly">
+                <div class="small">Weekday</div>
+                <select id="er-weekday" class="select">
+                  <option value="1">Monday</option>
+                  <option value="2">Tuesday</option>
+                  <option value="3">Wednesday</option>
+                  <option value="4">Thursday</option>
+                  <option value="5">Friday</option>
+                  <option value="6">Saturday</option>
+                  <option value="7">Sunday</option>
+                </select>
+              </div>
+              <div id="er-monthly" style="display:none;">
+                <div class="small">Day of month</div>
+                <input id="er-day" type="number" min="1" max="28" value="1" class="input">
+              </div>
+              <div>
+                <div class="small">Hour (0–23)</div>
+                <input id="er-hour" type="number" min="0" max="23" value="9" class="input">
+              </div>
+              <div>
+                <div class="small">Format</div>
+                <select id="er-fmt" class="select">
+                  <option value="HTML">HTML</option>
+                  <option value="PDF">PDF</option>
+                  <option value="CSV">CSV</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-top:8px;">
+              <div class="small">Additional recipients (comma separated)</div>
+              <input id="er-recipients" type="text" class="input" placeholder="e.g. team@company.com, cto@company.com">
+              <div class="small" style="margin-top:4px;">If empty, the report is sent to the logged-in admin.</div>
+            </div>
+            <div class="form-row" style="justify-content:flex-end; margin-top:10px;">
+              <button type="button" class="btn" id="er-sendnow">Send now</button>
+              <button type="submit" class="btn primary">Save</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card card--dark col-3">
+          <h3>Zones Heatmap</h3>
+          <div class="legend">
+            <span class="key"><span class="swatch swatch--on"></span>High</span>
+            <span class="key"><span class="swatch swatch--mid"></span>Medium</span>
+            <span class="key"><span class="swatch swatch--low"></span>Low</span>
+          </div>
+          <div class="dotgrid" aria-label="Zones density">
+            <span class="dot low"></span><span class="dot mid"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot mid"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+            <span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot low"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot mid"></span><span class="dot"></span><span class="dot on"></span>
+            <span class="dot low"></span><span class="dot"></span><span class="dot mid"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot mid"></span><span class="dot"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot low"></span><span class="dot"></span><span class="dot mid"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span>
+            <span class="dot"></span><span class="dot mid"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot low"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span>
+            <span class="dot low"></span><span class="dot"></span><span class="dot mid"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot mid"></span><span class="dot low"></span>
+          </div>
+        </div>
+
+        <div class="card card--dark chart-card col-6">
+          <div class="chart-top">
+            <h3>This Week</h3>
+            <div class="chart-legend">
+              <span class="badge badge--cl"></span> CL
+              <span class="badge badge--fa"></span> FA Cup
+              <span class="badge badge--bp"></span> BPCL
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="weekChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card col-6">
+          <h3>Projects Timeline</h3>
+          <div class="timeline">
+            <div class="grid"></div>
+            <div class="bubble bubble--white" style="left:8%; top:12%;">30</div>
+            <div class="bubble bubble--green" style="left:46%; top:38%;">12</div>
+            <div class="bubble bubble--mint"  style="left:72%; top:24%;">28</div>
+          </div>
+        </div>
+      </div>
+
+    <div class="section" id="quick-actions">
+        <div class="section-title">Quick Actions</div>
+        <div class="quick-actions">
+          <a href="/admin/api/user/" class="action-btn primary">Manage Users</a>
+          <a href="/admin/api/reservation/" class="action-btn primary">Reservations</a>
+          <button class="action-btn" onclick="generateReport()">Generate Report</button>
+          <button class="action-btn" onclick="cleanupSystem()">Cleanup</button>
+          <button class="action-btn" onclick="toggleDarkMode()">Dark Mode</button>
+        </div>
+        <div class="logout-wrapper">
+          <a href="/admin/logout/" class="action-btn logout-btn">Logout</a>
+        </div>
+      </div>
+
+
+      <div class="section">
+        <div class="section-title">Recent Activity</div>
+        <div id="recentActivity">
+          <div class="recent-item">
+            <div class="recent-info">
+              <p class="recent-title">Loading...</p>
+              <p class="recent-meta">Please wait</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">System Health</div>
+        <div id="systemHealth">
+          <div class="recent-item">
+            <div class="recent-info">
+              <p class="recent-title">Database</p>
+              <p class="recent-meta">Checking...</p>
+            </div>
+            <span class="status-badge status-pending">Pending</span>
+          </div>
+          <div class="recent-item">
+            <div class="recent-info">
+              <p class="recent-title">API Status</p>
+              <p class="recent-meta">Checking...</p>
+            </div>
+            <span class="status-badge status-pending">Pending</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="refresh-btn" onclick="refreshData()" title="Refresh Data">↻</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+
+  <script>
+    let refreshInterval;
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+    const KPI_GOALS = { today_reservations: 40, active_ratio: 0.60, week_reservations: 200 };
+    const pct = (part, total) => (!total || total <= 0) ? 0 : Math.round((part/total)*100);
+    const clamp = (v, min=0, max=999) => Math.max(min, Math.min(max, v));
+    const safeNum = v => Number.isFinite(v) ? v : 0;
+
+    let weekChart = null;
+    const fallbackWeekSeries = {
+      labels: ['13:10','14:10','15:10','16:10','17:10','18:10'],
+      CL: [4, 12, 4, 20, 13, 15],
+      FA: [3, 2, 0, 0, 0, 0],
+      BP: [9, 14, 7, 0, 7, 0]
+    };
+    function seriesFromOverview(ov) {
+      if (ov && ov.week_series && Array.isArray(ov.week_series.labels) && Array.isArray(ov.week_series.CL) && Array.isArray(ov.week_series.FA) && Array.isArray(ov.week_series.BP)) return ov.week_series;
+      return fallbackWeekSeries;
+    }
+    function renderWeekChart(series) {
+      const ctx = document.getElementById('weekChart');
+      if (!ctx) return;
+      const cfg = {
+        type: 'bar',
+        data: {
+          labels: series.labels,
+          datasets: [
+            { label:'CL', data:series.CL, backgroundColor:'#22d3a6', borderRadius:12, borderSkipped:false, stack:'s' },
+            { label:'FA Cup', data:series.FA, backgroundColor:'#0ea37a', borderRadius:12, borderSkipped:false, stack:'s' },
+            { label:'BPCL', data:series.BP, backgroundColor:'#f9c74f', borderRadius:12, borderSkipped:false, stack:'s' },
+          ]
+        },
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'rgba(0,0,0,.8)', titleColor:'#e8f3f1', bodyColor:'#e8f3f1', padding:10, displayColors:true } },
+          scales:{
+            x:{ stacked:true, grid:{ color:'rgba(255,255,255,.06)', drawBorder:false }, ticks:{ color:'#cfe4e0', font:{ size:11 } } },
+            y:{ stacked:true, grid:{ color:'rgba(255,255,255,.08)', drawBorder:false }, ticks:{ color:'#cfe4e0', font:{ size:11 }, precision:0 } }
+          },
+          layout:{ padding:{ left:6, right:6 } },
+          categoryPercentage:0.5,
+          barPercentage:0.9
+        }
+      };
+      if (weekChart) weekChart.destroy();
+      weekChart = new Chart(ctx, cfg);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (isDarkMode) document.body.classList.add('dark-mode');
+      loadDashboardData();
+      startAutoRefresh();
+      erInit();
+    });
+
+    async function loadDashboardData() {
+      try {
+        document.body.classList.add('loading');
+
+        const statsResponse = await fetch('/api/admin/stats');
+        if (statsResponse.ok) {
+          const stats = await statsResponse.json();
+          const ov = stats.overview || {};
+
+          const elUtil = document.getElementById('kpi_utilization');
+          if (elUtil) {
+            const today = safeNum(ov.today_reservations);
+            const target = KPI_GOALS.today_reservations;
+            elUtil.textContent = `${clamp(pct(today, target))}%`;
+            elUtil.nextElementSibling.textContent = `Today's reservations (target: ${target})`;
+          }
+
+          const elAct = document.getElementById('kpi_active_pct');
+          if (elAct) {
+            const totalUsers = safeNum(ov.total_users);
+            const activeUsers = safeNum(ov.active_users);
+            const value = totalUsers ? Math.round((activeUsers / totalUsers) * 100) : 0;
+            elAct.textContent = `${clamp(value)}%`;
+            elAct.nextElementSibling.textContent = `Active: ${activeUsers} / ${totalUsers}`;
+          }
+
+          const elWeek = document.getElementById('kpi_week_res');
+          if (elWeek) {
+            const week = safeNum(ov.week_reservations ?? ov.total_reservations);
+            elWeek.textContent = `${week}`;
+          }
+
+          renderWeekChart(seriesFromOverview(ov));
+          updateRecentActivity(stats.recent_reservations || []);
+        }
+
+        const healthResponse = await fetch('/api/admin/health');
+        if (healthResponse.ok) updateSystemHealth(await healthResponse.json());
+
+      } catch (e) {
+        console.error('Error loading dashboard data:', e);
+      } finally {
+        document.body.classList.remove('loading');
+      }
+    }
+
+    function updateRecentActivity(res) {
+      const container = document.getElementById('recentActivity');
+      if (!res || res.length === 0){
+        container.innerHTML = `
+          <div class="recent-item">
+            <div class="recent-info">
+              <p class="recent-title">No recent activity</p>
+              <p class="recent-meta">—</p>
+            </div>
+          </div>`;
+        return;
+      }
+      container.innerHTML = res.slice(0,6).map(r => `
+        <div class="recent-item">
+          <div class="recent-info">
+            <p class="recent-title">${r.name || 'Reservation'} — ${r.seat_id ?? '-'}</p>
+            <p class="recent-meta">${r.date ?? ''} • ${r.email ?? ''}</p>
+          </div>
+          <span class="status-badge status-active">New</span>
+        </div>`).join('');
+    }
+
+    function updateSystemHealth(health){
+      const el = document.getElementById('systemHealth');
+      const dbOK = health.database === 'OK' ? 'status-active' : 'status-inactive';
+      const apiOK = health.status === 'healthy' ? 'status-active' : 'status-inactive';
+      el.innerHTML = `
+        <div class="recent-item">
+          <div class="recent-info">
+            <p class="recent-title">Database</p>
+            <p class="recent-meta">${health.database} • ${health.active_users_24h ?? 0} active users</p>
+          </div>
+          <span class="status-badge ${dbOK}">${health.database}</span>
+        </div>
+        <div class="recent-item">
+          <div class="recent-info">
+            <p class="recent-title">API Status</p>
+            <p class="recent-meta">Response time: ${health.avg_response_time ?? 'N/A'}ms</p>
+          </div>
+          <span class="status-badge ${apiOK}">${health.status}</span>
+        </div>`;
+    }
+
+    function refreshData(){ loadDashboardData(); }
+    function startAutoRefresh(){ refreshInterval = setInterval(loadDashboardData, 30000); }
+    function stopAutoRefresh(){ if (refreshInterval) clearInterval(refreshInterval); }
+
+    function toggleDarkMode(){
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('dark-mode', isDarkMode);
+      localStorage.setItem('darkMode', isDarkMode);
+    }
+
+    function getCookie(name){
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== ''){
+        const cookies = document.cookie.split(';');
+        for (let c of cookies){
+          c = c.trim();
+          if (c.startsWith(name + '=')) { cookieValue = decodeURIComponent(c.substring(name.length + 1)); break; }
+        }
+      }
+      return cookieValue;
+    }
+
+    async function generateReport(){
+      if (!confirm('Generate weekly report?')) return;
+      try{
+        const res = await fetch('/api/mobile/api/quick-action', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+          body: JSON.stringify({ action:'generate_report' })
+        });
+        const data = await res.json();
+        if (data.success){
+          alert(`Report generated!\nFile: ${data.data.filename}\nSize: ${data.data.file_size} bytes`);
+        }else{
+          alert(`Error: ${data.message}`);
+        }
+      }catch(err){ console.error(err); alert('Error generating report.'); }
+    }
+
+    async function cleanupSystem(){
+      if (!confirm('Clean up old data? This will remove expired reservations.')) return;
+      try{
+        const res = await fetch('/api/mobile/api/quick-action', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+          body: JSON.stringify({ action:'cleanup' })
+        });
+        const data = await res.json();
+        if (data.success){ alert(data.message); refreshData(); }
+        else{ alert(`Error: ${data.message}`); }
+      }catch(err){ console.error(err); alert('Error during cleanup.'); }
+    }
+
+    let erSubId = null;
+    function erSetStatus(on){
+      const el = document.getElementById('er-status');
+      el.textContent = on ? '• ON' : '• OFF';
+      el.style.color = on ? '#0D7A5F' : '#6a7775';
+    }
+    function erBindCadence(){
+      const cadence = document.getElementById('er-cadence');
+      const weekly = document.getElementById('er-weekly');
+      const monthly = document.getElementById('er-monthly');
+      const sync = () => {
+        const isMonthly = cadence.value === 'MONTHLY';
+        weekly.style.display = isMonthly ? 'none' : '';
+        monthly.style.display = isMonthly ? '' : 'none';
+      };
+      cadence.addEventListener('change', sync);
+      sync();
+    }
+    async function erLoad(){
+      try{
+        const res = await fetch('/api/reports/', {credentials:'include'});
+        const list = await res.json();
+        const sub = list && list.length ? list[0] : null;
+        erSubId = sub ? sub.id : null;
+        document.getElementById('er-enabled').checked = sub ? sub.enabled : true;
+        document.getElementById('er-cadence').value = sub ? sub.cadence : 'WEEKLY';
+        document.getElementById('er-weekday').value = sub ? sub.weekday : 1;
+        document.getElementById('er-day').value = sub ? sub.day_of_month : 1;
+        document.getElementById('er-hour').value = sub ? sub.send_hour : 9;
+        document.getElementById('er-fmt').value = sub ? sub.fmt : 'HTML';
+        document.getElementById('er-recipients').value = sub && sub.recipients ? sub.recipients : '';
+        erSetStatus(!!(sub ? sub.enabled : true));
+        document.getElementById('er-cadence').dispatchEvent(new Event('change'));
+      }catch(e){ console.error(e); }
+    }
+    function erInit(){
+      erBindCadence();
+      erLoad();
+      document.getElementById('er-form').addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const payload = {
+          enabled: document.getElementById('er-enabled').checked,
+          cadence: document.getElementById('er-cadence').value,
+          weekday: parseInt(document.getElementById('er-weekday').value || '1'),
+          day_of_month: parseInt(document.getElementById('er-day').value || '1'),
+          send_hour: parseInt(document.getElementById('er-hour').value || '9'),
+          timezone: 'Europe/Vienna',
+          fmt: document.getElementById('er-fmt').value,
+          recipients: document.getElementById('er-recipients').value.trim(),
+        };
+        const method = erSubId ? 'PATCH' : 'POST';
+        const url = erSubId ? `/api/reports/${erSubId}/` : '/api/reports/';
+        try{
+          const res = await fetch(url,{
+            method, credentials:'include',
+            headers:{'Content-Type':'application/json','X-CSRFToken':getCookie('csrftoken')},
+            body: JSON.stringify(payload)
+          });
+          if(!res.ok) throw new Error(await res.text());
+          if(!erSubId){ const created = await res.json(); erSubId = created.id; }
+          erSetStatus(payload.enabled);
+          alert('Email report settings saved.');
+        }catch(err){
+          console.error(err);
+          alert('Failed to save email report settings.');
+        }
+      });
+      document.getElementById('er-sendnow').addEventListener('click', async ()=>{
+        if(!erSubId){ alert('Save settings first.'); return; }
+        try{
+          const res = await fetch(`/api/reports/${erSubId}/send_now/`, {
+            method:'POST', credentials:'include', headers:{'X-CSRFToken':getCookie('csrftoken')}
+          });
+          if(!res.ok) throw new Error(await res.text());
+          alert('Report queued for sending.');
+        }catch(err){
+          console.error(err);
+          alert('Failed to trigger sending.');
+        }
+      });
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoRefresh();
+      else { startAutoRefresh(); refreshData(); }
+    });
+  </script>
+</body>
+</html>
