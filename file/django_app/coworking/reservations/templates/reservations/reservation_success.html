@@ -41,7 +41,7 @@ async function cancelReservation(reservationId) {
       return;
     }
     
-    const response = await fetch(`/reservation/${reservationId}/cancel/`, {
+    const response = await fetch(`/reservations/reservation/${reservationId}/cancel/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,6 +1,8 @@
+import logging
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_POST
 from django.utils import timezone
 from django.core.mail import send_mail
@@ -17,6 +19,9 @@ from .notification_utils import send_reservation_reminder, send_waitlist_notific
 from .push_notifications import send_push_notification, is_webpush_enabled
 from .group_utils import find_adjacent_desks, suggest_group_desks, create_group_reservation
 from .slack_bot import slack_events, slack_slash_commands
+
+
+logger = logging.getLogger('reservations.booking')
 
 def send_reservation_email(reservation):
     """Wyślij email z potwierdzeniem rezerwacji"""
@@ -111,6 +116,12 @@ Możesz anulować rezerwację w dowolnym momencie w systemie rezerwacji.
 System rezerwacji stanowisk
     """
     
+    logger.info(
+        "Rozpoczynam wysyłkę emaila: reservation_id=%s email=%s desk_id=%s",
+        reservation.id,
+        reservation.email,
+        reservation.desk_id,
+    )
     try:
         result = send_mail(
             subject=subject,
@@ -122,8 +133,25 @@ System rezerwacji stanowisk
         )
         # W trybie deweloperskim email będzie wyświetlony w konsoli
     except Exception as e:
-        print(f"Blad w send_mail: {e}")
+        logger.exception(
+            "Błąd podczas wysyłki emaila: reservation_id=%s email=%s",
+            reservation.id,
+            reservation.email,
+        )
         # Nie rzucaj wyjątku - email nie jest krytyczny dla rezerwacji
+    else:
+        if result:
+            logger.info(
+                "Email z potwierdzeniem wysłany: reservation_id=%s email=%s",
+                reservation.id,
+                reservation.email,
+            )
+        else:
+            logger.warning(
+                "Backend email zwrócił status niepowodzenia (result=0): reservation_id=%s email=%s",
+                reservation.id,
+                reservation.email,
+            )
 
 def home(request): return redirect('floor', floor_number=4)
 
@@ -147,24 +175,58 @@ def reserve(request, desk_id:int):
         form=ReservationForm(request.POST)
         if form.is_valid():
             res=form.save(commit=False); res.desk=desk
+            logger.info(
+                "Próba rezerwacji: desk_id=%s label=%s email=%s date=%s time_from=%s time_to=%s",
+                desk.id,
+                desk.label,
+                res.email,
+                res.date.isoformat() if res.date else None,
+                res.time_from.isoformat() if res.time_from else None,
+                res.time_to.isoformat() if res.time_to else None,
+            )
             if not is_available(desk,res.date,res.time_from,res.time_to):
                 alt=alternative_for(desk,res.date,res.time_from,res.time_to)
+                logger.warning(
+                    "Rezerwacja odrzucona - stanowisko niedostępne: desk_id=%s label=%s email=%s date=%s time_from=%s time_to=%s",
+                    desk.id,
+                    desk.label,
+                    res.email,
+                    res.date.isoformat() if res.date else None,
+                    res.time_from.isoformat() if res.time_from else None,
+                    res.time_to.isoformat() if res.time_to else None,
+                )
                 return render(request,'reservations/reserve.html',{'desk':desk,'form':form,'error':'To miejsce jest już zajęte.','alternative':alt})
             res.save()
+            logger.info(
+                "Rezerwacja utworzona: reservation_id=%s desk_id=%s label=%s email=%s",
+                res.id,
+                desk.id,
+                desk.label,
+                res.email,
+            )
             
             # Wyślij email z potwierdzeniem (nie blokuj rezerwacji w przypadku błędu)
             try:
                 send_reservation_email(res)
                 # Email zostanie wyświetlony w konsoli (console.EmailBackend w trybie dev)
             except Exception as e:
-                print(f"Blad wysylania emaila: {e}")
+                logger.exception(
+                    "Nieoczekiwany wyjątek przy wysyłce emaila: reservation_id=%s email=%s",
+                    res.id,
+                    res.email,
+                )
                 # Nie przerywaj procesu rezerwacji w przypadku błędu email
             
             # Odblokuj stanowisko po udanej rezerwacji
             try:
                 unlock_desk(desk, res.email)
             except Exception as e:
-                print(f"Blad odblokowywania stanowiska: {e}")
+                logger.exception(
+                    "Błąd odblokowywania stanowiska: reservation_id=%s desk_id=%s email=%s",
+                    res.id,
+                    desk.id,
+                    res.email,
+                )
                 # Nie przerywaj procesu rezerwacji w przypadku błędu odblokowywania
             
             return render(request,'reservations/reservation_success.html',{'reservation':res})
@@ -230,6 +292,7 @@ def update_desk_position(request,desk_id:int):
     desk.x_pct=x; desk.y_pct=y; desk.save(update_fields=['x_pct','y_pct'])
     return JsonResponse({'ok':True,'id':desk.id,'x_pct':float(desk.x_pct),'y_pct':float(desk.y_pct)})
 
+@ensure_csrf_cookie
 def cancel_reservation(request, res_id:int):
     """Anuluj rezerwację"""
     reservation = get_object_or_404(Reservation, id=res_id)
@@ -238,11 +301,22 @@ def cancel_reservation(request, res_id:int):
         reservation.cancelled_at = timezone.now()
         reservation.save(update_fields=['is_cancelled', 'cancelled_at'])
         
+        logger.info(
+            "Rezerwacja anulowana: reservation_id=%s desk_id=%s email=%s",
+            reservation.id,
+            reservation.desk_id,
+            reservation.email,
+        )
+        
         # Wyślij powiadomienie o anulowaniu
         try:
             send_cancellation_notification(reservation)
         except Exception as e:
-            print(f"Błąd wysyłania powiadomienia o anulowaniu: {e}")
+            logger.exception(
+                "Błąd wysyłania powiadomienia o anulowaniu: reservation_id=%s email=%s",
+                reservation.id,
+                reservation.email,
+            )
         
         return JsonResponse({'success': True, 'message': 'Rezerwacja została anulowana'})
     return render(request, 'reservations/cancel_confirm.html', {'reservation': reservation})
