@@ -43,22 +43,14 @@ async function cancelReservation() {
       return;
     }
     
-    const cancelUrl = '/reservations/reservation/{{ reservation.id }}/cancel/';
-
-    const response = await fetch(cancelUrl, {
+    const response = await fetch('{% url "cancel_reservation" reservation.id %}', {
       method: 'POST',
       headers: {
-        'X-CSRFToken': csrfToken,
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      credentials: 'same-origin'
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      }
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText || `HTTP ${response.status}`);
-    }
-
+    
     const data = await response.json();
     
     if (data.success) {

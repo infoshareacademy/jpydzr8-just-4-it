@@ -152,40 +152,6 @@ EMAIL_SSL_KEYFILE = None
 # For development: disable SSL verification (not recommended for production)
 EMAIL_USE_SSL = False  # Use TLS instead
 
-# Logging configuration
-LOG_DIR = BASE_DIR / 'logs'
-LOG_DIR.mkdir(parents=True, exist_ok=True)
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(asctime)s [%(levelname)s] %(name)s %(message)s',
-        },
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
-        },
-        'reservations_file': {
-            'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'verbose',
-            'filename': str(LOG_DIR / 'reservations.log'),
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 5,
-        },
-    },
-    'loggers': {
-        'reservations.booking': {
-            'handlers': ['console', 'reservations_file'],
-            'level': 'INFO' if not DEBUG else 'DEBUG',
-            'propagate': False,
-        },
-    },
-}
-
 # Check if credentials are real (not example values)
 is_example_email = (
     'your_email' in EMAIL_HOST_USER.lower() or 
