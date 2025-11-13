@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🚀 {% trans "Just 4 IT Coworking - Welcome" %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'dashboard/css/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/auth.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/welcome.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body class="welcome-page">
+  <!-- Mega Wow Splash Animation -->
+  <div class="welcome-splash" id="welcomeSplash">
+    <div class="splash-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <div class="splash-gradient"></div>
+    <div class="splash-gradient-2"></div>
+
+    <div class="splash-content">
+      <div class="splash-logo">
+        <div class="splash-logo-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="splash-logo-text">
+          <span class="splash-text-main">Just 4 IT</span>
+          <span class="splash-text-sub">Coworking</span>
+        </div>
+      </div>
+
+      <div class="splash-loading">
+        <div class="splash-loading-bar">
+          <div class="splash-loading-progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="splash-rings">
+      <div class="splash-ring ring-1"></div>
+      <div class="splash-ring ring-2"></div>
+      <div class="splash-ring ring-3"></div>
+    </div>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="welcome-animated-bg">
+    <div class="welcome-bg-shapes">
+      <div class="welcome-shape welcome-shape-1"></div>
+      <div class="welcome-shape welcome-shape-2"></div>
+      <div class="welcome-shape welcome-shape-3"></div>
+      <div class="welcome-shape welcome-shape-4"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="welcome-header">
+    <div class="welcome-header-content">
+      <div class="welcome-brand">
+        <div class="welcome-brand-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="welcome-brand-text">
+          <span class="welcome-brand-main">Just 4 IT</span>
+          <span class="welcome-brand-sub">Coworking</span>
+        </div>
+      </div>
+
+      <div class="welcome-header-actions">
+        <a href="/api/admin/control-center/" class="welcome-admin-link">
+          <i class="fas fa-chart-line"></i>
+          <span>{% trans "Admin control center" %}</span>
+        </a>
+        <div class="welcome-lang-switcher">
+          {% include 'common/language_switcher.html' %}
+        </div>
+        <button id="themeToggle" class="welcome-theme-toggle" aria-label="{% trans 'Toggle dark mode' %}">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="welcome-hero-section">
+    <div class="welcome-hero-content">
+      <h1 class="welcome-hero-title" data-aos="fade-up" data-aos-duration="1000">
+        {% trans "Welcome to" %}
+        <span class="welcome-hero-highlight">{% trans "Just 4 IT Coworking" %}</span>
+      </h1>
+      <p class="welcome-hero-subtitle" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+        {% trans "Your modern workspace management platform. Book desks, manage reservations, and collaborate seamlessly." %}
+      </p>
+
+      <div class="welcome-hero-actions" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+        <a href="/login" class="welcome-btn welcome-btn-primary">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>{% trans "Sign In" %}</span>
+        </a>
+        <a href="/register" class="welcome-btn welcome-btn-secondary">
+          <i class="fas fa-user-plus"></i>
+          <span>{% trans "Get Started" %}</span>
+        </a>
+      </div>
+
+      <div class="welcome-scroll-indicator" data-aos="fade-up" data-aos-delay="600">
+        <i class="fas fa-chevron-down"></i>
+        <span>{% trans "Scroll to explore" %}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="welcome-features-section">
+    <div class="welcome-container">
+      <h2 class="welcome-section-title" data-aos="fade-up">
+        {% trans "Why Choose Us?" %}
+      </h2>
+      <p class="welcome-section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        {% trans "Everything you need to manage your workspace efficiently" %}
+      </p>
+
+      <div class="welcome-features-grid">
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Easy Booking" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Reserve your desk in seconds with our intuitive booking system" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Floor Plans" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Interactive floor plans to find the perfect spot for your work" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Smart Notifications" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Stay updated with real-time notifications about your reservations" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Analytics" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Track your workspace usage and optimize your schedule" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="600">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Team Collaboration" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Book desks for your team and coordinate workspace usage" %}
+          </p>
+        </div>
+
+        <div class="welcome-feature-card" data-aos="fade-up" data-aos-delay="700">
+          <div class="welcome-feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="welcome-feature-title">{% trans "Mobile Friendly" %}</h3>
+          <p class="welcome-feature-description">
+            {% trans "Access your workspace from any device, anywhere, anytime" %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="welcome-cta-section">
+    <div class="welcome-container">
+      <div class="welcome-cta-content" data-aos="zoom-in">
+        <h2 class="welcome-cta-title">{% trans "Ready to Get Started?" %}</h2>
+        <p class="welcome-cta-subtitle">
+          {% trans "Join us today and experience the future of workspace management" %}
+        </p>
+        <div class="welcome-cta-actions">
+          <a href="/register" class="welcome-btn welcome-btn-primary welcome-btn-large">
+            <i class="fas fa-rocket"></i>
+            <span>{% trans "Create Account" %}</span>
+          </a>
+          <a href="/login" class="welcome-btn welcome-btn-secondary welcome-btn-large">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>{% trans "Sign In" %}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="welcome-footer">
+    <div class="welcome-container">
+      <div class="welcome-footer-content">
+        <div class="welcome-footer-brand">
+          <div class="welcome-brand">
+            <div class="welcome-brand-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="welcome-brand-text">
+              <span class="welcome-brand-main">Just 4 IT</span>
+              <span class="welcome-brand-sub">Coworking</span>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-footer-links">
+          <a href="/login">{% trans "Sign In" %}</a>
+          <a href="/register">{% trans "Sign Up" %}</a>
+          <a href="/api/admin/control-center/">{% trans "Admin control center" %}</a>
+        </div>
+      </div>
+      <div class="welcome-footer-copyright">
+        <p>&copy; {% now "Y" %} Just 4 IT Coworking. {% trans "All rights reserved." %}</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'dashboard/js/theme.js' %}"></script>
+  <script src="{% static 'dashboard/js/auth.js' %}"></script>
+  <script>
+    // Mega Wow Splash Animation
+    (function() {
+      const splash = document.getElementById('welcomeSplash');
+      const progressBar = document.querySelector('.splash-loading-progress');
+
+      if (splash && progressBar) {
+        let progress = 0;
+        const duration = 6000; // 6 seconds
+        const interval = 16; // ~60fps
+        const increment = 100 / (duration / interval);
+
+        const updateProgress = () => {
+          progress += increment;
+          if (progress >= 100) {
+            progress = 100;
+            progressBar.style.width = '100%';
+
+            // Fade out animation
+            setTimeout(() => {
+              splash.style.opacity = '0';
+              splash.style.transform = 'scale(1.1)';
+              setTimeout(() => {
+                splash.style.display = 'none';
+              }, 500);
+            }, 300);
+          } else {
+            progressBar.style.width = progress + '%';
+            requestAnimationFrame(updateProgress);
+          }
+        };
+
+        // Start animation after a brief delay
+        setTimeout(() => {
+          updateProgress();
+        }, 100);
+
+        // Hide splash if page loads faster
+        window.addEventListener('load', () => {
+          if (progress < 100) {
+            progress = 100;
+            progressBar.style.width = '100%';
+            setTimeout(() => {
+              splash.style.opacity = '0';
+              splash.style.transform = 'scale(1.1)';
+              setTimeout(() => {
+                splash.style.display = 'none';
+              }, 500);
+            }, 300);
+          }
+        });
+      }
+    })();
+
+    // Smooth scroll for scroll indicator
+    document.querySelector('.welcome-scroll-indicator')?.addEventListener('click', () => {
+      document.querySelector('.welcome-features-section')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Initialize AOS after splash
+    setTimeout(() => {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 1000,
+          easing: 'ease-in-out',
+          once: true,
+          offset: 100
+        });
+      }
+    }, 6500);
+  </script>
+</body>
+</html>
+
