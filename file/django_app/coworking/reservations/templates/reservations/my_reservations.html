@@ -1,0 +1,146 @@
+{% extends "reservations/base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'My Reservations' %}{% endblock %}
+{% block content %}
+{% csrf_token %}
+<div class="max-w-4xl mx-auto">
+  <!-- Language Switcher -->
+  <div style="position: absolute; top: 20px; right: 20px;">
+    {% include 'common/language_switcher.html' %}
+  </div>
+  
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold">{% trans 'My Reservations' %}</h1>
+    <a href="{% url 'floor' 4 %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-slate-500 to-slate-600 text-white rounded-lg hover:from-slate-600 hover:to-slate-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      {% trans 'Back to Plans' %}
+    </a>
+  </div>
+  
+  <!-- Formularz wyszukiwania -->
+  <div class="card rounded-2xl bg-white p-4 mb-6">
+    <form method="GET" class="flex items-center gap-4">
+      <label class="text-sm text-slate-600">{% trans 'Enter your email' %}:</label>
+      <input type="email" name="email" value="{{ email }}" 
+             placeholder="{% trans 'your@email.com' %}" 
+             class="flex-1 border rounded-lg px-3 py-2" required>
+      <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        {% trans 'Show Reservations' %}
+      </button>
+    </form>
+  </div>
+  
+  {% if reservations %}
+    <div class="space-y-4">
+      {% for reservation in reservations %}
+        <div class="card rounded-2xl bg-white p-4 border-l-4 border-emerald-500">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="text-lg font-medium text-slate-800">{{ reservation.desk.label }}</h3>
+                <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded-full">
+                  {% trans 'Floor' %} {{ reservation.desk.floor.number }}
+                </span>
+                {% if reservation.desk.has_dock %}
+                  <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">{% trans 'Dock' %}</span>
+                {% endif %}
+                {% if reservation.desk.has_dual_monitors %}
+                  <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full">{% trans 'Dual Monitors' %}</span>
+                {% endif %}
+                {% if reservation.desk.has_adjustable_desk %}
+                  <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full">{% trans 'Adjustable' %}</span>
+                {% endif %}
+                {% if reservation.desk.is_deep_work %}
+                  <span class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded-full">{% trans 'Deep Work' %}</span>
+                {% endif %}
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-600">
+                <div>
+                  <strong>{% trans 'Date' %}:</strong><br>
+                  {{ reservation.date|date:"d.m.Y (l)" }}
+                </div>
+                <div>
+                  <strong>{% trans 'Hours' %}:</strong><br>
+                  {{ reservation.time_from|time:"H:i" }} - {{ reservation.time_to|time:"H:i" }}
+                </div>
+                <div>
+                  <strong>Email:</strong><br>
+                  {{ reservation.email }}
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex gap-2 ml-4">
+              <a href="{% url 'download_ics' reservation.id %}" 
+                 class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 text-sm font-medium">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                {% trans 'Download .ics' %}
+              </a>
+              <button onclick="cancelReservation({{ reservation.id }})" 
+                      class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 text-sm font-medium">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                {% trans 'Cancel' %}
+              </button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% elif email %}
+    <div class="card rounded-2xl bg-white p-8 text-center">
+      <div class="text-slate-400 mb-4">
+        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+        </svg>
+      </div>
+      <h3 class="text-lg font-medium text-slate-700 mb-2">{% trans 'No Reservations' %}</h3>
+      <p class="text-slate-500">{% trans 'No active reservations found for this email address.' %}</p>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+async function cancelReservation(reservationId) {
+  if (!confirm('{% trans "Are you sure you want to cancel this reservation?" %}')) {
+    return;
+  }
+  
+  try {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+    if (!csrfToken) {
+      alert('❌ {% trans "Error: Missing CSRF token" %}');
+      return;
+    }
+    
+    const response = await fetch(`/reservations/reservation/${reservationId}/cancel/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert('✅ ' + data.message);
+      location.reload();
+    } else {
+      alert('❌ {% trans "Error occurred:" %} ' + (data.message || '{% trans "Failed to cancel reservation" %}'));
+    }
+  } catch (error) {
+    alert('❌ {% trans "Error occurred:" %} ' + error.message);
+  }
+}
+</script>
+{% endblock %}
