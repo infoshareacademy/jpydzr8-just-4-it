@@ -7,10 +7,11 @@ Poniżej rozpisałem wszystko, co zrobiłem, żeby każdy z nas mógł w kilka m
 ## Krok 0. Co musisz mieć zainstalowane
 1. **Python 3.13** – najlepiej sprawdź `python --version`.  
 2. **Virtualenv** – standardowo tworzymy `coworking/venv`.  
-3. **Opcjonalnie Node/npm** – tylko jeśli ruszasz assety frontowe.  
-4. **Konto w Google Cloud** – do logowania OAuth.  
-5. **Konto pocztowe** (np. Gmail) – App Password do SMTP.  
-6. **Przeglądarka obsługująca push** – Chrome/Firefox na `https` lub `http://localhost`.
+3. **GNU gettext** (tylko Windows) – potrzebne do kompilacji tłumaczeń. Zobacz `GETTEXT_WINDOWS_SETUP.md` jeśli dostaniesz błąd `Can't find msgfmt`.  
+4. **Opcjonalnie Node/npm** – tylko jeśli ruszasz assety frontowe.  
+5. **Konto w Google Cloud** – do logowania OAuth.  
+6. **Konto pocztowe** (np. Gmail) – App Password do SMTP.  
+7. **Przeglądarka obsługująca push** – Chrome/Firefox na `https` lub `http://localhost`.
 
 ---
 
@@ -144,13 +145,15 @@ Teraz masz dostępne:
 
 ## Przydatne komendy, które używam
 - `python manage.py createsuperuser` – lokalny admin.
-- `python manage.py compilemessages -l pl` – po zmianach w tłumaczeniach.
+- `python manage.py compilemessages` – kompilacja tłumaczeń (wymaga gettext na Windows – zobacz `GETTEXT_WINDOWS_SETUP.md`).
+- `python manage.py compilemessages -l pl` – kompilacja tylko dla języka polskiego.
 - `python manage.py shell` – szybkie testy w Pythonie.
 - `python manage.py dumpdata reservations.Reservation` – zrzut rezerwacji (np. backup dev).
 
 ---
 
 ## Typowe problemy i jak je ogarnąć
+- **Błąd `Can't find msgfmt` przy `compilemessages`** – na Windows musisz zainstalować GNU gettext. Zobacz szczegółowe instrukcje w `GETTEXT_WINDOWS_SETUP.md`.  
 - **Maile nie przychodzą** – w logach zobaczysz, czy brakuje App Password; jeśli tak, popraw `.env`.  
 - **Google OAuth krzyczy o redirect** – zwykle literówka w URI; pamiętaj o obu wersjach hosta (localhost i 127.0.0.1).  
 - **Push nie działa** – sprawdź konsolę przeglądarki (czy pobrano publiczny klucz i zarejestrowano Service Worker). W logach backendu zobaczysz status – jeśli subskrypcja jest martwa, backend ją automatycznie wyłączy.  

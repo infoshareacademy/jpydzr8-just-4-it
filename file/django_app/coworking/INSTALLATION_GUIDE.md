@@ -22,6 +22,14 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+### 2.1. Skompiluj tłumaczenia (opcjonalnie, jeśli zmieniasz pliki .po)
+
+```bash
+python manage.py compilemessages
+```
+
+> **Uwaga dla Windows**: Jeśli dostaniesz błąd `Can't find msgfmt`, musisz zainstalować GNU gettext. Zobacz szczegółowe instrukcje w `GETTEXT_WINDOWS_SETUP.md`.
+
 ### 3. Utwórz superużytkownika (jeśli potrzebny)
 
 ```bash
