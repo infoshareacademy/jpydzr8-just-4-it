@@ -1,0 +1,27 @@
+{% extends "reservations/base.html" %}
+{% block title %}Edycja układu – Piętro {{ floor.number }}{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">Edycja układu – Piętro {{ floor.number }}</h1>
+<p class="text-sm text-slate-600 mb-4">Przeciągaj kropki; po puszczeniu pozycja zapisze się (x/y w %).</p>
+<div class="card rounded-2xl bg-white p-4">
+  <div id="stage" class="relative w-full rounded-xl" style="padding-top:75%; background:#f8fafc;">
+    <img src="/static/{{ floor.image_path }}" class="absolute inset-0 w-full h-full object-contain rounded-xl opacity-95"/>
+    {% for d in desks %}
+      <div class="absolute desk-dot rounded-full border border-sky-400 bg-sky-200 cursor-move" data-id="{{ d.id }}"
+           style="left: {{ d.x_pct }}%; top: {{ d.y_pct }}%; width: 18px; height: 18px;" title="{{ d.label }}"></div>
+    {% endfor %}
+  </div>
+</div>
+<div class="mt-4"><a href="{% url 'floor' floor.number %}" class="px-4 py-2 rounded-lg bg-slate-100">Wróć do widoku</a></div>
+<script>
+(function(){
+  const stage=document.getElementById('stage'); let drag=null;
+  function clamp(x){return Math.max(0,Math.min(100,x));}
+  function toPct(e){const r=stage.getBoundingClientRect();return {x:clamp((e.clientX-r.left)/r.width*100),y:clamp((e.clientY-r.top)/r.height*100)};}
+  stage.addEventListener('mousedown',e=>{const el=e.target.closest('.desk-dot'); if(!el) return; drag=el; e.preventDefault();});
+  document.addEventListener('mousemove',e=>{ if(!drag) return; const p=toPct(e); drag.style.left=p.x+'%'; drag.style.top=p.y+'%'; });
+  document.addEventListener('mouseup',async e=>{ if(!drag) return; const id=drag.dataset.id; const p=toPct(e); drag=null;
+    await fetch(`/desk/${id}/position/`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({x_pct:p.x.toFixed(2), y_pct:p.y.toFixed(2)})}); });
+})();
+</script>
+{% endblock %}

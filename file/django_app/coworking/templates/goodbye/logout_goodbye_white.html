@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% trans 'Logged out' %}</title>
+  <link rel="stylesheet" href="{% static 'frontend/goodbye/logout_goodbye_white.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="goodbye-intro" aria-hidden="true">
+    <div class="goodbye-inner">
+      <h1 class="goodbye-title" aria-label="{% trans 'Goodbye!' %}">
+        <span id="gbText" class="goodbye-word" data-text="{% trans 'Goodbye!' %}"></span>
+      </h1>
+      <p class="goodbye-sub">{% trans 'See you soon' %} 👋</p>
+    </div>
+  </div>
+
+  <div class="container goodbye-app">
+    <div class="card">
+      <h1>{% trans 'You have been logged out' %}</h1>
+      <p>{% trans 'Thanks for visiting. Come back anytime.' %}</p>
+      <div class="button-group">
+        <a class="btn btn-primary" href="/login">{% trans "Log in again" %}</a>
+        <a class="btn btn-tertiary" href="#">{% trans "Close" %}</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'frontend/goodbye/logout_goodbye_white.js' %}"></script>
+</body>
+</html>

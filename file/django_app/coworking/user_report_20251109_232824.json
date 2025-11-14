@@ -1,0 +1,36 @@
+{
+  "generated_at": "2025-11-09T23:28:24.812024+00:00",
+  "range_days": 30,
+  "overview": {
+    "total_users": 2,
+    "active_users": 2,
+    "staff_users": 1,
+    "new_users": 2,
+    "recent_logins": 2
+  },
+  "new_users": [
+    {
+      "email": "admin@coworking.com",
+      "date_joined": "2025-11-09T18:46:33.813376+00:00",
+      "is_active": true
+    },
+    {
+      "email": "grabowskiadrian98@gmail.com",
+      "date_joined": "2025-11-09T15:38:01.066733+00:00",
+      "is_active": true
+    }
+  ],
+  "recent_logins": [
+    {
+      "email": "admin@coworking.com",
+      "last_login": "2025-11-09T23:17:50.103441+00:00",
+      "is_staff": true
+    },
+    {
+      "email": "grabowskiadrian98@gmail.com",
+      "last_login": "2025-11-09T15:38:08.628512+00:00",
+      "is_staff": false
+    }
+  ],
+  "top_reservation_emails": []
+}

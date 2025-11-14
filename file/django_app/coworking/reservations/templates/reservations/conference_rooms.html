@@ -1,0 +1,150 @@
+{% extends "reservations/base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Conference Rooms' %} - {% trans 'Floor' %} {{ floor.number }}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+  <!-- Language Switcher -->
+  <div style="position: absolute; top: 20px; right: 20px;">
+    {% include 'common/language_switcher.html' %}
+  </div>
+  <!-- Header -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-slate-800">{% trans 'Conference Rooms' %}</h1>
+          {% if floor %}
+            <p class="text-slate-600 mt-1">{% trans 'Floor' %} {{ floor.number }} • {% trans 'Meeting rooms and conference facilities' %}</p>
+          {% else %}
+            <p class="text-slate-600 mt-1">{% trans 'Meeting rooms and conference facilities' %}</p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="{% url 'advanced_features' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          {% trans 'Back to Features' %}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floor Selector -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+    <h2 class="text-xl font-bold text-slate-800 mb-4">{% trans 'Select Floor' %}</h2>
+    <div class="flex flex-wrap gap-3">
+      <a href="{% url 'conference_rooms' %}" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors {% if not floor %}bg-blue-100 text-blue-700{% else %}bg-slate-100 hover:bg-slate-200 text-slate-700{% endif %}">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+        </svg>
+        {% trans 'All Floors' %}
+      </a>
+      {% for f in floors %}
+        <a href="{% url 'conference_rooms_floor' f.number %}" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors {% if floor and floor.number == f.number %}bg-blue-100 text-blue-700{% else %}bg-slate-100 hover:bg-slate-200 text-slate-700{% endif %}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          {% trans 'Floor' %} {{ f.number }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if conference_rooms %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for room in conference_rooms %}
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 hover:shadow-xl transition-all duration-200">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-800">{% trans 'Conference Room' %} - {% trans 'Floor' %} {{ room.floor.number }}</h3>
+              <p class="text-sm text-slate-500">{% trans 'Capacity' %}: {{ room.capacity }} {% trans 'people' %}</p>
+            </div>
+          </div>
+
+          {% if room.description %}
+            <p class="text-sm text-slate-600 mb-4">{{ room.description }}</p>
+          {% endif %}
+
+          <!-- Equipment -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            {% if room.has_projector %}
+              <span class="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v18a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3M7 4H5a1 1 0 00-1 1v14a1 1 0 001 1h2m0-16h10"></path>
+                </svg>
+                {% trans 'Projector' %}
+              </span>
+            {% endif %}
+            {% if room.has_whiteboard %}
+              <span class="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs font-medium">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                </svg>
+                {% trans 'Whiteboard' %}
+              </span>
+            {% endif %}
+            {% if room.has_video_conference %}
+              <span class="inline-flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-700 rounded-md text-xs font-medium">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+                {% trans 'Video Conference' %}
+              </span>
+            {% endif %}
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+              {% if room.zone %}
+                {{ room.zone.name }}
+              {% else %}
+                {% trans 'Floor' %} {{ room.floor.number }}
+              {% endif %}
+            </div>
+            <a href="{% url 'conference_room_reservation' room.id %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm font-medium">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              {% trans 'Reserve' %}
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 text-center">
+      <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+        </svg>
+      </div>
+      {% if floor %}
+        <h3 class="text-lg font-semibold text-slate-800 mb-2">{% trans 'No Conference Rooms' %}</h3>
+        <p class="text-slate-600 mb-4">{% trans 'There are no conference rooms available on this floor yet.' %}</p>
+      {% else %}
+        <h3 class="text-lg font-semibold text-slate-800 mb-2">{% trans 'No Conference Rooms Found' %}</h3>
+        <p class="text-slate-600 mb-4">{% trans 'There are no conference rooms available yet.' %}</p>
+      {% endif %}
+      <a href="{% url 'advanced_features' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-slate-500 to-slate-600 text-white rounded-lg hover:from-slate-600 hover:to-slate-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        {% trans 'Back to Features' %}
+      </a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

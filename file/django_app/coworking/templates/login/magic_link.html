@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🚀 {% trans "Just 4 IT Coworking - Magic Link Login" %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'dashboard/css/theme.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/auth.css' %}"/>
+  <link rel="stylesheet" href="{% static 'dashboard/css/welcome.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{% static 'dashboard/js/i18n.js' %}"></script>
+  <script>
+    // Initialize i18n
+    window.i18n.setLanguage('{{ LANGUAGE_CODE }}');
+  </script>
+</head>
+<body class="login-page">
+  <!-- Animated Background -->
+  <div class="welcome-animated-bg">
+    <div class="welcome-bg-shapes">
+      <div class="welcome-shape welcome-shape-1"></div>
+      <div class="welcome-shape welcome-shape-2"></div>
+      <div class="welcome-shape welcome-shape-3"></div>
+      <div class="welcome-shape welcome-shape-4"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="welcome-header">
+    <div class="welcome-header-content">
+      <a href="/welcome" class="welcome-brand" style="text-decoration: none; color: inherit;">
+        <div class="welcome-brand-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="welcome-brand-text">
+          <span class="welcome-brand-main">Just 4 IT</span>
+          <span class="welcome-brand-sub">Coworking</span>
+        </div>
+      </a>
+      
+      <div class="welcome-header-actions">
+        <div class="welcome-lang-switcher">
+          {% include 'common/language_switcher.html' %}
+        </div>
+        <button id="themeToggle" class="welcome-theme-toggle" aria-label="{% trans 'Toggle dark mode' %}">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="login-main">
+    <div class="login-container">
+      <div class="login-card" data-aos="fade-up" data-aos-duration="800">
+        <div class="login-header">
+          <div class="login-icon-wrapper">
+            <i class="fas fa-envelope-open-text"></i>
+          </div>
+          <h1 class="login-title">
+            {% trans "Magic Link Login" %}
+          </h1>
+          <p class="login-subtitle">
+            {% trans "Enter your email address and we will send you a secure login link!" %}
+          </p>
+        </div>
+
+        <!-- Magic Link Form -->
+        <form class="login-form magic-link-form" id="magicLinkForm" autocomplete="on" style="display: block;">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <label for="email" class="form-label">
+              <i class="fas fa-envelope"></i>
+              {% trans "Email Address" %}
+            </label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="{% trans 'Enter your email address' %}"
+              required
+              autocomplete="email"
+            >
+          </div>
+
+          <!-- Info Box -->
+          <div class="magic-link-info">
+            <div class="magic-link-info-icon">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="magic-link-info-content">
+              <h4>{% trans "How it works:" %}</h4>
+              <ul>
+                <li><i class="fas fa-check"></i> {% trans "Enter your email address" %}</li>
+                <li><i class="fas fa-check"></i> {% trans "Check your email for a secure login link" %}</li>
+                <li><i class="fas fa-check"></i> {% trans "Click the link to log in automatically" %}</li>
+                <li><i class="fas fa-check"></i> {% trans "No password required!" %}</li>
+              </ul>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-auth btn-auth-primary" id="sendLinkBtn">
+            <i class="fas fa-paper-plane"></i>
+            <span>{% trans "Send Login Link" %}</span>
+          </button>
+        </form>
+
+        <!-- Loading State -->
+        <div class="magic-link-loading" id="loading" style="display: none;">
+          <div class="magic-link-spinner">
+            <div class="spinner-circle"></div>
+          </div>
+          <p>{% trans "Sending login link..." %}</p>
+        </div>
+
+        <!-- Success Message -->
+        <div id="email-sent-message" class="magic-link-success" style="display: none;">
+          <div class="magic-link-success-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h3>{% trans "Check Your Email!" %}</h3>
+          <p>{% trans "We have sent a secure login link to your email address." %}</p>
+          <p class="magic-link-success-highlight">
+            <strong>{% trans "Click the link in your email to log in automatically." %}</strong>
+          </p>
+          <p class="magic-link-success-note">
+            <i class="fas fa-clock"></i>
+            {% trans "The link will expire in 15 minutes." %}
+          </p>
+          <button type="button" class="btn-auth btn-auth-secondary" id="resend-link">
+            <i class="fas fa-redo"></i>
+            <span>{% trans "Send Another Link" %}</span>
+          </button>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="magic-link-error" style="display: none;">
+          <div class="magic-link-error-icon">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <h3>{% trans "Error" %}</h3>
+          <p id="error-text"></p>
+          <button type="button" class="btn-auth btn-auth-secondary" onclick="document.getElementById('error-message').style.display='none'; document.getElementById('magicLinkForm').style.display='block';">
+            <i class="fas fa-arrow-left"></i>
+            <span>{% trans "Try Again" %}</span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider">
+          <span>{% trans "or" %}</span>
+        </div>
+
+        <!-- Google Login -->
+        <div class="social-login">
+          <a href="/accounts/google/login/" class="btn-auth btn-auth-google">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            {% trans "Continue with Google" %}
+          </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="auth-footer">
+          <p>
+            <a href="/login">
+              <i class="fas fa-arrow-left"></i>
+              {% trans "Back to login" %}
+            </a>
+          </p>
+          <p style="margin-top: 0.5rem;">
+            <a href="/welcome">
+              <i class="fas fa-home"></i>
+              {% trans "Back to welcome" %}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'dashboard/js/theme.js' %}"></script>
+  <script src="{% static 'dashboard/js/auth.js' %}"></script>
+  <script>
+    // Initialize AOS
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+      });
+    }
+
+    // Magic Link Form Handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('magicLinkForm');
+      const loading = document.getElementById('loading');
+      const successMessage = document.getElementById('email-sent-message');
+      const errorMessage = document.getElementById('error-message');
+      const sendLinkBtn = document.getElementById('sendLinkBtn');
+      const resendBtn = document.getElementById('resend-link');
+      const emailInput = document.getElementById('email');
+
+      function showLoading() {
+        form.style.display = 'none';
+        loading.style.display = 'block';
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+      }
+
+      function showSuccess() {
+        form.style.display = 'none';
+        loading.style.display = 'none';
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'block';
+      }
+
+      function showError(message) {
+        form.style.display = 'block';
+        loading.style.display = 'none';
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+        document.getElementById('error-text').textContent = message;
+      }
+
+      function resetForm() {
+        form.style.display = 'block';
+        loading.style.display = 'none';
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+        emailInput.value = '';
+      }
+
+      async function sendMagicLink(email) {
+        try {
+          const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+                           document.cookie.match(/csrftoken=([^;]+)/)?.[1];
+          
+          const response = await fetch('/api/auth/magic-link-login/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrfToken || ''
+            },
+            body: JSON.stringify({ email: email })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.email_sent) {
+            showSuccess();
+          } else {
+            showError(data.detail || window.t?.('Failed to send login link') || 'Failed to send login link');
+          }
+        } catch (error) {
+          showError(window.t?.('Network error. Please try again.') || 'Network error. Please try again.');
+        }
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        
+        if (!email) {
+          showError(window.t?.('Please enter your email address') || 'Please enter your email address');
+          return;
+        }
+
+        showLoading();
+        sendMagicLink(email);
+      });
+
+      if (resendBtn) {
+        resendBtn.addEventListener('click', function() {
+          resetForm();
+          emailInput.focus();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

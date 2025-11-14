@@ -1,0 +1,15 @@
+{
+  "period": "Last 7 days",
+  "new_users": 1,
+  "new_reservations": 0,
+  "top_seats": [],
+  "daily_stats": [],
+  "generated_at": "2025-10-18T16:43:46.445529+00:00",
+  "performance_metrics": {
+    "avg_response_time": 120,
+    "db_size_mb": 2.5,
+    "active_sessions": 0,
+    "error_rate": 0.02,
+    "uptime_percentage": 99.8
+  }
+}

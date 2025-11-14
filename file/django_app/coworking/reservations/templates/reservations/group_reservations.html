@@ -1,0 +1,247 @@
+{% extends "reservations/base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Group Reservations' %} - {% trans 'Floor' %} {{ floor.number }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+  <!-- Header -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-slate-800">{% trans 'Group Reservations' %}</h1>
+          <p class="text-slate-600 mt-1">{% trans 'Book multiple seats next to each other' %} - {% trans 'Floor' %} {{ floor.number }}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        {% include 'common/language_switcher.html' %}
+        <a href="{% url 'floor' floor.number %}" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          {% trans 'Back to Plan' %}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Form -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+      <h2 class="text-xl font-bold text-slate-800 mb-6">{% trans 'Create Group Reservation' %}</h2>
+      
+      <form method="POST" action="{% url 'create_group_reservation' floor.number %}" id="group-form">
+        {% csrf_token %}
+        
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm font-semibold text-slate-700">{% trans 'Group Name' %}</label>
+              <input type="text" name="group_name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="{% trans 'Team/project name' %}" required>
+            </div>
+            <div>
+              <label class="text-sm font-semibold text-slate-700">{% trans 'Organizer Email' %}</label>
+              <input type="email" name="organizer_email" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="{% trans 'your@email.com' %}" required>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="text-sm font-semibold text-slate-700">{% trans 'Date' %}</label>
+              <input type="date" name="date" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500" required>
+            </div>
+            <div>
+              <label class="text-sm font-semibold text-slate-700">{% trans 'From' %}</label>
+              <input type="time" name="time_from" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500" required>
+            </div>
+            <div>
+              <label class="text-sm font-semibold text-slate-700">{% trans 'To' %}</label>
+              <input type="time" name="time_to" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500" required>
+            </div>
+          </div>
+          
+          <div>
+            <label class="text-sm font-semibold text-slate-700">{% trans 'Number of Seats' %}</label>
+            <select id="desk-count" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+              <option value="2">2 {% trans 'seats' %}</option>
+              <option value="3">3 {% trans 'seats' %}</option>
+              <option value="4">4 {% trans 'seats' %}</option>
+              <option value="5">5 {% trans 'seats' %}</option>
+              <option value="6">6 {% trans 'seats' %}</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="text-sm font-semibold text-slate-700">{% trans 'Meeting Purpose' %} ({% trans 'optional' %})</label>
+            <textarea name="purpose" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="{% trans 'Describe the purpose of the meeting...' %}"></textarea>
+          </div>
+        </div>
+        
+        <!-- Hidden input for selected desks -->
+        <input type="hidden" name="desk_ids" id="selected-desks">
+        
+        <div class="mt-6 flex items-center justify-between">
+          <button type="button" id="find-desks" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
+            🔍 {% trans 'Find Seats' %}
+          </button>
+          <button type="submit" id="submit-btn" class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold" disabled>
+            ✅ {% trans 'Reserve Group' %}
+          </button>
+        </div>
+      </form>
+      
+      {% if error %}
+        <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-red-700 font-medium">{{ error }}</span>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Suggestions -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+      <h2 class="text-xl font-bold text-slate-800 mb-6">{% trans 'Suggested Seats' %}</h2>
+      
+      <div id="suggestions-container" class="space-y-4">
+        <div class="text-center py-8 text-slate-500">
+          <svg class="w-12 h-12 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p>{% trans 'Fill out the form and click "Find Seats"' %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedDesks = [];
+
+document.getElementById('find-desks').addEventListener('click', async function() {
+  // Get form values directly from inputs
+  const count = document.getElementById('desk-count').value;
+  const date = document.querySelector('input[name="date"]').value;
+  const timeFrom = document.querySelector('input[name="time_from"]').value;
+  const timeTo = document.querySelector('input[name="time_to"]').value;
+  
+  console.log('Searching for:', { count, date, timeFrom, timeTo });
+  
+  if (!date || !timeFrom || !timeTo) {
+    alert('{% trans "Fill in all date and time fields" %}');
+    return;
+  }
+  
+  // Show loading state
+  const button = document.getElementById('find-desks');
+  const originalText = button.textContent;
+  button.textContent = '🔍 {% trans "Searching..." %}';
+  button.disabled = true;
+  
+  try {
+    const response = await fetch(`/reservations/floor/{{ floor.number }}/suggest-group-desks/?count=${count}&date=${date}&time_from=${timeFrom}&time_to=${timeTo}`);
+    
+    console.log('Response status:', response.status);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
+      alert('{% trans "Error" %}: ' + response.status + ' - ' + errorText.substring(0, 100));
+      return;
+    }
+    
+    const data = await response.json();
+    console.log('Response data:', data);
+    
+    if (data.error) {
+      alert('{% trans "Error" %}: ' + data.error);
+      return;
+    }
+    
+    displaySuggestions(data.suggestions);
+  } catch (error) {
+    console.error('Error:', error);
+    alert('{% trans "Error while searching for seats" %}: ' + error.message);
+  } finally {
+    // Restore button
+    button.textContent = originalText;
+    button.disabled = false;
+  }
+});
+
+function displaySuggestions(suggestions) {
+  const container = document.getElementById('suggestions-container');
+  
+  if (suggestions.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-8 text-slate-500">
+        <svg class="w-12 h-12 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.709M15 6.291A7.962 7.962 0 0012 5c-2.34 0-4.29 1.009-5.824 2.709"></path>
+        </svg>
+        <p>{% trans "No available seats found for this group" %}</p>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = suggestions.map((suggestion, index) => `
+    <div class="border border-slate-200 rounded-lg p-4 suggestion-card" data-index="${index}">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-semibold text-slate-800">{% trans 'Option' %} ${index + 1}</h3>
+        <span class="text-sm text-slate-500">${suggestion.desks.length} {% trans 'seats' %}</span>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-2 mb-3">
+        ${suggestion.desks.map(desk => `
+          <div class="flex items-center gap-2 p-2 bg-slate-50 rounded">
+            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+            <span class="text-sm font-medium">${desk.label}</span>
+            <div class="flex gap-1 ml-auto">
+              ${desk.features.has_dock ? '<span class="text-xs">🔌</span>' : ''}
+              ${desk.features.has_dual_monitors ? '<span class="text-xs">🖥🖥</span>' : ''}
+              ${desk.features.is_deep_work ? '<span class="text-xs">🧠</span>' : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      
+      <button type="button" class="w-full px-4 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg transition-colors font-medium select-suggestion" data-index="${index}">
+        {% trans 'Select this option' %}
+      </button>
+    </div>
+  `).join('');
+  
+  // Add click handlers
+  document.querySelectorAll('.select-suggestion').forEach(button => {
+    button.addEventListener('click', function() {
+      const index = parseInt(this.dataset.index);
+      selectSuggestion(suggestions[index]);
+    });
+  });
+}
+
+function selectSuggestion(suggestion) {
+  selectedDesks = suggestion.desks.map(desk => desk.id);
+  document.getElementById('selected-desks').value = selectedDesks.join(',');
+  document.getElementById('submit-btn').disabled = false;
+  
+  // Visual feedback
+  document.querySelectorAll('.suggestion-card').forEach(card => {
+    card.classList.remove('ring-2', 'ring-purple-500', 'bg-purple-50');
+  });
+  
+  event.target.closest('.suggestion-card').classList.add('ring-2', 'ring-purple-500', 'bg-purple-50');
+  
+  // Update button text
+  document.getElementById('submit-btn').textContent = `✅ {% trans 'Reserve' %} ${selectedDesks.length} {% trans 'seats' %}`;
+}
+</script>
+{% endblock %}
