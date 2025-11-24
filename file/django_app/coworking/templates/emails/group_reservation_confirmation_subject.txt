@@ -1,0 +1,3 @@
+{% load i18n %}{% blocktrans with group=group_name %}Potwierdzenie rezerwacji grupowej: {{ group }}{% endblocktrans %}
+
+

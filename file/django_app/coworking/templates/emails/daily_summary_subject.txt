@@ -1,0 +1,3 @@
+{% load i18n %}{% blocktrans with d=date_str %}Podsumowanie rezerwacji na {{ d }}{% endblocktrans %}
+
+

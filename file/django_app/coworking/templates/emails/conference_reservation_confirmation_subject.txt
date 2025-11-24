@@ -1,0 +1,3 @@
+{% load i18n %}{% blocktrans with room=room_name %}Rezerwacja sali: {{ room }}{% endblocktrans %}
+
+

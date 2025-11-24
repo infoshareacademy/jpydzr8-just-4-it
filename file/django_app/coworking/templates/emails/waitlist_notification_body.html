@@ -1,0 +1,13 @@
+<div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; padding: 20px; background:#f8fafc;">
+  <div style="background: linear-gradient(135deg, #38a169 0%, #319795 100%); color: white; padding: 24px; border-radius: 10px 10px 0 0; text-align: center;">
+    <h1 style="margin: 0; font-size: 22px;">Stanowisko się zwolniło!</h1>
+  </div>
+  <div style="background: #ffffff; padding: 24px; border:1px solid #e2e8f0; border-radius: 0 0 10px 10px;">
+    <p style="margin:6px 0;"><strong>Stanowisko:</strong> {{ desk_label }}{% if floor_number %} (Piętro {{ floor_number }}){% endif %}</p>
+    <p style="margin:6px 0;"><strong>Data:</strong> {{ date_str }}</p>
+    <p style="margin:6px 0;"><strong>Godziny:</strong> {{ time_from|time:\"H:i\" }} - {{ time_to|time:\"H:i\" }}</p>
+    <p style="margin-top:16px;">Masz 24 godziny na potwierdzenie rezerwacji.</p>
+  </div>\n</div>\n
+
+
+

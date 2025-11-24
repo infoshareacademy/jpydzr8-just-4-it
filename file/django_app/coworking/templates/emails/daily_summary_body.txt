@@ -1,0 +1,16 @@
+Dzienne podsumowanie rezerwacji – {{ date_str }}
+
+Liczba rezerwacji: {{ count }}
+
+{% for item in items %}
+• {{ item.desk_label }}{% if item.floor_number %} (Piętro {{ item.floor_number }}){% endif %}{% if item.time_from and item.time_to %} — {{ item.time_from|time:"H:i" }}–{{ item.time_to|time:"H:i" }}{% endif %}
+{% endfor %}
+
+Miłego dnia!
+
+---
+{{ system_name }}
+
+
+
+

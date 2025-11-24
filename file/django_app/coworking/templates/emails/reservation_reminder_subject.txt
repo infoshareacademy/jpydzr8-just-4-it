@@ -1,0 +1,3 @@
+{% load i18n %}{% blocktrans with desk=desk_label mins=minutes_before %}Przypomnienie: {{ desk }} za {{ mins }} min{% endblocktrans %}
+
+

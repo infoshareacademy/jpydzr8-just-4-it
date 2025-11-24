@@ -1,0 +1,103 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans 'Your Login Link' %}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .magic-link {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: background-color 0.3s ease;
+        }
+        .magic-link:hover {
+            background-color: #0056b3;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="logo">🚀 {% trans 'Coworking App' %}</div>
+            <h1>{% trans 'Your Login Link' %}</h1>
+        </div>
+
+        <p>{% trans 'Hello' %} <strong>{{ user.full_name|default:user.email }}</strong>!</p>
+
+        <p>{% trans 'Click the button below to log in:' %}</p>
+
+        <div style="text-align: center;">
+            <a href="{{ magic_url }}" class="magic-link">
+                🎯 {% trans 'Log In Automatically' %}
+            </a>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ {% trans 'Important information:' %}</strong>
+            <ul>
+                <li>{% blocktrans with minutes=validity_minutes %}This link is valid for <strong>{{ minutes }} minutes</strong>{% endblocktrans %}</li>
+                <li>{% trans 'You can use it only once' %}</li>
+                <li>{% trans 'If you did not try to log in, ignore this email' %}</li>
+            </ul>
+        </div>
+
+        <p>{% trans 'If the button does not work, copy and paste this link into your browser:' %}</p>
+        <p style="word-break: break-all; background-color: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace;">
+            {{ magic_url }}
+        </p>
+
+        <div class="footer">
+            <p>{% trans 'This email was sent automatically. Do not reply to it.' %}</p>
+            <p>&copy; 2025 {% trans 'Coworking App' %}. {% trans 'All rights reserved.' %}</p>
+        </div>
+    </div>
+</body>
+</html>

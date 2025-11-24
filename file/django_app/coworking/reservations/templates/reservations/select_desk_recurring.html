@@ -1,0 +1,90 @@
+{% extends "reservations/base.html" %}
+{% load i18n %}
+{% block title %}Wybierz biurko do rezerwacji cyklicznej{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+  <!-- Header -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-800">Wybierz biurko</h1>
+        <p class="text-slate-600 mt-1">Wybierz biurko, aby utworzyć rezerwację cykliczną</p>
+      </div>
+      <a href="{% url 'recurring_reservations' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Wstecz
+      </a>
+    </div>
+  </div>
+
+  <!-- Filter by Floor -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-4 mb-6">
+    <div class="flex items-center gap-4">
+      <label class="text-sm font-semibold text-slate-700">Filtruj po piętrze:</label>
+      <select id="floor-filter" class="px-3 py-2 border border-slate-300 rounded-lg bg-white text-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <option value="">Wszystkie piętra</option>
+        {% for floor in floors %}
+          <option value="{{ floor.number }}">Piętro {{ floor.number }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <!-- Desks Grid -->
+  <div id="desks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    {% for desk in desks %}
+      <div class="desk-card bg-white rounded-xl border-2 border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all duration-200 p-4" data-floor="{{ desk.floor.number }}">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold text-lg">{{ desk.label }}</span>
+          </div>
+          <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs font-medium">
+            Piętro {{ desk.floor.number }}
+          </span>
+        </div>
+        <div class="text-sm text-slate-600 mb-3">
+          <div class="flex items-center gap-1 mb-1">
+            {% if desk.has_dock %}🔌 <span class="text-xs">Dock</span>{% endif %}
+            {% if desk.has_adjustable_desk %}⚡ <span class="text-xs">Regulowane</span>{% endif %}
+            {% if desk.has_dual_monitors %}🖥🖥 <span class="text-xs">2 Monitory</span>{% endif %}
+          </div>
+          <div class="text-xs text-slate-500">{{ desk.zone.name }}</div>
+        </div>
+        <a href="{% url 'create_recurring' desk.id %}" class="block w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 text-center font-medium">
+          Utwórz cykliczną rezerwację
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if not desks %}
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 text-center">
+      <p class="text-slate-600">Brak dostępnych biurek</p>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const floorFilter = document.getElementById('floor-filter');
+  const deskCards = document.querySelectorAll('.desk-card');
+  
+  if (floorFilter) {
+    floorFilter.addEventListener('change', function() {
+      const selectedFloor = this.value;
+      deskCards.forEach(card => {
+        if (!selectedFloor || card.dataset.floor === selectedFloor) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+});
+</script>
+{% endblock %}
+

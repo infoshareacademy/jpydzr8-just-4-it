@@ -1,0 +1,438 @@
+{% load i18n %}
+<div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="absolute inset-0 bg-black/40" @click="open=false"></div>
+  <div class="relative z-10 bg-white rounded-2xl p-6 w-[90vw] max-w-xl card">
+    <div class="flex items-center justify-between mb-2">
+      <h3 class="text-lg font-semibold">{{ desk.label }}{% if desk.is_deep_work %} · Deep Work{% endif %}</h3>
+      <button class="text-slate-500" @click="open=false">✕</button>
+    </div>
+    <div class="text-sm text-slate-600 mb-3">
+      {% trans 'Amenities' %}:
+      {% if desk.has_dock %}🔌 Dock {% endif %}
+      {% if desk.has_adjustable_desk %}⚡ Regul. {% endif %}
+      {% if desk.has_dual_monitors %}🖥🖥 2x {% endif %}
+      {% if not desk.has_dock and not desk.has_adjustable_desk and not desk.has_dual_monitors %}—{% endif %}
+    </div>
+    <!-- {% trans 'Desk Lock' %} -->
+    <div id="lock-status" class="hidden mb-4 relative overflow-hidden">
+      <div class="bg-gradient-to-r from-slate-50 to-gray-50 border-l-4 border-slate-400 rounded-lg p-3 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-5 h-5 bg-slate-600 rounded-full flex items-center justify-center">
+                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+              </div>
+              <div class="absolute -top-1 -right-1 w-2 h-2 bg-slate-400 rounded-full animate-ping"></div>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-slate-700">{% trans 'Desk Locked' %}</div>
+              <div class="text-xs text-slate-500">{% trans '5 minutes to reserve' %}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="text-xs font-mono text-slate-600 bg-slate-100 px-2 py-1 rounded lock-timer" id="lock-timer">5:00</div>
+            <button onclick="unlockDesk()" class="text-xs text-slate-500 hover:text-slate-700 underline">
+              {% trans 'Unlock' %}
+            </button>
+          </div>
+        </div>
+        <!-- Progress bar -->
+        <div class="mt-2 w-full bg-slate-200 rounded-full h-1">
+          <div id="lock-progress" class="bg-slate-400 h-1 rounded-full lock-progress" style="width: 100%"></div>
+        </div>
+      </div>
+    </div>
+
+    <form method="post" action="{% url 'reserve' desk.id %}" class="space-y-3" onsubmit="return submitReservation(event)">
+      {% csrf_token %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div><label class="text-sm text-slate-600">{% trans 'First and Last Name' %}</label>{{ form.name }}</div>
+        <div><label class="text-sm text-slate-600">{% trans 'Email' %}</label>{{ form.email }}</div>
+        <div><label class="text-sm text-slate-600">{% trans 'Date' %}</label>{{ form.date }}</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="text-sm text-slate-600">{% trans 'From' %}</label>{{ form.time_from }}</div>
+          <div><label class="text-sm text-slate-600">{% trans 'To' %}</label>{{ form.time_to }}</div>
+        </div>
+      </div>
+      {% if error %}
+        <div class="text-sm text-red-600">{{ error }}</div>
+        {% if alternative %}<div class="text-sm mt-2">{% trans 'Alternative' %}: <button class="text-sky-700 underline" hx-get="{% url 'desk_modal' alternative.id %}" hx-target="#modal-root" hx-swap="innerHTML">{{ alternative.label }}</button></div>{% endif %}
+      {% endif %}
+          <div class="flex items-center justify-between pt-2">
+            <div class="flex gap-3">
+              <button type="button" class="px-4 py-2 rounded-lg bg-slate-100" @click="open=false; unlockDesk()">{% trans 'Cancel' %}</button>
+              <button type="submit" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white">{% trans 'Reserve' %}</button>
+            </div>
+          </div>
+    </form>
+    
+    <!-- Recurring button outside form to avoid conflicts -->
+    <div class="flex items-center justify-start pt-3 border-t border-slate-200">
+      <button type="button" 
+              onclick="const url='{% url 'create_recurring' desk.id %}'; console.log('Recurring clicked, navigating to:', url); window.location.href=url; return false;"
+              class="inline-flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors text-sm font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        {% trans 'Recurring' %}
+      </button>
+    </div>
+    <div class="mt-3 text-sm text-slate-500">{% trans 'After confirming the reservation, you will download .ICS or add to Google Calendar.' %}</div>
+  </div>
+</div>
+
+<script>
+let lockTimer = null;
+let countdownTimer = null;
+let timeLeft = 300; // 5 minut w sekundach
+
+async function submitReservation(event) {
+  event.preventDefault();
+  
+  // {% trans 'Check if desk is locked' %}
+  const email = document.querySelector('input[name="email"]').value;
+  if (!email) {
+    alert('❌ Wprowadź email');
+    return false;
+  }
+  
+  // Wyślij formularz przez AJAX
+  const form = event.target;
+  const formData = new FormData(form);
+  
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+      }
+    });
+    
+    if (response.ok) {
+      // Sukces - sprawdź czy odpowiedź to HTML (strona potwierdzenia)
+      const responseText = await response.text();
+      if (responseText.includes('{% trans "Reservation confirmed" %}')) {
+        // To jest strona potwierdzenia - zastąp całą stronę
+        document.open();
+        document.write(responseText);
+        document.close();
+      } else {
+        // Jeśli nie ma strony potwierdzenia, odśwież stronę
+        window.location.reload();
+      }
+    } else {
+      // Błąd - pokaż komunikat
+      const text = await response.text();
+      console.error('{% trans "Reservation error:" %}', text);
+      alert('❌ {% trans "Reservation error. Check data and try again." %}');
+    }
+  } catch (error) {
+    console.error('Błąd:', error);
+    alert('❌ Błąd połączenia. Spróbuj ponownie.');
+  }
+  
+  return false;
+}
+
+async function lockDesk() {
+  const email = document.querySelector('input[name="email"]').value;
+  if (!email) {
+    alert('❌ {% trans "Enter email to lock desk" %}');
+    return false;
+  }
+  
+  try {
+    const response = await fetch(`/reservations/desk/{{ desk.id }}/lock/?email=${encodeURIComponent(email)}`);
+    
+    // Sprawdź czy odpowiedź to JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      console.error('Odpowiedź nie jest JSON:', text);
+      alert('❌ Błąd serwera. Spróbuj ponownie.');
+      return false;
+    }
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      // Pokaż status blokady z animacją
+      const lockStatus = document.getElementById('lock-status');
+      lockStatus.classList.remove('hidden');
+      lockStatus.classList.add('lock-status-enter');
+      
+      // Ustaw timer na 5 minut
+      timeLeft = 300;
+      startCountdown();
+      
+      lockTimer = setTimeout(() => {
+        lockStatus.classList.add('hidden');
+        alert('⏰ {% trans "Desk lock expired! Desk has been released." %}');
+      }, 5 * 60 * 1000); // 5 minut
+      
+      // Pokaż komunikat przez dłuższy czas
+      if (typeof toast !== 'undefined') {
+        toast(data.message, 5000); // 5 sekund
+      } else {
+        // Pokaż alert przez 4 sekundy
+        const alertDiv = document.createElement('div');
+        alertDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center">
+              <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">${data.message}</span>
+          </div>
+        `;
+        alertDiv.style.cssText = `
+          position: fixed; top: 20px; right: 20px; z-index: 9999;
+          background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+          color: #92400e; padding: 12px 16px; border: 1px solid #f59e0b;
+          border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          font-size: 14px; animation: slideInRight 0.5s ease-out;
+        `;
+        document.body.appendChild(alertDiv);
+        setTimeout(() => {
+          alertDiv.style.animation = 'slideOutRight 0.5s ease-in';
+          setTimeout(() => alertDiv.remove(), 500);
+        }, 4000);
+      }
+    } else {
+      alert('❌ ' + (data.error || '{% trans "Failed to lock desk" %}'));
+      return false;
+    }
+  } catch (error) {
+    console.error('Błąd:', error);
+    alert('❌ Błąd połączenia. Spróbuj ponownie.');
+    return false;
+  }
+  
+  return true;
+}
+
+function startCountdown() {
+  const timerElement = document.getElementById('lock-timer');
+  const progressElement = document.getElementById('lock-progress');
+  if (!timerElement || !progressElement) return;
+  
+  const totalTime = 300; // 5 minut
+  
+  countdownTimer = setInterval(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    
+    // Aktualizuj progress bar
+    const progress = (timeLeft / totalTime) * 100;
+    progressElement.style.width = `${progress}%`;
+    
+    // Zmień kolory gdy zostanie mało czasu
+    if (timeLeft <= 60) {
+      timerElement.style.color = '#dc2626';
+      timerElement.style.backgroundColor = '#fef2f2';
+      progressElement.style.backgroundColor = '#dc2626';
+    } else if (timeLeft <= 120) {
+      timerElement.style.color = '#ea580c';
+      timerElement.style.backgroundColor = '#fff7ed';
+      progressElement.style.backgroundColor = '#ea580c';
+    } else {
+      timerElement.style.color = '#64748b';
+      timerElement.style.backgroundColor = '#f1f5f9';
+      progressElement.style.backgroundColor = '#64748b';
+    }
+    
+    timeLeft--;
+    
+    if (timeLeft < 0) {
+      clearInterval(countdownTimer);
+      timerElement.textContent = '0:00';
+      progressElement.style.width = '0%';
+    }
+  }, 1000);
+}
+
+async function unlockDesk() {
+  const email = document.querySelector('input[name="email"]').value;
+  if (!email) return;
+  
+  try {
+    await fetch(`/reservations/desk/{{ desk.id }}/unlock/?email=${encodeURIComponent(email)}`);
+    
+    // Ukryj status z animacją
+    const lockStatus = document.getElementById('lock-status');
+    lockStatus.style.animation = 'slideOutUp 0.3s ease-in';
+    setTimeout(() => {
+      lockStatus.classList.add('hidden');
+      lockStatus.classList.remove('lock-status-enter');
+      lockStatus.style.animation = '';
+    }, 300);
+    
+    // Zatrzymaj timery
+    if (lockTimer) {
+      clearTimeout(lockTimer);
+      lockTimer = null;
+    }
+    if (countdownTimer) {
+      clearInterval(countdownTimer);
+      countdownTimer = null;
+    }
+    
+    // Pokaż komunikat o odblokowaniu
+    if (typeof toast !== 'undefined') {
+      toast('{% trans "Desk has been unlocked!" %}');
+    } else {
+      const alertDiv = document.createElement('div');
+      alertDiv.innerHTML = `
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+            <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span class="font-medium">{% trans "Desk has been unlocked!" %}</span>
+        </div>
+      `;
+      alertDiv.style.cssText = `
+        position: fixed; top: 20px; right: 20px; z-index: 9999;
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        color: #065f46; padding: 12px 16px; border: 1px solid #10b981;
+        border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-size: 14px; animation: slideInRight 0.5s ease-out;
+      `;
+      document.body.appendChild(alertDiv);
+      setTimeout(() => {
+        alertDiv.style.animation = 'slideOutRight 0.5s ease-in';
+        setTimeout(() => alertDiv.remove(), 500);
+      }, 3000);
+    }
+  } catch (error) {
+    console.error('Błąd odblokowania:', error);
+  }
+}
+
+// {% trans 'Automatically lock desk when opening modal' %}
+document.addEventListener('DOMContentLoaded', function() {
+  // Nie blokuj automatycznie - tylko gdy użytkownik wypełni email
+  const emailInput = document.querySelector('input[name="email"]');
+  if (emailInput) {
+    emailInput.addEventListener('blur', function() {
+      if (this.value && this.value.includes('@')) {
+        lockDesk();
+      }
+    });
+  }
+  
+  // Validate date and time range dynamically
+  const dateInput = document.querySelector('input[name="date"]');
+  const timeFromInput = document.querySelector('input[name="time_from"]');
+  const timeToInput = document.querySelector('input[name="time_to"]');
+  
+  // Set minimum date to today if not already set
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    if (!dateInput.min || dateInput.min < today) {
+      dateInput.min = today;
+    }
+    
+    // Validate date on change
+    dateInput.addEventListener('change', function() {
+      const selectedDate = new Date(this.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      selectedDate.setHours(0, 0, 0, 0);
+      
+      if (selectedDate < today) {
+        const currentLang = document.documentElement.lang || 'pl';
+        const errorMsg = currentLang === 'pl' 
+          ? 'Nie można rezerwować dat w przeszłości'
+          : 'Cannot reserve dates in the past';
+        alert('❌ ' + errorMsg);
+        this.value = today.toISOString().split('T')[0];
+      }
+    });
+  }
+  
+  // Validate time range dynamically
+  if (timeFromInput && timeToInput) {
+    timeFromInput.addEventListener('change', function() {
+      const timeFrom = timeFromInput.value;
+      if (timeFrom) {
+        // Set minimum time for time_to to be at least 1 minute after time_from
+        const [hours, minutes] = timeFrom.split(':');
+        const fromDate = new Date();
+        fromDate.setHours(parseInt(hours), parseInt(minutes) + 1, 0, 0);
+        const minTime = fromDate.toTimeString().slice(0, 5);
+        timeToInput.min = minTime;
+        
+        // If current time_to is less than or equal to time_from, update it
+        if (timeToInput.value && timeToInput.value <= timeFrom) {
+          timeToInput.value = minTime;
+        }
+      }
+    });
+    
+    timeToInput.addEventListener('change', function() {
+      const timeFrom = timeFromInput.value;
+      const timeTo = timeToInput.value;
+      if (timeFrom && timeTo && timeTo <= timeFrom) {
+        const currentLang = document.documentElement.lang || 'pl';
+        const errorMsg = currentLang === 'pl' 
+          ? 'Godzina zakończenia musi być późniejsza niż rozpoczęcia'
+          : 'End time must be after start time';
+        alert('❌ ' + errorMsg);
+        // Reset to valid minimum
+        const [hours, minutes] = timeFrom.split(':');
+        const fromDate = new Date();
+        fromDate.setHours(parseInt(hours), parseInt(minutes) + 1, 0, 0);
+        timeToInput.value = fromDate.toTimeString().slice(0, 5);
+      }
+    });
+  }
+  
+  // Validate on form submit
+  const form = document.getElementById('desk-reservation-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      // Validate date
+      if (dateInput) {
+        const selectedDate = new Date(dateInput.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        selectedDate.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+          e.preventDefault();
+          e.stopPropagation();
+          const currentLang = document.documentElement.lang || 'pl';
+          const errorMsg = currentLang === 'pl' 
+            ? 'Nie można rezerwować dat w przeszłości'
+            : 'Cannot reserve dates in the past';
+          alert('❌ ' + errorMsg);
+          return false;
+        }
+      }
+      
+      // Validate time range
+      if (timeFromInput && timeToInput) {
+        const timeFrom = timeFromInput.value;
+        const timeTo = timeToInput.value;
+        if (timeFrom && timeTo && timeTo <= timeFrom) {
+          e.preventDefault();
+          e.stopPropagation();
+          const currentLang = document.documentElement.lang || 'pl';
+          const errorMsg = currentLang === 'pl' 
+            ? 'Godzina zakończenia musi być późniejsza niż rozpoczęcia'
+            : 'End time must be after start time';
+          alert('❌ ' + errorMsg);
+          return false;
+        }
+      }
+    });
+  }
+});
+</script>

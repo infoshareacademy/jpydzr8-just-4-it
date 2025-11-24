@@ -1,0 +1,17 @@
+<div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; padding: 20px; background:#f8fafc;">
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 24px; border-radius: 10px 10px 0 0; text-align: center;">
+    <h1 style="margin: 0; font-size: 22px;">Rezerwacja sali potwierdzona</h1>
+  </div>
+  <div style="background: #ffffff; padding: 24px; border:1px solid #e2e8f0; border-radius: 0 0 10px 10px;">
+    <p style="margin: 0 0 12px 0;"><strong>{{ room_name }}</strong> (Piętro {{ floor_number }})</p>
+    <p style="margin:6px 0;">Zespół: <strong>{{ team_name }}</strong></p>
+    <p style="margin:6px 0;">Data: <strong>{{ date_str }}</strong></p>
+    <p style="margin:6px 0;">Godziny: <strong>{{ time_from }} - {{ time_to }}</strong></p>
+    <p style="margin:6px 0;">Uczestnicy: <strong>{{ attendees_count }}</strong></p>
+    {% if purpose %}<p style="margin:6px 0;">Cel: <strong>{{ purpose }}</strong></p>{% endif %}
+  </div>
+</div>
+
+
+
+

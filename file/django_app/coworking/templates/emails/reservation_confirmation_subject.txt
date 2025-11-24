@@ -1,0 +1,3 @@
+{% load i18n %}{% blocktrans with desk=desk_label %}Potwierdzenie rezerwacji: {{ desk }}{% endblocktrans %}
+
+
