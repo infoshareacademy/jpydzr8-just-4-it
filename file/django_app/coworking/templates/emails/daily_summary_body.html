@@ -1,0 +1,14 @@
+<div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; padding: 20px; background:#f8fafc;">
+  <div style="background: linear-gradient(135deg, #2b6cb0 0%, #805ad5 100%); color: white; padding: 24px; border-radius: 10px 10px 0 0; text-align: center;">
+    <h1 style="margin: 0; font-size: 22px;">Dzienne podsumowanie – {{ date_str }}</h1>
+  </div>
+  <div style="background: #ffffff; padding: 24px; border:1px solid #e2e8f0; border-radius: 0 0 10px 10px;">
+    <p style="margin: 0 0 12px 0;">Liczba rezerwacji: <strong>{{ count }}</strong></p>
+    <ul style="margin:0; padding-left:16px;">
+      {% for item in items %}
+        <li>{{ item.desk_label }}{% if item.floor_number %} (Piętro {{ item.floor_number }}){% endif %}{% if item.time_from and item.time_to %} — {{ item.time_from|time:\"H:i\" }}–{{ item.time_to|time:\"H:i\" }}{% endif %}</li>
+      {% endfor %}
+    </ul>\n    <p style=\"margin-top:16px;\">Miłego dnia!</p>\n  </div>\n</div>\n
+
+
+

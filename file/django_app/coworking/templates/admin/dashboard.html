@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Coworking</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a67d8;
+            --primary-light: #9f7aea;
+            --secondary: #764ba2;
+            --success: #22c55e;
+            --success-light: #68d391;
+            --danger: #ef4444;
+            --warning: #ffb366;
+            --info: #3b82f6;
+            --dark: #1d1d1f;
+            --dark-light: #2c2c2e;
+            --gray: #86868b;
+            --light: #f5f5f7;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(100px, -100px) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-content h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .btn-icon:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-icon:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .stat-card:nth-child(5) { animation-delay: 0.5s; }
+        .stat-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .stat-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-trend {
+            margin-top: 16px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .stat-trend-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            background: white;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        /* Activity List */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(102, 126, 234, 0.05);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .activity-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .activity-meta {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .activity-badge {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-success {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(255, 179, 102, 0.1);
+            color: #f59e0b;
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .action-btn {
+            padding: 20px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-btn i {
+            font-size: 28px;
+        }
+
+        .action-btn.secondary {
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .action-btn.secondary:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        /* System Health */
+        .health-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .health-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .health-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-dot.healthy {
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
+        }
+
+        .status-dot.warning {
+            background: var(--warning);
+            box-shadow: 0 0 10px var(--warning);
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 16px 24px;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--success);
+            z-index: 1000;
+            animation: slideInRight 0.4s ease-out;
+            max-width: 400px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+                <p>Real-time Coworking Management & Analytics</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" onclick="refreshData()" title="Refresh">
+                    <i class="fas fa-sync-alt" id="refreshIcon"></i>
+                </button>
+                <button class="btn-icon" onclick="toggleNotifications()" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="btn-icon" onclick="window.location.href='/admin/logout/'" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-change" id="usersChange">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+12%</span>
+                    </div>
+                </div>
+                <div class="stat-number" id="totalUsers">-</div>
+                <div class="stat-label">Total Users</div>
+                <div class="stat-trend">
+                    <div class="stat-trend-bar" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+5%</span>
+                    </div>
+                </div>
+                <div class="stat-number" id="activeUsers" style="background: linear-gradient(135deg, #22c55e, #16a34a); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-</div>
+                <div class="stat-label">Active Users</div>
+                <div class="stat-trend">
+                    <div class="stat-trend-bar" style="width: 85%; background: linear-gradient(90deg, #22c55e, #16a34a);"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+23%</span>
+                    </div>
+                </div>
+                <div class="stat-number" id="totalReservations" style="background: linear-gradient(135deg, #3b82f6, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-</div>
+                <div class="stat-label">Total Reservations</div>
+                <div class="stat-trend">
+                    <div class="stat-trend-bar" style="width: 92%; background: linear-gradient(90deg, #3b82f6, #2563eb);"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="stat-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+8%</span>
+                    </div>
+                </div>
+                <div class="stat-number" id="todayReservations" style="background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-</div>
+                <div class="stat-label">Today's Reservations</div>
+                <div class="stat-trend">
+                    <div class="stat-trend-bar" style="width: 68%; background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>-3%</span>
+                    </div>
+                </div>
+                <div class="stat-number" id="conflicts" style="background: linear-gradient(135deg, #ef4444, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-</div>
+                <div class="stat-label">Conflicts</div>
+                <div class="stat-trend">
+                    <div class="stat-trend-bar" style="width: 15%; background: linear-gradient(90deg, #ef4444, #dc2626);"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-change">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+18%</span>
+                    </div>
+                </div>
+                <div class="stat-number" id="utilization" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-</div>
+                <div class="stat-label">Utilization Rate</div>
+                <div class="stat-trend">
+                    <div class="stat-trend-bar" style="width: 78%; background: linear-gradient(90deg, #8b5cf6, #7c3aed);"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div>
+                <!-- Reservations Chart -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-chart-area"></i>
+                            <span>Reservations Overview</span>
+                        </div>
+                        <div class="section-actions">
+                            <button class="filter-btn active" data-period="7d">7 Days</button>
+                            <button class="filter-btn" data-period="30d">30 Days</button>
+                            <button class="filter-btn" data-period="90d">90 Days</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="reservationsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="section-card" style="margin-top: 24px;">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-clock"></i>
+                            <span>Recent Activity</span>
+                        </div>
+                        <button class="filter-btn" onclick="loadRecentActivity()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="activity-list" id="recentActivity">
+                        <div style="text-align: center; padding: 40px;">
+                            <div class="loading"></div>
+                            <p style="margin-top: 16px; color: var(--gray);">Loading activity...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div>
+                <!-- Quick Actions -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-bolt"></i>
+                            <span>Quick Actions</span>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="/admin/api/user/" class="action-btn">
+                            <i class="fas fa-users"></i>
+                            <span>Manage Users</span>
+                        </a>
+                        <a href="/admin/api/reservation/" class="action-btn">
+                            <i class="fas fa-calendar"></i>
+                            <span>Reservations</span>
+                        </a>
+                        <button class="action-btn secondary" onclick="generateReport()">
+                            <i class="fas fa-file-export"></i>
+                            <span>Export Report</span>
+                        </button>
+                        <button class="action-btn secondary" onclick="cleanupSystem()">
+                            <i class="fas fa-broom"></i>
+                            <span>Cleanup</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Health -->
+                <div class="section-card" style="margin-top: 24px;">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>System Health</span>
+                        </div>
+                    </div>
+                    <div class="health-grid" id="systemHealth">
+                        <div class="health-item">
+                            <div class="health-status">
+                                <div class="status-dot healthy"></div>
+                                <span>Database</span>
+                            </div>
+                            <span style="color: var(--gray);">Checking...</span>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-status">
+                                <div class="status-dot healthy"></div>
+                                <span>API Status</span>
+                            </div>
+                            <span style="color: var(--gray);">Checking...</span>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-status">
+                                <div class="status-dot healthy"></div>
+                                <span>Disk Space</span>
+                            </div>
+                            <span style="color: var(--gray);">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Seats -->
+                <div class="section-card" style="margin-top: 24px;">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-star"></i>
+                            <span>Popular Seats</span>
+                        </div>
+                    </div>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="popularSeatsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let refreshInterval;
+        let reservationsChart;
+        let popularSeatsChart;
+        let currentPeriod = '7d';
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', async function() {
+            createParticles();
+            initializeCharts();
+            setupFilterButtons();
+            try {
+                const me = await (await fetch('/api/auth/me')).json();
+                const isStaff = !!(me && (me.is_staff || me.is_superuser));
+                if (isStaff) {
+                    loadDashboardData();
+                    startAutoRefresh();
+                } else {
+                    enableUserMode();
+                    loadUserDashboardData();
+                    startAutoRefresh();
+                }
+            } catch (e) {
+                // Fallback to user mode if /api/auth/me not available
+                enableUserMode();
+                loadUserDashboardData();
+                startAutoRefresh();
+            }
+        });
+
+        // Create animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Reservations Chart
+            const reservationsCtx = document.getElementById('reservationsChart').getContext('2d');
+            reservationsChart = new Chart(reservationsCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Reservations',
+                        data: [],
+                        borderColor: 'rgb(102, 126, 234)',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: 'rgb(102, 126, 234)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            titleColor: '#1d1d1f',
+                            bodyColor: '#1d1d1f',
+                            borderColor: 'rgba(102, 126, 234, 0.2)',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 10,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(102, 126, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: '#86868b'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#86868b'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Popular Seats Chart
+            const popularSeatsCtx = document.getElementById('popularSeatsChart').getContext('2d');
+            popularSeatsChart = new Chart(popularSeatsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(118, 75, 162, 0.8)',
+                            'rgba(34, 197, 94, 0.8)',
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(245, 158, 11, 0.8)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                color: '#1d1d1f'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            titleColor: '#1d1d1f',
+                            bodyColor: '#1d1d1f',
+                            borderColor: 'rgba(102, 126, 234, 0.2)',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 10
+                        }
+                    }
+                }
+            });
+        }
+
+        // Setup filter buttons
+        function setupFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentPeriod = this.dataset.period;
+                    loadDashboardData();
+                });
+            });
+        }
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                // Update refresh icon
+                const refreshIcon = document.getElementById('refreshIcon');
+                refreshIcon.style.animation = 'spin 1s linear infinite';
+
+                // Load stats
+                const statsResponse = await fetch('/api/admin/stats');
+                if (statsResponse.ok) {
+                    const stats = await statsResponse.json();
+                    updateStats(stats.overview);
+                    updatePopularSeats(stats.popular_seats);
+                    updateCharts(stats);
+                }
+
+                // Load system health
+                const healthResponse = await fetch('/api/admin/health');
+                if (healthResponse.ok) {
+                    const health = await healthResponse.json();
+                    updateSystemHealth(health);
+                }
+
+                // Load recent activity
+                loadRecentActivity();
+
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showToast('Failed to load dashboard data', 'error');
+            } finally {
+                refreshIcon.style.animation = '';
+            }
+        }
+
+        // USER MODE (non-staff): hide admin-only UI and show user-specific data
+        function enableUserMode() {
+            // Hide admin-only stat cards
+            ['totalUsers','activeUsers','conflicts','utilization'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    const card = el.closest('.stat-card');
+                    if (card) card.style.display = 'none';
+                }
+            });
+            // Hide right column admin sections
+            const adminSections = [];
+            // Quick Actions
+            const qa = document.querySelector('.quick-actions');
+            if (qa) {
+                const card = qa.closest('.section-card');
+                if (card) adminSections.push(card);
+            }
+            // System Health
+            const sh = document.getElementById('systemHealth');
+            if (sh) {
+                const card = sh.closest('.section-card');
+                if (card) adminSections.push(card);
+            }
+            // Popular Seats
+            const ps = document.getElementById('popularSeatsChart');
+            if (ps) {
+                const card = ps.closest('.section-card');
+                if (card) adminSections.push(card);
+            }
+            adminSections.forEach(card => card.style.display = 'none');
+
+            // Tweak header
+            const h1 = document.querySelector('.header-content h1');
+            if (h1) h1.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
+            const p = document.querySelector('.header-content p');
+            if (p) p.textContent = 'Your workspace overview & recent activity';
+        }
+
+        async function loadUserDashboardData() {
+            const refreshIcon = document.getElementById('refreshIcon');
+            refreshIcon.style.animation = 'spin 1s linear infinite';
+            try {
+                // Fetch user's reservations
+                const res = await fetch('/api/reservations');
+                if (res.ok) {
+                    const data = await res.json();
+                    const reservations = Array.isArray(data) ? data : (data.results || data);
+                    const total = reservations.length || 0;
+                    const todayStr = new Date().toISOString().slice(0,10);
+                    const todayCnt = reservations.filter(r => String(r.date) === todayStr).length;
+
+                    animateNumber('totalReservations', total);
+                    animateNumber('todayReservations', todayCnt);
+
+                    // Chart: build simple count per day for last 7/30/90 days
+                    const days = currentPeriod === '7d' ? 7 : currentPeriod === '30d' ? 30 : 90;
+                    const counts = new Map();
+                    reservations.forEach(r => {
+                        if (!r.date) return;
+                        counts.set(r.date, (counts.get(r.date) || 0) + 1);
+                    });
+                    const labels = [];
+                    const values = [];
+                    for (let i = days - 1; i >= 0; i--) {
+                        const d = new Date();
+                        d.setDate(d.getDate() - i);
+                        const key = d.toISOString().slice(0,10);
+                        labels.push(d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                        values.push(counts.get(key) || 0);
+                    }
+                    reservationsChart.data.labels = labels;
+                    reservationsChart.data.datasets[0].data = values;
+                    reservationsChart.update('active');
+
+                    // Recent activity
+                    const container = document.getElementById('recentActivity');
+                    const sorted = reservations.slice().sort((a,b) => (b.created_at || '').localeCompare(a.created_at || ''));
+                    container.innerHTML = (sorted.slice(0,5).map((r, idx) => `
+                        <div class="activity-item" style="animation-delay: ${idx*0.1}s">
+                            <div class="activity-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Seat ${r.seat_id || ''}</div>
+                                <div class="activity-meta">${r.date || ''} • ${r.name || ''}</div>
+                            </div>
+                            <span class="activity-badge badge-info">Mine</span>
+                        </div>
+                    `).join('')) || '<div style="text-align:center; padding:40px; color:var(--gray);">No recent activity</div>';
+                }
+            } catch (e) {
+                console.error('User dashboard load error', e);
+                showToast('Failed to load your data', 'error');
+            } finally {
+                refreshIcon.style.animation = '';
+            }
+        }
+
+        // Update statistics
+        function updateStats(overview) {
+            animateNumber('totalUsers', overview.total_users || 0);
+            animateNumber('activeUsers', overview.active_users || 0);
+            animateNumber('totalReservations', overview.total_reservations || 0);
+            animateNumber('todayReservations', overview.today_reservations || 0);
+            animateNumber('conflicts', 0); // Calculate conflicts
+            animateNumber('utilization', Math.round((overview.today_reservations || 0) / Math.max(overview.total_users || 1, 1) * 100));
+        }
+
+        // Animate number
+        function animateNumber(elementId, targetValue) {
+            const element = document.getElementById(elementId);
+            const currentValue = parseInt(element.textContent) || 0;
+            const duration = 1000;
+            const startTime = Date.now();
+
+            function updateNumber() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const current = Math.floor(currentValue + (targetValue - currentValue) * progress);
+                element.textContent = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+
+            updateNumber();
+        }
+
+        // Update charts
+        function updateCharts(stats) {
+            // Update reservations chart with sample data
+            const days = currentPeriod === '7d' ? 7 : currentPeriod === '30d' ? 30 : 90;
+            const labels = [];
+            const data = [];
+
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                labels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                data.push(Math.floor(Math.random() * 50) + 20);
+            }
+
+            reservationsChart.data.labels = labels;
+            reservationsChart.data.datasets[0].data = data;
+            reservationsChart.update('active');
+        }
+
+        // Update popular seats
+        function updatePopularSeats(popularSeats) {
+            if (!popularSeats || popularSeats.length === 0) {
+                popularSeatsChart.data.labels = ['No data'];
+                popularSeatsChart.data.datasets[0].data = [1];
+                popularSeatsChart.update();
+                return;
+            }
+
+            popularSeatsChart.data.labels = popularSeats.slice(0, 5).map(s => `Seat ${s.seat_id}`);
+            popularSeatsChart.data.datasets[0].data = popularSeats.slice(0, 5).map(s => s.count);
+            popularSeatsChart.update();
+        }
+
+        // Update recent activity
+        async function loadRecentActivity() {
+            try {
+                const response = await fetch('/api/admin/stats');
+                if (response.ok) {
+                    const data = await response.json();
+                    const container = document.getElementById('recentActivity');
+                    
+                    if (!data.recent_reservations || data.recent_reservations.length === 0) {
+                        container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--gray);">No recent activity</div>';
+                        return;
+                    }
+
+                    container.innerHTML = data.recent_reservations.slice(0, 5).map((res, index) => `
+                        <div class="activity-item" style="animation-delay: ${index * 0.1}s">
+                            <div class="activity-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">${res.name} - Seat ${res.seat_id}</div>
+                                <div class="activity-meta">${res.date} • ${res.email}</div>
+                            </div>
+                            <span class="activity-badge badge-success">New</span>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading recent activity:', error);
+            }
+        }
+
+        // Update system health
+        function updateSystemHealth(health) {
+            const container = document.getElementById('systemHealth');
+            
+            container.innerHTML = `
+                <div class="health-item">
+                    <div class="health-status">
+                        <div class="status-dot ${health.status === 'healthy' ? 'healthy' : 'warning'}"></div>
+                        <span>Database</span>
+                    </div>
+                    <span style="color: ${health.status === 'healthy' ? 'var(--success)' : 'var(--warning)};">${health.database}</span>
+                </div>
+                <div class="health-item">
+                    <div class="health-status">
+                        <div class="status-dot ${health.status === 'healthy' ? 'healthy' : 'warning'}"></div>
+                        <span>API Status</span>
+                    </div>
+                    <span style="color: ${health.status === 'healthy' ? 'var(--success)' : 'var(--warning)};">${health.status}</span>
+                </div>
+                <div class="health-item">
+                    <div class="health-status">
+                        <div class="status-dot healthy"></div>
+                        <span>Disk Space</span>
+                    </div>
+                    <span style="color: var(--gray);">${health.disk_space || 'Unknown'}</span>
+                </div>
+            `;
+        }
+
+        // Refresh data
+        function refreshData() {
+            loadDashboardData();
+            showToast('Data refreshed successfully', 'success');
+        }
+
+        // Start auto-refresh
+        function startAutoRefresh() {
+            refreshInterval = setInterval(loadDashboardData, 30000); // 30 seconds
+        }
+
+        // Stop auto-refresh
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        }
+
+        // Generate report
+        async function generateReport() {
+            if (!confirm('Generate weekly report?')) return;
+
+            try {
+                const response = await fetch('/api/mobile/api/quick-action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({action: 'generate_report'})
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    showToast(`Report generated: ${data.data.filename}`, 'success');
+                } else {
+                    showToast(`Error: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                showToast('Error generating report', 'error');
+            }
+        }
+
+        // Cleanup system
+        async function cleanupSystem() {
+            if (!confirm('Clean up old data? This will remove expired reservations.')) return;
+
+            try {
+                const response = await fetch('/api/mobile/api/quick-action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({action: 'cleanup'})
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    showToast(data.message, 'success');
+                    refreshData();
+                } else {
+                    showToast(`Error: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                showToast('Error during cleanup', 'error');
+            }
+        }
+
+        // Toggle notifications
+        function toggleNotifications() {
+            showToast('Notifications feature coming soon!', 'info');
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideInRight 0.4s ease-out reverse';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // Get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Pause auto-refresh when page is not visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopAutoRefresh();
+            } else {
+                startAutoRefresh();
+                refreshData();
+            }
+        });
+    </script>
+</body>
+</html>
+

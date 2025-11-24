@@ -1,0 +1,15 @@
+Tygodniowy raport rezerwacji
+
+Suma rezerwacji: {{ total }}
+Ulubione stanowisko: {{ favorite_desk }}
+Ulubione piętro: {{ favorite_floor }}
+Średni czas: {{ avg_duration }} h
+
+Dziękujemy za korzystanie z {{ system_name }}!
+
+---
+{{ system_name }}
+
+
+
+

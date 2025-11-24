@@ -1,0 +1,10 @@
+Stanowisko się zwolniło!
+
+Stanowisko: {{ desk_label }}{% if floor_number %} (Piętro {{ floor_number }}){% endif %}
+Data: {{ date_str }}
+Godziny: {{ time_from|time:"H:i" }} - {{ time_to|time:"H:i" }}
+
+Masz 24 godziny na potwierdzenie rezerwacji.\n\n---\nSystem rezerwacji
+
+
+

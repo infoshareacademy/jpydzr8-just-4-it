@@ -1,0 +1,15 @@
+Rezerwacja sali konferencyjnej została potwierdzona
+
+Sala: {{ room_name }} (Piętro {{ floor_number }})
+Zespół: {{ team_name }}
+Data: {{ date_str }}
+Godziny: {{ time_from }} - {{ time_to }}
+Uczestnicy: {{ attendees_count }}
+{% if purpose %}Cel: {{ purpose }}{% endif %}
+
+---
+System rezerwacji
+
+
+
+

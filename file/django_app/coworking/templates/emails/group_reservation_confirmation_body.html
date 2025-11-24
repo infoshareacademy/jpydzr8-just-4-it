@@ -1,0 +1,24 @@
+<div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; padding: 20px; background:#f8fafc;">
+  <div style="background: linear-gradient(135deg, #48bb78 0%, #4299e1 100%); color: white; padding: 24px; border-radius: 10px 10px 0 0; text-align: center;">
+    <h1 style="margin: 0; font-size: 22px;">Rezerwacja grupowa potwierdzona</h1>
+  </div>
+  <div style="background: #ffffff; padding: 24px; border:1px solid #e2e8f0; border-radius: 0 0 10px 10px;">
+    <p style="margin: 0 0 12px 0;">Grupa: <strong>{{ group_name }}</strong></p>
+    <p style="margin: 6px 0;">Data: <strong>{{ date_str }}</strong></p>
+    <p style="margin: 6px 0;">Godziny: <strong>{{ time_from|time:"H:i" }} - {{ time_to|time:"H:i" }}</strong></p>
+    <p style="margin: 6px 0;">Organizator: <strong>{{ organizer_email }}</strong></p>
+    {% if purpose %}<p style="margin: 6px 0;">Cel: <strong>{{ purpose }}</strong></p>{% endif %}
+    <div style="margin-top: 12px;">
+      <p style="margin: 0 0 8px 0;"><strong>Stanowiska:</strong></p>
+      <ul style="margin:0; padding-left:16px;">
+        {% for d in desks %}
+          <li>{{ d.label }}{% if d.floor %} (Piętro {{ d.floor.number }}){% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+

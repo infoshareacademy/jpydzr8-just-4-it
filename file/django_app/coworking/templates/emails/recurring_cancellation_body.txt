@@ -1,0 +1,13 @@
+Twoja cykliczna rezerwacja została anulowana
+
+Stanowisko: {{ desk_label }} (Piętro {{ floor_number }})
+Zakres pierwotny: od {{ start_date }} do {{ end_date }}
+Godziny: {{ time_from }} - {{ time_to }}
+Częstotliwość: {{ frequency }}
+
+---
+System rezerwacji
+
+
+
+

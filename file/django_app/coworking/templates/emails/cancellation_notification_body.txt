@@ -1,0 +1,14 @@
+Rezerwacja została anulowana
+
+Stanowisko: {{ desk_label }}{% if floor_number %} (Piętro {{ floor_number }}){% endif %}
+Data: {{ date_str }}
+{% if time_from and time_to %}Godziny: {{ time_from|time:"H:i" }} - {{ time_to|time:"H:i" }}{% endif %}
+
+Stanowisko jest ponownie dostępne dla innych użytkowników.
+
+---
+System rezerwacji
+
+
+
+

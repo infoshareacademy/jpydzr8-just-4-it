@@ -1,0 +1,15 @@
+Cykliczna rezerwacja została utworzona
+
+Stanowisko: {{ desk_label }} (Piętro {{ floor_number }})
+Zakres: od {{ start_date }} do {{ end_date }}
+Godziny: {{ time_from }} - {{ time_to }}
+Częstotliwość: {{ frequency }}
+Dni tygodnia: {{ days_str }}
+{% if first_date %}Pierwsza rezerwacja: {{ first_date|date:"Y-m-d" }} {{ first_from|time:"H:i" }} - {{ first_to|time:"H:i" }}{% endif %}
+
+---
+System rezerwacji
+
+
+
+

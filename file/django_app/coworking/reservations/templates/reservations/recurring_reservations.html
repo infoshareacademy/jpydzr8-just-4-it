@@ -1,0 +1,183 @@
+{% extends "reservations/base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Recurring Reservations' %}{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="max-w-4xl mx-auto">
+  <!-- Language Switcher -->
+  <div style="position: absolute; top: 20px; right: 20px;">
+    {% include 'common/language_switcher.html' %}
+  </div>
+  <!-- Header -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-slate-800">{% trans 'Recurring Reservations' %}</h1>
+          <p class="text-slate-600 mt-1">{% trans 'Automatic reservations for daily, weekly or monthly' %}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="{% url 'select_desk_recurring' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Utwórz cykliczną rezerwację
+        </a>
+        <a href="{% url 'advanced_features' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Wstecz
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Input (only show if not authenticated) -->
+  {% if not user.is_authenticated %}
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+      <form method="GET" class="flex items-center gap-4">
+        <label class="text-sm font-semibold text-slate-700">{% trans 'Enter your email' %}:</label>
+        <input type="email" name="email" value="{{ email }}"
+               placeholder="{% trans 'your@email.com' %}"
+               class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+        <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          {% trans 'Show Reservations' %}
+        </button>
+      </form>
+    </div>
+  {% endif %}
+
+  {% if error %}
+    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="text-red-700 font-medium">{{ error }}</span>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if recurring_reservations %}
+    <div class="space-y-4">
+      {% for recurring in recurring_reservations %}
+        <div class="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-md transition-all duration-200">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                <span class="text-white font-bold text-lg">{{ recurring.desk.label }}</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-800">{{ recurring.desk.label }} ({% trans 'Floor' %} {{ recurring.desk.floor.number }})</h3>
+                <p class="text-sm text-slate-600">{{ recurring.name }} • {{ recurring.email }}</p>
+                <div class="flex items-center gap-4 mt-2 text-sm text-slate-500">
+                  <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    {{ recurring.start_date }} - {% if recurring.end_date %}{{ recurring.end_date }}{% else %}{% trans 'no end' %}{% endif %}
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    {{ recurring.time_from }} - {{ recurring.time_to }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="text-right">
+                <div class="text-sm font-medium text-slate-700">
+                  {% if recurring.frequency == 'DAILY' %}{% trans 'Daily' %}
+                  {% elif recurring.frequency == 'WEEKLY' %}{% trans 'Weekly' %}
+                  {% elif recurring.frequency == 'MONTHLY' %}{% trans 'Monthly' %}
+                  {% endif %}
+                </div>
+                <div class="text-xs text-slate-500">
+                  {% if recurring.days_of_week == '1111111' %}{% trans 'All days' %}
+                  {% elif recurring.days_of_week == '1111100' %}{% trans 'Mon-Fri' %}
+                  {% else %}{% trans 'Selected days' %}
+                  {% endif %}
+                </div>
+              </div>
+              <button onclick="cancelRecurring({{ recurring.id }})" class="inline-flex items-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg transition-colors text-sm font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Anuluj
+              </button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% elif email %}
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 text-center">
+      <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-slate-800 mb-2">{% trans 'No Recurring Reservations' %}</h3>
+      <p class="text-slate-600 mb-4">{% trans 'You do not have any recurring reservations for this email yet.' %}</p>
+      <div class="flex items-center justify-center gap-3">
+        <a href="{% url 'select_desk_recurring' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Utwórz pierwszą rezerwację
+        </a>
+        <a href="{% url 'advanced_features' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors">
+          Powrót do zaawansowanych funkcji
+        </a>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+async function cancelRecurring(recurringId) {
+  if (!confirm('Czy na pewno chcesz anulować tę cykliczną rezerwację?')) {
+    return;
+  }
+  
+  try {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+    if (!csrfToken) {
+      alert('❌ Błąd: Brak tokenu CSRF');
+      return;
+    }
+    
+    const response = await fetch(`/reservations/recurring/${recurringId}/cancel/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      }
+    });
+    
+    const data = await response.json();
+    if (data.success) {
+      alert('✅ ' + data.message);
+      location.reload();
+    } else {
+      alert('❌ Wystąpił błąd: ' + (data.message || 'Nie udało się anulować rezerwacji'));
+    }
+  } catch (error) {
+    alert('❌ Wystąpił błąd: ' + error.message);
+  }
+}
+</script>
+{% endblock %}

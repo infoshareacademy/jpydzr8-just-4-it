@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans 'Security Settings' %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/login/style_login_inputs_upgrade.css' %}">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div style="position: absolute; top: 20px; right: 20px;">
+        {% include 'common/language_switcher.html' %}
+      </div>
+      <h1>{% trans 'Security Settings' %}</h1>
+      <p>{% trans 'Manage your account security and two-factor authentication' %}</p>
+
+      <div class="security-section">
+        <h2>{% trans 'Two-Factor Authentication (2FA)' %}</h2>
+        <p>{% trans 'Add an extra layer of security to your account' %}</p>
+        
+        <div id="2fa-status">
+          <div class="status-item">
+            <span class="status-label">{% trans 'Status:' %}</span>
+            <span class="status-value" id="2faStatus">{% trans 'Checking...' %}</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn btn-primary" id="setup2FA" style="display: none;">
+            {% trans 'Enable 2FA' %}
+          </button>
+          <button type="button" class="btn btn-danger" id="disable2FA" style="display: none;">
+            {% trans 'Disable 2FA' %}
+          </button>
+        </div>
+
+        <div id="setupForm" style="display: none;">
+          <h3>{% trans 'Setup Two-Factor Authentication' %}</h3>
+          <p>{% trans 'A verification code has been sent to your email address.' %}</p>
+          
+          <div class="form-group">
+            <label for="setupToken">{% trans 'Enter verification code:' %}</label>
+            <input type="text" id="setupToken" placeholder="123456" maxlength="6">
+          </div>
+          
+          <div class="button-group">
+            <button type="button" class="btn btn-primary" id="verifySetup">
+              {% trans 'Verify & Enable' %}
+            </button>
+            <button type="button" class="btn btn-secondary" id="cancelSetup">
+              {% trans 'Cancel' %}
+            </button>
+          </div>
+        </div>
+
+        <div id="disableForm" style="display: none;">
+          <h3>{% trans 'Disable Two-Factor Authentication' %}</h3>
+          <p>{% trans 'Enter your password to confirm disabling 2FA' %}</p>
+          
+          <div class="form-group">
+            <label for="disablePassword">{% trans 'Current password:' %}</label>
+            <input type="password" id="disablePassword">
+          </div>
+          
+          <div class="button-group">
+            <button type="button" class="btn btn-danger" id="confirmDisable">
+              {% trans 'Disable 2FA' %}
+            </button>
+            <button type="button" class="btn btn-secondary" id="cancelDisable">
+              {% trans 'Cancel' %}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group" style="margin-top: 30px;">
+        <a href="/dashboard" class="btn btn-tertiary">{% trans 'Back to Dashboard' %}</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    let deviceId = null;
+
+    // Check 2FA status
+    async function check2FAStatus() {
+      try {
+        const res = await fetch('/api/auth/me');
+        const data = await res.json();
+        
+        if (data.authenticated) {
+          // Check if user has 2FA devices
+          const res2 = await fetch('/api/auth/2fa/status');
+          const statusData = await res2.json();
+          
+          if (statusData.has_2fa) {
+            document.querySelector('#2faStatus').textContent = '{% trans "Enabled" %}';
+            document.querySelector('#2faStatus').style.color = '#28a745';
+            document.querySelector('#disable2FA').style.display = 'inline-block';
+          } else {
+            document.querySelector('#2faStatus').textContent = '{% trans "Disabled" %}';
+            document.querySelector('#2faStatus').style.color = '#dc3545';
+            document.querySelector('#setup2FA').style.display = 'inline-block';
+          }
+        } else {
+          window.location.href = '/login';
+        }
+      } catch (err) {
+        console.error('Error checking 2FA status:', err);
+        document.querySelector('#2faStatus').textContent = '{% trans "Error" %}';
+      }
+    }
+
+    // Setup 2FA
+    document.querySelector('#setup2FA').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api/auth/2fa/setup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          deviceId = data.device_id;
+          document.querySelector('#setupForm').style.display = 'block';
+          document.querySelector('#setup2FA').style.display = 'none';
+        } else {
+          alert(data.detail || 'Failed to setup 2FA');
+        }
+      } catch (err) {
+        alert('Error setting up 2FA: ' + err.message);
+      }
+    });
+
+    // Verify 2FA setup
+    document.querySelector('#verifySetup').addEventListener('click', async () => {
+      const token = document.querySelector('#setupToken').value.trim();
+      if (!token) {
+        alert('Please enter the verification code');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/2fa/verify-setup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, device_id: deviceId })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          alert('2FA enabled successfully!');
+          location.reload();
+        } else {
+          alert(data.detail || 'Invalid verification code');
+        }
+      } catch (err) {
+        alert('Error verifying 2FA: ' + err.message);
+      }
+    });
+
+    // Cancel setup
+    document.querySelector('#cancelSetup').addEventListener('click', () => {
+      document.querySelector('#setupForm').style.display = 'none';
+      document.querySelector('#setup2FA').style.display = 'inline-block';
+    });
+
+    // Disable 2FA
+    document.querySelector('#disable2FA').addEventListener('click', () => {
+      document.querySelector('#disableForm').style.display = 'block';
+      document.querySelector('#disable2FA').style.display = 'none';
+    });
+
+    // Confirm disable 2FA
+    document.querySelector('#confirmDisable').addEventListener('click', async () => {
+      const password = document.querySelector('#disablePassword').value;
+      if (!password) {
+        alert('Please enter your password');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/2fa/disable', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          alert('2FA disabled successfully!');
+          location.reload();
+        } else {
+          alert(data.detail || 'Invalid password');
+        }
+      } catch (err) {
+        alert('Error disabling 2FA: ' + err.message);
+      }
+    });
+
+    // Cancel disable
+    document.querySelector('#cancelDisable').addEventListener('click', () => {
+      document.querySelector('#disableForm').style.display = 'none';
+      document.querySelector('#disable2FA').style.display = 'inline-block';
+    });
+
+    // Initialize
+    check2FAStatus();
+  })();
+  </script>
+
+  <style>
+  .security-section {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  .status-label {
+    font-weight: 500;
+    margin-right: 10px;
+  }
+
+  .status-value {
+    font-weight: 600;
+  }
+
+  #setupToken {
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .btn-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background: #c82333;
+  }
+  </style>
+</body>
+</html>
+
+
+

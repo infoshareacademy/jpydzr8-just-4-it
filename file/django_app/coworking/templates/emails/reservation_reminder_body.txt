@@ -1,0 +1,14 @@
+Przypomnienie o rezerwacji za {{ minutes_before }} minut
+
+Stanowisko: {{ desk_label }}{% if floor_number %} (Piętro {{ floor_number }}){% endif %}
+Data: {{ date_str }}
+{% if time_from and time_to %}Godziny: {{ time_from|time:"H:i" }} - {{ time_to|time:"H:i" }}{% endif %}
+
+Miłego dnia!
+
+---
+{{ system_name }}
+
+
+
+

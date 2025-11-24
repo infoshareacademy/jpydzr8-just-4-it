@@ -1,0 +1,15 @@
+Twoja rezerwacja została potwierdzona
+
+Stanowisko: {{ desk_label }}{% if floor_number %} (Piętro {{ floor_number }}){% endif %}
+Data: {{ date_str }}
+{% if has_times %}Godziny: {{ time_from|time:"H:i" }} - {{ time_to|time:"H:i" }}{% endif %}
+{% if user_name %}Rezerwujący: {{ user_name }}{% endif %}
+
+Dziękujemy za korzystanie z {{ system_name }}!
+
+---
+System rezerwacji
+
+
+
+

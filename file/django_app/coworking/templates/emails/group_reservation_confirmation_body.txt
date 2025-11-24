@@ -1,0 +1,18 @@
+Rezerwacja grupowa została potwierdzona
+
+Grupa: {{ group_name }}
+Data: {{ date_str }}
+Godziny: {{ time_from|time:"H:i" }} - {{ time_to|time:"H:i" }}
+Organizator: {{ organizer_email }}
+{% if purpose %}Cel: {{ purpose }}{% endif %}
+
+Stanowiska:
+{% for d in desks %}- {{ d.label }}{% if d.floor %} (Piętro {{ d.floor.number }}){% endif %}
+{% endfor %}
+
+---
+System rezerwacji
+
+
+
+
