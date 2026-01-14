@@ -1,0 +1,201 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+
+<div class="language-switcher">
+  <div class="language-dropdown">
+    <button class="language-btn" id="languageToggle" aria-label="{% trans 'Change language' %}">
+      <i class="fas fa-globe"></i>
+      <span class="current-lang">{{ LANGUAGE_CODE|slice:":2"|upper }}</span>
+      <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="language-menu" id="languageMenu">
+      {% for lang_code, lang_name in LANGUAGES %}
+        <form action="{% url 'set_language' %}" method="post" style="margin: 0;">
+          {% csrf_token %}
+          <input name="next" type="hidden" value="{{ request.get_full_path }}">
+          <input type="hidden" name="language" value="{{ lang_code }}">
+          <button type="submit" 
+                  class="language-option {% if lang_code == LANGUAGE_CODE %}active{% endif %}"
+                  data-lang="{{ lang_code }}">
+            <span class="flag">{% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'pl' %}🇵🇱{% endif %}</span>
+            <span class="lang-name">{{ lang_code|slice:":2"|upper }}</span>
+          </button>
+        </form>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.language-dropdown {
+  position: relative;
+}
+
+.language-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.language-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.language-btn i.fa-chevron-down {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.language-btn.active i.fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.language-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.language-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-menu form {
+  margin: 0;
+  padding: 0;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  width: 100%;
+  border: none;
+  background: none;
+  color: #333;
+  text-decoration: none;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.language-menu form:last-child .language-option {
+  border-bottom: none;
+}
+
+.language-option:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.language-option.active {
+  background: rgba(26, 115, 232, 0.1);
+  color: #1a73e8;
+  font-weight: 500;
+}
+
+.flag {
+  font-size: 16px;
+}
+
+.lang-name {
+  font-size: 14px;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .language-btn {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+[data-theme="dark"] .language-btn:hover {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .language-menu {
+  background: #2d2d2d;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .language-option {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background: none;
+}
+
+[data-theme="dark"] .language-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .language-option.active {
+  background: rgba(26, 115, 232, 0.2);
+  color: #fff;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('languageToggle');
+  const menu = document.getElementById('languageMenu');
+  
+  if (toggle && menu) {
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menu.classList.toggle('show');
+      toggle.classList.toggle('active');
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('show');
+        toggle.classList.remove('active');
+      }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        menu.classList.remove('show');
+        toggle.classList.remove('active');
+      }
+    });
+  }
+});
+</script>

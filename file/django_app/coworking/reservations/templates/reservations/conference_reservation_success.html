@@ -1,0 +1,137 @@
+{% extends "reservations/base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Conference Room Reserved' %}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <!-- Language Switcher -->
+  <div style="position: absolute; top: 20px; right: 20px;">
+    {% include 'common/language_switcher.html' %}
+  </div>
+  
+  <!-- Success Header -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 text-center">
+    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+      <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    
+    <h1 class="text-3xl font-bold text-slate-800 mb-4">{% trans 'Conference Room Reserved!' %}</h1>
+    <p class="text-slate-600 text-lg">{% trans 'Your conference room has been successfully reserved' %}</p>
+  </div>
+
+  <!-- Reservation Details -->
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mt-6">
+    <h2 class="text-xl font-bold text-slate-800 mb-6">{% trans 'Reservation Details' %}</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm font-semibold text-slate-600">{% trans 'Conference Room' %}</label>
+          <p class="text-lg font-medium text-slate-800">{% trans 'Conference Room' %} - {% trans 'Floor' %} {{ conference_room.floor.number }}</p>
+          <p class="text-sm text-slate-600">{% trans 'Floor' %} {{ conference_room.floor.number }}</p>
+        </div>
+        
+        <div>
+          <label class="text-sm font-semibold text-slate-600">{% trans 'Team Name' %}</label>
+          <p class="text-lg font-medium text-slate-800">{{ reservation.team_name }}</p>
+        </div>
+        
+        <div>
+          <label class="text-sm font-semibold text-slate-600">{% trans 'Contact Email' %}</label>
+          <p class="text-lg font-medium text-slate-800">{{ reservation.contact_email }}</p>
+        </div>
+        
+        <div>
+          <label class="text-sm font-semibold text-slate-600">{% trans 'Date and Time' %}</label>
+          <p class="text-lg font-medium text-slate-800">
+            {{ reservation.date|date:"d.m.Y" }} 
+            {{ reservation.time_from|time:"H:i" }} - {{ reservation.time_to|time:"H:i" }}
+          </p>
+        </div>
+        
+        <div>
+          <label class="text-sm font-semibold text-slate-600">{% trans 'Number of Attendees' %}</label>
+          <p class="text-lg font-medium text-slate-800">{{ reservation.attendees_count }} {% trans 'people' %}</p>
+        </div>
+        
+        {% if reservation.purpose %}
+        <div>
+          <label class="text-sm font-semibold text-slate-600">{% trans 'Meeting Purpose' %}</label>
+          <p class="text-lg font-medium text-slate-800">{{ reservation.purpose }}</p>
+        </div>
+        {% endif %}
+      </div>
+      
+      <div>
+        <label class="text-sm font-semibold text-slate-600">{% trans 'Room Features' %}</label>
+        <div class="mt-2 space-y-2">
+          <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-sm">👥</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-semibold text-slate-800">{% trans 'Capacity' %}</p>
+              <p class="text-sm text-slate-600">{{ conference_room.capacity }} {% trans 'people' %}</p>
+            </div>
+          </div>
+          
+          {% if conference_room.has_projector %}
+          <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-sm">📽️</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-semibold text-slate-800">{% trans 'Projector' %}</p>
+              <p class="text-sm text-slate-600">{% trans 'Available' %}</p>
+            </div>
+          </div>
+          {% endif %}
+          
+          {% if conference_room.has_whiteboard %}
+          <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+            <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-sm">📝</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-semibold text-slate-800">{% trans 'Whiteboard' %}</p>
+              <p class="text-sm text-slate-600">{% trans 'Available' %}</p>
+            </div>
+          </div>
+          {% endif %}
+          
+          {% if conference_room.has_video_conference %}
+          <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-sm">📹</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-semibold text-slate-800">{% trans 'Video Conference' %}</p>
+              <p class="text-sm text-slate-600">{% trans 'Available' %}</p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center justify-center gap-4 mt-8">
+    <a href="{% url 'floor' conference_room.floor.number %}" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      {% trans 'Back to Plan' %}
+    </a>
+    
+    <a href="{% url 'conference_rooms_floor' conference_room.floor.number %}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+      </svg>
+      {% trans 'Reserve Another Room' %}
+    </a>
+  </div>
+</div>
+{% endblock %}

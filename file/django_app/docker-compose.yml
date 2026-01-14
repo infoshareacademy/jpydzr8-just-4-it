@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${PORT-8000}:8000"
+    volumes:
+      - ./coworking:/app
+    restart: unless-stopped
